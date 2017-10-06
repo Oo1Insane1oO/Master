@@ -1,0 +1,6 @@
+# ignore reduntant tex files
+text/*.log
+text/*.aux
+text/*.out
+text/*.toc
+

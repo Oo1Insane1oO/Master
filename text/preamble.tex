@@ -1,0 +1,171 @@
+\documentclass[a4paper, hidelinks, 10pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[expert]{mathdesign}
+\usepackage{listings}
+\usepackage[pdftex]{graphicx}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{algpseudocode}
+\usepackage{scrextend}
+\usepackage{ragged2e}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{physics}
+\usepackage{enumitem}
+\usepackage{varwidth}
+\usepackage{tikz}
+\usepackage{etoolbox}
+\usepackage{fancyhdr}
+%\usepackage{fouriernc}
+
+%specific reused text
+\newcommand{\mdate}{May 2018}
+\newcommand{\mtitle}{Work in progress}
+\newcommand{\mauthor}{Alfred Alocias Mariadason}
+\newcommand{\massignn}{.}
+
+\pagestyle{fancy}
+\fancyhf{}
+% \fancyhead[LO, RE]{\small\leftmark}
+\lhead{\thesection}
+\chead{}
+\rhead{\small{\thechapter}}
+% \lfoot{}
+\cfoot{\thepage}
+% \rfoot{}
+
+%renew title numbering
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{Section \arabic{section}}
+\renewcommand{\thesubsection}{\thesection\alph{subsection}}
+
+%title settings
+% \renewcommand{\headrulewidth}{0pt}
+\renewcommand{\chapterautorefname}{chapter}
+\renewcommand{\sectionautorefname}{section}
+\renewcommand{\subsectionautorefname}{section}
+\renewcommand{\equationautorefname}{equation}
+\renewcommand{\figureautorefname}{figure}
+\renewcommand{\tableautorefname}{table}
+\captionsetup{compatibility=false}
+
+\patchcmd{\smallmatrix}{\thickspace}{\kern1.3em}{}{}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.3,0.3,0.3}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+        backgroundcolor=\color{backcolour},
+        commentstyle=\color{codegreen},
+        keywordstyle=\color{magenta},
+        numberstyle=\tiny\color{codegray},
+        stringstyle=\color{codepurple},
+        basicstyle=\footnotesize,
+        breakatwhitespace=false,
+        breaklines=true,
+        captionpos=b,
+        keepspaces=true,
+        numbers=left, 
+        numbersep=4pt, 
+        showspaces=false, 
+        showstringspaces=false,
+        showtabs=true, 
+        tabsize=2
+}
+\lstset{style=mystyle}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\newcommand{\onefigure}[4]{
+    \begin{figure}[H]
+        \centering
+        \textbf{{#1}}\\
+        \includegraphics[scale=0.65]{{#2}}
+        \caption{{#3}}
+        \label{fig:#4}
+    \end{figure}
+    \justifying
+} %one figure {filename}{caption}
+\newcommand{\twofigure}[7]{
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}[b!]{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{{#1}}
+            \caption{{#2}}
+            \label{subfig:#3}
+        \end{subfigure}
+        \begin{subfigure}[b!]{0.49\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{{#4}}
+            \caption{{#5}}
+            \label{subfig:#6}
+        \end{subfigure}
+        \caption{#7}
+        \justify
+    \end{figure}
+} %two figure one-line {title}{file1}{caption1}{file2}{caption2}
+
+\newcommand{\prtl}{\mathrm{\partial}} %reduce length of partial (less to write)
+\NewDocumentCommand{\prd}{m O{} O{}}{\frac{\prtl^{#3}{#2}}{\prtl{#1}^{#3}}}
+\newcommand{\vsp}{\vspace{0.2cm}} %small vertical space
+\newcommand{\txtit}[1]{\textit{{#1}}} %italic text
+\newcommand{\blds}[1]{\boldsymbol{{#1}}} % better bold in mathmode (from amsmath)
+\newcommand{\bigO}{\mathcal{O}} %nice big O
+\newcommand{\me}{\mathrm{e}} %straight e for exp
+\newcommand{\md}{\mathrm{d}} %straight d for differential
+\newcommand{\mRe}[1]{\mathrm{Re}\left({#1}\right)}%nice real
+\newcommand{\munit}[1]{\;\ensuremath{\, \mathrm{#1}}} %straight units in math
+\newcommand{\Rarr}{\Rightarrow} %reduce lenght of Rightarrow (less to write)
+\newcommand{\rarr}{\rightarrow} %reduce lenght of rightarrow (less to write)
+\newcommand{\ecp}[1]{\left< {#1} \right>} %expected value
+\newcommand{\urw}{\uparrow} % up arrow
+\newcommand{\drw}{\downarrow} % up arrow
+\newcommand{\pt}[1]{\textbf{\txtit{#1}}\justify}
+\newcommand{\infint}{\int\limits^{\infty}_{-\infty}}
+\newcommand{\oinfint}{\int\limits^{\infty}_0}
+\newcommand{\sint}{\int\limits^{2\pi}_0\int\limits^{\pi}_0\oinfint}
+\newcommand{\arcsinh}[1]{\text{arcsinh}\left(#1\right)}
+\newcommand{\I}{\scalebox{1.2}{$\mathds{1}$}}
+\newcommand{\veps}{\varepsilon} %\varepsilon is to long :P
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\makeatletter
+% define a macro \Autoref to allow multiple references to be passed to \autoref
+\newcommand\Autoref[1]{\@first@ref#1,@}
+\def\@throw@dot#1.#2@{#1}% discard everything after the dot
+\def\@set@refname#1{%    % set \@refname to autoefname+s using \getrefbykeydefault
+    \edef\@tmp{\getrefbykeydefault{#1}{anchor}{}}%
+    \def\@refname{\@nameuse{\expandafter\@throw@dot\@tmp.@autorefname}s}%
+}
+\def\@first@ref#1,#2{%
+  \ifx#2@\autoref{#1}\let\@nextref\@gobble% only one ref, revert to normal \autoref
+  \else%
+    \@set@refname{#1}%  set \@refname to autoref name
+    \@refname~\ref{#1}% add autoefname and first reference
+    \let\@nextref\@next@ref% push processing to \@next@ref
+  \fi%
+  \@nextref#2%
+}
+\def\@next@ref#1,#2{%
+   \ifx#2@ and~\ref{#1}\let\@nextref\@gobble% at end: print and+\ref and stop
+   \else, \ref{#1}% print  ,+\ref and continue
+   \fi%
+   \@nextref#2%
+}
+\makeatother
