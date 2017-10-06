@@ -2,7 +2,43 @@
 \chapter{}
     In this chapter we will address >> LIST METHODS << regarding computational
     quantum mechanics and further deepen into Hartree-Fock methods and
-    Variatonal Monte Carlo method. Optimization of calculation is also given
+    Variational Monte Carlo method. Optimization of calculation is also given
     while structure of program is given in >> REF TO PROGRAM STRUCTURE CHAPTER
     <<. General statistical theory used is given in >> REF TO STATISTICS CHAPTER <<
 \section{Computational Quantum Mechanics}
+    \subsection{Metropolis-Hastings Algorithm}
+        The Metropolis algorithm bases itself on moves (also called
+        transitions) as given in a Markov process. >> REF THIS HERE <<. This
+        process is given by
+            \begin{equation}
+                w_i(t+\veps) = \sum_j\ufij{w}{i}{j}w_j(t)
+            \end{equation}
+        where $w(j\rarr i)$ is just a transition from state $j$ to state $i$.
+        In order for the transition chain to reach a desired convergence while
+        reversibility is kept, the well known condition for detailed balance
+        must be fulfilled >> REF HERE DETAILED BALANCE <<. If detailed balance
+        is true, then the following relations is true
+            \begin{equation}
+                w_i \ufij{T}{i}{j}\ufij{A}{i}{j} = w_j \ufij{T}{j}{i}\ufij{A}{j}{i}
+                \Rarr \frac{w_i}{w_j} =
+                \frac{\ufij{T}{j}{i}\ufij{A}{j}{i}}{\ufij{T}{i}{j}\ufij{A}{i}{j}}
+                \label{eq:detailedBalance}
+            \end{equation}
+        We have here introduced two scenarios, the transition from
+        configuration $i$ to configuration $j$ and the reverse process $j$ to
+        $i$. Solving the acceptance $A$ for the two cases where the ratio in
+        \ref{eq:detailedBalance} is either $1$(in which case the proposed state
+        $j$ is accepted and transitions is made) and when the ratio is less
+        then $1$. The Metropolis algorithm would in this case not automatically
+        reject the latter case, but rather reject it with a proposed uniform
+        probability. Introducing now a probability distribution function(PDF) $P$
+        the acceptance $A$ can be expressed as
+            \begin{equation}
+                \ufij{A}{i}{j} =
+                \text{min}\left(\ufij{P}{i}{j}\ufij{T}{i}{j},1\right)
+                \label{eq:metropolisAcceptance}
+            \end{equation}
+        The so-called selection probability $T$ is defined specifically for
+        each problem. For our case the PDF in question is the absolute square
+        of the wave function and the selection $T$ is a Green's function given
+        in >> REF GREENS <<.
