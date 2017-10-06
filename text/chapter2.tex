@@ -35,10 +35,21 @@
         the acceptance $A$ can be expressed as
             \begin{equation}
                 \ufij{A}{i}{j} =
-                \text{min}\left(\ufij{P}{i}{j}\ufij{T}{i}{j},1\right)
+                \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
+                \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)
                 \label{eq:metropolisAcceptance}
             \end{equation}
         The so-called selection probability $T$ is defined specifically for
         each problem. For our case the PDF in question is the absolute square
         of the wave function and the selection $T$ is a Green's function given
-        in >> REF GREENS <<.
+        in >> REF GREENS <<. \\
+        The algorithm itself would then be
+            \begin{enumerate}[label=(\roman*)]
+                \item Pick initial state $i$ at random.
+                \item Pick proposed state at random in accordance to
+                    $\ufij{T}{j}{i}$.
+                \item Accept state according to $\ufij{A}{j}{i}$.
+                \item Jump to step (ii) until a specified number of states have
+                    been generated.
+                \item Save the state $i$ and jump to step (ii).
+            \end{enumerate}
