@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[expert]{mathdesign}
+% \usepackage[utopia]{mathdesign}
+% \usepackage[charter]{mathdesign}
 \usepackage{listings}
 \usepackage[pdftex]{graphicx}
 \usepackage{color}
@@ -23,7 +25,7 @@
 \usepackage{tikz}
 \usepackage{etoolbox}
 \usepackage{fancyhdr}
-%\usepackage{fouriernc}
+% \usepackage{fouriernc}
 
 %specific reused text
 \newcommand{\mdate}{May 2018}
@@ -57,6 +59,9 @@
 \captionsetup{compatibility=false}
 
 \patchcmd{\smallmatrix}{\thickspace}{\kern1.3em}{}{}
+\patchcmd{\thebibliography}{\section*}{\section}{}{}
+
+\newcommand{\algorithmautorefname}{algorithm}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.3,0.3,0.3}
@@ -87,6 +92,7 @@
     linkcolor=black,
     filecolor=magenta,
     urlcolor=blue,
+    citecolor=black
 }
 \urlstyle{same}
 

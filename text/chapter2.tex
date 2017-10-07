@@ -5,7 +5,54 @@
     Variational Monte Carlo method. Optimization of calculation is also given
     while structure of program is given in >> REF TO PROGRAM STRUCTURE CHAPTER
     <<. General statistical theory used is given in >> REF TO STATISTICS CHAPTER <<
-\section{Computational Quantum Mechanics}
+\section{Quantum Monte Carlo}
+    Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
+    by a statistical approach using so-called \txtit{Markov Chain} simulations
+    (also called random walk). The nature of the wave function at hand is
+    fundamentally a statistical model defined on a large configuration space
+    with small areas of densities. The Monte Carlo method is perfect for
+    solving such a system because of the non-homogeneous distribution of
+    calculation across the space. An standard approach with equal distribution
+    of calculation would then yield a rather poor result with respect to
+    computation cost. \\
+    We will in this chapter address the Metropolis algorithm which is used to
+    create a Markov chain and derive the equations used in the variational
+    method. \\
+    The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
+    equations stated assume atom units ($\hbar=m_e=e=4\pi\veps_0$) >> REF HERE
+    ATOMIC UNITS <<.
+
+    \subsection{The Variational Principle and Expectation Value of Energy}
+        Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the
+        variational principle \cite{GriffQuan, NeOr} states that the
+        expectation value of $\Ham$
+            \begin{equation}
+                E[\psi_T] = \ecp{\Ham} =
+                \frac{\dinner{\psi_T}{\Ham}}{\pinner}
+                \label{eq:ecpE}
+            \end{equation}
+        is an upper bound to the ground state energy
+            \begin{equation}
+                E_0 \leq \ecp{\Ham}
+                \label{eq:ecpEBound}
+            \end{equation}
+        Now we can define our PDF as
+            \begin{equation}
+                P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}
+                \label{eq:PDFdef}
+            \end{equation}
+        and with a new quantity
+            \begin{equation}
+                E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\psiT}\Ham\psiT
+                \label{eq:ELdef}
+            \end{equation}
+        the so-called local energy, we can rewrite \Arf{eq:ecpE} as
+            \begin{equation}
+                E[\psiT] = \ecp{E_L}
+            \end{equation}
+
+    \subsection{The Trial Wave Function}
+
     \subsection{Metropolis-Hastings Algorithm}
         The Metropolis algorithm bases itself on moves (also called
         transitions) as given in a Markov process. >> REF THIS HERE <<. This
