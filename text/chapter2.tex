@@ -50,10 +50,21 @@
             \begin{equation}
                 E[\psiT] = \ecp{E_L}
             \end{equation}
+        The idea now is to find the lowest possible energy by varying a set of
+        parameters $\mb{\alpha}$. The expectation value itself is found with
+        the Metropolis algorithm, see \Arf{susec:MHAlg}.
 
     \subsection{The Trial Wave Function}
+        The trial wave function is generally an arbitrary choice specific for
+        the problem at hand, however it is in most cases favorable to expand
+        the wave function in the eigenbasis (eigenstates) of the Hamiltonian
+        since they forma complete set. This can be expressed as
+            \begin{equation}
+                \psiT = \sum_i C_i\psi_i(\mb{R};\mb{\alpha})
+            \end{equation}
+        with the $\psi_i$'s are the eigenstates of the Hamiltonian.
 
-    \subsection{Metropolis-Hastings Algorithm}
+    \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
         The Metropolis algorithm bases itself on moves (also called
         transitions) as given in a Markov process. >> REF THIS HERE <<. This
         process is given by
