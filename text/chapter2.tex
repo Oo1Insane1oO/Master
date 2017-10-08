@@ -36,7 +36,8 @@
                 E_0 \leq \ecp{\Ham}
                 \label{eq:ecpEBound}
             \end{equation}
-        Now we can define our PDF as
+        Now we can define our PDF as(see \Arf{susec:diffTHpdf} for a more
+        detailed reasoning)
             \begin{equation}
                 P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}
                 \label{eq:PDFdef}
@@ -63,6 +64,23 @@
                 \psiT = \sum_i C_i\psi_i(\mb{R};\mb{\alpha})
             \end{equation}
         with the $\psi_i$'s are the eigenstates of the Hamiltonian.
+
+    \subsection{Use Diffusion Theory and the PDF\label{susec:diffTHpdf}}
+        The statistics describing the expectation value states that any
+        distribution may be applied in calculation, however if we take a close
+        look at the local energy(\Arf{eq:ELdef}) we see that for all
+        distributions the local energy is not defined at the zeros of $\psiT$.
+        This means that an arbitrary PDF does not guarantee generation of
+        points which makes $\psi_T=0$. This can be overcome by introducing the
+        square of the wave function to be defined as the distribution function
+        as given in \Arf{eq:PDFdef}. \\
+        Because of the inherent statistical property of the wave function
+        Quantum Mechanics can be modelled as a diffusion process, or more
+        specifically, an \txtit{Isotropic Diffusion Process} which is
+        essentially just a random walk model. Such a process is described by
+        the Langevin equation with the corresponding Focker-Planck equation
+        describing the motion of the walkers(particles). See \cite{numstoch}
+        for details.
 
     \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
         The Metropolis algorithm bases itself on moves (also called
@@ -99,8 +117,8 @@
             \end{equation}
         The so-called selection probability $T$ is defined specifically for
         each problem. For our case the PDF in question is the absolute square
-        of the wave function and the selection $T$ is a Green's function given
-        in >> REF GREENS <<. \\
+        of the wave function and the selection $T$ is a Green's function
+        derived in \Arf{susec:impSamp}.
         The algorithm itself would then be
             \begin{enumerate}[label=(\roman*)]
                 \item Pick initial state $i$ at random.
@@ -111,3 +129,9 @@
                     been generated.
                 \item Save the state $i$ and jump to step (ii).
             \end{enumerate}
+
+    \subsection{Importance Sampling\label{susec:impSamp}}
+        Using the selection probability mentioned in \Arf{susec:MHAlg} in the
+        Metropolis algorithm is called an importance sampling because is
+        essentially makes the sampling more concentrated around areas where the
+        PDF has large values. \\
