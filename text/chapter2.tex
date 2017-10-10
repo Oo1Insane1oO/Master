@@ -78,7 +78,7 @@
         Quantum Mechanics can be modelled as a diffusion process, or more
         specifically, an \txtit{Isotropic Diffusion Process} which is
         essentially just a random walk model. Such a process is described by
-        the Langevin equation with the corresponding Focker-Planck equation
+        the Langevin equation with the corresponding Fokker-Planck equation
         describing the motion of the walkers(particles). See \cite{numstoch}
         for details.
 
@@ -132,6 +132,43 @@
 
     \subsection{Importance Sampling\label{susec:impSamp}}
         Using the selection probability mentioned in \Arf{susec:MHAlg} in the
-        Metropolis algorithm is called an importance sampling because is
-        essentially makes the sampling more concentrated around areas where the
-        PDF has large values. \\
+        Metropolis algorithm is called an \txtit{Importance sampling} because
+        is essentially makes the sampling more concentrated around areas where
+        the PDF has large values. \\
+        In order to derive the form of this equation we use the statements
+        presented in \Arf{susec:diffTHpdf}. With
+            \begin{equation}
+                \langevin
+                \label{eq:langevin}
+            \end{equation}
+        the \txtit{Langevin equation} >>REF HERE LANGEVIN<< and apply Euler's
+        method (Euler-Maryama >>REF<<) and obtain the new positions
+            \begin{equation}
+                \rnew = \rold + D\Fold\Delta t + \xi
+                \label{eq:rnewdef}
+            \end{equation}
+        with the $r$'s being the new and old positions in the Markov chain
+        respectively and $\Fold=F(\rold)$. The quantity $D$ is a diffusion
+        therm equal to $1/2$ due to the kinetic energy(remind of natural units)
+        and $\xi$ is a Gaussian distributed random number with $0$ mean and
+        $\sqrt{\Delta t}$ variance. \\
+        As mentioned a particle is described by the Fokker-Planck equation
+            \begin{equation}
+                \FokkerPlanck
+                \label{eq:FokkerPlanckDef}
+            \end{equation}
+        With $P$ being the PDF(in current case the selection probability) and
+        $F$ being the drift therm. In order to achieve convergence, that is a
+        stationary probability density, we need the left hand side to be zero
+        in \Arf{eq:FokkerPlanckDef} giving the following equation
+            \begin{equation}
+                \prd{x_i}[P][2] = P\prd{x_i}[\mb{F_i}] + \mb{F_i}\prd{x_i}[P]
+            \end{equation}
+        with the drift-therm being on the form $\mb{F}=g(x)\prtl P/\prtl x$ we
+        finally have that
+            \begin{equation}
+                \mb{F} = \frac{2}{\psi_T}\nabla \psi_T
+                \label{eq:qForceDef}
+            \end{equation}
+        This is the so-called \txtit{Quantum Force} which pushes the walkers
+        towards regions where the wave function is large.
