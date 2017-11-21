@@ -1,0 +1,175 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{\label{chapter:3}}
+    In this chapter we will address >> LIST METHODS << regarding computational
+    quantum mechanics and further deepen into Hartree-Fock methods and
+    Variational Monte Carlo method. Optimization of calculation is also given
+    while structure of program is given in >> REF TO PROGRAM STRUCTURE CHAPTER
+    <<. General statistical theory used is given in >> REF TO STATISTICS CHAPTER <<
+
+\section{Quantum Monte Carlo}
+    Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
+    by a statistical approach using so-called \txtit{Markov Chain} simulations
+    (also called random walk). The nature of the wave function at hand is
+    fundamentally a statistical model defined on a large configuration space
+    with small areas of densities. The Monte Carlo method is perfect for
+    solving such a system because of the non-homogeneous distribution of
+    calculation across the space. An standard approach with equal distribution
+    of calculation would then yield a rather poor result with respect to
+    computation cost. \\
+    We will in this chapter address the Metropolis algorithm which is used to
+    create a Markov chain and derive the equations used in the variational
+    method. \\
+    The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
+    equations stated assume atom units ($\hbar=m_e=e=4\pi\veps_0$) >> REF HERE
+    ATOMIC UNITS <<.
+
+    \subsection{The Variational Principle and Expectation Value of Energy}
+        Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the
+        variational principle \cite{GriffQuan, NeOr} states that the
+        expectation value of $\Ham$
+            \begin{equation}
+                E[\psi_T] = \ecp{\Ham} =
+                \frac{\dinner{\psi_T}{\Ham}}{\pinner}
+                \label{eq:ecpE}
+            \end{equation}
+        is an upper bound to the ground state energy
+            \begin{equation}
+                E_0 \leq \ecp{\Ham}
+                \label{eq:ecpEBound}
+            \end{equation}
+        Now we can define our PDF as(see \Arf{susec:diffTHpdf} for a more
+        detailed reasoning)
+            \begin{equation}
+                P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}
+                \label{eq:PDFdef}
+            \end{equation}
+        and with a new quantity
+            \begin{equation}
+                E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\psiT}\Ham\psiT
+                \label{eq:ELdef}
+            \end{equation}
+        the so-called local energy, we can rewrite \Arf{eq:ecpE} as
+            \begin{equation}
+                E[\psiT] = \ecp{E_L}
+            \end{equation}
+        The idea now is to find the lowest possible energy by varying a set of
+        parameters $\mb{\alpha}$. The expectation value itself is found with
+        the Metropolis algorithm, see \Arf{susec:MHAlg}.
+
+    \subsection{The Trial Wave Function}
+        The trial wave function is generally an arbitrary choice specific for
+        the problem at hand, however it is in most cases favorable to expand
+        the wave function in the eigenbasis (eigenstates) of the Hamiltonian
+        since they forma complete set. This can be expressed as
+            \begin{equation}
+                \psiT = \sum_i C_i\psi_i(\mb{R};\mb{\alpha})
+            \end{equation}
+        with the $\psi_i$'s are the eigenstates of the Hamiltonian.
+
+    \subsection{Use Diffusion Theory and the PDF\label{susec:diffTHpdf}}
+        The statistics describing the expectation value states that any
+        distribution may be applied in calculation, however if we take a close
+        look at the local energy(\Arf{eq:ELdef}) we see that for all
+        distributions the local energy is not defined at the zeros of $\psiT$.
+        This means that an arbitrary PDF does not guarantee generation of
+        points which makes $\psi_T=0$. This can be overcome by introducing the
+        square of the wave function to be defined as the distribution function
+        as given in \Arf{eq:PDFdef}. \\
+        Because of the inherent statistical property of the wave function
+        Quantum Mechanics can be modelled as a diffusion process, or more
+        specifically, an \txtit{Isotropic Diffusion Process} which is
+        essentially just a random walk model. Such a process is described by
+        the Langevin equation with the corresponding Fokker-Planck equation
+        describing the motion of the walkers(particles). See \cite{numstoch}
+        for details.
+
+    \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
+        The Metropolis algorithm bases itself on moves (also called
+        transitions) as given in a Markov process. >> REF THIS HERE <<. This
+        process is given by
+            \begin{equation}
+                w_i(t+\veps) = \sum_j\ufij{w}{i}{j}w_j(t)
+            \end{equation}
+        where $w(j\rarr i)$ is just a transition from state $j$ to state $i$.
+        In order for the transition chain to reach a desired convergence while
+        reversibility is kept, the well known condition for detailed balance
+        must be fulfilled >> REF HERE DETAILED BALANCE <<. If detailed balance
+        is true, then the following relations is true
+            \begin{equation}
+                w_i \ufij{T}{i}{j}\ufij{A}{i}{j} = w_j \ufij{T}{j}{i}\ufij{A}{j}{i}
+                \Rarr \frac{w_i}{w_j} =
+                \frac{\ufij{T}{j}{i}\ufij{A}{j}{i}}{\ufij{T}{i}{j}\ufij{A}{i}{j}}
+                \label{eq:detailedBalance}
+            \end{equation}
+        We have here introduced two scenarios, the transition from
+        configuration $i$ to configuration $j$ and the reverse process $j$ to
+        $i$. Solving the acceptance $A$ for the two cases where the ratio in
+        \ref{eq:detailedBalance} is either $1$(in which case the proposed state
+        $j$ is accepted and transitions is made) and when the ratio is less
+        then $1$. The Metropolis algorithm would in this case not automatically
+        reject the latter case, but rather reject it with a proposed uniform
+        probability. Introducing now a probability distribution function(PDF) $P$
+        the acceptance $A$ can be expressed as
+            \begin{equation}
+                \ufij{A}{i}{j} =
+                \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
+                \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)
+                \label{eq:metropolisAcceptance}
+            \end{equation}
+        The so-called selection probability $T$ is defined specifically for
+        each problem. For our case the PDF in question is the absolute square
+        of the wave function and the selection $T$ is a Green's function
+        derived in \Arf{susec:impSamp}.
+        The algorithm itself would then be
+            \begin{enumerate}[label=(\roman*)]
+                \item Pick initial state $i$ at random.
+                \item Pick proposed state at random in accordance to
+                    $\ufij{T}{j}{i}$.
+                \item Accept state according to $\ufij{A}{j}{i}$.
+                \item Jump to step (ii) until a specified number of states have
+                    been generated.
+                \item Save the state $i$ and jump to step (ii).
+            \end{enumerate}
+
+    \subsection{Importance Sampling\label{susec:impSamp}}
+        Using the selection probability mentioned in \Arf{susec:MHAlg} in the
+        Metropolis algorithm is called an \txtit{Importance sampling} because
+        is essentially makes the sampling more concentrated around areas where
+        the PDF has large values. \\
+        In order to derive the form of this equation we use the statements
+        presented in \Arf{susec:diffTHpdf}. With
+            \begin{equation}
+                \langevin
+                \label{eq:langevin}
+            \end{equation}
+        the \txtit{Langevin equation} >>REF HERE LANGEVIN<< and apply Euler's
+        method (Euler-Maryama >>REF<<) and obtain the new positions
+            \begin{equation}
+                \rnew = \rold + D\Fold\Delta t + \xi
+                \label{eq:rnewdef}
+            \end{equation}
+        with the $r$'s being the new and old positions in the Markov chain
+        respectively and $\Fold=F(\rold)$. The quantity $D$ is a diffusion
+        therm equal to $1/2$ due to the kinetic energy(remind of natural units)
+        and $\xi$ is a Gaussian distributed random number with $0$ mean and
+        $\sqrt{\Delta t}$ variance. \\
+        As mentioned a particle is described by the Fokker-Planck equation
+            \begin{equation}
+                \FokkerPlanck
+                \label{eq:FokkerPlanckDef}
+            \end{equation}
+        With $P$ being the PDF(in current case the selection probability) and
+        $F$ being the drift therm. In order to achieve convergence, that is a
+        stationary probability density, we need the left hand side to be zero
+        in \Arf{eq:FokkerPlanckDef} giving the following equation
+            \begin{equation}
+                \prd{x_i}[P][2] = P\prd{x_i}[\mb{F_i}] + \mb{F_i}\prd{x_i}[P]
+            \end{equation}
+        with the drift-therm being on the form $\mb{F}=g(x)\prtl P/\prtl x$ we
+        finally have that
+            \begin{equation}
+                \mb{F} = \frac{2}{\psi_T}\nabla \psi_T
+                \label{eq:qForceDef}
+            \end{equation}
+        This is the so-called \txtit{Quantum Force} which pushes the walkers
+        towards regions where the wave function is large.
