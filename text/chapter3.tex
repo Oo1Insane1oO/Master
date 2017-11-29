@@ -31,20 +31,21 @@
         electron correlations is in reality, for many cases, not negligible.
         There exists many methods that try to fix this problem >> LIST METHODS
         <<. The \txtit{Variational Monte Carlo} (or VMC) is the method for
-        deeper explorations in this Thesis, see \Autoref{sec:QMC} for more
-        details.
+        deeper explorations in this Thesis, see \Arf{sec:QMC} for more details.
 
     \subsection{Energy Functional}
         The general expression (for a general system) for the energy is given
-        in \Autoref{sec:varPrinc}, we restate it
+        in \Arf{sec:varPrinc}, we restate it
             \begin{equation}
                 E[\psiT] = \frac{\bra{\psiT}H\ket{\psiT}}{\braket{\psiT}}
                 \label{eq:energyFunc}
             \end{equation}
-        The denominator is just the normalization factor. \\ 
+        The denominator is just the normalization factor.
+
         Before we can obtain the Hartree-Fock equations we need an expression
         for the expectation value of the energy, an \txtit{energy functional}
-        (functional in the sense that it is dependant on the wavefunction). \\
+        (functional in the sense that it is dependant on the wavefunction).
+
         With the mentioned Born-Oppenheimer approximation we set up the
         Schrödinger equation >> REF SL << with the following Hamiltonian >> REF
         HAMILTONIAN <<
@@ -59,20 +60,21 @@
             \end{equation}
         where $\blds{R}=\blds{r}_1,\dots,\blds{r}_N$ (the positions of the
         particles) and $V$ is the expression for the potential of the system.
-        The second part of \Autoref{eq:hamiltoninandef} will be referred to as
-        the \txtit{Interaction Hamiltonian} and is assumed to be a function of
-        the inter-particle distances $\blds{r}_i-\blds{r}_j$ meaning
+        The second part of \Arf{eq:hamiltoninandef} will be referred to as the
+        \txtit{Interaction Hamiltonian} and is assumed to be a function of the
+        inter-particle distances $\blds{r}_i-\blds{r}_j$ meaning
             \begin{equation}
                 H_I = \HI
             \end{equation}
         with $f$ being the function describing the interaction between two
         particles labeled $i$ and $j$ (for instance the (Coloumb interation due
-        to the charge of particles).  \\
+        to the charge of particles).
+
         As a summary and later reference the full Hamiltonian of the system is
             \begin{equation}
                 H = \HO + \HI
             \end{equation}
-        which, when inserted into \Autoref{eq:energyFunc}, gives
+        which, when inserted into \Arf{eq:energyFunc}, gives
             \begin{equation}
                 E[\Psi_T] = \bra{\Psi_T}V\ket{\Psi_T} -
                 \frac{1}{2}\sum_i\bra{\Psi_T}\nabla^2_i\ket{\Psi_T} +
@@ -85,9 +87,10 @@
                 \\
                 &= \sum_i\dinner{\psi_{ii}}{h_i} 
             \end{align}
-        with $h_i$ being the single-particle Hamiltonian (for a particle $i$). \\
+        with $h_i$ being the single-particle Hamiltonian (for a particle $i$).
         The final result here is due to the fact that $h_i$ only acts on
-        particle $i$ and that the $\psi$'s are orthogonal. \\
+        particle $i$ and that the $\psi$'s are orthogonal.
+
         Before we go any further with $H_I$ let us introduce the so-called
         permutation operator $P$ which interchanges the labels of particles
         meaning we can define
@@ -107,7 +110,8 @@
                 \Psi_T = \sqrt{N!}A\prod_{i,j}\psi_{ij}
             \end{equation}
         where $\psi_{ij}=\psi_j(\blds{r}_i)$ is element $i,j$ of the Slater
-        matrix (the matrix associated with the Slater determinant $\Psi_T$). \\
+        matrix (the matrix associated with the Slater determinant $\Psi_T$).
+
         The interaction part of $H$ is then
             \begin{equation}
                 \dinner{\Psi_T}{H_I} = N!\prod_{i,j}\dinner{\psi_{ij}}{AH_IA}
@@ -120,7 +124,7 @@
                 &= \frac{1}{N!^2}\sum_{i<j}\fij(1-P_{ij})\ket{\psi_{ij}}
             \end{align}
         The factor $1-P_{ij}$ comes from the fact that contributions with
-        $i!=j$ vanishes due to orthogonality when $P$ is applied. The final
+        $i\neq j$ vanishes due to orthogonality when $P$ is applied. The final
         expression for the interaction term is thus
             \begin{equation}
                 \dinner{\Psi_T}{H_I} =
@@ -140,13 +144,64 @@
             \begin{equation}
                 E[\Psi_T] = \sum_p\bra{\psi_p}h\ket{\psi_p} +
                 \frac{1}{2}\sum_{p,q}
-                \left[\bra{\psi_p\psi_q}H_I\ket{\psi_p\psi_q} -
-                \bra{\psi_p\psi_q}H_I\ket{\psi_q\psi_p}\right]
+                \bra{\psi_p\psi_q}H_I\ket{\psi_p\psi_q}_{AS}
                 \label{eq:EfuncFinal}
             \end{equation}
         We drop the index in $h$ since the integration label does not matter.
+        We have also introduced the notation
+            \begin{equation}
+                \bra{pq}v\ket{rs}_{AS} = \bra{pq}v\ket{rs} - \bra{pq}v\ket{sr}
+            \end{equation}
+        referred to as the \txtit{antisymmetric part} with $v$ being some
+        hermitian operator.
 
-    \subsection{Useful operators $\blds{J}$ and $\blds{K}$}
+        The expression given in \Arf{eq:EfuncFinal} is the functional form in
+        its general form (since we haven't given any special form for the basis
+        spanned by the $\psi$'s). In the next section we will derive the
+        Hartree-Fock equations using \Arf{eq:EfuncFinal}.
+
+    \subsection{Hartree-Fock Equations}
+        In order to obtain the Hartree-Fock equations we start by expanding the
+        wavefunction as a linear combination of some \txtit{known orthonormal
+        basis} $\{\phi_{\lambda}(\blds{r})\}$ meaning
+            \begin{equation}
+                \Psi^{\text{HF}}_p = \sum_{\lambda}
+                C_{p\lambda}\phi_{\lambda}(\blds{r})
+                \label{eq:psiexpand}
+            \end{equation}
+        This expanded basis is obviously also orthonormal. The energy
+        functional (\Arf{eq:EfuncFinal}) is then with \Arf{eq:psiexpand}
+        inserted
+            \begin{equation}
+                \EHF = \sum_i\sum_{\alpha\beta}
+                C^*_{i\alpha}C_{j\beta}\bra{\alpha}h\ket{\beta} + \frac{1}{2}
+                \sum_{ij} \sum_{\alpha\beta\gamma\delta}
+                C^{*}_{i\alpha}C^{*}_{j\beta}C_{i\gamma}C_{j\delta}
+                \bra{\alpha}H_{I}\ket{\beta}_{\text{AS}}
+            \end{equation}
+        Introducing the Lagrange multiplier and minimizing according to
+        \Arf{sec:lagrange_multipliers} and using the orthogonality of the
+        states we get the following constraint
+            \begin{equation}
+                \braket{p}{q} = \sum_{\alpha} C^{*}_{p\alpha}C_{p\alpha}
+            \end{equation}
+        giving the functional (Lagrangian)
+            \begin{equation}
+                \mathcal{L}\left[\psi^{\text{HF}}\right] = \EHF -
+                \sum_{i\alpha} \varepsilon_iC^{*}_{p\alpha}C_{p\alpha}
+            \end{equation}
+        where $\varepsilon_i$ is the Lagrange multiplier which we give units
+        energy for the dimensionality of the equations to match. The
+        Euler-Lagrange equations is then obtained by minimization
+            \begin{equation}
+                \prd{C^{*}_{p\alpha}} \left[\EHF - \sum_{j\alpha}
+                \varepsilon_jC^{*}_{p\alpha}C_{p\alpha}\right] =
+                \prd{\varepsilon_p}[\mathcal{L}]
+            \end{equation}
+        Since the constraints are leveled functions, meaning they only scale
+        the energy functional, we can effectively ignore the equation regarding
+        $\varepsilon_p$\footnote{the analogy to this is basically that one can
+        always choose the ground-point of a potential}.
 
 \section{Quantum Monte Carlo\label{sec:QMC}}
     Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
@@ -157,13 +212,15 @@
     solving such a system because of the non-homogeneous distribution of
     calculation across the space. An standard approach with equal distribution
     of calculation would then yield a rather poor result with respect to
-    computation cost. \\
+    computation cost.
+
     We will in this chapter address the Metropolis algorithm which is used to
     create a Markov chain and derive the equations used in the variational
-    method. \\
+    method.
+
     The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
-    equations stated assume atom units ($\hbar=m_e=e=4\pi\veps_0$) >> REF HERE
-    ATOMIC UNITS <<.
+    equations stated assume atomic units ($\hbar=m_e=e=4\pi\veps_0$) >> REF
+    HERE ATOMIC UNITS <<.
 
     \subsection{The Variational Principle and Expectation Value of Energy}
         Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the
@@ -216,7 +273,8 @@
         This means that an arbitrary PDF does not guarantee generation of
         points which makes $\psi_T=0$. This can be overcome by introducing the
         square of the wave function to be defined as the distribution function
-        as given in \Arf{eq:PDFdef}. \\
+        as given in \Arf{eq:PDFdef}.
+
         Because of the inherent statistical property of the wave function
         Quantum Mechanics can be modelled as a diffusion process, or more
         specifically, an \txtit{Isotropic Diffusion Process} which is
@@ -261,8 +319,7 @@
         The so-called selection probability $T$ is defined specifically for
         each problem. For our case the PDF in question is the absolute square
         of the wave function and the selection $T$ is a Green's function
-        derived in \Arf{susec:impSamp}.
-        The algorithm itself would then be
+        derived in \Arf{susec:impSamp}.  The algorithm itself would then be
             \begin{enumerate}[label=(\roman*)]
                 \item Pick initial state $i$ at random.
                 \item Pick proposed state at random in accordance to
@@ -277,7 +334,8 @@
         Using the selection probability mentioned in \Arf{susec:MHAlg} in the
         Metropolis algorithm is called an \txtit{Importance sampling} because
         is essentially makes the sampling more concentrated around areas where
-        the PDF has large values. \\
+        the PDF has large values.
+
         In order to derive the form of this equation we use the statements
         presented in \Arf{susec:diffTHpdf}. With
             \begin{equation}
@@ -294,7 +352,8 @@
         respectively and $\Fold=F(\rold)$. The quantity $D$ is a diffusion
         therm equal to $1/2$ due to the kinetic energy(remind of natural units)
         and $\xi$ is a Gaussian distributed random number with $0$ mean and
-        $\sqrt{\Delta t}$ variance. \\
+        $\sqrt{\Delta t}$ variance.
+
         As mentioned a particle is described by the Fokker-Planck equation
             \begin{equation}
                 \FokkerPlanck

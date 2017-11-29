@@ -14,6 +14,32 @@
         \end{equation}
     See \cite{GriffQuan} for proof and more.
 
+\section{Lagrange Multiplier Method\label{sec:lagrange_multipliers}}
+    See \cite{calcVar,calcVarSpring}. The optimization method of Lagrange
+    multipliers maximizes(or minimizes) a function
+    $f:\mathbb{R}^N\rightarrow\mathbb{R}$ with a constraint
+    $g:\mathbb{R}^N\rightarrow\mathbb{R}$ We assume that $f$ and $g$ have
+    continuous first derivatives in all variables(continuous first partial
+    derivatives). \\
+    Given the above we can define a so-called Lagrangian
+    $\mathcal{L}$
+        \begin{equation}
+            \mathcal{L}[x_1,\dots,x_N,\lambda_1,\dots,\lambda_M] =
+            f(x_1,\dots,x_N) - \lambda g(x_1,\dots,x_N)
+            \label{eq:lagrangian}
+        \end{equation}
+    where the $\lambda$ is called a Lagrange-multiplier. We now state that if
+    $f(x^0_1,\dots,x^0_N)$ is a maxima of $f(x_1,\dots,x_N)$ then there exists
+    a Lagrange-multiplier $\lambda_0$ such that
+    $(x^0_1,\dots,x^0_N,\lambda_0)$ is a stationary point
+    for the Lagrangian. This then yields the $N+1$ Lagrange-equations
+        \begin{align}
+            \sum^N_{i=1} \frac{\prtl\mathcal{L}}{\prtl x_i} +
+            \frac{\prtl\mathcal{L}}{\prtl \lambda} = 0
+            \label{eq:lagrangeEQ}
+        \end{align}
+    to be solved for $x_1,\dots,x_N$ and $\lambda$.
+
 \section{Gaussian Type Orbitals}
     \txtit{Gaussian Type Orbitals} or GTO's are functions of the following form
     >> REF GTO here <<
