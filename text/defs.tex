@@ -26,13 +26,18 @@
 \newcommand{\ufij}[3]{#1_{#2\rarr#3}}
 \newcommand{\Ham}{\hat{H}}
 \newcommand{\mb}[1]{\blds{#1}}
-\newcommand{\psiTcnj}{\cnj{\psi}_T(\mb{R};\mb{\alpha})}
-\newcommand{\psiT}{{\psi}_T(\mb{R};\mb{\alpha})}
+\newcommand{\psiTcnj}{\cnj{\Psi}_T(\mb{R};\mb{\alpha})}
+\newcommand{\psiT}{{\Psi}_T(\mb{R};\mb{\alpha})}
 \newcommand{\dinner}[2]{\bra{#1}#2\ket{#1}}
-\newcommand{\pinner}{\dinner{\psi_T}{}}
+\newcommand{\pinner}{\dinner{\Psi_T}{}}
 \newcommand{\langevin}{\prd{t}[r] = DF(r(t)) + \eta}
 \newcommand{\rnew}{r^{\text{new}}}
 \newcommand{\rold}{r^{\text{old}}}
 \newcommand{\Fnew}{F^{\text{new}}}
 \newcommand{\Fold}{F^{\text{old}}}
 \newcommand{\FokkerPlanck}{\prd{t}[P] = \sum_i D\prd{x_i}\left(\prd{x_i} - \mb{F_i}\right)P}
+\newcommand{\Kin}{\frac{1}{2}\sum_i\nabla^2_i}
+\newcommand{\frij}{f(\blds{r}_i, \blds{r}_j)}
+\newcommand{\fij}{f_{ij}}
+\newcommand{\HO}{V(\blds{R}) - \Kin}
+\newcommand{\HI}{\sum\limits_{i<j} \frij}

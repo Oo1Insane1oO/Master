@@ -6,7 +6,149 @@
     while structure of program is given in >> REF TO PROGRAM STRUCTURE CHAPTER
     <<. General statistical theory used is given in >> REF TO STATISTICS CHAPTER <<
 
-\section{Quantum Monte Carlo}
+\section{Hartree-Fock Theory}
+    Hartree-Fock theory method is a method for approximating the wavefunction
+    of a stationary many-body quantum state and thereby also obtain an estimate
+    for the energy in this state. In this section we will derive the
+    Hartree-Fock equations from scratch, following closely >> REF SOMETHING
+    HERE << by >> REF AUTHOR << and find the so-called Roothaan-Hall equations
+    known as \txtit{Unrestricted Hartree-Fock} method, which is also the method
+    used for obtaining the results given in >> REF RESULTS CHAPTER <<.
+
+    \subsection{Assumptions}
+        Hartree-Fock method makes the following assumptions of the system
+            \begin{itemize}
+                \item \txtit{The Born-Oppenheimer approximation}, see >> REF BO <<.
+                \item All relativistic effects are negligible.
+                \item The wavefunction can be described by a single Slater
+                    determinant >> REF SLATER << or permanent in case of
+                    bosons(former is for fermions).
+                \item The \txtit{Mean Field Approximation} holds.
+            \end{itemize}
+        With these inherent approximations the last one is the most important
+        to take into account as it can cause large deviations from test
+        solutions (analytic solutions, experimental data etc.) since the
+        electron correlations is in reality, for many cases, not negligible.
+        There exists many methods that try to fix this problem >> LIST METHODS
+        <<. The \txtit{Variational Monte Carlo} (or VMC) is the method for
+        deeper explorations in this Thesis, see \Autoref{sec:QMC} for more
+        details.
+
+    \subsection{Energy Functional}
+        The general expression (for a general system) for the energy is given
+        in \Autoref{sec:varPrinc}, we restate it
+            \begin{equation}
+                E[\psiT] = \frac{\bra{\psiT}H\ket{\psiT}}{\braket{\psiT}}
+                \label{eq:energyFunc}
+            \end{equation}
+        The denominator is just the normalization factor. \\ 
+        Before we can obtain the Hartree-Fock equations we need an expression
+        for the expectation value of the energy, an \txtit{energy functional}
+        (functional in the sense that it is dependant on the wavefunction). \\
+        With the mentioned Born-Oppenheimer approximation we set up the
+        Schrödinger equation >> REF SL << with the following Hamiltonian >> REF
+        HAMILTONIAN <<
+            \begin{equation}
+                H \equiv H_0 + H_I
+                \label{eq:hamiltoninandef}
+            \end{equation}
+        where $H_0$ is the Hamiltonian of some a system with analytic solutions
+        to the wavefunction(i.e harmonic oscillator) meaning
+            \begin{equation}
+                H_0 = \HO
+            \end{equation}
+        where $\blds{R}=\blds{r}_1,\dots,\blds{r}_N$ (the positions of the
+        particles) and $V$ is the expression for the potential of the system.
+        The second part of \Autoref{eq:hamiltoninandef} will be referred to as
+        the \txtit{Interaction Hamiltonian} and is assumed to be a function of
+        the inter-particle distances $\blds{r}_i-\blds{r}_j$ meaning
+            \begin{equation}
+                H_I = \HI
+            \end{equation}
+        with $f$ being the function describing the interaction between two
+        particles labeled $i$ and $j$ (for instance the (Coloumb interation due
+        to the charge of particles).  \\
+        As a summary and later reference the full Hamiltonian of the system is
+            \begin{equation}
+                H = \HO + \HI
+            \end{equation}
+        which, when inserted into \Autoref{eq:energyFunc}, gives
+            \begin{equation}
+                E[\Psi_T] = \bra{\Psi_T}V\ket{\Psi_T} -
+                \frac{1}{2}\sum_i\bra{\Psi_T}\nabla^2_i\ket{\Psi_T} +
+                \sum\limits_{i<j}\bra{\Psi_T}f\ket{\Psi_T}
+            \end{equation}
+        where we have omitted the normalization factor and argument variables.
+        We start with the part involving $H_0$ giving
+            \begin{align}
+                \dinner{\Psi_T}{H_0} &= \sum_{i}\dinner{\Psi_T}{h_i} \nonumber
+                \\
+                &= \sum_i\dinner{\psi_{ii}}{h_i} 
+            \end{align}
+        with $h_i$ being the single-particle Hamiltonian (for a particle $i$). \\
+        The final result here is due to the fact that $h_i$ only acts on
+        particle $i$ and that the $\psi$'s are orthogonal. \\
+        Before we go any further with $H_I$ let us introduce the so-called
+        permutation operator $P$ which interchanges the labels of particles
+        meaning we can define
+            \begin{equation}
+                A \equiv \frac{1}{N!}\sum_p(-1)^pP
+            \end{equation}
+        the so-called \txtit{antisymmetrization} operator. This operator has
+        the following traits
+            \begin{itemize}
+                \item The Hamiltonian $H$ and $A$ commute since the Hamiltonian
+                    is invariant under permutation.
+                \item $A$ applied on itself (that is $A^2$) is equal to itself
+                    since permuting a permuted state reproduces the state.
+            \end{itemize}
+        We can now express out Slater $\Psi_T$ in terms of $A$ as
+            \begin{equation}
+                \Psi_T = \sqrt{N!}A\prod_{i,j}\psi_{ij}
+            \end{equation}
+        where $\psi_{ij}=\psi_j(\blds{r}_i)$ is element $i,j$ of the Slater
+        matrix (the matrix associated with the Slater determinant $\Psi_T$). \\
+        The interaction part of $H$ is then
+            \begin{equation}
+                \dinner{\Psi_T}{H_I} = N!\prod_{i,j}\dinner{\psi_{ij}}{AH_IA}
+            \end{equation}
+        The interaction $H_I$ and $A$ commute since $A$ commutes with $H$
+        giving
+            \begin{align}
+                AH_IA\ket{\psi_{ij}} &= \frac{1}{N!^2}\sum_{i<j}\sum_{p}
+                (-1)^{2p}\fij P\ket{\psi_{ij}} \\
+                &= \frac{1}{N!^2}\sum_{i<j}\fij(1-P_{ij})\ket{\psi_{ij}}
+            \end{align}
+        The factor $1-P_{ij}$ comes from the fact that contributions with
+        $i!=j$ vanishes due to orthogonality when $P$ is applied. The final
+        expression for the interaction term is thus
+            \begin{equation}
+                \dinner{\Psi_T}{H_I} =
+                \sum_{i<j}\prod_{k,l}\left[\dinner{\psi_{kl}}{\fij} -
+                \bra{\psi_{kl}}\fij\ket{\psi_{lk}}\right]
+            \end{equation}
+        Writing out the product and realizing the double summation over pairs
+        of states we end up with
+            \begin{equation}
+                \dinner{\Psi_T}{H_I} = \frac{1}{2}
+                \sum_{i,j}\left[\dinner{\psi_{ij}\psi_{ji}}{\fij} -
+                \bra{\psi_{ij}\psi_{ji}}\fij\ket{\psi_{ji}\psi_{ij}}\right]
+            \end{equation}
+        Relabeling the indices in terms of just one index $p$ and $q$ to
+        represent just a state (the integration label does not matter) we get
+        the following energy functional
+            \begin{equation}
+                E[\Psi_T] = \sum_p\bra{\psi_p}h\ket{\psi_p} +
+                \frac{1}{2}\sum_{p,q}
+                \left[\bra{\psi_p\psi_q}H_I\ket{\psi_p\psi_q} -
+                \bra{\psi_p\psi_q}H_I\ket{\psi_q\psi_p}\right]
+                \label{eq:EfuncFinal}
+            \end{equation}
+        We drop the index in $h$ since the integration label does not matter.
+
+    \subsection{Useful operators $\blds{J}$ and $\blds{K}$}
+
+\section{Quantum Monte Carlo\label{sec:QMC}}
     Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
     by a statistical approach using so-called \txtit{Markov Chain} simulations
     (also called random walk). The nature of the wave function at hand is
