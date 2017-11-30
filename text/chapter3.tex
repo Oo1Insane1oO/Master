@@ -197,11 +197,164 @@
                 \prd{C^{*}_{p\alpha}} \left[\EHF - \sum_{j\alpha}
                 \varepsilon_jC^{*}_{p\alpha}C_{p\alpha}\right] =
                 \prd{\varepsilon_p}[\mathcal{L}]
+                \label{eq:EulerLagrange1}
             \end{equation}
         Since the constraints are leveled functions, meaning they only scale
         the energy functional, we can effectively ignore the equation regarding
         $\varepsilon_p$\footnote{the analogy to this is basically that one can
-        always choose the ground-point of a potential}.
+        always choose the ground-point of a potential.} meaning the right hand
+        of \Arf{eq:EulerLagrange1} equals $0$. We solve the individual parts
+        starting with $\EHF$.
+            \begin{equation}
+                \begin{aligned}
+                    \frac{\prtl}{\prtl C^{*}_{p\alpha}}
+                    \left[\sum_i\sum_{\alpha\beta} C^{*}_{i\alpha}C_{i\beta}
+                    \bra{\alpha}h\ket{\beta}\right] &=
+                    \sum_{\beta}C_{p\beta}\bra{\alpha}h\ket{\beta} \\
+                    \frac{\prtl}{\prtl C^{*}_{p\alpha}}
+                    \left[\frac{1}{2}\sum_{ij}\sum_{\alpha\beta\gamma\delta}
+                    C^{*}_{i\alpha}C^{*}_{j\beta}C_{i\gamma}C_{j\delta}
+                    \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS}\right] &=
+                    \sum_{ij}\sum_{\beta\gamma\delta}
+                    C^{*}_{p\beta}C_{i\gamma}C_{j\delta}
+                    \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS}
+                \end{aligned}
+                \label{eq:HFderEFunc}
+            \end{equation}
+        The latter part of \Arf{eq:HFderEFunc} uses the product rule for
+        differentiation. The second term in \Arf{eq:EulerLagrange1} is
+            \begin{equation}
+                \frac{\prtl}{\prtl C^{*}_{p\alpha}} \left[-\sum_{j\alpha}
+                \varepsilon_jC^{*}_{j\alpha}C_{j\alpha}\right] =
+                -\varepsilon_pC_{p\alpha}
+                \label{eq:HFderSecond}
+            \end{equation}
+        Gathering \Arf{eq:HFderEFunc, eq:HFderSecond} yields in what is know as
+        the \txtit{Hartree-Fock equations}
+            \begin{equation}
+                \sum_{\beta}C_{p\beta}\bra{\alpha}h\ket{\beta} +
+                \sum_{j\beta\gamma\delta}C^{*}_{j\beta} C_{j\delta}C_{p\gamma}
+                \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS} =
+                \varepsilon^{\text{HF}}_pC_{p\alpha}
+                \label{eq:HFEquations}
+            \end{equation}
+        We rewrite this by pulling out the sum over $\beta$ and defining the
+        so-called \txtit{Hartree-Fock matrix} $h^{\text{HF}}_{\alpha\beta}$
+        with elements
+            \begin{equation}
+                h^{\text{HF}}_{\alpha\beta} \equiv \bra{\alpha}h_0\ket{\beta} +
+                \sum_{j\gamma\delta} C^{*}_{j\gamma}C_{j\delta}
+                \bra{\alpha\gamma}H_I\ket{\beta\delta}_{AS}
+                \label{eq:HFmatrix}
+            \end{equation}
+        \Arf{eq:HFEquations} can be rewritten as
+            \begin{equation}
+                \sum_{\gamma} h^{\text{HF}}_{\alpha\beta}C_{p\beta} =
+                \varepsilon^{\text{HF}}_pC_{p\alpha}
+                \label{eq:HFeqFin}
+            \end{equation}
+        This is the eigenvalue problem to be solved with the columns of $C$
+        being the orthogonal eigenvectors of $h^{\text{HF}}$ and
+        $\varepsilon^{\text{HF}}$'s the eigenvalues which represent the
+        single-particle energies.
+
+    \subsubsection{Density Matrix}
+        If we take a closer look at \Arf{eq:HFeqFin} one notices that one of
+        the paired sums(greek letters) can be pre-calculated and tabulated in a
+        matrix. We call this matrix the \txtit{density matrix} and define its
+        elements to be
+            \begin{equation}
+                \rho_{\gamma\delta} \equiv \sum_i C^{*}_{i\gamma}C_{i\delta}
+                \label{eq:densityMatrix}
+            \end{equation}
+        the Hartree-Fock matrix elements can thus be rewritten to
+            \begin{equation}
+                h^{\text{HF}}_{\alpha\beta} = \bra{\alpha}h\ket{\beta}
+                + \sum_{\gamma\delta} \rho_{\gamma\delta}
+                \bra{\alpha\gamma}H_I\ket{\beta\delta}_{AS}
+                \label{eq:rhoHFmatrix}
+            \end{equation}
+
+    \subsubsection{Rewriting the Ground State Energy}
+        One of the goals of the Hartree-Fock method is to find an estimate for
+        the ground state energy, \Arf{eq:EfuncFinal}. We can reduce the sum by
+        adding and subtracting the so-called Hartree-Fock potential defined as
+            \begin{equation}
+                U^{\text{HF}} \equiv \sum_{\mu\nu} \bra{\mu}\bra{\mu\nu} H_I
+                \ket{\mu\nu}_{\text{AS}} \ket{\nu}
+            \end{equation}
+        The result is
+            \begin{align}
+                E^{\text{HF}} &= \sum_i\varepsilon^{\text{HF}}_i -
+                \frac{1}{2}\sum_{ij}\sum_{\alpha\beta\gamma\delta}
+                C^{*}_{i\alpha}C^{*}_{j\beta}C_{i\gamma}C_{j\delta}
+                \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS} \nonumber \\
+                &= \sum_{i} \varepsilon^{\text{HF}}_i -
+                \frac{1}{2}\sum_{ij\alpha\beta\gamma\delta}
+                \rho_{\alpha\gamma}\rho_{\beta\delta}
+                \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS}
+                \label{eq:rhoGroundState}
+            \end{align}
+        where we have inserting in the definition of the density matrix in the
+        last step.
+
+    \subsubsection{Convergence}
+        The convergence criteria for the iterative eigenvalue problem is given
+        by a simple brute-force difference defined as
+            \begin{equation}
+                \frac{1}{N}\sum_i\abs{\veps^{\text{HF},new}_i -
+                \veps^{\text{HF},old}_i} \leq \theta
+                \label{eq:conv}
+            \end{equation}
+        with $\theta$ being a small number as threshold. >> LIST DIFFERENCE
+        CONVERGENCE THINGS <<
+
+    \subsubsection{Algorithm and Summary}
+        Before we setup the algorithm we give a brief summary of the final
+        equations obtained in this section
+            \begin{equation}
+                \begin{aligned}
+                    \sum_{\gamma} h^{\text{HF}}_{\alpha\beta}C_{p\beta} &=
+                    \varepsilon^{\text{HF}}_pC_{p\alpha} \\
+                    h^{\text{HF}}_{\alpha\beta} &= \bra{\alpha}h\ket{\beta} +
+                    \sum_{\gamma\delta} \rho_{\gamma\delta}
+                    \bra{\alpha\gamma}H_I\ket{\beta\delta}_{AS} \\
+                    \rho_{\gamma\delta} &= \sum_i C^{*}_{i\gamma}C_{i\delta} \\
+                    E^{\text{HF}} &= \sum_{i} \varepsilon^{\text{HF}}_i -
+                    \frac{1}{2}\sum_{ij\alpha\beta\gamma\delta}
+                    \rho_{\alpha\gamma}\rho_{\beta\delta}
+                    \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS}
+                \end{aligned}
+                \label{eq:HFsummary}
+            \end{equation}
+        
+        The algorithm is as follows
+            \begin{algorithm}[H]
+            \caption{Hartree-Fock algorithm}\label{alg:hartreeFock}
+            \begin{algorithmic}[1]
+                \State assemble interaction elements
+                \Comment{$\bra{pq}H_I\ket{rs}_{AS}$}
+                \State Set density matrix \Comment{Use \Autoref{eq:densityMatrix}}
+                \While{count < maxiteration $\And$ difference > $\lambda$}
+                    \State Calculate Hartree-Fock matrix \Comment{As given in
+                    \Autoref{eq:rhoHFmatrix}}
+                    \State Find eigenvalues and eigenvectors of Hartree-Fock matrix
+                    \Comment{Energies and coefficients}
+                    \State Calculate new density matrix
+                    \State Calculate difference \Comment{Given in
+                    \Autoref{eq:conv}}
+                    \State increment count
+                \EndWhile
+                \State Calculate ground state energy \Comment{With
+                \Autoref{eq:rhoGroundState}}
+            \end{algorithmic}
+            \end{algorithm}
+
+    \subsection{Restricted Hartree-Fock}
+        Restricted Hartree-Fock, or abbreviated to RHF, we assume a
+        closed-shell system. This means that for a given system the all
+        possible states for a given energy-level is filled. We can achieve this
+        by grouping spin-orbitals with same spatial part, but opposite spin.
 
 \section{Quantum Monte Carlo\label{sec:QMC}}
     Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
