@@ -85,78 +85,44 @@
             \begin{align}
                 \dinner{\Psi_T}{H_0} &= \sum_{i}\dinner{\Psi_T}{h_i} \nonumber
                 \\
-                &= \sum_i\dinner{\psi_{ii}}{h_i} 
+                &= \sum_i\dinner{\psi_i}{h_i} 
             \end{align}
         with $h_i$ being the single-particle Hamiltonian (for a particle $i$).
         The final result here is due to the fact that $h_i$ only acts on
         particle $i$ and that the $\psi$'s are orthogonal.
 
-        Before we go any further with $H_I$ let us introduce the so-called
-        permutation operator $P$ which interchanges the labels of particles
-        meaning we can define
-            \begin{equation}
-                A \equiv \frac{1}{N!}\sum_p(-1)^pP
-            \end{equation}
-        the so-called \txtit{antisymmetrization} operator. This operator has
-        the following traits
-            \begin{itemize}
-                \item The Hamiltonian $H$ and $A$ commute since the Hamiltonian
-                    is invariant under permutation.
-                \item $A$ applied on itself (that is $A^2$) is equal to itself
-                    since permuting a permuted state reproduces the state.
-            \end{itemize}
-        We can now express out Slater $\Psi_T$ in terms of $A$ as
-            \begin{equation}
-                \Psi_T = \sqrt{N!}A\prod_{i,j}\psi_{ij}
-            \end{equation}
-        where $\psi_{ij}=\psi_j(\blds{r}_i)$ is element $i,j$ of the Slater
-        matrix (the matrix associated with the Slater determinant $\Psi_T$).
-
-        The interaction part of $H$ is then
-            \begin{equation}
-                \dinner{\Psi_T}{H_I} = N!\prod_{i,j}\dinner{\psi_{ij}}{AH_IA}
-            \end{equation}
-        The interaction $H_I$ and $A$ commute since $A$ commutes with $H$
-        giving
-            \begin{align}
-                AH_IA\ket{\psi_{ij}} &= \frac{1}{N!^2}\sum_{i<j}\sum_{p}
-                (-1)^{2p}\fij P\ket{\psi_{ij}} \\
-                &= \frac{1}{N!^2}\sum_{i<j}\fij(1-P_{ij})\ket{\psi_{ij}}
-            \end{align}
-        The factor $1-P_{ij}$ comes from the fact that contributions with
-        $i\neq j$ vanishes due to orthogonality when $P$ is applied. The final
-        expression for the interaction term is thus
-            \begin{equation}
-                \dinner{\Psi_T}{H_I} =
-                \sum_{i<j}\prod_{k,l}\left[\dinner{\psi_{kl}}{\fij} -
-                \bra{\psi_{kl}}\fij\ket{\psi_{lk}}\right]
-            \end{equation}
-        Writing out the product and realizing the double summation over pairs
-        of states we end up with
+        For the part involving $H_I$ see \Arf{appendix:A} for details. We
+        restate the result here
             \begin{equation}
                 \dinner{\Psi_T}{H_I} = \frac{1}{2}
                 \sum_{i,j}\left[\dinner{\psi_{ij}\psi_{ji}}{\fij} -
                 \bra{\psi_{ij}\psi_{ji}}\fij\ket{\psi_{ji}\psi_{ij}}\right]
+                \label{eq:dinner1}
             \end{equation}
+        The first term in \Arf{eq:dinner1} is called the \txtit{direct term}
+        and the latter is called the \txtit{exchange term}. The direct term
+        would be just the expectation value of the Coulomb interaction while
+        the exchange term is an artifact due to the Slater determinant
+        \footnote{The form of the expectation value given in \Arf{eq:dinner1}
+        would be the same for a bosonic system, just without the exchange term
+        since the wavefunction is not represented as a Slater determinant in
+        this case.}
+
         Relabeling the indices in terms of just one index $p$ and $q$ to
-        represent just a state (the integration label does not matter) we get
-        the following energy functional
+        represent just a state, since the integration label does not
+        matter\footnote{Instead of using $\md r_i$ as an integration label we
+        just call it $\md r$ for simplicity without loss of generalization. The
+        direct and exchange terms would then get a label $\md r_1$ and $\md
+        r_2$ since the integration runs over two-particle interactions. Note
+        also that $\md r_1=\sum_d\md x_d$.},
+        we get the following energy functional
             \begin{equation}
                 E[\Psi_T] = \sum_p\bra{\psi_p}h\ket{\psi_p} +
-                \frac{1}{2}\sum_{p,q}
-                \bra{\psi_p\psi_q}H_I\ket{\psi_p\psi_q}_{AS}
+                \frac{1}{2}\sum_{p,q} \left[\HIinnerAS{p}{q}\right]
                 \label{eq:EfuncFinal}
             \end{equation}
-        We drop the index in $h$ since the integration label does not matter.
-        We have also introduced the notation
-            \begin{equation}
-                \bra{pq}v\ket{rs}_{AS} = \bra{pq}v\ket{rs} - \bra{pq}v\ket{sr}
-            \end{equation}
-        referred to as the \txtit{antisymmetric part} with $v$ being some
-        hermitian operator.
-
-        The expression given in \Arf{eq:EfuncFinal} is the functional form in
-        its general form (since we haven't given any special form for the basis
+        The expression given in \Arf{eq:EfuncFinal} is the functional in its
+        general form (since we haven't given any special form for the basis
         spanned by the $\psi$'s). In the next section we will derive the
         Hartree-Fock equations using \Arf{eq:EfuncFinal}.
 
