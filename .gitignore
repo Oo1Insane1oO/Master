@@ -3,4 +3,8 @@ text/*.log
 text/*.aux
 text/*.out
 text/*.toc
+text/*.bbl
+text/*.blg
+text/*.fls
+text/*.fdb
 
