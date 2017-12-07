@@ -6,7 +6,7 @@
     single particles) and also the so-called \txtit{Dirac-notation} used
     throughout the entire chapter.
 
-\section{The Hamiltonian and the Born-Oppenheimer Approximation}
+\section{The Hamiltonian and the Born-Oppenheimer Approximation\label{sec:3.1}}
     The task at hand is to solve the many-body system described by
     \txtit{Schrödinger's} equation
         \begin{equation}
@@ -56,3 +56,82 @@
         \begin{equation}
             H_I \equiv \sum_{i<j} f\left(\blds{r}_j, \blds{r}_j\right)
         \end{equation}
+
+\section{Slater Determinant and Permanent}
+    Throughout \Arf{sec:3.1} we only referred to the wavefunction $\Psi$ as a
+    state, a function closely connected to the probabilistic nature of the
+    quantum particles. However, we have not given it a form. One possible
+    solution is the \txtit{Hartree product} $\Psi_{\text{H}}$ defined as
+        \begin{equation}
+            \Psi_{\text{H}} = \prod_i\psi_i(\blds{r}_i)
+        \end{equation}
+    with $\{\psi\}_{i=0}^N$ being the orbitals which solve the single-particle
+    Schrödinger equation for $H_0$. The Hartree-product is unfortunately a poor
+    choice since it does not solve the $H_I$ part meaning it is not a
+    physically valid solution. This comes from the fact that the
+    Hartree-product does not take into account the fact that the particles in
+    question are \txtit{identical particles}. Since the particles are
+    identical, switching the labels on the particles shouldn't change the
+    expectation value of some observable. If we run this observation through we
+    end up with the conclusion that the state $\ket{\Psi}$ must be either
+    symmetric or antisymmetric with the symmetric part being the \txtit{bosonic
+    state} and antisymmetric being the \txtit{fermionic state}. The connection
+    between antisymmetric states and fermions is called the \txtit{Pauli
+    exclusion principle}.
+
+    The problem with the Hartree-product is with the above sentiment, that is
+    not symmetric nor antisymmetric. However we can transform it with an
+    operator
+        \begin{equation}
+            \mathcal{B} \equiv \frac{1}{N!}\sum_P\sigma_bP
+        \end{equation}
+    where $\sigma_b$ is a sign operator which is just $1$ for the symmetric
+    case and $(-1)^p$ for the antisymmetric case, $P$ is a permutation operator
+    that switches the labels on particles
+    \footnote{$P\psi_i\psi_j=\psi_j\psi_i$} and $p$ is the parity of
+    permutations. The solution $\Psi_T$ to the Schrödinger equation can now be
+    written as
+        \begin{equation}
+            \Psi_T\left(\blds{r}\right) =
+            \sqrt{N!}\mathcal{B}\Psi_{\text{H}}\left(\blds{r}\right)
+            \label{eq:psiOpB}
+        \end{equation}
+    The antisymmetric case of $\mathcal{B}$ results in a \txtit{Slater
+    determinant} 
+        \begin{equation}
+            \Psi^{\text{AS}}_T = \frac{1}{\sqrt{N!}}\sum_{P}(-1)^pP\prod_i\psi_i
+        \end{equation}
+    while the symmetric case gives the so-called \txtit{permanent}\footnote{The
+    permanent is basically just a determinant with all the negative signs
+    replaced by positive ones.}.
+        \begin{equation}
+            \Psi^{\text{S}}_T = \frac{1}{\sqrt{N!}}\sum_{P}P\prod_i\psi_i
+        \end{equation}
+
+\section{Variational Principle\label{sec:varPrinc}}
+    One important remark is that the Slater determinant and the permanent do
+    not solve the interaction part, but only serves as a so-called
+    \txtit{ansatz} or guess on the true ground-state wavefunction. This is
+    quite useful due to the \txtit{variational principle}. \\
+    The Variational principle states that for any normalized function $\Psi$ in
+    Hilbert Space >> REF HILBERT << with a Hermitian operator $H$ the minimum
+    eigenvalue $E_0$ for $H$ has an upper-bound given by the expectation value
+    of $H$ in the function $\Psi$. That is
+        \begin{equation}
+            E_0 \leq \ecp{H} = \bra{\Psi}H\ket{\Psi} = \int \Psi^{*}H\Psi \md r
+            \label{eq:varPrinc}
+        \end{equation}
+    See \cite{GriffQuan} for proof and more.
+
+    The mentioned ansatz is thereby guaranteed to give energies larger than or
+    equal the true ground state energy meaning a minimization method is
+    sufficient in order to get closer to this minimum. 
+   
+\section{Energy Functional\label{sec:energyFunc}}
+    We can find a more convenient expression for this energy by using
+    \Arf{eq:psiOpB, eq:varPrinc}. This gives us
+        \begin{equation}
+            E_0 = N!\bra{\Psi_{\text{H}}}H\mathcal{B}\ket{\Psi_{\text{H}}}
+        \end{equation}
+    where the hermitian and unitary property of $\mathcal{B}$ as well as the
+    fact that $\mathcal{B}$ and $H$ commute have been used.
