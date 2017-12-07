@@ -6,5 +6,8 @@ text/*.toc
 text/*.bbl
 text/*.blg
 text/*.fls
-text/*.fdb
+text/*.fdb_latexmk
+text/*.bcf
+text/*-blx.bib
+text/*.run.xml
 

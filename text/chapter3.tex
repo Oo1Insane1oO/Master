@@ -58,11 +58,14 @@
             \begin{equation}
                 H_0 = \HO
             \end{equation}
-        where $\blds{R}=\blds{r}_1,\dots,\blds{r}_N$ (the positions of the
-        particles) and $V$ is the expression for the potential of the system.
-        The second part of \Arf{eq:hamiltoninandef} will be referred to as the
-        \txtit{Interaction Hamiltonian} and is assumed to be a function of the
-        inter-particle distances $\blds{r}_i-\blds{r}_j$ meaning
+        where $\blds{R}=\blds{r}_1,\dots,\blds{r}_N$\footnote{In atomic physics
+        the potential part $V$ is, in addition to the particle positions, also
+        dependant on the positions of the individual nucleons involved.} (the
+        positions of the particles) and $V$ is the expression for the potential
+        of the system.  The second part of \Arf{eq:hamiltoninandef} will be
+        referred to as the \txtit{Interaction Hamiltonian} and is assumed to be
+        a function of the inter-particle distances $\blds{r}_i-\blds{r}_j$
+        meaning
             \begin{equation}
                 H_I = \HI
             \end{equation}
@@ -337,13 +340,13 @@
     create a Markov chain and derive the equations used in the variational
     method.
 
-    The chapter will use \txtit{Dirac Notation} ~\cite{GriffQuan} and all
+    The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
     equations stated assume atomic units ($\hbar=m_e=e=4\pi\veps_0$) >> REF
     HERE ATOMIC UNITS <<.
 
     \subsection{The Variational Principle and Expectation Value of Energy}
         Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the
-        variational principle ~\cite{GriffQuan, NeOr} states that the
+        variational principle \cite{GriffQuan, NeOr} states that the
         expectation value of $\Ham$
             \begin{equation}
                 E[\psi_T] = \ecp{\Ham} =
@@ -399,7 +402,7 @@
         specifically, an \txtit{Isotropic Diffusion Process} which is
         essentially just a random walk model. Such a process is described by
         the Langevin equation with the corresponding Fokker-Planck equation
-        describing the motion of the walkers(particles). See ~\cite{numstoch}
+        describing the motion of the walkers(particles). See \cite{numstoch}
         for details.
 
     \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
