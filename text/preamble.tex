@@ -1,10 +1,13 @@
 \documentclass[a4paper, hidelinks, 10pt]{book}
-\usepackage[style=numeric-comp, backend=biber]{biblatex}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-% \usepackage[expert, charter]{mathdesign}
-% \usepackage[utopia]{mathdesign}
-% \usepackage[charter]{mathdesign}
+\usepackage[style=numeric-comp, 
+            backend=biber,
+            url=false,
+            doi=true,
+            eprint=false]{biblatex}
+\usepackage[]{hyperref}
+% \usepackage{fouriernc}
 \usepackage{listings}
 \usepackage[pdftex]{graphicx}
 \usepackage{color}
@@ -12,7 +15,6 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{caption}
@@ -28,7 +30,6 @@
 \usepackage{tikz}
 \usepackage{etoolbox}
 \usepackage{fancyhdr}
-% \usepackage{fouriernc}
 
 % biblatex input file 
 \addbibresource{text/refs.bib}

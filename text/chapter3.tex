@@ -1,498 +1,58 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{\label{chapter:3}}
-    In this chapter we will address >> LIST METHODS << regarding computational
-    quantum mechanics and further deepen into Hartree-Fock methods and
-    Variational Monte Carlo method. Optimization of calculation is also given
-    while structure of program is given in >> REF TO PROGRAM STRUCTURE CHAPTER
-    <<. General statistical theory used is given in >> REF TO STATISTICS CHAPTER <<
+\chapter{Many-Body Quantum Theory\label{chapter:3}}     
+    This chapter takes forth the theory regarding the basics of identical
+    particles and \txtit{many-body quantum mechanics}. The reader is referred
+    to \cite{GriffQuan} for an introductory text on quantum mechanics(for
+    single particles) and also the so-called \txtit{Dirac-notation} used
+    throughout the entire chapter.
 
-\section{Hartree-Fock Theory}
-    Hartree-Fock theory method is a method for approximating the wavefunction
-    of a stationary many-body quantum state and thereby also obtain an estimate
-    for the energy in this state. In this section we will derive the
-    Hartree-Fock equations from scratch, following closely >> REF SOMETHING
-    HERE << by >> REF AUTHOR << and find the so-called Roothaan-Hall equations
-    known as \txtit{Unrestricted Hartree-Fock} method, which is also the method
-    used for obtaining the results given in >> REF RESULTS CHAPTER <<.
+\section{The Hamiltonian and the Born-Oppenheimer Approximation}
+    The task at hand is to solve the many-body system described by
+    \txtit{Schrödinger's} equation
+        \begin{equation}
+            H\ket{\Psi_i} = E_i\ket{\Psi_i}
+            \label{eq:SE}
+        \end{equation}
+    for some state $\ket{\Psi_i}$ with energy $E_i$. Usually the desired state
+    is the ground-state energy $E_0$ of the system meaning we are primarily
+    interested in the \txtit{ground-state} $\ket{\Psi_0}$. \\ With the goal
+    determined we can define the system to consist of $N$ identical
+    particles\footnote{These are in both atomic physics and in the quantum dot
+    case always fermions or bosons.} with positions
+    $\{\blds{r}_i\}^{N-1}_{i=0}$ and $A$ nuclei with positions
+    $\{\blds{R}_k\}^{A-1}_{k=0}$. The Hamiltonian $H$ is then
+        \begin{equation}
+            H = - \frac{1}{2} \sum\limits_i \nabla^2_i + \sum_{i<j}
+            f\left(\blds{r}_j, \blds{r}_j\right) - \frac{1}{2} \sum_k
+            \frac{\nabla^2_k}{M_k} + \sum_{k<l}
+            g\left(\blds{R}_k,\blds{R}_l\right) +
+            V\left(\blds{R},\blds{r}\right)
+        \end{equation}
+    The first and second terms represent the kinetic- and inter-particle
+    interaction terms\footnote{This is usually the well-known Coulomb
+    interaction.} for the $N$ identical particles while the latter three
+    represent kinetic- and interaction terms for the nuclei(with the last one
+    being the nuclei-particle interaction). The constant $M_k$ is the mass of
+    nucleon $k$ and $Z_k$ is the corresponding atomic number.
 
-    \subsection{Assumptions}
-        Hartree-Fock method makes the following assumptions of the system
-            \begin{itemize}
-                \item \txtit{The Born-Oppenheimer approximation}, see >> REF BO <<.
-                \item All relativistic effects are negligible.
-                \item The wavefunction can be described by a single Slater
-                    determinant >> REF SLATER << or permanent in case of
-                    bosons(former is for fermions).
-                \item The \txtit{Mean Field Approximation} holds.
-            \end{itemize}
-        With these inherent approximations the last one is the most important
-        to take into account as it can cause large deviations from test
-        solutions (analytic solutions, experimental data etc.) since the
-        electron correlations is in reality, for many cases, not negligible.
-        There exists many methods that try to fix this problem >> LIST METHODS
-        <<. The \txtit{Variational Monte Carlo} (or VMC) is the method for
-        deeper explorations in this Thesis, see \Arf{sec:QMC} for more details.
-
-    \subsection{Energy Functional}
-        The general expression (for a general system) for the energy is given
-        in \Arf{sec:varPrinc}, we restate it
-            \begin{equation}
-                E[\psiT] = \frac{\bra{\psiT}H\ket{\psiT}}{\braket{\psiT}}
-                \label{eq:energyFunc}
-            \end{equation}
-        The denominator is just the normalization factor.
-
-        Before we can obtain the Hartree-Fock equations we need an expression
-        for the expectation value of the energy, an \txtit{energy functional}
-        (functional in the sense that it is dependant on the wavefunction).
-
-        With the mentioned Born-Oppenheimer approximation we set up the
-        Schrödinger equation >> REF SL << with the following Hamiltonian >> REF
-        HAMILTONIAN <<
-            \begin{equation}
-                H \equiv H_0 + H_I
-                \label{eq:hamiltoninandef}
-            \end{equation}
-        where $H_0$ is the Hamiltonian of some a system with analytic solutions
-        to the wavefunction(i.e harmonic oscillator) meaning
-            \begin{equation}
-                H_0 = \HO
-            \end{equation}
-        where $\blds{R}=\blds{r}_1,\dots,\blds{r}_N$\footnote{In atomic physics
-        the potential part $V$ is, in addition to the particle positions, also
-        dependant on the positions of the individual nucleons involved.} (the
-        positions of the particles) and $V$ is the expression for the potential
-        of the system.  The second part of \Arf{eq:hamiltoninandef} will be
-        referred to as the \txtit{Interaction Hamiltonian} and is assumed to be
-        a function of the inter-particle distances $\blds{r}_i-\blds{r}_j$
-        meaning
-            \begin{equation}
-                H_I = \HI
-            \end{equation}
-        with $f$ being the function describing the interaction between two
-        particles labeled $i$ and $j$ (for instance the (Coloumb interation due
-        to the charge of particles).
-
-        As a summary and later reference the full Hamiltonian of the system is
-            \begin{equation}
-                H = \HO + \HI
-            \end{equation}
-        which, when inserted into \Arf{eq:energyFunc}, gives
-            \begin{equation}
-                E[\Psi_T] = \bra{\Psi_T}V\ket{\Psi_T} -
-                \frac{1}{2}\sum_i\bra{\Psi_T}\nabla^2_i\ket{\Psi_T} +
-                \sum\limits_{i<j}\bra{\Psi_T}f\ket{\Psi_T}
-            \end{equation}
-        where we have omitted the normalization factor and argument variables.
-        We start with the part involving $H_0$ giving
-            \begin{align}
-                \dinner{\Psi_T}{H_0} &= \sum_{i}\dinner{\Psi_T}{h_i} \nonumber
-                \\
-                &= \sum_i\dinner{\psi_i}{h_i} 
-            \end{align}
-        with $h_i$ being the single-particle Hamiltonian (for a particle $i$).
-        The final result here is due to the fact that $h_i$ only acts on
-        particle $i$ and that the $\psi$'s are orthogonal.
-
-        For the part involving $H_I$ see \Arf{appendix:A} for details. We
-        restate the result here
-            \begin{equation}
-                \dinner{\Psi_T}{H_I} = \frac{1}{2}
-                \sum_{i,j}\left[\dinner{\psi_{ij}\psi_{ji}}{\fij} -
-                \bra{\psi_{ij}\psi_{ji}}\fij\ket{\psi_{ji}\psi_{ij}}\right]
-                \label{eq:dinner1}
-            \end{equation}
-        The first term in \Arf{eq:dinner1} is called the \txtit{direct term}
-        and the latter is called the \txtit{exchange term}. The direct term
-        would be just the expectation value of the Coulomb interaction while
-        the exchange term is an artifact due to the Slater determinant
-        \footnote{The form of the expectation value given in \Arf{eq:dinner1}
-        would be the same for a bosonic system, just without the exchange term
-        since the wavefunction is not represented as a Slater determinant in
-        this case.}
-
-        Relabeling the indices in terms of just one index $p$ and $q$ to
-        represent just a state, since the integration label does not
-        matter\footnote{Instead of using $\md r_i$ as an integration label we
-        just call it $\md r$ for simplicity without loss of generalization. The
-        direct and exchange terms would then get a label $\md r_1$ and $\md
-        r_2$ since the integration runs over two-particle interactions. Note
-        also that $\md r_1=\sum_d\md x_d$.},
-        we get the following energy functional
-            \begin{equation}
-                E[\Psi_T] = \sum_p\bra{\psi_p}h\ket{\psi_p} +
-                \frac{1}{2}\sum_{p,q} \left[\HIinnerAS{p}{q}\right]
-                \label{eq:EfuncFinal}
-            \end{equation}
-        The expression given in \Arf{eq:EfuncFinal} is the functional in its
-        general form (since we haven't given any special form for the basis
-        spanned by the $\psi$'s). In the next section we will derive the
-        Hartree-Fock equations using \Arf{eq:EfuncFinal}.
-
-    \subsection{Hartree-Fock Equations}
-        In order to obtain the Hartree-Fock equations we start by expanding the
-        wavefunction as a linear combination of some \txtit{known orthonormal
-        basis} $\{\phi_{\lambda}(\blds{r})\}$ meaning
-            \begin{equation}
-                \Psi^{\text{HF}}_p = \sum_{\lambda}
-                C_{p\lambda}\phi_{\lambda}(\blds{r})
-                \label{eq:psiexpand}
-            \end{equation}
-        This expanded basis is obviously also orthonormal. The energy
-        functional (\Arf{eq:EfuncFinal}) is then with \Arf{eq:psiexpand}
-        inserted
-            \begin{equation}
-                \EHF = \sum_i\sum_{\alpha\beta}
-                C^*_{i\alpha}C_{j\beta}\bra{\alpha}h\ket{\beta} + \frac{1}{2}
-                \sum_{ij} \sum_{\alpha\beta\gamma\delta}
-                C^{*}_{i\alpha}C^{*}_{j\beta}C_{i\gamma}C_{j\delta}
-                \bra{\alpha}H_{I}\ket{\beta}_{\text{AS}}
-            \end{equation}
-        Introducing the Lagrange multiplier and minimizing according to
-        \Arf{sec:lagrange_multipliers} and using the orthogonality of the
-        states we get the following constraint
-            \begin{equation}
-                \braket{p}{q} = \sum_{\alpha} C^{*}_{p\alpha}C_{p\alpha}
-            \end{equation}
-        giving the functional (Lagrangian)
-            \begin{equation}
-                \mathcal{L}\left[\psi^{\text{HF}}\right] = \EHF -
-                \sum_{i\alpha} \varepsilon_iC^{*}_{p\alpha}C_{p\alpha}
-            \end{equation}
-        where $\varepsilon_i$ is the Lagrange multiplier which we give units
-        energy for the dimensionality of the equations to match. The
-        Euler-Lagrange equations is then obtained by minimization
-            \begin{equation}
-                \prd{C^{*}_{p\alpha}} \left[\EHF - \sum_{j\alpha}
-                \varepsilon_jC^{*}_{p\alpha}C_{p\alpha}\right] =
-                \prd{\varepsilon_p}[\mathcal{L}]
-                \label{eq:EulerLagrange1}
-            \end{equation}
-        Since the constraints are leveled functions, meaning they only scale
-        the energy functional, we can effectively ignore the equation regarding
-        $\varepsilon_p$\footnote{the analogy to this is basically that one can
-        always choose the ground-point of a potential.} meaning the right hand
-        of \Arf{eq:EulerLagrange1} equals $0$. We solve the individual parts
-        starting with $\EHF$.
-            \begin{equation}
-                \begin{aligned}
-                    \frac{\prtl}{\prtl C^{*}_{p\alpha}}
-                    \left[\sum_i\sum_{\alpha\beta} C^{*}_{i\alpha}C_{i\beta}
-                    \bra{\alpha}h\ket{\beta}\right] &=
-                    \sum_{\beta}C_{p\beta}\bra{\alpha}h\ket{\beta} \\
-                    \frac{\prtl}{\prtl C^{*}_{p\alpha}}
-                    \left[\frac{1}{2}\sum_{ij}\sum_{\alpha\beta\gamma\delta}
-                    C^{*}_{i\alpha}C^{*}_{j\beta}C_{i\gamma}C_{j\delta}
-                    \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS}\right] &=
-                    \sum_{ij}\sum_{\beta\gamma\delta}
-                    C^{*}_{p\beta}C_{i\gamma}C_{j\delta}
-                    \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS}
-                \end{aligned}
-                \label{eq:HFderEFunc}
-            \end{equation}
-        The latter part of \Arf{eq:HFderEFunc} uses the product rule for
-        differentiation. The second term in \Arf{eq:EulerLagrange1} is
-            \begin{equation}
-                \frac{\prtl}{\prtl C^{*}_{p\alpha}} \left[-\sum_{j\alpha}
-                \varepsilon_jC^{*}_{j\alpha}C_{j\alpha}\right] =
-                -\varepsilon_pC_{p\alpha}
-                \label{eq:HFderSecond}
-            \end{equation}
-        Gathering \Arf{eq:HFderEFunc, eq:HFderSecond} yields in what is know as
-        the \txtit{Hartree-Fock equations}
-            \begin{equation}
-                \sum_{\beta}C_{p\beta}\bra{\alpha}h\ket{\beta} +
-                \sum_{j\beta\gamma\delta}C^{*}_{j\beta} C_{j\delta}C_{p\gamma}
-                \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS} =
-                \varepsilon^{\text{HF}}_pC_{p\alpha}
-                \label{eq:HFEquations}
-            \end{equation}
-        We rewrite this by pulling out the sum over $\beta$ and defining the
-        so-called \txtit{Hartree-Fock matrix} $h^{\text{HF}}_{\alpha\beta}$
-        with elements
-            \begin{equation}
-                h^{\text{HF}}_{\alpha\beta} \equiv \bra{\alpha}h_0\ket{\beta} +
-                \sum_{j\gamma\delta} C^{*}_{j\gamma}C_{j\delta}
-                \bra{\alpha\gamma}H_I\ket{\beta\delta}_{AS}
-                \label{eq:HFmatrix}
-            \end{equation}
-        \Arf{eq:HFEquations} can be rewritten as
-            \begin{equation}
-                \sum_{\gamma} h^{\text{HF}}_{\alpha\beta}C_{p\beta} =
-                \varepsilon^{\text{HF}}_pC_{p\alpha}
-                \label{eq:HFeqFin}
-            \end{equation}
-        This is the eigenvalue problem to be solved with the columns of $C$
-        being the orthogonal eigenvectors of $h^{\text{HF}}$ and
-        $\varepsilon^{\text{HF}}$'s the eigenvalues which represent the
-        single-particle energies.
-
-    \subsubsection{Density Matrix}
-        If we take a closer look at \Arf{eq:HFeqFin} one notices that one of
-        the paired sums(greek letters) can be pre-calculated and tabulated in a
-        matrix. We call this matrix the \txtit{density matrix} and define its
-        elements to be
-            \begin{equation}
-                \rho_{\gamma\delta} \equiv \sum_i C^{*}_{i\gamma}C_{i\delta}
-                \label{eq:densityMatrix}
-            \end{equation}
-        the Hartree-Fock matrix elements can thus be rewritten to
-            \begin{equation}
-                h^{\text{HF}}_{\alpha\beta} = \bra{\alpha}h\ket{\beta}
-                + \sum_{\gamma\delta} \rho_{\gamma\delta}
-                \bra{\alpha\gamma}H_I\ket{\beta\delta}_{AS}
-                \label{eq:rhoHFmatrix}
-            \end{equation}
-
-    \subsubsection{Rewriting the Ground State Energy}
-        One of the goals of the Hartree-Fock method is to find an estimate for
-        the ground state energy, \Arf{eq:EfuncFinal}. We can reduce the sum by
-        adding and subtracting the so-called Hartree-Fock potential defined as
-            \begin{equation}
-                U^{\text{HF}} \equiv \sum_{\mu\nu} \bra{\mu}\bra{\mu\nu} H_I
-                \ket{\mu\nu}_{\text{AS}} \ket{\nu}
-            \end{equation}
-        The result is
-            \begin{align}
-                E^{\text{HF}} &= \sum_i\varepsilon^{\text{HF}}_i -
-                \frac{1}{2}\sum_{ij}\sum_{\alpha\beta\gamma\delta}
-                C^{*}_{i\alpha}C^{*}_{j\beta}C_{i\gamma}C_{j\delta}
-                \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS} \nonumber \\
-                &= \sum_{i} \varepsilon^{\text{HF}}_i -
-                \frac{1}{2}\sum_{ij\alpha\beta\gamma\delta}
-                \rho_{\alpha\gamma}\rho_{\beta\delta}
-                \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS}
-                \label{eq:rhoGroundState}
-            \end{align}
-        where we have inserting in the definition of the density matrix in the
-        last step.
-
-    \subsubsection{Convergence}
-        The convergence criteria for the iterative eigenvalue problem is given
-        by a simple brute-force difference defined as
-            \begin{equation}
-                \frac{1}{N}\sum_i\abs{\veps^{\text{HF},new}_i -
-                \veps^{\text{HF},old}_i} \leq \theta
-                \label{eq:conv}
-            \end{equation}
-        with $\theta$ being a small number as threshold. >> LIST DIFFERENCE
-        CONVERGENCE THINGS <<
-
-    \subsubsection{Algorithm and Summary}
-        Before we setup the algorithm we give a brief summary of the final
-        equations obtained in this section
-            \begin{equation}
-                \begin{aligned}
-                    \sum_{\gamma} h^{\text{HF}}_{\alpha\beta}C_{p\beta} &=
-                    \varepsilon^{\text{HF}}_pC_{p\alpha} \\
-                    h^{\text{HF}}_{\alpha\beta} &= \bra{\alpha}h\ket{\beta} +
-                    \sum_{\gamma\delta} \rho_{\gamma\delta}
-                    \bra{\alpha\gamma}H_I\ket{\beta\delta}_{AS} \\
-                    \rho_{\gamma\delta} &= \sum_i C^{*}_{i\gamma}C_{i\delta} \\
-                    E^{\text{HF}} &= \sum_{i} \varepsilon^{\text{HF}}_i -
-                    \frac{1}{2}\sum_{ij}\sum_{\alpha\beta\gamma\delta}
-                    \rho_{\alpha\gamma}\rho_{\beta\delta}
-                    \bra{\alpha\beta}H_I\ket{\gamma\delta}_{AS}
-                \end{aligned}
-                \label{eq:HFsummary}
-            \end{equation}
-        
-        The algorithm is as follows
-            \begin{algorithm}[H]
-            \caption{Hartree-Fock algorithm}\label{alg:hartreeFock}
-            \begin{algorithmic}[1]
-                \State assemble interaction elements
-                \Comment{$\bra{pq}H_I\ket{rs}_{AS}$}
-                \State Set density matrix \Comment{Use \Autoref{eq:densityMatrix}}
-                \While{count < maxiteration $\And$ difference > $\lambda$}
-                    \State Calculate Hartree-Fock matrix \Comment{As given in
-                    \Autoref{eq:rhoHFmatrix}}
-                    \State Find eigenvalues and eigenvectors of Hartree-Fock matrix
-                    \Comment{Energies and coefficients}
-                    \State Calculate new density matrix
-                    \State Calculate difference \Comment{Given in
-                    \Autoref{eq:conv}}
-                    \State increment count
-                \EndWhile
-                \State Calculate ground state energy \Comment{With
-                \Autoref{eq:rhoGroundState}}
-            \end{algorithmic}
-            \end{algorithm}
-
-    \subsection{Restricted Hartree-Fock}
-        Restricted Hartree-Fock, or abbreviated to RHF, we assume a
-        closed-shell system. This means that for a given system the all
-        possible states for a given energy-level is filled. We can achieve this
-        by grouping spin-orbitals with same spatial part, but opposite spin.
-
-\section{Quantum Monte Carlo\label{sec:QMC}}
-    Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
-    by a statistical approach using so-called \txtit{Markov Chain} simulations
-    (also called random walk). The nature of the wave function at hand is
-    fundamentally a statistical model defined on a large configuration space
-    with small areas of densities. The Monte Carlo method is perfect for
-    solving such a system because of the non-homogeneous distribution of
-    calculation across the space. An standard approach with equal distribution
-    of calculation would then yield a rather poor result with respect to
-    computation cost.
-
-    We will in this chapter address the Metropolis algorithm which is used to
-    create a Markov chain and derive the equations used in the variational
-    method.
-
-    The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
-    equations stated assume atomic units ($\hbar=m_e=e=4\pi\veps_0$) >> REF
-    HERE ATOMIC UNITS <<.
-
-    \subsection{The Variational Principle and Expectation Value of Energy}
-        Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the
-        variational principle \cite{GriffQuan, NeOr} states that the
-        expectation value of $\Ham$
-            \begin{equation}
-                E[\psi_T] = \ecp{\Ham} =
-                \frac{\dinner{\psi_T}{\Ham}}{\pinner}
-                \label{eq:ecpE}
-            \end{equation}
-        is an upper bound to the ground state energy
-            \begin{equation}
-                E_0 \leq \ecp{\Ham}
-                \label{eq:ecpEBound}
-            \end{equation}
-        Now we can define our PDF as(see \Arf{susec:diffTHpdf} for a more
-        detailed reasoning)
-            \begin{equation}
-                P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}
-                \label{eq:PDFdef}
-            \end{equation}
-        and with a new quantity
-            \begin{equation}
-                E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\psiT}\Ham\psiT
-                \label{eq:ELdef}
-            \end{equation}
-        the so-called local energy, we can rewrite \Arf{eq:ecpE} as
-            \begin{equation}
-                E[\psiT] = \ecp{E_L}
-            \end{equation}
-        The idea now is to find the lowest possible energy by varying a set of
-        parameters $\mb{\alpha}$. The expectation value itself is found with
-        the Metropolis algorithm, see \Arf{susec:MHAlg}.
-
-    \subsection{The Trial Wave Function}
-        The trial wave function is generally an arbitrary choice specific for
-        the problem at hand, however it is in most cases favorable to expand
-        the wave function in the eigenbasis (eigenstates) of the Hamiltonian
-        since they forma complete set. This can be expressed as
-            \begin{equation}
-                \psiT = \sum_i C_i\psi_i(\mb{R};\mb{\alpha})
-            \end{equation}
-        with the $\psi_i$'s are the eigenstates of the Hamiltonian.
-
-    \subsection{Use Diffusion Theory and the PDF\label{susec:diffTHpdf}}
-        The statistics describing the expectation value states that any
-        distribution may be applied in calculation, however if we take a close
-        look at the local energy(\Arf{eq:ELdef}) we see that for all
-        distributions the local energy is not defined at the zeros of $\psiT$.
-        This means that an arbitrary PDF does not guarantee generation of
-        points which makes $\psi_T=0$. This can be overcome by introducing the
-        square of the wave function to be defined as the distribution function
-        as given in \Arf{eq:PDFdef}.
-
-        Because of the inherent statistical property of the wave function
-        Quantum Mechanics can be modelled as a diffusion process, or more
-        specifically, an \txtit{Isotropic Diffusion Process} which is
-        essentially just a random walk model. Such a process is described by
-        the Langevin equation with the corresponding Fokker-Planck equation
-        describing the motion of the walkers(particles). See \cite{numstoch}
-        for details.
-
-    \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
-        The Metropolis algorithm bases itself on moves (also called
-        transitions) as given in a Markov process. >> REF THIS HERE <<. This
-        process is given by
-            \begin{equation}
-                w_i(t+\veps) = \sum_j\ufij{w}{i}{j}w_j(t)
-            \end{equation}
-        where $w(j\rarr i)$ is just a transition from state $j$ to state $i$.
-        In order for the transition chain to reach a desired convergence while
-        reversibility is kept, the well known condition for detailed balance
-        must be fulfilled >> REF HERE DETAILED BALANCE <<. If detailed balance
-        is true, then the following relations is true
-            \begin{equation}
-                w_i \ufij{T}{i}{j}\ufij{A}{i}{j} = w_j \ufij{T}{j}{i}\ufij{A}{j}{i}
-                \Rarr \frac{w_i}{w_j} =
-                \frac{\ufij{T}{j}{i}\ufij{A}{j}{i}}{\ufij{T}{i}{j}\ufij{A}{i}{j}}
-                \label{eq:detailedBalance}
-            \end{equation}
-        We have here introduced two scenarios, the transition from
-        configuration $i$ to configuration $j$ and the reverse process $j$ to
-        $i$. Solving the acceptance $A$ for the two cases where the ratio in
-        \ref{eq:detailedBalance} is either $1$(in which case the proposed state
-        $j$ is accepted and transitions is made) and when the ratio is less
-        then $1$. The Metropolis algorithm would in this case not automatically
-        reject the latter case, but rather reject it with a proposed uniform
-        probability. Introducing now a probability distribution function(PDF) $P$
-        the acceptance $A$ can be expressed as
-            \begin{equation}
-                \ufij{A}{i}{j} =
-                \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
-                \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)
-                \label{eq:metropolisAcceptance}
-            \end{equation}
-        The so-called selection probability $T$ is defined specifically for
-        each problem. For our case the PDF in question is the absolute square
-        of the wave function and the selection $T$ is a Green's function
-        derived in \Arf{susec:impSamp}.  The algorithm itself would then be
-            \begin{enumerate}[label=(\roman*)]
-                \item Pick initial state $i$ at random.
-                \item Pick proposed state at random in accordance to
-                    $\ufij{T}{j}{i}$.
-                \item Accept state according to $\ufij{A}{j}{i}$.
-                \item Jump to step (ii) until a specified number of states have
-                    been generated.
-                \item Save the state $i$ and jump to step (ii).
-            \end{enumerate}
-
-    \subsection{Importance Sampling\label{susec:impSamp}}
-        Using the selection probability mentioned in \Arf{susec:MHAlg} in the
-        Metropolis algorithm is called an \txtit{Importance sampling} because
-        is essentially makes the sampling more concentrated around areas where
-        the PDF has large values.
-
-        In order to derive the form of this equation we use the statements
-        presented in \Arf{susec:diffTHpdf}. With
-            \begin{equation}
-                \langevin
-                \label{eq:langevin}
-            \end{equation}
-        the \txtit{Langevin equation} >>REF HERE LANGEVIN<< and apply Euler's
-        method (Euler-Maryama >>REF<<) and obtain the new positions
-            \begin{equation}
-                \rnew = \rold + D\Fold\Delta t + \xi
-                \label{eq:rnewdef}
-            \end{equation}
-        with the $r$'s being the new and old positions in the Markov chain
-        respectively and $\Fold=F(\rold)$. The quantity $D$ is a diffusion
-        therm equal to $1/2$ due to the kinetic energy(remind of natural units)
-        and $\xi$ is a Gaussian distributed random number with $0$ mean and
-        $\sqrt{\Delta t}$ variance.
-
-        As mentioned a particle is described by the Fokker-Planck equation
-            \begin{equation}
-                \FokkerPlanck
-                \label{eq:FokkerPlanckDef}
-            \end{equation}
-        With $P$ being the PDF(in current case the selection probability) and
-        $F$ being the drift therm. In order to achieve convergence, that is a
-        stationary probability density, we need the left hand side to be zero
-        in \Arf{eq:FokkerPlanckDef} giving the following equation
-            \begin{equation}
-                \prd{x_i}[P][2] = P\prd{x_i}[\mb{F_i}] + \mb{F_i}\prd{x_i}[P]
-            \end{equation}
-        with the drift-therm being on the form $\mb{F}=g(x)\prtl P/\prtl x$ we
-        finally have that
-            \begin{equation}
-                \mb{F} = \frac{2}{\psi_T}\nabla \psi_T
-                \label{eq:qForceDef}
-            \end{equation}
-        This is the so-called \txtit{Quantum Force} which pushes the walkers
-        towards regions where the wave function is large.
+    We assume the nuclei to be much heavier than the identical particles,
+    meaning they move much slower, at which the system can be viewed as
+    electrons moving around the vicinity of stationary nuclei.  This means the
+    kinetic term for the nuclei vanish and the nuclei-nuclei interaction
+    becomes a constant\footnote{Adding a constant to an operator does not alter
+    the eigenvector, only the eigenvalues by the constant
+    factor\cite{linalgDavid}.}. The approximation we end up with is the
+    so-called \txtit{Born-Oppenheimer approximation} and the Hamiltonian is now
+        \begin{equation}
+            H = H_0 + H_I
+        \end{equation}
+    where we have split the Hamiltonian in a \txtit{one-body} part and a
+    \txtit{two-body} or \txtit{interaction} parts defined as
+        \begin{equation}
+            H_0 \equiv - \frac{1}{2} \sum\limits_i \nabla^2_i +
+            V\left(\blds{R},\blds{r}\right)
+        \end{equation}
+    and
+        \begin{equation}
+            H_I \equiv \sum_{i<j} f\left(\blds{r}_j, \blds{r}_j\right)
+        \end{equation}
