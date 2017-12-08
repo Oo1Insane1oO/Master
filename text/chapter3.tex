@@ -54,7 +54,7 @@
         \end{equation}
     and
         \begin{equation}
-            H_I \equiv \sum_{i<j} f\left(\blds{r}_j, \blds{r}_j\right)
+            H_I \equiv \sum_{i<j} f\left(\blds{r}_i, \blds{r}_j\right)
         \end{equation}
 
 \section{Slater Determinant and Permanent}
@@ -72,25 +72,39 @@
     Hartree-product does not take into account the fact that the particles in
     question are \txtit{identical particles}. Since the particles are
     identical, switching the labels on the particles shouldn't change the
-    expectation value of some observable. If we run this observation through we
+    expectation value of some observable. If we run this remark through we
     end up with the conclusion that the state $\ket{\Psi}$ must be either
     symmetric or antisymmetric with the symmetric part being the \txtit{bosonic
     state} and antisymmetric being the \txtit{fermionic state}. The connection
     between antisymmetric states and fermions is called the \txtit{Pauli
     exclusion principle}.
 
-    The problem with the Hartree-product is with the above sentiment, that is
-    not symmetric nor antisymmetric. However we can transform it with an
+    The problem with the Hartree-product is, with the above sentiment, that it
+    is not symmetric nor antisymmetric. However we can transform it with an
     operator
         \begin{equation}
             \mathcal{B} \equiv \frac{1}{N!}\sum_P\sigma_bP
         \end{equation}
-    where $\sigma_b$ is a sign operator which is just $1$ for the symmetric
-    case and $(-1)^p$ for the antisymmetric case, $P$ is a permutation operator
-    that switches the labels on particles
+    where $\sigma_b$ is defined as 
+        \begin{equation}
+            \sigma_b \equiv  
+                \begin{cases}
+                    1 \indent &\text{$b$ represents bosonic system} \\
+                    (-1)^p \indent &\text{$b$ represents fermionic system}
+                \end{cases}
+        \end{equation}
+    $P$ is a permutation operator that switches the labels on particles
     \footnote{$P\psi_i\psi_j=\psi_j\psi_i$} and $p$ is the parity of
-    permutations. The solution $\Psi_T$ to the Schrödinger equation can now be
-    written as
+    permutations. The operator $\mathcal{B}$ has the following properties
+        \begin{itemize}
+            \item Applying $\mathcal{B}$ to itself doesn't change the operator
+                meaning $\mathcal{B}^2 = \mathcal{B}$.
+            \item The Hamiltonian $H$ and $\mathcal{B}$ \txtit{commute}, that
+                is $\left[\mathcal{B},H\right] = \left[H,\mathcal{B}\right]$.
+            \item $\mathcal{B}$ is \txtit{unitary}, which means
+                $\mathcal{B}^{\dagger}\mathcal{B}=\mathcal{I}$.
+        \end{itemize}
+    The solution $\Psi_T$ to the Schrödinger equation can now be written as
         \begin{equation}
             \Psi_T\left(\blds{r}\right) =
             \sqrt{N!}\mathcal{B}\Psi_{\text{H}}\left(\blds{r}\right)
@@ -131,7 +145,44 @@
     We can find a more convenient expression for this energy by using
     \Arf{eq:psiOpB, eq:varPrinc}. This gives us
         \begin{equation}
-            E_0 = N!\bra{\Psi_{\text{H}}}H\mathcal{B}\ket{\Psi_{\text{H}}}
+            E\left[\Psi\right] =
+            N!\bra{\Psi_{\text{H}}}H\mathcal{B}\ket{\Psi_{\text{H}}}
         \end{equation}
     where the hermitian and unitary property of $\mathcal{B}$ as well as the
-    fact that $\mathcal{B}$ and $H$ commute have been used.
+    fact that $\mathcal{B}$ and $H$ commute have been used. This energy
+    functional(functional in the sense that it is dependant on the wave
+    function). Applying the $\mathcal{B}$ operator to the Hartree-product,
+    pulling the sum out of the integrals and relabeling with the following
+    definitions
+        \begin{equation}
+            \begin{aligned}
+                \bra{p}h\ket{q} &\equiv
+                \bra{\psi_p(\blds{r})}h(\blds{r})\ket{\psi_q(\blds{r})} =
+                \int\psi^{*}_p(x)h(\blds{r})\psi_q(\blds{r})\md r \\
+                \bra{pq}f\ket{rs} &\equiv
+                \bra{\psi_p(\blds{r}_1)\psi_q(\blds{r}_2)}
+                f(\blds{r}_1,\blds{r}_2)
+                \ket{\psi_r(\blds{r}_1)\psi_s(\blds{r}_2)} = \int
+                \psi_p(\blds{r}_1)\psi_q(\blds{r}_2) f(\blds{r}_1,\blds{r}_2)
+                \psi_r(\blds{r}_1)\psi_s(\blds{r}_2) \md r
+            \end{aligned}
+        \end{equation}
+    yields in
+        \begin{equation}
+            E\left[\Psi\right] = \bra{i}H_0\ket{i} +
+            \frac{1}{2}\sum_{i,j}\left[\bra{ij}f\ket{ij} \pm
+            \bra{ij}f\ket{ji}\right]
+            \label{eq:ch3Efunc}
+        \end{equation}
+    The first part is written with the assumption that the single-particle wave
+    functions $\{\psi\}$ are orthogonal and the $1/2$ factor in front of the
+    so-called \txtit{direct} and \txtit{exchange} terms\footnote{The direct
+    term is just due to inherent behaviour of the charge of the particles
+    (known as the Coulomb repulsion). The exchange term is a direct consequence
+    of the probabilistic nature of the identical particles.} is due to the fact
+    that we count the permutations twice in the sum when applying the
+    $\mathcal{B}$ operator. The sign in the interaction term are chosen as
+    positive for bosonic systems and negative for fermionic systems.
+
+    The expression given in \Arf{eq:ch3Efunc} is the functional form we will
+    use to derive the Hartree-fock equations in the following section.
