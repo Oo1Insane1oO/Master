@@ -123,6 +123,9 @@
         \begin{equation}
             \Psi^{\text{S}}_T = \frac{1}{\sqrt{N!}}\sum_{P}P\prod_i\psi_i
         \end{equation}
+    Notice that the coordinated ${\blds{r}}_{i=0}^{N}$ is a bit of a sloppy
+    notation as it also implicitly includes the spin orbitals discussed in >>
+    ref section on spin orbitals <<.
 
 \section{Variational Principle\label{sec:varPrinc}}
     One important remark is that the Slater determinant and the permanent do
@@ -172,8 +175,8 @@
     yields in
         \begin{equation}
             E\left[\Psi\right] = \bra{i}H_0\ket{i} +
-            \frac{1}{2}\sum_{i,j}\left[\bra{ij}f\ket{ij} \pm
-            \bra{ij}f\ket{ji}\right]
+            \frac{1}{2}\sum_{i,j}\left[\bra{ij}f_{ij}\ket{ij} \pm
+            \bra{ij}f_{ij}\ket{ji}\right]
             \label{eq:ch3Efunc}
         \end{equation}
     The first part is written with the assumption that the single-particle wave
@@ -188,3 +191,148 @@
 
     The expression given in \Arf{eq:ch3Efunc} is the functional form we will
     use to derive the Hartree-fock equations in the following section.
+
+\section{Hartree-Fock Theory\label{sec:HFtheory}}
+    Hartree-Fock method is a many-body method for approximating the
+    wavefunction of a stationary many-body quantum state and thereby also
+    obtain an estimate for the energy in this state. In this section we will
+    derive the Hartree-Fock equations from scratch, following closely the
+    literature by J.M Thjissen\cite{compphysThijssen}. 
+
+    \subsection{Assumptions}
+        Hartree-Fock method makes the following assumptions of the system
+            \begin{itemize}
+                \item \txtit{The Born-Oppenheimer approximation}, see >> REF BO <<.
+                \item All relativistic effects are negligible.
+                \item The wavefunction can be described by a single
+                    \txtit{Slater determinant}.
+                \item The \txtit{Mean Field Approximation} holds.
+            \end{itemize}
+        With these inherent approximations the last one is the most important
+        to take into account as it can cause large deviations from test
+        solutions (analytic solutions, experimental data etc.) since the
+        electron correlations is in reality, for many cases, not negligible.
+        There exists many methods that try to fix this problem >> LIST METHODS
+        <<. The \txtit{Variational Monte Carlo} (or VMC) is the method for
+        deeper explorations in this Thesis, see \Arf{sec:QMC} for more details.
+
+    \subsection{The $\blds{\mathcal{J}}$ and $\blds{\mathcal{K}}$ Operators}
+        Before we begin with the Hartree-Fock equations it is desirable to
+        rewrite the energy function obtained in \Arf{sec:energyFunc} (form
+        given in \Arf{eq:ch3Efunc}) with two operators $\mathcal{J}$ and
+        $\mathcal{K}$ defined as
+            \begin{equation}
+                \begin{aligned}
+                    \mathcal{J} &\equiv \sum_k
+                    \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
+                    \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r \\
+                    \mathcal{K} &\equiv \sum_k
+                    \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
+                    \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r \\
+                \end{aligned}
+            \end{equation}
+        The $\mathcal{J}$ operator just gives the simple interaction-term while
+        the $\mathcal{K}$ operator gives the exchange term with the arbitrary
+        (notice no index) $\psi(\blds{r})$. The energy functional is thus
+        rewritten to
+            \begin{equation}
+                E\left[\Psi\right] = \sum_i\Braket{\psi_i | h +
+                \frac{1}{2}\left(\mathcal{J} \pm \mathcal{K}\right) | \psi_i}
+                \label{eq:JKEfunc}
+            \end{equation}
+        where the one-body Hamiltonian is split into a sum of single particle
+        functions as $H_0 = \sum\limits_i h(\blds{r}_i)$.
+
+    \subsection{Hartree-Fock Equations}
+        As a reminder. The wavefunctions $\{\psi\}$ in \Arf{eq:JKEfunc} are
+        spin-orbitals with both a spacial part and a spin part. In order to
+        obtain the Hartree-Fock equations we try to minimize the energy
+        functional in order to obtain the ground-state energy for a many-body
+        system. This is done by a variational method.
+
+        The first observation to notice is the fact that variations in the
+        spin-orbitals $\{\psi\}$ need to respect the spin-orthogonality
+        relation
+            \begin{equation}
+                \braket{\psi_i}{\psi_j} = \delta_{ij}
+            \end{equation}
+        with $\delta_{ij}$ being the well-known Kronecker-delta. This property
+        is essentially a constraint to the minimization problem and the method
+        to be used is the \txtit{Lagrange multiplier method}\cite{linalgDavid},
+        with the following \txtit{Lagrangian}
+            \begin{equation}
+                \mathcal{L} = \delta E\left[\Psi\right] -
+                \sum_{ij}\Lambda_{ij}\left[\braket{\psi_i}{\psi_j} -
+                \delta_{ij}\right]
+            \end{equation}
+        We know then that the minimum is reached when a displacement on the
+        spin-orbitals $\psi_i\rarr\psi_i+\delta \psi_i$ should result in an
+        energy variation of zero meaning $\delta E\left[\Psi\right]=0$ in the
+        minimum. Which giving the variational problem 
+            \begin{equation}
+                \sum_i \Braket{\delta\psi_i | h + \mathcal{J} \pm \mathcal{K} |
+                \psi_i} - \sum_{ij} \Lambda_{ij}\braket{\delta\psi_i}{\psi_j} +
+                \text{c.c} = 0
+            \end{equation}
+        where $\text{c.c}$ is a notation for the complex conjugate of the
+        inner-products on its left-hand side.
+
+        The shift in the spin orbitals $\{\delta \psi\}$ is arbitrary and the
+        constraints are
+        symmetric\footnote{$\braket{\psi_i}{\psi_j}=\braket{\psi_j}{\psi_i}^{*}
+        \Rarr \Lambda_{ij}=\Lambda^{*}_{ji}$} meaning we can with the
+        \txtit{Fock-operator}
+            \begin{equation}
+                \mathcal{F} \equiv h + \mathcal{J} \pm \mathcal{K}
+            \end{equation}
+        define the following eigenvalue problem
+            \begin{equation}
+                \mathcal{F}\psi_i = \sum_j\Lambda_{ij}\psi_j
+            \end{equation}
+        Choosing the Lagrange parameter $\Lambda_{ij}$ such that
+        $\{\psi\}^{N-1}_{k=0}$ forms an orthonormal set for $\mathcal{F}$ with
+        eigenvalues $\{\veps\}^{N-1}_{k=0}$ reduces the eigenvalue
+        equation to
+            \begin{equation}
+                \mathcal{F}\ket{\psi} = \blds{\veps}\ket{\psi}
+            \end{equation}
+        with $\blds{\veps}=(\veps_0,\dots,\veps_{N-1})$ being the set of
+        eigenvalues of $\mathcal{F}$ meaning we have $N+1$ equations to be
+        solved.
+
+        If we only take the $N$ lowest eigenfunctions into the Slater the
+        corresponding eigenenergy is referred to as the \txtit{Hartree-Fock
+        energy} and is the estimated ground-state energy which the Hartree-Fock
+        method gives. We can rewrite the energy functional with the
+        eigenenergies to
+            \begin{equation}
+                E\left[\Psi\right] = \sum_i\Braket{\psi_i | \veps_i -
+                \frac{1}{2}\left(\mathcal{J} \pm \mathcal{K}\right) | \psi_i}
+            \end{equation}
+        In the derivation of the Hartree-Fock equations we only worked with
+        spin-orbital functions $\{\psi\}$. However it is much more convenient
+        to rewrite these in terms of spatial orbitals $\{\psi\}$ and integrate
+        the spin-dependant part out. There are two ways of doing this and the
+        two different approaches give the so-called \txtit{restricted
+        Hartree-Fock} and \txtit{unrestricted Hartree-Fock} methods.
+
+    \section{Restricted Hartree-Fock and Roothan-Equations}
+        The restricted spin-orbitals are paired as\footnote{This is specialised
+        for a two-spin system. For a system with more spin-states one needs to
+        either choose different spacial-orbitals or add more such orbitals
+        which effectively changes the energy-levels.}
+            \begin{equation}
+                \{\psi_{2l-1}, \psi_{2l}\} =
+                \{\phi_l(\blds{r})\alpha(s),\psi_l(\blds{r})\beta(s)\}
+            \end{equation}
+        with $\alpha(s)$ and $\beta(s)$ being different spin-states (up and
+        down). This pairing of spin-states with same and same spacial-orbitals
+        means we can pull the spin degrees of freedom out from the
+        $\mathcal{J}$ and $h$ operators, reduce the sum to only run over half
+        the states and multiply the entire sum by $2$. The result is that the
+        restricted energy-functional reads
+            \begin{equation}
+                E\left[\Psi\right] = \sum\limits^{N-1}_{i=0}\veps_i -
+                \sum\limits^{\frac{N-1}{2}}_{i=0} \Braket{\phi_i | 2\mathcal{J}
+                \pm \mathcal{K} | \psi_i}
+            \end{equation}

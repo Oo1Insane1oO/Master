@@ -6,41 +6,6 @@
     while structure of program is given in >> REF TO PROGRAM STRUCTURE CHAPTER
     <<. General statistical theory used is given in >> REF TO STATISTICS CHAPTER <<
 
-\section{Hartree-Fock Theory}
-    Hartree-Fock theory method is a method for approximating the wavefunction
-    of a stationary many-body quantum state and thereby also obtain an estimate
-    for the energy in this state. In this section we will derive the
-    Hartree-Fock equations from scratch, following closely >> REF SOMETHING
-    HERE << by >> REF AUTHOR << and find the so-called Roothaan-Hall equations
-    known as \txtit{Unrestricted Hartree-Fock} method, which is also the method
-    used for obtaining the results given in >> REF RESULTS CHAPTER <<.
-
-    \subsection{Assumptions}
-        Hartree-Fock method makes the following assumptions of the system
-            \begin{itemize}
-                \item \txtit{The Born-Oppenheimer approximation}, see >> REF BO <<.
-                \item All relativistic effects are negligible.
-                \item The wavefunction can be described by a single Slater
-                    determinant >> REF SLATER << or permanent in case of
-                    bosons(former is for fermions).
-                \item The \txtit{Mean Field Approximation} holds.
-            \end{itemize}
-        With these inherent approximations the last one is the most important
-        to take into account as it can cause large deviations from test
-        solutions (analytic solutions, experimental data etc.) since the
-        electron correlations is in reality, for many cases, not negligible.
-        There exists many methods that try to fix this problem >> LIST METHODS
-        <<. The \txtit{Variational Monte Carlo} (or VMC) is the method for
-        deeper explorations in this Thesis, see \Arf{sec:QMC} for more details.
-
-    \subsection{Hartree-Fock Equations}
-
-    \subsection{Restricted Hartree-Fock}
-        Restricted Hartree-Fock, or abbreviated to RHF, we assume a
-        closed-shell system. This means that for a given system the all
-        possible states for a given energy-level is filled. We can achieve this
-        by grouping spin-orbitals with same spatial part, but opposite spin.
-
 \section{Quantum Monte Carlo\label{sec:QMC}}
     Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
     by a statistical approach using so-called \txtit{Markov Chain} simulations
