@@ -1,0 +1,20 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix B %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{\label{appendix:B}}
+
+\section{Integral-elements in Least-Squares Fitting}
+    The integral elements are as follows
+        \begin{align}
+            X_{ij} &= \int g_i(x)g_j(x) \md x \nonumber \\
+            &= \int x^i N_i N_j \me^{\frac{\omega}{2} x^2} x^j
+            \me^{\frac{\omega}{2} x^2} \md x
+        \end{align}
+    and
+        \begin{align}
+            b_i &= \int g_i(x)f(x) \md x \nonumber \\
+            &= \int N_i x^i \me^{\frac{\omega}{2} x^2}
+            \left(2^nn!\sqrt{\frac{\pi}{\omega}}\right)^{-\frac{1}{2}}
+            H_n(\sqrt{\omega}x) \me^{\frac{\omega}{2} x^2} \md x
+        \end{align}
+    We dont contract the expressions further in favor of reusing the
+    normalization factors.

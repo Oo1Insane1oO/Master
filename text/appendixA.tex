@@ -1,6 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{\label{appendix:A}}
+
+\section{Interaction-Term in Fock-Operator}
         Introducing the so-called permutation operator $P$ which interchanges
         the labels of particles meaning we can define
             \begin{equation}
@@ -49,3 +51,12 @@
             \end{equation}
         More comprehensive details and derivations are given in
         \cite{compphysThijssen,basicMB}.
+
+\section{Interaction-Matrix Elements}
+    The integrals involved in the matrix-elements of the Fock-matrix in
+    \Arf{sec:HFtheory} is calculated as follows
+        \begin{align}
+            D_{pqrs} = \Braket{pq | f_{12} | rs} = \infint\infint
+            \chi_p(\blds{r}_1)\chi_q(\blds{r}_2) \frac{1}{r_{12}}
+            \chi_r(\blds{r}_1)\chi_s(\blds{r}_2) \md r_1 \md r_2
+        \end{align}

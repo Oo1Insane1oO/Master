@@ -4,7 +4,12 @@
     particles and \txtit{many-body quantum mechanics}. The reader is referred
     to \cite{GriffQuan} for an introductory text on quantum mechanics(for
     single particles) and also the so-called \txtit{Dirac-notation} used
-    throughout the entire chapter.
+    throughout the entire chapter. We will address >> LIST METHODS << regarding
+    computational quantum mechanics and further deepen into Hartree-Fock
+    methods and Variational Monte Carlo method. Optimization of calculation is
+    also given while structure of program is given in >> REF TO PROGRAM
+    STRUCTURE CHAPTER <<. General statistical theory used is given in >> REF TO
+    STATISTICS CHAPTER <<
 
 \section{The Hamiltonian and the Born-Oppenheimer Approximation\label{sec:3.1}}
     The task at hand is to solve the many-body system described by
@@ -174,9 +179,9 @@
         \end{equation}
     yields in
         \begin{equation}
-            E\left[\Psi\right] = \bra{i}H_0\ket{i} +
-            \frac{1}{2}\sum_{i,j}\left[\bra{ij}f_{ij}\ket{ij} \pm
-            \bra{ij}f_{ij}\ket{ji}\right]
+            E\left[\Psi\right] = \bra{p}H_0\ket{p} +
+            \frac{1}{2}\sum_{p,q}\left[\bra{pq}f_{pq}\ket{pq} \pm
+            \bra{pq}f_{pq}\ket{qp}\right]
             \label{eq:ch3Efunc}
         \end{equation}
     The first part is written with the assumption that the single-particle wave
@@ -266,9 +271,9 @@
                 \delta_{ij}\right]
             \end{equation}
         We know then that the minimum is reached when a displacement on the
-        spin-orbitals $\psi_i\rarr\psi_i+\delta \psi_i$ should result in an
-        energy variation of zero meaning $\delta E\left[\Psi\right]=0$ in the
-        minimum. Which giving the variational problem 
+        spin-orbitals $\psi_i\rarr\psi_i+\delta \psi_i$ results in an energy
+        variation of zero meaning $\delta E\left[\Psi\right]=0$ in the minimum.
+        Which giving the variational problem 
             \begin{equation}
                 \sum_i \Braket{\delta\psi_i | h + \mathcal{J} \pm \mathcal{K} |
                 \psi_i} - \sum_{ij} \Lambda_{ij}\braket{\delta\psi_i}{\psi_j} +
@@ -290,13 +295,14 @@
                 \mathcal{F}\psi_i = \sum_j\Lambda_{ij}\psi_j
             \end{equation}
         Choosing the Lagrange parameter $\Lambda_{ij}$ such that
-        $\{\psi\}^{N-1}_{k=0}$ forms an orthonormal set for $\mathcal{F}$ with
-        eigenvalues $\{\veps\}^{N-1}_{k=0}$ reduces the eigenvalue
-        equation to
+        $\{\psi\}^N_{k=1}$ forms an orthonormal set for $\mathcal{F}$ with
+        eigenvalues $\{\veps\}^N_{k=1}$. This reduces the eigenvalue equation
+        to
             \begin{equation}
                 \mathcal{F}\ket{\psi} = \blds{\veps}\ket{\psi}
+                \label{eq:HFequations}
             \end{equation}
-        with $\blds{\veps}=(\veps_0,\dots,\veps_{N-1})$ being the set of
+        with $\blds{\veps}=(\veps_0,\dots,\veps_N)$ being the set of
         eigenvalues of $\mathcal{F}$ meaning we have $N+1$ equations to be
         solved.
 
@@ -311,7 +317,7 @@
             \end{equation}
         In the derivation of the Hartree-Fock equations we only worked with
         spin-orbital functions $\{\psi\}$. However it is much more convenient
-        to rewrite these in terms of spatial orbitals $\{\psi\}$ and integrate
+        to rewrite these in terms of spatial orbitals $\{\phi\}$ and integrate
         the spin-dependant part out. There are two ways of doing this and the
         two different approaches give the so-called \txtit{restricted
         Hartree-Fock} and \txtit{unrestricted Hartree-Fock} methods.
@@ -323,16 +329,231 @@
         which effectively changes the energy-levels.}
             \begin{equation}
                 \{\psi_{2l-1}, \psi_{2l}\} =
-                \{\phi_l(\blds{r})\alpha(s),\psi_l(\blds{r})\beta(s)\}
+                \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}
             \end{equation}
         with $\alpha(s)$ and $\beta(s)$ being different spin-states (up and
         down). This pairing of spin-states with same and same spacial-orbitals
         means we can pull the spin degrees of freedom out from the
-        $\mathcal{J}$ and $h$ operators, reduce the sum to only run over half
-        the states and multiply the entire sum by $2$. The result is that the
-        restricted energy-functional reads
+        $\mathcal{J}$ and $\mathcal{K}$ operators, reduce the sum to only run
+        over half the states and multiply the entire sum by $2$. The result is
+        that the restricted energy-functional reads
             \begin{equation}
-                E\left[\Psi\right] = \sum\limits^{N-1}_{i=0}\veps_i -
-                \sum\limits^{\frac{N-1}{2}}_{i=0} \Braket{\phi_i | 2\mathcal{J}
-                \pm \mathcal{K} | \psi_i}
+                E\left[\Psi\right] = \sum\limits^N_{i=1}\veps_i -
+                \sum\limits^{\frac{N}{2}}_{i=1} \Braket{i | 2\mathcal{J}
+                \pm \mathcal{K} | i}
             \end{equation}
+        Notice that the $\mathcal{K}$ operators sum only runs up to half the
+        number of states.
+        
+        As the title suggests we are going to end up with a set of equations
+        referred to as the \txtit{Roothan-equations}. We start by first
+        expanding the spacial part $\{\phi\}$ of the spin orbitals $\{\psi\}$
+        in some known orthonormal basis $\{\chi\}^L_{i=1}$
+            \begin{equation}
+                \phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})
+            \end{equation}
+        and introduce the \txtit{Fock-matrix} $F$(associated with the
+        Fock-operator) with elements
+            \begin{equation}
+                F_{pq} = h_{pq} + \sum_{pq}\rho_{pq}\left(2D_{prqs} \pm
+                D_{prsq}\right)
+            \end{equation}
+        We have here introduced a one-body matrix defined as
+            \begin{equation}
+                h_{pq} \equiv \Braket{p | h | q}
+            \end{equation}
+        a \txtit{density matrix} defined
+        as\footnote{This is just the matrix formed by \begin{equation}
+        \sum_i\ket{\phi_i}\bra{\psi_i}\end{equation} which is in quantum
+        mechanics defined as the so-called \txtit{density matrix}.}
+            \begin{equation}
+                \rho_{pq} \equiv \sum\limits^{\frac{N}{2}}_{i=1}
+                C_{pi}C^{*}_{qi}
+            \end{equation}
+        and an interaction-matrix $D$ with elements
+            \begin{equation}
+                D_{pqrs} \equiv \Braket{pq | f_{12} | rs}
+            \end{equation}
+        for convenience. The implicit relabeling of $\chi_p(\blds{r})\rarr p$
+        is also present in the above expression for the Fock-matrix. The
+        Hartree-Fock equations (\Arf{eq:HFequations}) are then for the
+        restricted case written as
+            \begin{equation}
+                F\blds{C}_i = \blds{\veps}S\blds{C}_i
+            \end{equation}
+        with $S$ being the overlap matrix with elements
+            \begin{equation}
+                S_{pq} \equiv \Braket{p | q}
+            \end{equation}
+
+\section{Quantum Monte Carlo\label{sec:QMC}}
+    Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
+    by a statistical approach using so-called \txtit{Markov Chain} simulations
+    (also called random walk). The nature of the wave function at hand is
+    fundamentally a statistical model defined on a large configuration space
+    with small areas of densities. The Monte Carlo method is perfect for
+    solving such a system because of the non-homogeneous distribution of
+    calculation across the space. An standard approach with equal distribution
+    of calculation would then yield a rather poor result with respect to
+    computation cost.
+
+    We will in this chapter address the Metropolis algorithm which is used to
+    create a Markov chain and derive the equations used in the variational
+    method.
+
+    The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
+    equations stated assume atomic units ($\hbar=m_e=e=4\pi\veps_0$) >> REF
+    HERE ATOMIC UNITS <<.
+
+    \subsection{The Variational Principle and Expectation Value of Energy}
+        Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the
+        variational principle \cite{GriffQuan, NeOr} states that the
+        expectation value of $\Ham$
+            \begin{equation}
+                E[\psi_T] = \ecp{\Ham} =
+                \frac{\dinner{\psi_T}{\Ham}}{\pinner}
+                \label{eq:ecpE}
+            \end{equation}
+        is an upper bound to the ground state energy
+            \begin{equation}
+                E_0 \leq \ecp{\Ham}
+                \label{eq:ecpEBound}
+            \end{equation}
+        Now we can define our PDF as(see \Arf{susec:diffTHpdf} for a more
+        detailed reasoning)
+            \begin{equation}
+                P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}
+                \label{eq:PDFdef}
+            \end{equation}
+        and with a new quantity
+            \begin{equation}
+                E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\psiT}\Ham\psiT
+                \label{eq:ELdef}
+            \end{equation}
+        the so-called local energy, we can rewrite \Arf{eq:ecpE} as
+            \begin{equation}
+                E[\psiT] = \ecp{E_L}
+            \end{equation}
+        The idea now is to find the lowest possible energy by varying a set of
+        parameters $\mb{\alpha}$. The expectation value itself is found with
+        the Metropolis algorithm, see \Arf{susec:MHAlg}.
+
+    \subsection{The Trial Wave Function}
+        The trial wave function is generally an arbitrary choice specific for
+        the problem at hand, however it is in most cases favorable to expand
+        the wave function in the eigenbasis (eigenstates) of the Hamiltonian
+        since they forma complete set. This can be expressed as
+            \begin{equation}
+                \psiT = \sum_i C_i\psi_i(\mb{R};\mb{\alpha})
+            \end{equation}
+        with the $\psi_i$'s are the eigenstates of the Hamiltonian.
+
+    \subsection{Use Diffusion Theory and the PDF\label{susec:diffTHpdf}}
+        The statistics describing the expectation value states that any
+        distribution may be applied in calculation, however if we take a close
+        look at the local energy(\Arf{eq:ELdef}) we see that for all
+        distributions the local energy is not defined at the zeros of $\psiT$.
+        This means that an arbitrary PDF does not guarantee generation of
+        points which makes $\psi_T=0$. This can be overcome by introducing the
+        square of the wave function to be defined as the distribution function
+        as given in \Arf{eq:PDFdef}.
+
+        Because of the inherent statistical property of the wave function
+        Quantum Mechanics can be modelled as a diffusion process, or more
+        specifically, an \txtit{Isotropic Diffusion Process} which is
+        essentially just a random walk model. Such a process is described by
+        the Langevin equation with the corresponding Fokker-Planck equation
+        describing the motion of the walkers(particles). See \cite{numstoch}
+        for details.
+
+    \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
+        The Metropolis algorithm bases itself on moves (also called
+        transitions) as given in a Markov process. >> REF THIS HERE <<. This
+        process is given by
+            \begin{equation}
+                w_i(t+\veps) = \sum_j\ufij{w}{i}{j}w_j(t)
+            \end{equation}
+        where $w(j\rarr i)$ is just a transition from state $j$ to state $i$.
+        In order for the transition chain to reach a desired convergence while
+        reversibility is kept, the well known condition for detailed balance
+        must be fulfilled >> REF HERE DETAILED BALANCE <<. If detailed balance
+        is true, then the following relations is true
+            \begin{equation}
+                w_i \ufij{T}{i}{j}\ufij{A}{i}{j} = w_j \ufij{T}{j}{i}\ufij{A}{j}{i}
+                \Rarr \frac{w_i}{w_j} =
+                \frac{\ufij{T}{j}{i}\ufij{A}{j}{i}}{\ufij{T}{i}{j}\ufij{A}{i}{j}}
+                \label{eq:detailedBalance}
+            \end{equation}
+        We have here introduced two scenarios, the transition from
+        configuration $i$ to configuration $j$ and the reverse process $j$ to
+        $i$. Solving the acceptance $A$ for the two cases where the ratio in
+        \ref{eq:detailedBalance} is either $1$(in which case the proposed state
+        $j$ is accepted and transitions is made) and when the ratio is less
+        then $1$. The Metropolis algorithm would in this case not automatically
+        reject the latter case, but rather reject it with a proposed uniform
+        probability. Introducing now a probability distribution function(PDF) $P$
+        the acceptance $A$ can be expressed as
+            \begin{equation}
+                \ufij{A}{i}{j} =
+                \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
+                \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)
+                \label{eq:metropolisAcceptance}
+            \end{equation}
+        The so-called selection probability $T$ is defined specifically for
+        each problem. For our case the PDF in question is the absolute square
+        of the wave function and the selection $T$ is a Green's function
+        derived in \Arf{susec:impSamp}.  The algorithm itself would then be
+            \begin{enumerate}[label=(\roman*)]
+                \item Pick initial state $i$ at random.
+                \item Pick proposed state at random in accordance to
+                    $\ufij{T}{j}{i}$.
+                \item Accept state according to $\ufij{A}{j}{i}$.
+                \item Jump to step (ii) until a specified number of states have
+                    been generated.
+                \item Save the state $i$ and jump to step (ii).
+            \end{enumerate}
+
+    \subsection{Importance Sampling\label{susec:impSamp}}
+        Using the selection probability mentioned in \Arf{susec:MHAlg} in the
+        Metropolis algorithm is called an \txtit{Importance sampling} because
+        is essentially makes the sampling more concentrated around areas where
+        the PDF has large values.
+
+        In order to derive the form of this equation we use the statements
+        presented in \Arf{susec:diffTHpdf}. With
+            \begin{equation}
+                \langevin
+                \label{eq:langevin}
+            \end{equation}
+        the \txtit{Langevin equation} >>REF HERE LANGEVIN<< and apply Euler's
+        method (Euler-Maryama >>REF<<) and obtain the new positions
+            \begin{equation}
+                \rnew = \rold + D\Fold\Delta t + \xi
+                \label{eq:rnewdef}
+            \end{equation}
+        with the $r$'s being the new and old positions in the Markov chain
+        respectively and $\Fold=F(\rold)$. The quantity $D$ is a diffusion
+        therm equal to $1/2$ due to the kinetic energy(remind of natural units)
+        and $\xi$ is a Gaussian distributed random number with $0$ mean and
+        $\sqrt{\Delta t}$ variance.
+
+        As mentioned a particle is described by the Fokker-Planck equation
+            \begin{equation}
+                \FokkerPlanck
+                \label{eq:FokkerPlanckDef}
+            \end{equation}
+        With $P$ being the PDF(in current case the selection probability) and
+        $F$ being the drift therm. In order to achieve convergence, that is a
+        stationary probability density, we need the left hand side to be zero
+        in \Arf{eq:FokkerPlanckDef} giving the following equation
+            \begin{equation}
+                \prd{x_i}[P][2] = P\prd{x_i}[\mb{F_i}] + \mb{F_i}\prd{x_i}[P]
+            \end{equation}
+        with the drift-therm being on the form $\mb{F}=g(x)\prtl P/\prtl x$ we
+        finally have that
+            \begin{equation}
+                \mb{F} = \frac{2}{\psi_T}\nabla \psi_T
+                \label{eq:qForceDef}
+            \end{equation}
+        This is the so-called \txtit{Quantum Force} which pushes the walkers
+        towards regions where the wave function is large.

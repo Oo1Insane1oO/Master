@@ -1,179 +1,115 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{\label{chapter:4}}
-    In this chapter we will address >> LIST METHODS << regarding computational
-    quantum mechanics and further deepen into Hartree-Fock methods and
-    Variational Monte Carlo method. Optimization of calculation is also given
-    while structure of program is given in >> REF TO PROGRAM STRUCTURE CHAPTER
-    <<. General statistical theory used is given in >> REF TO STATISTICS CHAPTER <<
+    We will in this chapter mentiond some popular basis-sets used in atomic
+    physics and deepen into a particular set of functions called
+    \txtit{Gaussian Type orbitals} and mimic the well known \txtit{Hermite
+    polynomials}.
 
-\section{Quantum Monte Carlo\label{sec:QMC}}
-    Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
-    by a statistical approach using so-called \txtit{Markov Chain} simulations
-    (also called random walk). The nature of the wave function at hand is
-    fundamentally a statistical model defined on a large configuration space
-    with small areas of densities. The Monte Carlo method is perfect for
-    solving such a system because of the non-homogeneous distribution of
-    calculation across the space. An standard approach with equal distribution
-    of calculation would then yield a rather poor result with respect to
-    computation cost.
+\section{Hermite Functions}
+    Hermite functions are functions of the following form
+        \begin{equation}
+            \phi^a_n(\blds{r}) \equiv \prod_d N_d
+            H_{n_d}(\sqrt{a}x_d)\exp(-\frac{a}{2}x^2_d)
+            \label{eq:HermiteFunc}
+        \end{equation}
+    with $\blds{r} = \sum\limits_d \blds{\me}_dx_d$ and the sum over $d$ being
+    the sum over the number of dimensions and the $H_n$ is the Hermite
+    polynomial of order $n$. The integer $n_d$ is the order of the
+    function\footnote{In quantum mechanics the number $n$ is referred to as the
+    principal quantum number and is associated with the energy of a given
+    orbital(energy-level) of the system.} while the parameter $a$ is a scaling
+    factor and $N_d$ is a normalization factor. These functions show up as
+    eigenfunctions for the \txtit{quantum harmonic oscillator
+    system}\cite{GriffQuan} with the scaling parameter $a$ equal to the
+    oscillator frequency ($\omega$) of the system.
 
-    We will in this chapter address the Metropolis algorithm which is used to
-    create a Markov chain and derive the equations used in the variational
-    method.
+    The Hermite functions are orthogonal and give a good ansatz for the VMC
+    method, see \Arf{sec:QMC}, with the scaling parameter transformed with an
+    additional variational parameter. The problem with these are however that
+    the matrix-elements introduced in the Hartree-Fock method
+    (\Arf{sec:HFtheory}) are not solveable with the Hermite functions as basis
+    functions. >> REF FURTHER DISCUSSION <<
 
-    The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
-    equations stated assume atomic units ($\hbar=m_e=e=4\pi\veps_0$) >> REF
-    HERE ATOMIC UNITS <<.
+\section{Gaussian Type Orbitals}
+    \txtit{Gaussian Type Orbitals} or GTO's are functions of the following form
+    >> REF GTO here <<
+        \begin{equation}
+            G_n(\blds{\alpha};\blds{r},\blds{A}) \equiv \prod_d (x_d-A_d)^{n_d}
+            \me^{-\alpha_d (x_d-A_d)^2}
+            \label{eq:GTOdef1d}
+        \end{equation}
+    We call $\alpha$ for the scaling parameter and $i$ for the order of the
+    GTO. The variable $A$ is where the function is centered. These are in many
+    literatures referred to as \txtit{primitive Gaussians} and they alone
+    make a poor approximation to the true wave function.
 
-    \subsection{The Variational Principle and Expectation Value of Energy}
-        Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the
-        variational principle \cite{GriffQuan, NeOr} states that the
-        expectation value of $\Ham$
-            \begin{equation}
-                E[\psi_T] = \ecp{\Ham} =
-                \frac{\dinner{\psi_T}{\Ham}}{\pinner}
-                \label{eq:ecpE}
-            \end{equation}
-        is an upper bound to the ground state energy
-            \begin{equation}
-                E_0 \leq \ecp{\Ham}
-                \label{eq:ecpEBound}
-            \end{equation}
-        Now we can define our PDF as(see \Arf{susec:diffTHpdf} for a more
-        detailed reasoning)
-            \begin{equation}
-                P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}
-                \label{eq:PDFdef}
-            \end{equation}
-        and with a new quantity
-            \begin{equation}
-                E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\psiT}\Ham\psiT
-                \label{eq:ELdef}
-            \end{equation}
-        the so-called local energy, we can rewrite \Arf{eq:ecpE} as
-            \begin{equation}
-                E[\psiT] = \ecp{E_L}
-            \end{equation}
-        The idea now is to find the lowest possible energy by varying a set of
-        parameters $\mb{\alpha}$. The expectation value itself is found with
-        the Metropolis algorithm, see \Arf{susec:MHAlg}.
+    In atomic physics these functions are used directly as a linear combination
+    referred to as \txtit{contracted Gaussian functions}. These are written as
+        \begin{equation}
+            G_k(x, A) \equiv \sum\limits^P_{a_k=0} C_{a_k}
+            G_{a_k}(\alpha_{a_k};x, A)
+        \end{equation}
+    and are fitted\footnote{Meaning we find the parameters $C_{a_k}.$ and
+    $\alpha_{a_k}$} to \txtit{Slater-type orbitals}, which are functions with
+    decaying properties(present in atomic systems), or found by some variational
+    method before-hand. \\
 
-    \subsection{The Trial Wave Function}
-        The trial wave function is generally an arbitrary choice specific for
-        the problem at hand, however it is in most cases favorable to expand
-        the wave function in the eigenbasis (eigenstates) of the Hamiltonian
-        since they forma complete set. This can be expressed as
-            \begin{equation}
-                \psiT = \sum_i C_i\psi_i(\mb{R};\mb{\alpha})
-            \end{equation}
-        with the $\psi_i$'s are the eigenstates of the Hamiltonian.
+    These functions are unfortunately not orthogonal, but they behave nicely in
+    integrals and actually give an analytic expression for the
+    interaction-elements mentioned in \Arf{sec:HFtheory}. For this reason we
+    will go forth and use the Gaussian contracted functions and actually fit
+    them to Hermite functions.
 
-    \subsection{Use Diffusion Theory and the PDF\label{susec:diffTHpdf}}
-        The statistics describing the expectation value states that any
-        distribution may be applied in calculation, however if we take a close
-        look at the local energy(\Arf{eq:ELdef}) we see that for all
-        distributions the local energy is not defined at the zeros of $\psiT$.
-        This means that an arbitrary PDF does not guarantee generation of
-        points which makes $\psi_T=0$. This can be overcome by introducing the
-        square of the wave function to be defined as the distribution function
-        as given in \Arf{eq:PDFdef}.
+\section{Fitting GTO's to Hermite Functions with Least-Squares}
+    Looking at \Arf{eq:HermiteFunc, eq:GTOdef1d} we see that both functions are
+    separable in the different dimensions. For this reason we simplify to only
+    work in one dimensions with label $x$ for the positions and omit the
+    subscript $d$. We will also specialize to the quantum dot case where the
+    imagined nuclei is centered in origo for all orbitals. The functions will
+    hereby be written as
+        \begin{equation}
+            \begin{aligned}
+                \phi_n(x) &= NH_n(\sqrt{\omega}x)\me^{-\frac{\omega}{2}x^2} \\
+                G_n(x, A) &= \sum\limits^{n+1}_{b_n=0} C_{b_n}
+                G_{b_n}(\alpha;x, A)
+            \end{aligned}
+        \end{equation}
+    First observation here is that we choose the scaling parameter in the GTO
+    to be equal to the oscillator frequency $\omega$ halved. We then only have
+    $1$ set of coefficients to determine, namely the $\{C\}^P_{a_k}$. Note also
+    that the sum in the contracted function runs to $n+1$, we will show later
+    that this is sufficient to approximate the Hermite of order $n$.
 
-        Because of the inherent statistical property of the wave function
-        Quantum Mechanics can be modelled as a diffusion process, or more
-        specifically, an \txtit{Isotropic Diffusion Process} which is
-        essentially just a random walk model. Such a process is described by
-        the Langevin equation with the corresponding Fokker-Planck equation
-        describing the motion of the walkers(particles). See \cite{numstoch}
-        for details.
-
-    \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
-        The Metropolis algorithm bases itself on moves (also called
-        transitions) as given in a Markov process. >> REF THIS HERE <<. This
-        process is given by
-            \begin{equation}
-                w_i(t+\veps) = \sum_j\ufij{w}{i}{j}w_j(t)
-            \end{equation}
-        where $w(j\rarr i)$ is just a transition from state $j$ to state $i$.
-        In order for the transition chain to reach a desired convergence while
-        reversibility is kept, the well known condition for detailed balance
-        must be fulfilled >> REF HERE DETAILED BALANCE <<. If detailed balance
-        is true, then the following relations is true
-            \begin{equation}
-                w_i \ufij{T}{i}{j}\ufij{A}{i}{j} = w_j \ufij{T}{j}{i}\ufij{A}{j}{i}
-                \Rarr \frac{w_i}{w_j} =
-                \frac{\ufij{T}{j}{i}\ufij{A}{j}{i}}{\ufij{T}{i}{j}\ufij{A}{i}{j}}
-                \label{eq:detailedBalance}
-            \end{equation}
-        We have here introduced two scenarios, the transition from
-        configuration $i$ to configuration $j$ and the reverse process $j$ to
-        $i$. Solving the acceptance $A$ for the two cases where the ratio in
-        \ref{eq:detailedBalance} is either $1$(in which case the proposed state
-        $j$ is accepted and transitions is made) and when the ratio is less
-        then $1$. The Metropolis algorithm would in this case not automatically
-        reject the latter case, but rather reject it with a proposed uniform
-        probability. Introducing now a probability distribution function(PDF) $P$
-        the acceptance $A$ can be expressed as
-            \begin{equation}
-                \ufij{A}{i}{j} =
-                \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
-                \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)
-                \label{eq:metropolisAcceptance}
-            \end{equation}
-        The so-called selection probability $T$ is defined specifically for
-        each problem. For our case the PDF in question is the absolute square
-        of the wave function and the selection $T$ is a Green's function
-        derived in \Arf{susec:impSamp}.  The algorithm itself would then be
-            \begin{enumerate}[label=(\roman*)]
-                \item Pick initial state $i$ at random.
-                \item Pick proposed state at random in accordance to
-                    $\ufij{T}{j}{i}$.
-                \item Accept state according to $\ufij{A}{j}{i}$.
-                \item Jump to step (ii) until a specified number of states have
-                    been generated.
-                \item Save the state $i$ and jump to step (ii).
-            \end{enumerate}
-
-    \subsection{Importance Sampling\label{susec:impSamp}}
-        Using the selection probability mentioned in \Arf{susec:MHAlg} in the
-        Metropolis algorithm is called an \txtit{Importance sampling} because
-        is essentially makes the sampling more concentrated around areas where
-        the PDF has large values.
-
-        In order to derive the form of this equation we use the statements
-        presented in \Arf{susec:diffTHpdf}. With
-            \begin{equation}
-                \langevin
-                \label{eq:langevin}
-            \end{equation}
-        the \txtit{Langevin equation} >>REF HERE LANGEVIN<< and apply Euler's
-        method (Euler-Maryama >>REF<<) and obtain the new positions
-            \begin{equation}
-                \rnew = \rold + D\Fold\Delta t + \xi
-                \label{eq:rnewdef}
-            \end{equation}
-        with the $r$'s being the new and old positions in the Markov chain
-        respectively and $\Fold=F(\rold)$. The quantity $D$ is a diffusion
-        therm equal to $1/2$ due to the kinetic energy(remind of natural units)
-        and $\xi$ is a Gaussian distributed random number with $0$ mean and
-        $\sqrt{\Delta t}$ variance.
-
-        As mentioned a particle is described by the Fokker-Planck equation
-            \begin{equation}
-                \FokkerPlanck
-                \label{eq:FokkerPlanckDef}
-            \end{equation}
-        With $P$ being the PDF(in current case the selection probability) and
-        $F$ being the drift therm. In order to achieve convergence, that is a
-        stationary probability density, we need the left hand side to be zero
-        in \Arf{eq:FokkerPlanckDef} giving the following equation
-            \begin{equation}
-                \prd{x_i}[P][2] = P\prd{x_i}[\mb{F_i}] + \mb{F_i}\prd{x_i}[P]
-            \end{equation}
-        with the drift-therm being on the form $\mb{F}=g(x)\prtl P/\prtl x$ we
-        finally have that
-            \begin{equation}
-                \mb{F} = \frac{2}{\psi_T}\nabla \psi_T
-                \label{eq:qForceDef}
-            \end{equation}
-        This is the so-called \txtit{Quantum Force} which pushes the walkers
-        towards regions where the wave function is large.
+    A Least-Squares problem for a continuous set $x\in\mathbb{R}$ is defined to
+    be of form
+        \begin{equation}
+            \min_{\{a\}} \abs{\int (f(x) - \sum_ja_jg_j(x)) \md x}^2 \indent
+            \forall \;\;x\in\mathbb{R}
+        \end{equation}
+    where we minimize with respect to a set of parameters $\{a\}$. The
+    stationary point in the parameters space of the $a$'s is reached when all
+    partial derivatives of $\{a\}$ is zero. This can be expressed as a linear system
+        \begin{equation}
+            \blds{X} \blds{a} = \blds{b}
+        \end{equation}
+    with the matrix $\blds{X}$ having elements
+        \begin{equation}
+            X_{ij} \equiv \int g_i(x)g_j(x) \md x
+        \end{equation}
+    and the vector $\blds{b}$
+        \begin{equation}
+            b_i \equiv \int g_i(x)f(x) \md x
+        \end{equation}
+    Inserting the Hermite function for $f$ and the GTO for $g$ the integrands
+    (see \Arf{appendix:B}) we get
+        \begin{equation}
+            \begin{aligned}
+                X_{ij} &= \int x^i N_i N_j \me^{\frac{\omega}{2} x^2} x^j
+                \me^{\frac{\omega}{2} x^2} \md x \\
+                b_i &= \int N_i x^i \me^{\frac{\omega}{2} x^2}
+                \left(2^nn!\sqrt{\frac{\pi}{\omega}}\right)^{-\frac{1}{2}}
+                H_n(\sqrt{\omega}x) \me^{\frac{\omega}{2} x^2} \md x
+            \end{aligned}
+        \end{equation}
+    We can solve this by hand, but it is desirable to solve it using Sympy. See
+    >>REF IMPLEMENTATION CHAPTER <<.
