@@ -436,7 +436,35 @@
             \end{equation}
         The idea now is to find the lowest possible energy by varying a set of
         parameters $\mb{\alpha}$. The expectation value itself is found with
-        the Metropolis algorithm, see \Arf{susec:MHAlg}.
+        the Metropolis algorithm, see \Arf{susec:MHAlg}. \\
+
+        An important property of the local energy is when we differentiate it
+        with respect to one of the variational parameters $\{\alpha\}$ within
+        the context of an expectation value. The result in this case would be
+        zero. This is easily seen by direct calculation
+            \begin{align}
+                \ecp{\prd{\alpha}[E_L]} &= \int \frac{\abs{\psi}^2\prd{\alpha}
+                \left[\frac{1}{\psi}H\psi\right]}{\int \abs{\psi}^2 \md r} \md
+                r \nonumber \\
+                &= \int \frac{\abs{\psi}^2 \frac{\psi^{*}\prd{\alpha}(H\psi) -
+                (H\psi^{*}) \prd{\alpha}[\psi]}{\abs{\psi}^2}}{\int
+                \abs{\psi}^2 \md r} \md r \nonumber \\
+                &= \int \frac{\psi^{*}H\prd{\alpha}[\psi] -
+                \psi^{*}H\prd{\alpha}[\psi]}{\int \abs{\psi}^2 \md r} \md r
+                \nonumber \\
+                &= 0
+                \label{eq:expELdelzero}
+            \end{align}
+        We have used the fact that $H$ is not dependant on any variational
+        parameter and used the hermitian properties\cite{GriffQuan} of $H$ to
+        justify the movement of $H$ within the integral. 
+
+        This neat result presented in \Arf{eq:expELdelzero} will show its
+        usefulness in the minimization when derivatives of the expectation
+        value and variance comes into play since finding the derivative of the
+        local energy would be much more of a hassle.\footnote{The
+        differentiation of the wavefunction is enough reduction of quality of
+        life on its own!}
 
     \subsection{The Trial Wave Function}
         The trial wave function is generally an arbitrary choice specific for
