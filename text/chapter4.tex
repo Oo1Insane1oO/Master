@@ -113,3 +113,82 @@
         \end{equation}
     We can solve this by hand, but it is desirable to solve it using Sympy. See
     >>REF IMPLEMENTATION CHAPTER <<.
+
+\section{Integral Elements}
+    In the Hartree-Fock scheme described in \Arf{chapter:3} we need to
+    calculate the integrals which define the different matrix elements. The
+    integrals to be found are of the following form
+        \begin{equation}
+            \begin{aligned}
+                \braket{i}{j} &= \infint g_i(\alpha_i;r,A)g_j(\alpha_j;r,B) \md
+                \blds{r} \\
+                \bra{i}r^k\ket{j} &= \infint g_i(\alpha_i;r,A) r^k
+                g_j(\alpha_j;r,B) \md \blds{r} \\
+                \bra{i}\nabla^2\ket{j} &= \infint g_i(\alpha_i;r,A)\nabla^2
+                g_j(\alpha_j;r,B) \md \blds{r} \\
+                \bra{ij}r^{-1}\ket{kl} &= \infint
+                g_i(\alpha_i;r_1,A)g_j(\alpha_j;r_2,B) \frac{1}{r_{12}}
+                g_k(\alpha_k;r_1,C)g_l(\alpha_l;r_2,D) \md \blds{r}_1 \md
+                \blds{r}_2\\
+            \end{aligned}
+        \end{equation}
+    where $\md\blds{r}$ means integration over all dimensions and with the
+    $g$'s being the usual \txtit{Hermite-Gaussians} defined as
+        \begin{equation}
+            g_n(\alpha;\blds{r},\blds{A}) = \prod_d \alpha^{n_d}(x_d-A_d)^{n_d}
+            \me^{-\alpha (x_d-A_d)^2}
+        \end{equation}
+    We will in this chapter limit ourselves to work with isotropic gaussians
+    (meaning $\alpha_d$ is the same for all dimensions) as this will yield a
+    simpler closed-form solution to the integrals. >> Ref non-isotropic <<. \\
+    The approach given further follows closely the excellent text by Helgaker
+    >>REF<<, who calculates the integral elements in 3 dimensions.
+
+    Before we throw ourselves out into the integrals, let us first express the
+    Hermite-Gaussians in a more convenient way >> REF HELGAKER <<. The
+    Gaussians can be expressed as
+        \begin{equation}
+            g_n(\alpha;\blds{r},\blds{A}) = \prod_d  \prdp{A_{x_d}}{n_d}
+            \me^{-\alpha (x_d-A_d)^2} = \prod_d  \prdp{A_{x_d}}{n_d}
+            g_0(\alpha;\blds{r},\blds{A})
+        \end{equation}
+    Since the derivatives are with respect to the center variables we may pull
+    them out of the integration meaning the integrals will only be over s-type
+    Gaussians, greatly simplifying the calculations. With the mentioned
+    simplification in mind, the problem is to find a closed-form expression for
+    the integrals over s-type Gaussians. We proceed with the overlap element first.
+
+    Since we only work with s-types when integrating we introduce a new notation
+        \begin{equation}
+            \begin{aligned}
+                \bra{A}\hat{O}\ket{B} &\equiv \int g_0(\alpha,\blds{r},\blds{A})
+                \hat{O} g_0(\beta,\blds{r},\blds{B}) \md\blds{r}\\
+                \bra{AB}\hat{O}\ket{CD} &\equiv \int
+                g_0(\alpha,\blds{r_1},\blds{A})g_0(\beta,\blds{r_2},\blds{B})
+                \hat{O} g_0(\gamma,\blds{r_1},\blds{C})
+                g_0(\delta,\blds{r_2},\blds{D}) \md\blds{r_1} \md\blds{r_2}\\
+            \end{aligned}
+        \end{equation}
+
+    We also introduce the \txtit{Gaussian product rule}\footnote{Still in the
+    isotropic case.} which basically states that the product of two Gaussian
+    functions is just a third Gaussian centered between the center of the two.
+    The expressions give
+        \begin{equation}
+                g_0(\alpha;\blds{r},\blds{A})g_0(\beta;\blds{r},\blds{B}) =
+                K_{AB}\exp(-(\alpha+\beta)\blds{r}^2_s)
+        \end{equation}
+    where
+        \begin{equation}
+            \begin{aligned}
+                K_{AB} &\equiv \exp(-\frac{\alpha\beta}{\alpha+\beta}R^2_{AB})
+                \\
+                R_{AB} &= \abs{\blds{A} - \blds{B}} \\
+            \end{aligned}
+        \end{equation}
+    the vector $\blds{r}_S$ is just somewhere between $\blds{A}$ and
+    $\blds{B}$\footnote{We will see that $r_S$ disappears when the integration
+    is done.}.
+
+    With The simplification to s-types and the product rule we can start with
+    calculating the integrals. We start with the overlap $\braket{A}{B}$
