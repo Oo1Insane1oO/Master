@@ -18,3 +18,27 @@
         \end{align}
     We dont contract the expressions further in favor of reusing the
     normalization factors.
+
+\section{Derivative of Energy and Variance}
+    The derivative with respect to a general variational parameter $\alpha$ of
+    the energy expectation value $\ecp{E}$ is
+        \begin{align}
+            \prd{\alpha}[\ecp{E}] &= 2\ecp{\frac{E_L}{\psi}\prd{\alpha}[\psi]}
+            + \ecp{\prd{\alpha}[E_L]} -
+            2\ecp{\frac{\ecp{E}}{\psi}\prd{\alpha}[\psi]} \nonumber \\
+            &= 2\left(\ecp{\frac{E_L}{\psi}\prd{\alpha}[\psi]} -
+            \ecp{E}\ecp{\frac{1}{\psi}\prd{\alpha}[\psi]}\right)
+        \end{align}
+    by using the hermiticity of the Hamiltonian (contained in the local energy
+    $E_L$). \\
+    The derivative of the variance is >> REF THIS STARTER <<
+        \begin{align}
+            \prd{\alpha}[\sigma^2] &= 2\ecp{\left(\prd{\alpha}[E_L] -
+            \prd{\alpha}[\ecp{E}]\right) \left(E_L - \ecp{E}\right)} \nonumber
+            \\
+            &= 2\left(\ecp{E_L\prd{\alpha}[E_L]} -
+            \ecp{E}\ecp{\prd{\alpha}[E_L]} +
+            \ecp{\prd{\alpha}[\ecp{E}]\left(\ecp{E} - E_L\right)}\right)
+            \nonumber \\
+            &= 2\ecp{E}\left(\prd{\alpha}[\ecp{E}] - 1\right)
+        \end{align}
