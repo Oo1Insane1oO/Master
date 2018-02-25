@@ -135,7 +135,7 @@
     where $\md\blds{r}$ means integration over all dimensions and with the
     $g$'s being the usual \txtit{Hermite-Gaussians} defined as
         \begin{equation}
-            g_n(\alpha;\blds{r},\blds{A}) = \prod_d \alpha^{n_d}(x_d-A_d)^{n_d}
+            g_n(\alpha;\blds{r},\blds{A}) = \prod_d (x_d-A_d)^{n_d}
             \me^{-\alpha (x_d-A_d)^2}
         \end{equation}
     We will in this chapter limit ourselves to work with isotropic gaussians
@@ -149,7 +149,7 @@
     Gaussians can be expressed as
         \begin{equation}
             g_n(\alpha;\blds{r},\blds{A}) = \prod_d  \prdp{A_{x_d}}{n_d}
-            \me^{-\alpha (x_d-A_d)^2} = \prod_d  \prdp{A_{x_d}}{n_d}
+            \me^{-\alpha (x_d-A_d)^2} = \prod_d \prdp{A_{x_d}}{n_d}
             g_0(\alpha;\blds{r},\blds{A})
         \end{equation}
     Since the derivatives are with respect to the center variables we may pull
@@ -241,4 +241,22 @@
 
     The third integral with the Laplacian operator arises in the kinetic part
     of the Hamiltonian. This integral can be expressed in terms of
-    \Arf{eq:stypeOverlap}, the overlap integral.
+    \Arf{eq:stypeOverlap}, the overlap integral, however the Laplacian applied
+    to a Hermite-Gaussian has to be calculated first
+        \begin{align}
+            \nabla^2 g_i(\alpha;\blds{r},\blds{A}) &= \sum_d \prd{x_d}[][2]
+            \left(\prod_{d'} \left(x - A_{d'}\right)^{i_{d'}}_{d'} \exp(-\alpha
+            \left(x_{d'} - A_{d'}\right)^2)\right)\nonumber \\
+            &= \sum_d \prod_{d'\neq d} g_{i,d'} \prd{x_d}[][2]\left(\left(x_d -
+            A_d\right)^{i_d} \exp(-\alpha \left(x_d - A_d\right)^2)\right)
+            \nonumber \\
+            &= \sum_d \prod_{d'\neq d} g_{i,d'} g_{i,d}
+            \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
+            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \nonumber
+            \\
+            &= g_i(\alpha;,\blds{r},\blds{A})\sum_d 
+            \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
+            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right)
+        \end{align}
