@@ -122,7 +122,7 @@
             \begin{aligned}
                 \braket{i}{j} &= \infint g_i(\alpha_i;r,A)g_j(\alpha_j;r,B) \md
                 \blds{r} \\
-                \bra{i}r^k\ket{j} &= \infint g_i(\alpha_i;r,A) r^k
+                \bra{i}x^k_d\ket{j} &= \infint g_i(\alpha_i;r,A) r^k
                 g_j(\alpha_j;r,B) \md \blds{r} \\
                 \bra{i}\nabla^2\ket{j} &= \infint g_i(\alpha_i;r,A)\nabla^2
                 g_j(\alpha_j;r,B) \md \blds{r} \\
@@ -161,22 +161,23 @@
     Since we only work with s-types when integrating we introduce a new notation
         \begin{equation}
             \begin{aligned}
-                \bra{A}\hat{O}\ket{B} &\equiv \int g_0(\alpha,\blds{r},\blds{A})
-                \hat{O} g_0(\beta,\blds{r},\blds{B}) \md\blds{r}\\
+                \bra{A}\hat{O}\ket{B} &\equiv \int g_0(\alpha;\blds{r},\blds{A})
+                \hat{O} g_0(\beta;\blds{r},\blds{B}) \md\blds{r}\\
                 \bra{AB}\hat{O}\ket{CD} &\equiv \int
-                g_0(\alpha,\blds{r_1},\blds{A})g_0(\beta,\blds{r_2},\blds{B})
-                \hat{O} g_0(\gamma,\blds{r_1},\blds{C})
-                g_0(\delta,\blds{r_2},\blds{D}) \md\blds{r_1} \md\blds{r_2}\\
+                g_0(\alpha;\blds{r_1},\blds{A})g_0(\beta;\blds{r_2},\blds{B})
+                \hat{O} g_0(\gamma;\blds{r_1},\blds{C})
+                g_0(\delta;\blds{r_2},\blds{D}) \md\blds{r_1} \md\blds{r_2}\\
             \end{aligned}
         \end{equation}
-
+    with $\hat{O}$ being 
     We also introduce the \txtit{Gaussian product rule}\footnote{Still in the
     isotropic case.} which basically states that the product of two Gaussian
     functions is just a third Gaussian centered between the center of the two.
     The expressions give
         \begin{equation}
-                g_0(\alpha;\blds{r},\blds{A})g_0(\beta;\blds{r},\blds{B}) =
-                K_{AB}\exp(-(\alpha+\beta)\blds{r}^2_s)
+            g_0(\alpha;\blds{r},\blds{A})g_0(\beta;\blds{r},\blds{B}) =
+            K_{AB}\exp(-(\alpha+\beta)\blds{r}^2_s)
+            \label{eq:gaussianProductRule}
         \end{equation}
     where
         \begin{equation}
@@ -184,11 +185,60 @@
                 K_{AB} &\equiv \exp(-\frac{\alpha\beta}{\alpha+\beta}R^2_{AB})
                 \\
                 R_{AB} &= \abs{\blds{A} - \blds{B}} \\
+                \blds{r_s} &= \blds{r} - \blds{P} \\
+                \blds{P} &= \frac{\alpha(\blds{r}-\blds{A}) +
+                \beta(\blds{r}-\blds{B})}{\alpha + \beta}
             \end{aligned}
         \end{equation}
     the vector $\blds{r}_S$ is just somewhere between $\blds{A}$ and
-    $\blds{B}$\footnote{We will see that $r_S$ disappears when the integration
-    is done.}.
+    $\blds{B}$(We will see that $r_S$ disappears when the integration is done).
+    The Gaussian product rule greatly simplifies the integral over two Gaussian
+    functions since we can just pull $K_{AB}$ out of the integration since it
+    is a constant.
 
-    With The simplification to s-types and the product rule we can start with
-    calculating the integrals. We start with the overlap $\braket{A}{B}$
+    With The simplification to s-types and the product rule, the integration
+    may begin. Starting with the overlap $\braket{A}{B}$ and applying the
+    Gaussian product rule(\Arf{eq:gaussianProductRule}) \footnote{And using the
+    following integral $\infint \me^{-\lambda x^2} =
+    \sqrt{\frac{\pi}{\lambda}},\indent \lambda>0$. >>REF ROTTMANN<<}
+        \begin{align}
+            \braket{A}{B} &= \infint g_0(\alpha;\blds{r},\blds{A})
+            g_0(\beta;\blds{r},\blds{B}) \md\blds{r} \nonumber \\
+            &= K_{AB}\infint \exp(-(\alpha+\beta)\blds{r}^2_s) \md \blds{r}
+            \nonumber \\
+            &= K_{AB} \left(\frac{\pi}{\alpha+\beta}\right)^{\frac{d}{2}}
+            \label{eq:stypeOverlap}
+        \end{align}
+    The power $d/2$ comes from splitting the integral into the $d$ dimensions.
+    The component-wise factors from the splitting are also substituted(i.e
+    $u=x-P_x$)
+
+    The second integral with the $x^k_d$ part shows up in the external
+    potential part of the Hamiltonian and again with the Gaussian product rule
+    the expression gives
+        \begin{align}
+            \bra{A}x^k_d\ket{B} &= \infint g_0(\alpha_i;r,A) x^k_d
+            g_0(\alpha_j;r,B) \md \blds{r} \nonumber \\
+            &= K_{AB} \infint x^k_d \exp(-(\alpha+\beta)\blds{r}^2_s)
+            \md\blds{r} \nonumber \\
+            &= K_{AB} \left(\frac{\pi}{\alpha+\beta}\right)^{\frac{D-1}{2}}
+            \infint (u+P_d)^k\exp(-(\alpha+\beta)u^2) \md u \nonumber \\
+            &= K_{AB} \left(\frac{\pi}{\alpha+\beta}\right)^{\frac{D-1}{2}}
+            \sum\limits_{l=0}^k {k\choose l} P^{k-l}_d \infint
+            u^l\exp(-(\alpha+\beta)u^2) \md u \nonumber \\
+            &= K_{AB} \left(\frac{\pi}{\alpha+\beta}\right)^{\frac{D-1}{2}}
+            \sum\limits_{l=0}^k {k\choose l}
+            \frac{P^{k-l}_d}{2(\alpha+\beta)^{\frac{l}{2}}}
+            \left((-1)^l+1\right) \Gamma\left(\frac{l+1}{2}\right)
+        \end{align}
+    The integrals are split in each dimension and the dimensions not equal to
+    $d$(in $x^k_d$) are pulled out and the approach in \Arf{eq:stypeOverlap} is
+    applied. The integral over dimension $d$ is then substituted with
+    $u=x_d+P_d$. In line four $(u+P_d)^k$ is rewritten with the \txtit{binomial
+    expansion}\footnote{The integral $\infint x^n\me^{-ax^2}\md x =
+    \frac{1}{2}a^{-\frac{n}{2}}\Gamma\left(\frac{k+1}{2}\right),\indent n>-1,
+    n\;\text{even}$, >> REF THIS <<< is used as well.}.
+
+    The third integral with the Laplacian operator arises in the kinetic part
+    of the Hamiltonian. This integral can be expressed in terms of
+    \Arf{eq:stypeOverlap}, the overlap integral.
