@@ -137,6 +137,7 @@
         \begin{equation}
             g_n(\alpha;\blds{r},\blds{A}) = \prod_d (x_d-A_d)^{n_d}
             \me^{-\alpha (x_d-A_d)^2}
+            \label{eq:hermiteGauss2}
         \end{equation}
     We will in this chapter limit ourselves to work with isotropic gaussians
     (meaning $\alpha_d$ is the same for all dimensions) as this will yield a
@@ -266,6 +267,7 @@
             \md\blds{r} \nonumber \\
             &= \sum_d\prod_{d'\neq d}
             \bra{i_{d'}}\sigma_{d'}(S_d(\beta;x-B_d))\ket{j_{d'}}
+            \label{eq:laplacianIntegral}
         \end{align}
     with
         \begin{equation}
@@ -284,6 +286,69 @@
     meaning the Laplacian integral can be expressed in terms of the overlap
     integrals $\braket{i}{j+2}$, $\braket{i}{j}$ and
     $\braket{i,i-2}$\footnote{Since $xg_i=g_{i+1}$ and
-    $\frac{g_i}{x}=g_{i-1}$.}.
+    $\frac{g_i}{x}=g_{i-1}$.}. Notice also that the expression in
+    \Arf{eq:laplacianIntegral} is over two Hermite-Gaussians. \\
 
-    Lastly, the troublesome Coulomb integral needs to be calculated.
+    Lastly, the troublesome\footnote{Damn inverse term prevents dimensional
+    decomposition.} Coulomb integral needs to be calculated. Due to the $1/r$
+    term we cannot split the integral in each respective dimension as
+    previously. Before we approach the full Coulomb integral, lets calculate a
+    simpler integral over a so-called \txtit{one-electron distribution}
+        \begin{equation}
+            \infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
+            \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r}
+        \end{equation}
+    The calculation of this integral will be beneficial for the calculation of
+    the Coulomb integral as we can reuse most of the tricks used. With
+    \Arf{eq:gaussianProductRule}, the Gaussian product rule, in mind. We
+    rewrite the inverse term with
+        \begin{equation}
+            \infint \me^{r^2_B t^2} \md t = \frac{\sqrt{\pi}}{r_B} \Rarr
+            \frac{1}{r_B} = \frac{1}{\sqrt{\pi}} \infint \me^{r^2_Bt^2} \md t
+            \label{eq:onelectronTrick1}
+        \end{equation}
+    The one-electron integral is thus, with \Arf{eq:gaussianProductRule}(again
+    the product rule)
+        \begin{align}
+            \infint\infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
+            \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r} &=
+            \frac{1}{\sqrt{\pi}}\infint \me^{-\alpha\left(\blds{r} -
+            \blds{A}\right)^2} \me^{t^2(\blds{r} - \blds{B})^2} \md\blds{r} \md
+            t \nonumber \\
+            &= \frac{1}{\sqrt{\pi}} \infint\infint \me^{-\frac{\alpha
+            t^2}{\alpha + t^2}\left(\blds{A} - \blds{B}\right)^2}
+            \me^{-(\alpha+t^2)r^2_S} \md\blds{r} \md t \nonumber \\
+            &= \frac{1}{\sqrt{\pi}} \infint \left(\frac{\pi}{\alpha +
+            t^2}\right)^{\frac{d}{2}} \me^{-\frac{\alpha t^2}{\alpha +
+            t^2}\left(\blds{A} - \blds{B}\right)^2} \md t
+        \end{align}
+    The integral over $t$ has to be addressed separately for two- and three
+    dimensions. For the three-dimensional case the reader is referred to >> REF
+    HELGAKER <<. Here we will derive a closed-form form expression for the
+    two-dimensional case. First let us use the following substitution
+        \begin{equation}
+            \begin{aligned}
+                u &= \frac{t}{\sqrt{\alpha+t^2}} \\
+                t &= u\sqrt{\frac{\alpha}{1-u^2}} \\
+                \frac{\md u}{\md t} &= \frac{\alpha}{(\alpha + t^2)^{\frac{3}{2}}} \\
+                \lim\limits_{t\rarr -\infty} u(t) &= -1 \\
+                \lim\limits_{t\rarr \infty} u(t) &= 1 \\
+            \end{aligned}
+        \end{equation}
+    The integrand(ignoring the exponential part) is then
+        \begin{align}
+            \frac{\md t}{\alpha + t^2} &= \frac{1}{\alpha + t^2} \frac{(\alpha +
+            t^2)^{\frac{3}{2}}}{\alpha} \nonumber \\
+            &= \frac{\sqrt{\alpha + t^2}}{\alpha} \nonumber \\
+            &= \frac{t}{\alpha u} \nonumber \\
+            &= \frac{1}{\alpha u} u\sqrt{\frac{1}{1-u^2}} \nonumber \\
+            &= \frac{1}{\alpha}\sqrt{\frac{1}{1-u^2}}
+        \end{align}
+    giving
+        \begin{align}
+            I_{\text{2D}} = \frac{1}{\alpha}\int\limits^1_{-1}
+            \frac{1}{\sqrt{1-u^2}} \me^{-\alpha u^2\abs{\blds{A} - \blds{B}}^2}
+            \md u
+            \label{eq:oneElectron2D}
+        \end{align}
+    This integral must be solved numerically. One can also rewrite this in terms of the \txtit{Modified Bessel function of first kind} by using $u^2=1/2(1 - \cos(\theta)$.
