@@ -152,6 +152,7 @@
             g_n(\alpha;\blds{r},\blds{A}) = \prod_d  \prdp{A_{x_d}}{n_d}
             \me^{-\alpha (x_d-A_d)^2} = \prod_d \prdp{A_{x_d}}{n_d}
             g_0(\alpha;\blds{r},\blds{A})
+            \label{eq:centerDerGauss}
         \end{equation}
     Since the derivatives are with respect to the center variables we may pull
     them out of the integration meaning the integrals will only be over s-type
@@ -197,6 +198,7 @@
     functions since we can just pull $K_{AB}$ out of the integration since it
     is a constant.
 
+\subsection{Overlap Integral}
     With The simplification to s-types and the product rule, the integration
     may begin. Starting with the overlap $\braket{A}{B}$ and applying the
     Gaussian product rule(\Arf{eq:gaussianProductRule}) \footnote{And using the
@@ -214,6 +216,7 @@
     The component-wise factors from the splitting are also substituted(i.e
     $u=x-P_x$)
 
+\subsection{Potential Integral}
     The second integral with the $x^k_d$ part shows up in the external
     potential part of the Hamiltonian and again with the Gaussian product rule
     the expression gives
@@ -240,6 +243,7 @@
     \frac{1}{2}a^{-\frac{n}{2}}\Gamma\left(\frac{k+1}{2}\right),\indent n>-1,
     n\;\text{even}$, >> REF THIS <<< is used as well.}.
 
+\subsection{Laplacian Integral}
     The third integral with the Laplacian operator arises in the kinetic part
     of the Hamiltonian. This integral can be expressed in terms of
     \Arf{eq:stypeOverlap}, the overlap integral, however the Laplacian applied
@@ -287,13 +291,14 @@
     integrals $\braket{i}{j+2}$, $\braket{i}{j}$ and
     $\braket{i,i-2}$\footnote{Since $xg_i=g_{i+1}$ and
     $\frac{g_i}{x}=g_{i-1}$.}. Notice also that the expression in
-    \Arf{eq:laplacianIntegral} is over two Hermite-Gaussians. \\
+    \Arf{eq:laplacianIntegral} is over two Hermite-Gaussians.
 
+\subsection{Coulomb Potential Integral}
     Lastly, the troublesome\footnote{Damn inverse term prevents dimensional
     decomposition.} Coulomb integral needs to be calculated. Due to the $1/r$
     term we cannot split the integral in each respective dimension as
     previously. Before we approach the full Coulomb integral, lets calculate a
-    simpler integral over a so-called \txtit{one-electron distribution}
+    simpler integral over a so-called \txtit{Coulomb Potential distribution}
         \begin{equation}
             \infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
             \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r}
@@ -307,8 +312,8 @@
             \frac{1}{r_B} = \frac{1}{\sqrt{\pi}} \infint \me^{r^2_Bt^2} \md t
             \label{eq:onelectronTrick1}
         \end{equation}
-    The one-electron integral is thus, with \Arf{eq:gaussianProductRule}(again
-    the product rule)
+    The Coulomb potential integral is thus, with
+    \Arf{eq:gaussianProductRule}(again the product rule)
         \begin{align}
             \infint\infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
             \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r} &=
@@ -351,4 +356,92 @@
             \md u
             \label{eq:oneElectron2D}
         \end{align}
-    This integral must be solved numerically. One can also rewrite this in terms of the \txtit{Modified Bessel function of first kind} by using $u^2=1/2(1 - \cos(\theta)$.
+    This integral must be solved numerically. One can also rewrite this in
+    terms of the \txtit{Modified Bessel function of first kind} by using
+    $u^2=1/2(1 - \cos(\theta)$ >> REF WOLFRAM(MATHWORKS) <<. From
+    \Arf{eq:centerDerGauss}, the integrals have to be differentiated in order
+    to get the final closed form expressions. Following >>REF HELGAKER<<, we
+    proceed with finding a similar recurrence relation for the derivatives. We
+    define a function containing the integral which needs to be solved
+    numerically
+        \begin{equation}
+            \begin{aligned}
+                \zeta_n(x) &\equiv \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+                u^2}} \me^{-u^2x} \md u \\
+                \prd{x}[\zeta_n] &= \zeta_{n+1}
+            \end{aligned}
+            \label{eq:zetaDef}
+        \end{equation}
+    The Coulomb potential integral is then, in terms of $\zeta_n(x)$
+        \begin{equation}
+            \twoDI = \frac{1}{\alpha} \zeta_0\left(\alpha R^2_{AB}\right)
+        \end{equation}
+    and the first derivative with respect to $A_x$ is
+        \begin{align}
+            \prd{A_x}[\twoDI] &= \frac{1}{\alpha} \prd{A_x}
+            \zeta_0\left(\alpha R^2_{AB}\right) \nonumber \\
+            &= 2X_{AB}\zeta_1\left(\alpha R^2_{AB}\right)
+        \end{align}
+    With this we define an auxiliary function
+        \begin{equation}
+            \begin{aligned}
+                \xi^n_{tu} &=\prdp{A_x}{t}\prdp{A_y}{u} \xi^n_{00} \\
+                \xi^n_{00} &= (-2)^n\alpha^{n-1} \zeta_n\left(\alpha
+                \xi^2_{AB}\right)
+            \end{aligned}
+        \end{equation}
+    and take a look at the incrementation of $t$
+        \begin{align}
+            \xi^n_{t+1,u} &= \prdp{A_x}{t}\prdp{A_y}{u} \prd{A_x}[\xi^n_{00}]
+            \nonumber \\
+            &= \prdp{A_x}{t}X_{AB}\xi^{n+1}_{0u}
+            \label{eq:Rtincr}
+        \end{align}
+    Using the commutator between
+    $\prtl^t_{A_x}$\footnote{$\prtl^t_x=\prd{x}[][t]$}
+        \begin{align}
+            \prd{A_x}[][t] X_{AB} &= \left[\prd{A_x}[][t], X_{AB}\right] +
+            X_{AB}\prd{A_x}[][t] \nonumber \\
+            &= t\prd{A_x}[][t-1] + X_{AB}\prd{A_x}[][t]
+        \end{align}
+    the final form of \Arf{eq:Rtincr} is\footnote{The incrementation of $u$ is
+    derived in the exact same manner as with $t$.}
+        \begin{equation}
+            \begin{aligned}
+                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u}
+            \end{aligned}
+        \end{equation}
+    With this all Hermite integrals of order $t+u\leq N$ can be calculated from
+    $\zeta$ of order $n\leq N$, the only difference being $X_{AB}$ and $Y_{AB}$.
+
+\subsection{Coulomb Distribution Integral}
+    With the derived expressions for the Coulomb potential integral the full
+    two-body distribution can be treated. The expression with the
+    simplification in \Arf{eq:centerDerGauss} gives(still in two dimensions)
+        \begin{align}
+            \bra{ij}\frac{1}{r_{12}}\ket{kl} &= \prtl^{ijkl}_{ABCD}
+            \bra{AB}\frac{1}{r_{12}}\ket{CD} \nonumber \\
+            &= \prtl^{ijkl}_{ABCD} \infint\infint
+            \me^{-\alpha(\blds{r_1}-\blds{A})}
+            \me^{-\beta(\blds{r_2}-\blds{B})} \frac{1}{r_{12}}
+            \me^{-\gamma(\blds{r_1}-\blds{C})}
+            \me^{-\delta(\blds{r_2}-\blds{D})} \md\blds{r_1}\md\blds{r_2}
+            \nonumber \\
+            &= \prtl^{ijkl}_{ABCD} \infint\infint\infint K_{AC}K_{BD}
+            \me^{-(\alpha+\gamma)r^2_{1S}}\me^{-(\beta+\delta)r^2_{2P}}
+            \me^{r^2_{12}t^2} \md\blds{r_1}\md\blds{r_2} \md t \nonumber \\
+            &= \prtl^{ijkl}_{ABCD} \infint\infint\infint
+            K_{AC}K_{BD}K_S(t,\blds{r_2}) \me^{-(\alpha+\gamma+t^2)r^2_{St}}
+            \me^{-(\beta+\delta)r^2_{2P}} \md\blds{r_1}\md\blds{r_2} \md t
+            \nonumber \\
+            &= \prtl^{ijkl}_{ABCD} \infint\infint\infint K_{AC}K_{BD}K_S(t)
+            \frac{\pi}{\alpha+\gamma+t^2} \me^{-(\beta+\delta)r^2_{2P}}
+            \md\blds{r_2} \md t
+        \end{align}
+    using the notation
+    \begin{equation}
+             \prtl^{ijkl}_{ABCD} = \prdp{A_x}{i_x}\prdp{A_y}{i_y}
+             \prdp{B_x}{j_x}\prdp{B_y}{j_y} \prdp{C_x}{k_x}\prdp{C_y}{k_y}
+             \prdp{D_x}{l_x}\prdp{B_y}{l_y}
+    \end{equation}
