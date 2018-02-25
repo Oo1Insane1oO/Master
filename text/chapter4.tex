@@ -255,8 +255,35 @@
             2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
             i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \nonumber
             \\
-            &= g_i(\alpha;,\blds{r},\blds{A})\sum_d 
-            \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+            &= g_i\sum_d \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
             2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
             i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right)
         \end{align}
+    Now for the integral we have
+        \begin{align}
+            \bra{i}\nabla^2\ket{j} &= \infint
+            g_i(\alpha;\blds{r},\blds{A})\nabla^2g_j(\beta;\blds{r},\blds{B}) 
+            \md\blds{r} \nonumber \\
+            &= \sum_d\prod_{d'\neq d}
+            \bra{i_{d'}}\sigma_{d'}(S_d(\beta;x-B_d))\ket{j_{d'}}
+        \end{align}
+    with
+        \begin{equation}
+            \begin{aligned}
+                S_d(\alpha;x_d-A_d) &\equiv
+                \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+                2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
+                i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \\
+                \sigma_d(S_d) &\equiv \left\{\begin{matrix}
+                                            1,&\indent d' \neq d \\
+                                            S_d,&\indent d' = d
+                                            \end{matrix}
+                                        \right.
+            \end{aligned}
+        \end{equation}
+    meaning the Laplacian integral can be expressed in terms of the overlap
+    integrals $\braket{i}{j+2}$, $\braket{i}{j}$ and
+    $\braket{i,i-2}$\footnote{Since $xg_i=g_{i+1}$ and
+    $\frac{g_i}{x}=g_{i-1}$.}.
+
+    Lastly, the troublesome Coulomb integral needs to be calculated.
