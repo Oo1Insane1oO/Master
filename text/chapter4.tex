@@ -340,6 +340,7 @@
                 \lim\limits_{t\rarr -\infty} u(t) &= -1 \\
                 \lim\limits_{t\rarr \infty} u(t) &= 1 \\
             \end{aligned}
+            \label{eq:uSubs1}
         \end{equation}
     The integrand(ignoring the exponential part) is then
         \begin{align}
@@ -357,7 +358,8 @@
             \md u
             \label{eq:oneElectron2D}
         \end{align}
-    and for the three-dimensional case we have a simpler form
+    and for the three-dimensional case we have a simpler form(easily seen with
+    the same substitution)
         \begin{align}
             I_{\text{3D}} = \frac{1}{\alpha}\int\limits^1_{-1} \me^{-\alpha
             u^2\abs{\blds{A} - \blds{B}}^2} \md u
@@ -366,35 +368,107 @@
     These integrals must be solved numerically. One can also rewrite the
     2D-integral in terms of the \txtit{Modified Bessel function of first kind}
     by using $u^2=1/2(1 - \cos(\theta)$ >> REF WOLFRAM(MATHWORKS) <<. The
-    3D-integral can rewritten with an \txtit{incomplete Gamma function} >>REF
-    HELGAKER<<. From \Arf{eq:centerDerGauss}, the integrals have to be
+    3D-integral can be rewritten with an \txtit{incomplete Gamma function}
+    >>REF HELGAKER<<. From \Arf{eq:centerDerGauss}, the integrals have to be
     differentiated in order to get the final closed form expressions, see
     \Arf{sub:445}.
 
 \subsection{Coulomb Interaction Integral}
-    In the previous an expression for integral over a Coulomb potential was
-    derived. Before we embark on a journey into the full Coulomb interaction
+    In the previous section an expression for integral over a Coulomb potential
+    was derived. Before we embark into handling the full Coulomb interaction
     integral, another exercise with simpler interaction integral is worthwhile.
     The integral in question is
         \begin{equation}
-            \infint \me^{-\alpha(\blds{r}-\blds{A})^2}
-            \me^{-\beta(\blds{r}-\blds{B})^2}
-            \frac{1}{\abs{\blds{r} - \blds{C}}} \md\blds{r}
+            I' = \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
+            \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
+            \blds{r}}} \md\blds{r} \md\blds{r'}
             \label{eq:coulombInteractionSimple}
         \end{equation}
     This is an interaction between two distributions. Firstly, notice that we
     can rewrite the distribution centered in $\blds{A}$ and the Coulomb
     interaction with the previously calculated Coulomb potential integral given
-    in \Arf{eq:coulombPotentialIntegral}. Using $I_D$ as a general label for
+    in \Arf{eq:coulombPotentialIntegral}. Using $I$ as a general label for
     \Arf{eq:oneElectron2D,eq:oneElectron3D} we have
+        \begin{align}
+            I' &= \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
+            \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
+            \blds{r}}} \md\blds{r} \md\blds{r'} \nonumber \\
+            &= \infint I_D(\alpha;\abs{\blds{r}-\blds{A}}) \me^{-\beta(\blds{r}
+            - \blds{B})^2} \md\blds{r}
+            \label{eq:Cintr1}
+        \end{align}
+    Inserting in the definition for $u$(the substitution in \Arf{eq:uSubs1})
+    and using the extremely useful Gaussian product rule for the product
+    between the distribution centered in $\blds{B}$ and the exponential factor
+    in $I$(which is the same for both the two- and three dimensional case) is
         \begin{equation}
-            \infint \me^{-\alpha(\blds{r}-\blds{A})^2}
-            \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r} -
-            \blds{C}}} \md\blds{r} = \infint
-            I_D(\alpha;\abs{\blds{A}-\blds{C}}) \me^{-\beta(\blds{r} -
-            \blds{B})^2} \md\blds{r}
+            \me^{-\alpha u^2(\blds{r}-\blds{A})^2} \me^{-\beta(\blds{r} -
+            \blds{B})^2} = \me^{-(\alpha u^2 + \beta)\blds{r_S}^2}
+            \me^{-\frac{\alpha u^2\beta}{\alpha u^2 + \beta}
+            (\blds{A}-\blds{B})^2}
         \end{equation}
-   
+    Inserting this into \Arf{eq:Cintr1} with
+        \begin{equation}
+            \upsilon \equiv \left\{
+                \begin{matrix}
+                    \frac{1}{\sqrt{1-u^2}},&\indent \text{2D} \\
+                    1,&\indent \text{3D}
+                \end{matrix}\right.
+        \end{equation}
+    we have
+        \begin{align}
+            I' &= \frac{1}{\alpha}\infint \int\limits^1_{-1} \upsilon \me^{-(\alpha u^2 +
+            \beta)\blds{r_S}^2} \me^{-\frac{\alpha u^2\beta}{\alpha u^2 +
+            \beta} (\blds{A}-\blds{B})^2} \md\blds{r}\md u \nonumber \\
+            &= \frac{1}{\alpha}\int\limits^1_{-1} \upsilon
+            \left(\frac{\pi}{\alpha u^2 + \beta}\right)^{\frac{d}{2}}
+            \me^{-\frac{\alpha u^2\beta}{\alpha u^2 +
+            \beta}(\blds{A}-\blds{B})^2} \md u
+        \end{align}
+    Specializing to the two-dimensional case and substituting
+        \begin{equation}
+            \begin{aligned}
+                v &= \frac{u}{\sqrt{\alpha u^2 + \beta}} \\
+                \frac{\md v}{\md u} &= \frac{\beta}{(\alpha u^2 + \beta)^{3/2}}
+                \\
+                u &= v \sqrt{\frac{\beta}{1 - \alpha v^2}} \\
+                v(-1) &= -\frac{1}{\sqrt{\alpha + \beta}} \\
+                v(1) &= \frac{1}{\sqrt{\alpha + \beta}}
+            \end{aligned}
+        \end{equation}
+    The integrand is
+        \begin{align}
+            \frac{1}{\sqrt{1 - u^2}} \frac{1}{\alpha u^2 + \beta} \md u &=
+            \frac{1}{\sqrt{1-u^2}} \frac{1}{\alpha u^2 + \beta} \frac{(\alpha
+            u^2 + \beta)^{3/2}}{\beta} \nonumber \\
+            &= \frac{1}{\sqrt{1-u^2}} \frac{u}{\beta v} \nonumber \\
+            &= \sqrt{\frac{1-\alpha v^2}{1-(\alpha+\beta)v^2}}\frac{1}{\beta
+            v}v\sqrt{\frac{\beta}{1-\alpha v^2}} \nonumber \\
+            &= \frac{1}{\sqrt{\beta}} \frac{1}{\sqrt{1 - (\alpha+\beta)v^2}}
+        \end{align}
+    making a final substitution
+        \begin{equation}
+            \begin{aligned}
+                s &= v\sqrt{\alpha+\beta} \\
+                \frac{\md s}{\md v} &= \sqrt{\alpha + \beta}\\
+                v &= \frac{s}{\sqrt{\alpha+\beta}} \\
+                s\left(-\frac{1}{\sqrt{\alpha+\beta}}\right) &= -1 \\
+                s\left(\frac{1}{\sqrt{\alpha+\beta}}\right) &= 1 \\
+            \end{aligned}
+        \end{equation}
+    we have
+        \begin{equation}
+            I'_{\text{2D}} = \frac{1}{\sqrt{\alpha\beta(\alpha+\beta)}}
+            \int\limits^{1}_{-1} \frac{1}{\sqrt{1 - s^2}}
+            \me^{-\frac{\alpha\beta}{\alpha + \beta}s^2(\blds{A}-\blds{B})^2}
+            \md s
+            \label{eq:coulombInteractionSimpleFinal}
+        \end{equation}
+    This expression will be of great use when calculating the final full
+    interaction integral over the Coulomb distribution. The next section will
+    derive the mentioned recurrence relation before the full Coulomb integral
+    is calculated
+
 \subsection{Recurrence Relation\label{sub:445}}
     Following >>REF HELGAKER<<, we proceed with finding a similar recurrence
     relation for the derivatives. We define a function containing the integral
@@ -422,7 +496,7 @@
             \begin{aligned}
                 \xi^n_{tu} &=\prdp{A_x}{t}\prdp{A_y}{u} \xi^n_{00} \\
                 \xi^n_{00} &= (-2)^n\alpha^{n-1} \zeta_n\left(\alpha
-                \xi^2_{AB}\right)
+                R^2_{AB}\right)
             \end{aligned}
         \end{equation}
     and take a look at the incrementation of $t$
@@ -448,7 +522,24 @@
             \end{aligned}
         \end{equation}
     With this all Hermite integrals of order $t+u\leq N$ can be calculated from
-    $\zeta$ of order $n\leq N$, the only difference being $X_{AB}$ and $Y_{AB}$.
+    $\zeta$ of order $n\leq N$, the only difference being $X_{AB}$ and
+    $Y_{AB}$. The Coulomb interaction integral
+    (\Arf{eq:coulombInteractionSimpleFinal}) follows this exact recurrence, but
+    with a difference proportionality factor $\alpha\beta/(\alpha+\beta)$. We
+    will write it out for the sake of clarity
+        \begin{equation}
+            \begin{aligned}
+                \prd{A_x}[I'_{\text{2D}}] &=
+                2X_{AB}\zeta_1\left(\frac{\alpha\beta}{\alpha+\beta}R^2_{AB}\right) \\
+                \xi^n_{00} &=
+                (-2)^n\left(\frac{\alpha\beta}{\alpha+\beta}\right)^{n-1}
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta}
+                R^2_{AB}\right)
+            \end{aligned}
+        \end{equation}
+    This concludes the pre-calculations needed in order to find a closed-form
+    expression for the Coulomb distribution integral. The next chapter will
+    handle that.
 
 \subsection{Coulomb Distribution Integral}
     With the derived expressions for the Coulomb potential integral the full
@@ -467,23 +558,26 @@
             K_{AC}K_{BD}
             \me^{-(\alpha+\gamma)r^2_{1S}}\me^{-(\beta+\delta)r^2_{2P}}
             \me^{r^2_{12}t^2} \md\blds{r_1}\md\blds{r_2} \md t \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} \frac{1}{\sqrt{\pi}}\infint\infint\infint
-            K_{AC}K_{BD}K_S(t,\blds{r_2}) \me^{-(\alpha+\gamma+t^2)r^2_{St}}
-            \me^{-(\beta+\delta)r^2_{2P}} \md\blds{r_1}\md\blds{r_2} \md t
-            \nonumber \\
-            &= \prtl^{ijkl}_{ABCD}
-            \frac{K_{AC}K_{BD}}{\sqrt{\pi}}\infint\infint K_S(t)
-            \frac{\pi}{\alpha+\gamma+t^2} \me^{-(\beta+\delta)r^2_{2P}}
-            \md\blds{r_2} \md t \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} K_{AC}K_{BD}\pi^{\frac{3}{2}}\infint
-            \frac{1}{\mu t^2 + \nu(\mu+t^2)} \me^{-\mu\nu\frac{t^2}{\mu t^2 +
-            \nu(\mu + t^2)}\left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2} \md t
-            \nonumber \\
-            &= \frac{\pi^{\frac{3}{2}}}{\mu\nu}\prtl^{ijkl}_{ABCD} K_{AC}K_{BD}
-            \int\limits^1_{-1} \frac{1}{\sqrt{1 - u^2}} \me^{-\mu\nu
-            \left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2 u^2} \md u \nonumber \\
-            &= \frac{\pi^{\frac{3}{2}}}{\mu\nu}\prtl^{ijkl}_{ABCD} K_{AC}K_{BD}
-            \zeta_0\left(\mu\nu\left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2\right)
+            &= \frac{1}{\sqrt{\pi}} \infint
+            I'_{2D}(\alpha,\gamma,\abs{\blds{r_2}- \blds{S}}) K_{BD}
+            \me^{-(\beta + \delta)r^2_2} \md\blds{r_2} \nonumber \\
+%             &= \prtl^{ijkl}_{ABCD} \frac{1}{\sqrt{\pi}}\infint\infint\infint
+%             K_{AC}K_{BD}K_S(t,\blds{r_2}) \me^{-(\alpha+\gamma+t^2)r^2_{St}}
+%             \me^{-(\beta+\delta)r^2_{2P}} \md\blds{r_1}\md\blds{r_2} \md t
+%             \nonumber \\
+%             &= \prtl^{ijkl}_{ABCD}
+%             \frac{K_{AC}K_{BD}}{\sqrt{\pi}}\infint\infint K_S(t)
+%             \frac{\pi}{\alpha+\gamma+t^2} \me^{-(\beta+\delta)r^2_{2P}}
+%             \md\blds{r_2} \md t \nonumber \\
+%             &= \prtl^{ijkl}_{ABCD} K_{AC}K_{BD}\pi^{\frac{3}{2}}\infint
+%             \frac{1}{\mu t^2 + \nu(\mu+t^2)} \me^{-\mu\nu\frac{t^2}{\mu t^2 +
+%             \nu(\mu + t^2)}\left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2} \md t
+%             \nonumber \\
+%             &= \frac{\pi^{\frac{3}{2}}}{\mu\nu}\prtl^{ijkl}_{ABCD} K_{AC}K_{BD}
+%             \int\limits^1_{-1} \frac{1}{\sqrt{1 - u^2}} \me^{-\mu\nu
+%             \left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2 u^2} \md u \nonumber \\
+%             &= \frac{\pi^{\frac{3}{2}}}{\mu\nu}\prtl^{ijkl}_{ABCD} K_{AC}K_{BD}
+%             \zeta_0\left(\mu\nu\left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2\right)
         \end{align}
     using the notation
         \begin{equation}
