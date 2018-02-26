@@ -326,6 +326,7 @@
             &= \frac{1}{\sqrt{\pi}} \infint \left(\frac{\pi}{\alpha +
             t^2}\right)^{\frac{d}{2}} \me^{-\frac{\alpha t^2}{\alpha +
             t^2}\left(\blds{A} - \blds{B}\right)^2} \md t
+            \label{eq:coulombPotentialIntegral}
         \end{align}
     The integral over $t$ has to be addressed separately for two- and three
     dimensions. For the three-dimensional case the reader is referred to >> REF
@@ -356,14 +357,48 @@
             \md u
             \label{eq:oneElectron2D}
         \end{align}
-    This integral must be solved numerically. One can also rewrite this in
-    terms of the \txtit{Modified Bessel function of first kind} by using
-    $u^2=1/2(1 - \cos(\theta)$ >> REF WOLFRAM(MATHWORKS) <<. From
-    \Arf{eq:centerDerGauss}, the integrals have to be differentiated in order
-    to get the final closed form expressions. Following >>REF HELGAKER<<, we
-    proceed with finding a similar recurrence relation for the derivatives. We
-    define a function containing the integral which needs to be solved
-    numerically
+    and for the three-dimensional case we have a simpler form
+        \begin{align}
+            I_{\text{3D}} = \frac{1}{\alpha}\int\limits^1_{-1} \me^{-\alpha
+            u^2\abs{\blds{A} - \blds{B}}^2} \md u
+            \label{eq:oneElectron3D}
+        \end{align}
+    These integrals must be solved numerically. One can also rewrite the
+    2D-integral in terms of the \txtit{Modified Bessel function of first kind}
+    by using $u^2=1/2(1 - \cos(\theta)$ >> REF WOLFRAM(MATHWORKS) <<. The
+    3D-integral can rewritten with an \txtit{incomplete Gamma function} >>REF
+    HELGAKER<<. From \Arf{eq:centerDerGauss}, the integrals have to be
+    differentiated in order to get the final closed form expressions, see
+    \Arf{sub:445}.
+
+\subsection{Coulomb Interaction Integral}
+    In the previous an expression for integral over a Coulomb potential was
+    derived. Before we embark on a journey into the full Coulomb interaction
+    integral, another exercise with simpler interaction integral is worthwhile.
+    The integral in question is
+        \begin{equation}
+            \infint \me^{-\alpha(\blds{r}-\blds{A})^2}
+            \me^{-\beta(\blds{r}-\blds{B})^2}
+            \frac{1}{\abs{\blds{r} - \blds{C}}} \md\blds{r}
+            \label{eq:coulombInteractionSimple}
+        \end{equation}
+    This is an interaction between two distributions. Firstly, notice that we
+    can rewrite the distribution centered in $\blds{A}$ and the Coulomb
+    interaction with the previously calculated Coulomb potential integral given
+    in \Arf{eq:coulombPotentialIntegral}. Using $I_D$ as a general label for
+    \Arf{eq:oneElectron2D,eq:oneElectron3D} we have
+        \begin{equation}
+            \infint \me^{-\alpha(\blds{r}-\blds{A})^2}
+            \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r} -
+            \blds{C}}} \md\blds{r} = \infint
+            I_D(\alpha;\abs{\blds{A}-\blds{C}}) \me^{-\beta(\blds{r} -
+            \blds{B})^2} \md\blds{r}
+        \end{equation}
+   
+\subsection{Recurrence Relation\label{sub:445}}
+    Following >>REF HELGAKER<<, we proceed with finding a similar recurrence
+    relation for the derivatives. We define a function containing the integral
+    which needs to be solved numerically
         \begin{equation}
             \begin{aligned}
                 \zeta_n(x) &\equiv \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
@@ -428,20 +463,44 @@
             \me^{-\gamma(\blds{r_1}-\blds{C})}
             \me^{-\delta(\blds{r_2}-\blds{D})} \md\blds{r_1}\md\blds{r_2}
             \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} \infint\infint\infint K_{AC}K_{BD}
+            &= \prtl^{ijkl}_{ABCD} \frac{1}{\sqrt{\pi}}\infint\infint\infint
+            K_{AC}K_{BD}
             \me^{-(\alpha+\gamma)r^2_{1S}}\me^{-(\beta+\delta)r^2_{2P}}
             \me^{r^2_{12}t^2} \md\blds{r_1}\md\blds{r_2} \md t \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} \infint\infint\infint
+            &= \prtl^{ijkl}_{ABCD} \frac{1}{\sqrt{\pi}}\infint\infint\infint
             K_{AC}K_{BD}K_S(t,\blds{r_2}) \me^{-(\alpha+\gamma+t^2)r^2_{St}}
             \me^{-(\beta+\delta)r^2_{2P}} \md\blds{r_1}\md\blds{r_2} \md t
             \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} \infint\infint\infint K_{AC}K_{BD}K_S(t)
+            &= \prtl^{ijkl}_{ABCD}
+            \frac{K_{AC}K_{BD}}{\sqrt{\pi}}\infint\infint K_S(t)
             \frac{\pi}{\alpha+\gamma+t^2} \me^{-(\beta+\delta)r^2_{2P}}
-            \md\blds{r_2} \md t
+            \md\blds{r_2} \md t \nonumber \\
+            &= \prtl^{ijkl}_{ABCD} K_{AC}K_{BD}\pi^{\frac{3}{2}}\infint
+            \frac{1}{\mu t^2 + \nu(\mu+t^2)} \me^{-\mu\nu\frac{t^2}{\mu t^2 +
+            \nu(\mu + t^2)}\left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2} \md t
+            \nonumber \\
+            &= \frac{\pi^{\frac{3}{2}}}{\mu\nu}\prtl^{ijkl}_{ABCD} K_{AC}K_{BD}
+            \int\limits^1_{-1} \frac{1}{\sqrt{1 - u^2}} \me^{-\mu\nu
+            \left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2 u^2} \md u \nonumber \\
+            &= \frac{\pi^{\frac{3}{2}}}{\mu\nu}\prtl^{ijkl}_{ABCD} K_{AC}K_{BD}
+            \zeta_0\left(\mu\nu\left(\blds{R_{AC}}+\blds{R_{BD}}\right)^2\right)
         \end{align}
     using the notation
-    \begin{equation}
-             \prtl^{ijkl}_{ABCD} = \prdp{A_x}{i_x}\prdp{A_y}{i_y}
-             \prdp{B_x}{j_x}\prdp{B_y}{j_y} \prdp{C_x}{k_x}\prdp{C_y}{k_y}
-             \prdp{D_x}{l_x}\prdp{B_y}{l_y}
-    \end{equation}
+        \begin{equation}
+                 \prtl^{ijkl}_{ABCD} = \prdp{A_x}{i_x}\prdp{A_y}{i_y}
+                 \prdp{B_x}{j_x}\prdp{B_y}{j_y} \prdp{C_x}{k_x}\prdp{C_y}{k_y}
+                 \prdp{D_x}{l_x}\prdp{B_y}{l_y}
+        \end{equation}
+    defining
+        \begin{equation}
+            \begin{aligned}
+                \mu &\equiv \alpha + \gamma \\
+                \nu &\equiv \beta + \delta \\
+                \blds{R_{AC}} &= \alpha\blds{A} - \gamma\blds{C} \\
+                \blds{R_{BD}} &= \beta\blds{B} - \delta\blds{D} \\
+            \end{aligned}
+        \end{equation}
+    and using the substitution
+        \begin{equation}
+            u = \frac{t}{\mu t^2 + \nu(\mu + t^2)}
+        \end{equation}
