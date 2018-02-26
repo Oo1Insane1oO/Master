@@ -353,7 +353,7 @@
         \end{align}
     giving
         \begin{align}
-            I_{\text{2D}} = \frac{1}{\alpha}\int\limits^1_{-1}
+            I_{\text{2D}} = \frac{\sqrt{\pi}}{\alpha}\int\limits^1_{-1}
             \frac{1}{\sqrt{1-u^2}} \me^{-\alpha u^2\abs{\blds{A} - \blds{B}}^2}
             \md u
             \label{eq:oneElectron2D}
@@ -361,7 +361,7 @@
     and for the three-dimensional case we have a simpler form(easily seen with
     the same substitution)
         \begin{align}
-            I_{\text{3D}} = \frac{1}{\alpha}\int\limits^1_{-1} \me^{-\alpha
+            I_{\text{3D}} = \frac{\pi}{\alpha}\int\limits^1_{-1} \me^{-\alpha
             u^2\abs{\blds{A} - \blds{B}}^2} \md u
             \label{eq:oneElectron3D}
         \end{align}
@@ -411,15 +411,17 @@
         \begin{equation}
             \upsilon \equiv \left\{
                 \begin{matrix}
-                    \frac{1}{\sqrt{1-u^2}},&\indent \text{2D} \\
-                    1,&\indent \text{3D}
+                    \sqrt{\frac{\pi}{1-u^2}},&\indent
+                    \text{2D} \\
+                    \pi,&\indent \text{3D}
                 \end{matrix}\right.
         \end{equation}
     we have
         \begin{align}
-            I' &= \frac{1}{\alpha}\infint \int\limits^1_{-1} \upsilon \me^{-(\alpha u^2 +
-            \beta)\blds{r_S}^2} \me^{-\frac{\alpha u^2\beta}{\alpha u^2 +
-            \beta} (\blds{A}-\blds{B})^2} \md\blds{r}\md u \nonumber \\
+            I' &= \frac{1}{\alpha}\infint \int\limits^1_{-1} \upsilon
+            \me^{-(\alpha u^2 + \beta)\blds{r_S}^2} \me^{-\frac{\alpha
+            u^2\beta}{\alpha u^2 + \beta} (\blds{A}-\blds{B})^2} \md\blds{r}\md
+            u \nonumber \\
             &= \frac{1}{\alpha}\int\limits^1_{-1} \upsilon
             \left(\frac{\pi}{\alpha u^2 + \beta}\right)^{\frac{d}{2}}
             \me^{-\frac{\alpha u^2\beta}{\alpha u^2 +
@@ -428,40 +430,33 @@
     Specializing to the two-dimensional case and substituting
         \begin{equation}
             \begin{aligned}
-                v &= \frac{u}{\sqrt{\alpha u^2 + \beta}} \\
-                \frac{\md v}{\md u} &= \frac{\beta}{(\alpha u^2 + \beta)^{3/2}}
-                \\
-                u &= v \sqrt{\frac{\beta}{1 - \alpha v^2}} \\
-                v(-1) &= -\frac{1}{\sqrt{\alpha + \beta}} \\
-                v(1) &= \frac{1}{\sqrt{\alpha + \beta}}
+                v &= u\sqrt{\frac{\alpha+\beta}{\alpha u^2 + \beta}} \\
+                \frac{\md v}{\md u} &= \frac{\beta\sqrt{\alpha+\beta}}{(\alpha
+                u^2 + \beta)^{3/2}} \\
+                u &= v \sqrt{\frac{\beta}{\alpha+\beta - \alpha v^2}} \\
+                v(-1) &= -1 \\
+                v(1) &= 1
             \end{aligned}
         \end{equation}
     The integrand is
         \begin{align}
             \frac{1}{\sqrt{1 - u^2}} \frac{1}{\alpha u^2 + \beta} \md u &=
             \frac{1}{\sqrt{1-u^2}} \frac{1}{\alpha u^2 + \beta} \frac{(\alpha
-            u^2 + \beta)^{3/2}}{\beta} \nonumber \\
-            &= \frac{1}{\sqrt{1-u^2}} \frac{u}{\beta v} \nonumber \\
-            &= \sqrt{\frac{1-\alpha v^2}{1-(\alpha+\beta)v^2}}\frac{1}{\beta
-            v}v\sqrt{\frac{\beta}{1-\alpha v^2}} \nonumber \\
-            &= \frac{1}{\sqrt{\beta}} \frac{1}{\sqrt{1 - (\alpha+\beta)v^2}}
+            u^2 + \beta)^{3/2}}{\beta\sqrt{\alpha+\beta}}\md v \nonumber \\
+            &= \frac{1}{\sqrt{1-u^2}} \frac{u}{\beta v}\md v \nonumber \\
+            &= \sqrt{\frac{\alpha+\beta -\alpha
+            v^2}{(\alpha+\beta)(1-v^2)}}\frac{1}{\beta
+            v}v\sqrt{\frac{\beta}{\alpha+\beta-\alpha v^2}} \md v \nonumber \\
+            &= \frac{1}{\sqrt{\beta(\alpha+\beta)}} \frac{1}{\sqrt{1 - v^2}}
+            \md v
         \end{align}
-    making a final substitution
-        \begin{equation}
-            \begin{aligned}
-                s &= v\sqrt{\alpha+\beta} \\
-                \frac{\md s}{\md v} &= \sqrt{\alpha + \beta}\\
-                v &= \frac{s}{\sqrt{\alpha+\beta}} \\
-                s\left(-\frac{1}{\sqrt{\alpha+\beta}}\right) &= -1 \\
-                s\left(\frac{1}{\sqrt{\alpha+\beta}}\right) &= 1 \\
-            \end{aligned}
-        \end{equation}
     we have
         \begin{equation}
-            I'_{\text{2D}} = \frac{1}{\sqrt{\alpha\beta(\alpha+\beta)}}
-            \int\limits^{1}_{-1} \frac{1}{\sqrt{1 - s^2}}
-            \me^{-\frac{\alpha\beta}{\alpha + \beta}s^2(\blds{A}-\blds{B})^2}
-            \md s
+            I'_{\text{2D}} =
+            \frac{\pi^{\frac{3}{2}}}{\alpha\sqrt{\beta(\alpha+\beta)}}
+            \int\limits^{1}_{-1} \frac{1}{\sqrt{1 - v^2}}
+            \me^{-\frac{\alpha\beta}{(\alpha + \beta)}v^2(\blds{A}-\blds{B})^2}
+            \md v
             \label{eq:coulombInteractionSimpleFinal}
         \end{equation}
     This expression will be of great use when calculating the final full
@@ -558,9 +553,16 @@
             K_{AC}K_{BD}
             \me^{-(\alpha+\gamma)r^2_{1S}}\me^{-(\beta+\delta)r^2_{2P}}
             \me^{r^2_{12}t^2} \md\blds{r_1}\md\blds{r_2} \md t \nonumber \\
-            &= \frac{1}{\sqrt{\pi}} \infint
-            I'_{2D}(\alpha,\gamma,\abs{\blds{r_2}- \blds{S}}) K_{BD}
+            &= \prtl^{ijkl}_{ABCD}\sqrt{\pi} \infint
+            I_{2D}(\alpha+\gamma,\abs{\blds{r_2}- \blds{S}}) K_{BD}
             \me^{-(\beta + \delta)r^2_2} \md\blds{r_2} \nonumber \\
+            &= \pi^{\frac{3}{2}} \prtl^{ijkl}_{ABCD}
+            I'_{2D}\left(\alpha+\gamma,\beta+\delta,\abs{\blds{S}-\blds{P}}\right)
+            \nonumber \\
+            &= \frac{\pi^{\frac{3}{2}}}{(\alpha + \gamma)\sqrt{(\beta +
+            \delta)(\alpha+\gamma+\beta+\delta)}} \prtl^{ijkl}_{ABCD}
+            \zeta_0\left(\frac{1}{\alpha+\gamma+\beta+\delta}\abs{\blds{S} -
+            \blds{P}}^2\right)
 %             &= \prtl^{ijkl}_{ABCD} \frac{1}{\sqrt{\pi}}\infint\infint\infint
 %             K_{AC}K_{BD}K_S(t,\blds{r_2}) \me^{-(\alpha+\gamma+t^2)r^2_{St}}
 %             \me^{-(\beta+\delta)r^2_{2P}} \md\blds{r_1}\md\blds{r_2} \md t
