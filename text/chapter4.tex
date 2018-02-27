@@ -152,7 +152,7 @@
                 g_j(\alpha_j;r,B) \md \blds{r} \\
                 \bra{i}\nabla^2\ket{j} &= \infint g_i(\alpha_i;r,A)\nabla^2
                 g_j(\alpha_j;r,B) \md \blds{r} \\
-                \bra{ij}r^{-1}\ket{kl} &= \infint
+                \bra{ij}r^{-1}\ket{kl} &= \infint\infint
                 g_i(\alpha_i;r_1,A)g_j(\alpha_j;r_2,B) \frac{1}{r_{12}}
                 g_k(\alpha_k;r_1,C)g_l(\alpha_l;r_2,D) \md \blds{r}_1 \md
                 \blds{r}_2\\
@@ -310,6 +310,26 @@
         \end{equation}
     Notice that these expressions are just the same relations as for the
     coefficients, but with an extra factor in the middle.
+
+    Before calculating the integrals mentioned, let us rewrite the overlap
+    integral and the Coulomb integral in terms of overlap distribution and its
+    expansion
+        \begin{equation}
+            \begin{aligned}
+                \braket{i}{j} &= \infint
+                \Omega_{ij}(\blds{\alpha},\blds{\beta},\blds{r},
+                \blds{A},\blds{B}) \md\blds{r} \\
+                \bra{ij}r^{-1}\ket{kl} &= \infint\infint
+                \Omega_{ik}(\blds{\alpha},\blds{\gamma},\blds{r_1},
+                \blds{A},\blds{C})
+                \frac{1}{\abs{\blds{r_1} - \blds{r_2}}}
+                \Omega_{jl}(\blds{\beta},\blds{\delta},\blds{r_2},
+                \blds{B},\blds{D}) \md\blds{r_1} \md\blds{r_2}
+            \end{aligned}
+        \end{equation}
+    The potential- and kinetic integrals will be treated without the
+    expansions.  They can be expressed in terms of them however, see >>REF
+    HELGAKER<<.
 
 \subsection{Overlap Integral\label{susec:overlapIntegral}}
     With The simplification to s-types and the product rule, the integration
@@ -663,32 +683,27 @@
     two-body distribution can be treated. The expression with the
     simplification in \Arf{eq:centerDerGauss} gives(still in two dimensions)
         \begin{align}
-            \bra{ij}\frac{1}{r_{12}}\ket{kl} &= \prtl^{ijkl}_{ABCD}
-            \bra{AB}\frac{1}{r_{12}}\ket{CD} \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} \infint\infint
-            \me^{-\alpha(\blds{r_1}-\blds{A})}
-            \me^{-\beta(\blds{r_2}-\blds{B})} \frac{1}{r_{12}}
-            \me^{-\gamma(\blds{r_1}-\blds{C})}
-            \me^{-\delta(\blds{r_2}-\blds{D})} \md\blds{r_1}\md\blds{r_2}
-            \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} K_{AC}K_{BD}\infint\infint
-            \me^{-(\alpha+\gamma)r^2_{S_1}}\me^{-(\beta+\delta)r^2_{S_2}}
-            \frac{1}{\abs{\blds{r_1}-\blds{r_2}}}\md\blds{r_1}\md\blds{r_2}
-            \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} \infint K_{AC}K_{BD}
-            I_{2D}(\alpha+\gamma,\abs{\blds{r_2}- \blds{S_1}}) \me^{-(\beta +
-            \delta)r^2_{S_2}} \md\blds{r_2} \nonumber \\
-            &= \prtl^{ijkl}_{ABCD} K_{AC}K_{BD}
-            I'_{2D}\left(\alpha+\gamma,\beta+\delta,\abs{\blds{S_1}-\blds{S_2}}\right)
-            \nonumber \\
-            &= \frac{\pi^{\frac{3}{2}}}{\sqrt{(\alpha + \gamma)(\beta +
-            \delta)(\alpha+\gamma+\beta+\delta)}} \prtl^{ijkl}_{ABCD}
-            \zeta_0\left(\frac{1}{\alpha+\gamma+\beta+\delta}\abs{\blds{S_1} -
-            \blds{S_2}}^2\right)
+            \bra{ij}\frac{1}{r_{12}}\ket{kl} &= \infint\infint
+            \Omega_{ik}(\blds{\alpha},\blds{\gamma},\blds{r_1},
+            \blds{A},\blds{C}) \frac{1}{\abs{\blds{r_1} - \blds{r_2}}}
+            \Omega_{jl}(\blds{\beta},\blds{\delta},\blds{r_2},
+            \blds{B},\blds{D}) \md\blds{r_1} \md\blds{r_2} \nonumber \\
+            &= \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q \infint\infint
+            \frac{\Lambda_{p}(\blds{r_1})
+            \Lambda_{q}(\blds{r_2})}{\abs{\blds{r_1} - \blds{r_2}}}
+            \md\blds{r_1} \md\blds{r_2}\nonumber \\
+            &= \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q
+            \xi_{p+q}\left(\frac{(\alpha + \gamma)(\beta + \delta)}{\alpha +
+            \gamma + \beta + \delta},\blds{R_{S_1S_2}}\right)
         \end{align}
-    using the notation
-        \begin{equation}
-                 \prtl^{ijkl}_{ABCD} = \prdp{A_x}{i_x}\prdp{A_y}{i_y}
-                 \prdp{B_x}{j_x}\prdp{B_y}{j_y} \prdp{C_x}{k_x}\prdp{C_y}{k_y}
-                 \prdp{D_x}{l_x}\prdp{B_y}{l_y}
-        \end{equation}
+    Where we have used the multi-index\footnote{Essentially just expanding an
+    index in each dimension, for instance $i=(i_x,i_y,i_z)$ with corresponding
+    $p=(p_x, p_y, p_z)$ with each index inside the tuple running to each
+    respective index, meaning for instance $p_x=0$ to $i_x$ and so on.}
+    notation for $p$, $q$, $i$, $k$, $j$, and $l$
+%     using the notation
+%         \begin{equation}
+%                  \prtl^{ijkl}_{ABCD} = \prdp{A_x}{i_x}\prdp{A_y}{i_y}
+%                  \prdp{B_x}{j_x}\prdp{B_y}{j_y} \prdp{C_x}{k_x}\prdp{C_y}{k_y}
+%                  \prdp{D_x}{l_x}\prdp{B_y}{l_y}
+%         \end{equation}
