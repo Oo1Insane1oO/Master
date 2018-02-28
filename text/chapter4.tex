@@ -146,13 +146,13 @@
     integrals to be found are of the following form
         \begin{equation}
             \begin{aligned}
-                \braket{i}{j} &= \infint g_i(\alpha_i;r,A)g_j(\alpha_j;r,B) \md
+                \Braket{i|j} &= \infint g_i(\alpha_i;r,A)g_j(\alpha_j;r,B) \md
                 \blds{r} \\
-                \bra{i}x^k_d\ket{j} &= \infint g_i(\alpha_i;r,A) r^k
+                \Braket{i|x^k_d|j} &= \infint g_i(\alpha_i;r,A) r^k
                 g_j(\alpha_j;r,B) \md \blds{r} \\
-                \bra{i}\nabla^2\ket{j} &= \infint g_i(\alpha_i;r,A)\nabla^2
+                \Braket{i|\nabla^2|j} &= \infint g_i(\alpha_i;r,A)\nabla^2
                 g_j(\alpha_j;r,B) \md \blds{r} \\
-                \bra{ij}r^{-1}\ket{kl} &= \infint\infint
+                \Braket{ij|\frac{1}{r}|kl} &= \infint\infint
                 g_i(\alpha_i;r_1,A)g_j(\alpha_j;r_2,B) \frac{1}{r_{12}}
                 g_k(\alpha_k;r_1,C)g_l(\alpha_l;r_2,D) \md \blds{r}_1 \md
                 \blds{r}_2\\
@@ -186,21 +186,10 @@
     simplification in mind, the problem is to find a closed-form expression for
     the integrals over s-type Gaussians.
 
-    Since we only work with s-types when integrating we introduce a new notation
-        \begin{equation}
-            \begin{aligned}
-                \bra{A}\hat{O}\ket{B} &\equiv \int g_0(\alpha;\blds{r},\blds{A})
-                \hat{O} g_0(\beta;\blds{r},\blds{B}) \md\blds{r}\\
-                \bra{AB}\hat{O}\ket{CD} &\equiv \int
-                g_0(\alpha;\blds{r_1},\blds{A})g_0(\beta;\blds{r_2},\blds{B})
-                \hat{O} g_0(\gamma;\blds{r_1},\blds{C})
-                g_0(\delta;\blds{r_2},\blds{D}) \md\blds{r_1} \md\blds{r_2}\\
-            \end{aligned}
-        \end{equation}
-    with $\hat{O}$ being some operator. We also introduce the \txtit{Gaussian
-    product rule}\footnote{Still in the isotropic case.} which basically states
-    that the product of two Gaussian functions is just a third Gaussian
-    centered between the center of the two.  The expressions give
+    We also introduce the \txtit{Gaussian product rule}\footnote{Still in the
+    isotropic case.} which basically states that the product of two Gaussian
+    functions is just a third Gaussian centered between the center of the two.
+    The expressions give
         \begin{equation}
             g_0(\alpha;\blds{r},\blds{A})g_0(\beta;\blds{r},\blds{B}) =
             K_{AB}\exp(-(\alpha+\beta)\blds{r}^2_s)
@@ -311,61 +300,56 @@
     Notice that these expressions are just the same relations as for the
     coefficients, but with an extra factor in the middle.
 
-    Before calculating the integrals mentioned, let us rewrite the overlap
-    integral and the Coulomb integral in terms of overlap distribution and its
-    expansion
-        \begin{equation}
-            \begin{aligned}
-                \braket{i}{j} &= \infint
-                \Omega_{ij}(\blds{\alpha},\blds{\beta},\blds{r},
-                \blds{A},\blds{B}) \md\blds{r} \\
-                \bra{ij}r^{-1}\ket{kl} &= \infint\infint
-                \Omega_{ik}(\blds{\alpha},\blds{\gamma},\blds{r_1},
-                \blds{A},\blds{C})
-                \frac{1}{\abs{\blds{r_1} - \blds{r_2}}}
-                \Omega_{jl}(\blds{\beta},\blds{\delta},\blds{r_2},
-                \blds{B},\blds{D}) \md\blds{r_1} \md\blds{r_2}
-            \end{aligned}
-        \end{equation}
-    The potential- and kinetic integrals will be treated without the
-    expansions.  They can be expressed in terms of them however, see >>REF
-    HELGAKER<<.
-
 \subsection{Overlap Integral\label{susec:overlapIntegral}}
     With The simplification to s-types and the product rule, the integration
-    may begin. Starting with the overlap $\braket{A}{B}$ and applying the
-    Gaussian product rule(\Arf{eq:gaussianProductRule}) \footnote{And using the
-    following integral $\infint \me^{-\lambda x^2} =
-    \sqrt{\frac{\pi}{\lambda}},\indent \lambda>0$. >>REF ROTTMANN<<}
+    may begin. Starting with the overlap $\Braket{i|j}$ and using
+    \Arf{eq:omegaDef}\footnote{Also using the following integral $\infint
+    \me^{-\lambda x^2} = \sqrt{\frac{\pi}{\lambda}},\indent \lambda>0$. >>REF
+    ROTTMANN<<}
         \begin{align}
-            \braket{A}{B} &= \infint g_0(\alpha;\blds{r},\blds{A})
-            g_0(\beta;\blds{r},\blds{B}) \md\blds{r} \nonumber \\
-            &= K_{AB}\infint \exp(-(\alpha+\beta)\blds{r}^2_s) \md \blds{r}
+            \Braket{i|j} &= \infint
+            \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
+            \blds{r} \nonumber \\
+            &= \sumE{p}{i}{j} \infint
+            \me^{-(\alpha_p_{AB}+\beta_p)(\blds{r}-\blds{P}_p)^2} \md\blds{r}
             \nonumber \\
-            &= K_{AB} \left(\frac{\pi}{\alpha+\beta}\right)^{\frac{d}{2}}
+            &= \sumE{p}{i}{j}
+            \left(\frac{\pi}{\alpha_p+\beta_p}\right)^{\frac{d}{2}}
             \label{eq:stypeOverlap}
         \end{align}
     The power $d/2$ comes from splitting the integral into the $d$ dimensions.
-    The component-wise factors from the splitting are also substituted(i.e
-    $u=x-P_x$)
+    Also using the \txtit{multi-index notation}(\Arf{sec:multiIndexNotation})
+    and expanding
+        \begin{equation}
+            E^{ab}_{n} = \prod_d E^{a_db_d}_{n_d}
+            \label{eq:Enotation}
+        \end{equation}
+    Such that the coefficients are all just products over coefficients in each
+    dimension. A substitution in each dimension(i.e $u=x-P_x$) is also used.
+    Notice in addition that the scaling factors $\alpha$ and $\beta$ are
+    specific for each $p$ because of the overlap expansion.
 
 \subsection{Potential Integral}
     The second integral with the $x^k_d$ part shows up in the external
     potential part of the Hamiltonian and again with the Gaussian product rule
     the expression gives
         \begin{align}
-            \bra{A}x^k_d\ket{B} &= \infint g_0(\alpha_i;r,A) x^k_d
-            g_0(\alpha_j;r,B) \md \blds{r} \nonumber \\
-            &= K_{AB} \infint x^k_d \exp(-(\alpha+\beta)\blds{r}^2_s)
-            \md\blds{r} \nonumber \\
-            &= K_{AB} \left(\frac{\pi}{\alpha+\beta}\right)^{\frac{D-1}{2}}
-            \infint (u+P_d)^k\exp(-(\alpha+\beta)u^2) \md u \nonumber \\
-            &= K_{AB} \left(\frac{\pi}{\alpha+\beta}\right)^{\frac{D-1}{2}}
+            \Braket{i|x^k_d|j} &= \infint x^{k}_d
+            \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
+            \blds{r} \nonumber \\
+            &= \sumE{p}{i}{j} \infint x^k_d \me^{-(\alpha_p+\beta_p)(\blds{r} -
+            \blds{P}_p)^2} \md \blds{r} \nonumber \\
+            &= \sumE{p}{i}{j}
+            \left(\frac{\pi}{\alpha_p+\beta_p}\right)^{\frac{D-1}{2}} \infint
+            (u+P_d)^k\exp(-(\alpha_p+\beta_p)u^2) \md u \nonumber \\
+            &= \sumE{p}{i}{j}
+            \left(\frac{\pi}{\alpha_p+\beta_p}\right)^{\frac{D-1}{2}}
             \sum\limits_{l=0}^k {k\choose l} P^{k-l}_d \infint
-            u^l\exp(-(\alpha+\beta)u^2) \md u \nonumber \\
-            &= K_{AB} \left(\frac{\pi}{\alpha+\beta}\right)^{\frac{D-1}{2}}
+            u^l\exp(-(\alpha_p+\beta_p)u^2) \md u \nonumber \\
+            &= \sumE{p}{i}{j}
+            \left(\frac{\pi}{\alpha_p+\beta_p}\right)^{\frac{D-1}{2}}
             \sum\limits_{l=0}^k {k\choose l}
-            \frac{P^{k-l}_d}{2(\alpha+\beta)^{\frac{l}{2}}}
+            \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
             \left((-1)^l+1\right) \Gamma\left(\frac{l+1}{2}\right)
         \end{align}
     The integrals are split in each dimension and the dimensions not equal to
@@ -399,11 +383,11 @@
         \end{align}
     Now for the integral we have
         \begin{align}
-            \bra{i}\nabla^2\ket{j} &= \infint
+            \Braket{i|\nabla^2|j} &= \infint
             g_i(\alpha;\blds{r},\blds{A})\nabla^2g_j(\beta;\blds{r},\blds{B}) 
             \md\blds{r} \nonumber \\
             &= \sum_d\prod_{d'\neq d}
-            \bra{i_{d'}}\sigma_{d'}(S_d(\beta;x-B_d))\ket{j_{d'}}
+            \Braket{i_{d'}|\sigma_{d'}(S_d(\beta;x-B_d))|j_{d'}}
             \label{eq:laplacianIntegral}
         \end{align}
     with
@@ -421,10 +405,9 @@
             \end{aligned}
         \end{equation}
     meaning the Laplacian integral can be expressed in terms of the overlap
-    integrals $\braket{i}{j+2}$, $\braket{i}{j}$ and
-    $\braket{i,i-2}$\footnote{Since $xg_i=g_{i+1}$ and
-    $\frac{g_i}{x}=g_{i-1}$.}. Notice also that the expression in
-    \Arf{eq:laplacianIntegral} is over two Hermite-Gaussians.
+    integrals $\Braket{i|j+2}$, $\Braket{i|j}$ and
+    $\Braket{i|i-2}$\footnote{Since $xg_i=g_{i+1}$ and
+    $\frac{g_i}{x}=g_{i-1}$.}.
 
 \subsection{Coulomb Potential Integral}
     Lastly, the troublesome\footnote{Damn inverse term prevents dimensional
@@ -626,6 +609,7 @@
                 \xi^n_{00} &= (-2)^n\alpha^{n-\frac{1}{2}} \zeta_n\left(\alpha
                 R^2_{AB}\right)
             \end{aligned}
+            \label{eq:auxiliary2d1}
         \end{equation}
     and take a look at the incrementation of $t$
         \begin{align}
@@ -665,7 +649,13 @@
                 \left(\frac{-2}{\sqrt{\alpha\beta(\alpha+\beta)}}\right)^n
                 \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
             \end{aligned}
+            \label{eq:recurrInteraction}
         \end{equation}
+    Notice that the only difference between the obtained recurrence relations
+    and the ones obtained by Helgaker >> REF HELGAKER << is in
+    \Arf{eq:auxiliary2d1} and \Arf{eq:recurrInteraction}. Other than this the
+    incrementation of $\zeta_n$ gives the exact same $X_{AB}$(and similar for
+    the other directions) as with the incomplete gamma function.
 
 % \subsection{Overlap Distribution Integral}
 %     We have already calculated the overlap integrals directly in
@@ -681,9 +671,9 @@
 \subsection{Coulomb Distribution Integral}
     With the derived expressions for the Coulomb potential integral the full
     two-body distribution can be treated. The expression with the
-    simplification in \Arf{eq:centerDerGauss} gives(still in two dimensions)
+    simplification in \Arf{eq:centerDerGauss} gives
         \begin{align}
-            \bra{ij}\frac{1}{r_{12}}\ket{kl} &= \infint\infint
+            \Braket{ij|\frac{1}{r_{12}}|kl} &= \infint\infint
             \Omega_{ik}(\blds{\alpha},\blds{\gamma},\blds{r_1},
             \blds{A},\blds{C}) \frac{1}{\abs{\blds{r_1} - \blds{r_2}}}
             \Omega_{jl}(\blds{\beta},\blds{\delta},\blds{r_2},
@@ -692,18 +682,22 @@
             \frac{\Lambda_{p}(\blds{r_1})
             \Lambda_{q}(\blds{r_2})}{\abs{\blds{r_1} - \blds{r_2}}}
             \md\blds{r_1} \md\blds{r_2}\nonumber \\
-            &= \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q
-            \xi_{p+q}\left(\frac{(\alpha + \gamma)(\beta + \delta)}{\alpha +
-            \gamma + \beta + \delta},\blds{R_{S_1S_2}}\right)
+            &= \frac{2\pi^{d-\frac{1}{2}}}{(\alpha+\gamma)(\beta+\delta)
+            \sqrt{\alpha+\gamma+\beta+\delta}} \suml{pq}{i+k,j+l}
+            E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
+            \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
+            \delta},\blds{R_{S_1S_2}}\right)
         \end{align}
     Where we have used the multi-index\footnote{Essentially just expanding an
     index in each dimension, for instance $i=(i_x,i_y,i_z)$ with corresponding
     $p=(p_x, p_y, p_z)$ with each index inside the tuple running to each
     respective index, meaning for instance $p_x=0$ to $i_x$ and so on.}
-    notation for $p$, $q$, $i$, $k$, $j$, and $l$
-%     using the notation
-%         \begin{equation}
-%                  \prtl^{ijkl}_{ABCD} = \prdp{A_x}{i_x}\prdp{A_y}{i_y}
-%                  \prdp{B_x}{j_x}\prdp{B_y}{j_y} \prdp{C_x}{k_x}\prdp{C_y}{k_y}
-%                  \prdp{D_x}{l_x}\prdp{B_y}{l_y}
-%         \end{equation}
+    notation for $p$, $q$, $i$, $k$, $j$, and $l$ \Arf{eq:Enotation}
+    and used \Arf{eq:coulombInteractionSimpleFinal} to arrive at the final
+    step. An additional simplification due to the fact that $\zeta_n$ is only
+    dependant on the relative distance of the centers is also used, for the
+    x-coordinate it is stated as
+        \begin{equation}
+            \prdp{P_x}{p_x}\prdp{Q_x}{q_x} = (-1)^{p_x+q_x} \prdp{P_x}{p_x+q_x}
+        \end{equation}
+    and the same for the other directions.

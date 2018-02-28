@@ -60,3 +60,26 @@
             \chi_p(\blds{r}_1)\chi_q(\blds{r}_2) \frac{1}{r_{12}}
             \chi_r(\blds{r}_1)\chi_s(\blds{r}_2) \md r_1 \md r_2
         \end{align}
+
+\section{Multi-Index Notation\label{sec:multiIndexNotation}}
+    >> REF THIS <<
+    This section will give a brief overlook of a notation which compresses
+    indices running in similar fashion, the so-called \txtit{multi-index
+    notation}. We will make use of this to reduce indices in each dimension
+    down to one. \\
+    The rules are states as, given a n-tuple $(x_1,\dots x_n)$ over any field
+    $\mathbb{F}$ (real, complex, etc.), a multi index is defined to be 
+        \begin{equation}
+            i=(n_1,\dots i_n)\in \mathbb{Z}^n_+
+        \end{equation}
+    with expansions
+        \begin{equation}
+            \begin{aligned}
+                \abs{i} &= i_1 + \dots + i_n \\
+                i! &= i_1! \dots i_n! \\
+                x^i &= x^{i_1}_1 \dots x^{i_n}_n \in \mathbb{F}[x] \\
+                i \pm j &= (i_1 \pm j_1,\dots, i_n+j_n) \in \mathbb{Z}
+            \end{aligned}
+        \end{equation}
+    In essence the notation just wraps the notion of element-wise operations
+    into one index variable.
