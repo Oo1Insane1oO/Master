@@ -229,7 +229,8 @@
     Hermite-Gaussians can be split in each respective dimension) we
     have\footnote{The indices $i$ and $j$ are now in 1 dimension!}
         \begin{equation}
-            \Omega_{ij} = \sum\limits^{i+j}_{t=0} E^{ij}_tg_t
+            \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) =
+            \sum\limits^{i+j}_{t=0} E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P})
             \label{eq:omegaDef}
         \end{equation}
     Again, we stress that the indices in \Arf{eq:omegaDef} and the calculations
@@ -310,16 +311,21 @@
             \Braket{i|j} &= \infint
             \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
             \blds{r} \nonumber \\
-            &= \sumE{p}{i}{j} \infint
-            \me^{-(\alpha_p_{AB}+\beta_p)(\blds{r}-\blds{P}_p)^2} \md\blds{r}
-            \nonumber \\
+            &= \sumE{p}{i}{j} \infint g_p(\alpha,\beta,\blds{r},\blds{P})
+            \md\blds{r} \nonumber \\
+            &= \sumE{p}{i}{j} \infint (\blds{r}-\blds{P})^p \me^{-(\alpha_p +
+            \beta_p)(\blds{r} - \blds{P})^2} \md\blds{r} \nonumber \\
             &= \sumE{p}{i}{j}
-            \left(\frac{\pi}{\alpha_p+\beta_p}\right)^{\frac{d}{2}}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
             \label{eq:stypeOverlap}
         \end{align}
-    The power $d/2$ comes from splitting the integral into the $d$ dimensions.
-    Also using the \txtit{multi-index notation}(\Arf{sec:multiIndexNotation})
-    and expanding
+    The power $d$ comes from splitting the integral into the $d$ dimensions.
+    Also using the \txtit{multi-index
+    notation}(\Arf{sec:multiIndexNotation})\footnote{The power $d$ also means
+    that with the multi-index notation the entire expression in the paranthesis
+    are to be calculated for each dimension in $p$ and then multiplied
+    together.} and expanding
         \begin{equation}
             E^{ab}_{n} = \prod_d E^{a_db_d}_{n_d}
             \label{eq:Enotation}
@@ -337,17 +343,21 @@
             \Braket{i|x^k_d|j} &= \infint x^{k}_d
             \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
             \blds{r} \nonumber \\
-            &= \sumE{p}{i}{j} \infint x^k_d \me^{-(\alpha_p+\beta_p)(\blds{r} -
-            \blds{P}_p)^2} \md \blds{r} \nonumber \\
+            &= \sumE{p}{i}{j} \infint x^k_d (\blds{r}-\blds{P})^p
+            \me^{-(\alpha_p+\beta_p)(\blds{r} - \blds{P}_p)^2} \md \blds{r}
+            \nonumber \\
             &= \sumE{p}{i}{j}
-            \left(\frac{\pi}{\alpha_p+\beta_p}\right)^{\frac{D-1}{2}} \infint
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \infint
             (u+P_d)^k\exp(-(\alpha_p+\beta_p)u^2) \md u \nonumber \\
             &= \sumE{p}{i}{j}
-            \left(\frac{\pi}{\alpha_p+\beta_p}\right)^{\frac{D-1}{2}}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
             \sum\limits_{l=0}^k {k\choose l} P^{k-l}_d \infint
             u^l\exp(-(\alpha_p+\beta_p)u^2) \md u \nonumber \\
             &= \sumE{p}{i}{j}
-            \left(\frac{\pi}{\alpha_p+\beta_p}\right)^{\frac{D-1}{2}}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
             \sum\limits_{l=0}^k {k\choose l}
             \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
             \left((-1)^l+1\right) \Gamma\left(\frac{l+1}{2}\right)
@@ -637,7 +647,7 @@
     $\zeta$ of order $n\leq N$, the only difference being $X_{AB}$ and
     $Y_{AB}$. The Coulomb interaction integral
     (\Arf{eq:coulombInteractionSimpleFinal}) follows this exact recurrence, but
-    with a difference proportionality factor $\alpha\beta/(\alpha+\beta)$. We
+    with a different proportionality factor $\alpha\beta/(\alpha+\beta)$. We
     will write it out for the sake of clarity
         \begin{equation}
             \begin{aligned}
@@ -679,9 +689,9 @@
             \Omega_{jl}(\blds{\beta},\blds{\delta},\blds{r_2},
             \blds{B},\blds{D}) \md\blds{r_1} \md\blds{r_2} \nonumber \\
             &= \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q \infint\infint
-            \frac{\Lambda_{p}(\blds{r_1})
-            \Lambda_{q}(\blds{r_2})}{\abs{\blds{r_1} - \blds{r_2}}}
-            \md\blds{r_1} \md\blds{r_2}\nonumber \\
+            \frac{g_{p}(\alpha+\gamma,\blds{r_1},\blds{P})
+            g_{q}(\beta+\delta,\blds{r_2},\blds{Q})}{\abs{\blds{r_1} -
+            \blds{r_2}}} \md\blds{r_1} \md\blds{r_2}\nonumber \\
             &= \frac{2\pi^{d-\frac{1}{2}}}{(\alpha+\gamma)(\beta+\delta)
             \sqrt{\alpha+\gamma+\beta+\delta}} \suml{pq}{i+k,j+l}
             E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
