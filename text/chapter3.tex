@@ -394,8 +394,7 @@
     with small areas of densities. The Monte Carlo method is perfect for
     solving such a system because of the non-homogeneous distribution of
     calculation across the space. An standard approach with equal distribution
-    of calculation would then yield a rather poor result with respect to
-    computation cost.
+    of calculation would then be a waste of computation time. 
 
     We will in this chapter address the Metropolis algorithm which is used to
     create a Markov chain and derive the equations used in the variational
@@ -463,7 +462,7 @@
         usefulness in the minimization when derivatives of the expectation
         value and variance comes into play since finding the derivative of the
         local energy would be much more of a hassle.\footnote{The
-        differentiation of the wavefunction is enough reduction of quality of
+        differentiation of the wavefunction is enough to reduce the quality of
         life on its own!}
 
     \subsection{The Trial Wave Function}
@@ -474,7 +473,7 @@
             \begin{equation}
                 \psiT = \sum_i C_i\psi_i(\mb{R};\mb{\alpha})
             \end{equation}
-        with the $\psi_i$'s are the eigenstates of the Hamiltonian.
+        where the $\psi_i$'s are the eigenstates of the Hamiltonian.
 
     \subsection{Use Diffusion Theory and the PDF\label{susec:diffTHpdf}}
         The statistics describing the expectation value states that any
@@ -544,7 +543,7 @@
     \subsection{Importance Sampling\label{susec:impSamp}}
         Using the selection probability mentioned in \Arf{susec:MHAlg} in the
         Metropolis algorithm is called an \txtit{Importance sampling} because
-        is essentially makes the sampling more concentrated around areas where
+        it essentially makes the sampling more concentrated around areas where
         the PDF has large values.
 
         In order to derive the form of this equation we use the statements
@@ -584,4 +583,49 @@
                 \label{eq:qForceDef}
             \end{equation}
         This is the so-called \txtit{Quantum Force} which pushes the walkers
-        towards regions where the wave function is large.
+        towards regions where the wave function is large. \\
+        The missing part now is to model the selection probability in
+        \Arf{eq:metropolisAcceptance}. Inserting the quantum force into the
+        Focker-Planck equation(\Arf{eq:FokkerPlanckDef} the following diffusion
+        equation appears
+            \begin{equation}
+                \prd{t}[P] = -D\nabla^2 P
+                \label{eq:diffeqFP}
+            \end{equation}
+        Applying the \txtit{Fourier Transform} to spatial coordinate $r$ in
+        \Arf{eq:diffeqFP} >>REF THIS<<, the equation is transformed to
+            \begin{equation}
+                \prd{t}[P(\blds{s},t)] = -Ds^2 P(\blds{s},t)
+            \end{equation}
+        which has solution >>REF THIS<<
+            \begin{equation}
+                P(\blds{s},\Delta t) = P(\blds{s},0)\me^{Ds^2\Delta t}
+                \label{eq:Punfin}
+            \end{equation}
+        Now we need to find the constant $P(\blds{s},0)$, and as is apparent
+        with $t=0$, we will make use of an initial condition. The initial
+        positions are spread out from origin, that is $D\Delta t\blds{F}_j$. We can
+        express this with a \txtit{Dirac-delta function}>>REF THIS<< giving
+            \begin{equation}
+                P(s,0) = \delta\left(\blds{r}_i - D\Delta t\blds{F}_j\right)
+            \end{equation}
+        Inserting this into \Arf{eq:Punfin} and making the inverse Fourier
+        transform yields the following Green's function as solution
+            \begin{equation}
+                P\left(a, b, \Delta t\right) = \frac{1}{\sqrt{4\pi D\Delta t}}
+                \exp(-\frac{\left(\blds{r}_a - \blds{r}_b - D\Delta t
+                \blds{F}_b\right)^2}{4D\Delta t})
+            \end{equation}
+        This expression is precisely the selection probability $T$, Notice also
+        that the indices $a$ and $b$ label a state transition $a\rarr b$ and not
+        particle indices. The full transition probability needs to be summed
+        over for all particles since we only solved the Focker-Planck equation
+        for $1$ particle(since the other solutions are found in the exact same
+        manner). For clarity the full selection probability ratio is
+            \begin{equation}
+                \frac{T(b,a,\Delta t)}{T(a,b,\Delta t)} = \sum_i
+                \exp(-\frac{\left(\blds{r}^{(b)}_i - \blds{r}^{(a)}_i - D\Delta
+                t \blds{F}^{(a)}_i\right)^2}{4D\Delta t}
+                +\frac{\left(\blds{r}^{(a)}_i - \blds{r}^{(b)}_i - D\Delta t
+                \blds{F}^{(b)}_i\right)^2}{4D\Delta t})
+            \end{equation}

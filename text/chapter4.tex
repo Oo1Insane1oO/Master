@@ -471,11 +471,11 @@
     The integrand(ignoring the exponential part) is then
         \begin{align}
             \frac{\md t}{\alpha + t^2} &= \frac{1}{\alpha + t^2} \frac{(\alpha +
-            t^2)^{\frac{3}{2}}}{\alpha} \nonumber \\
-            &= \frac{\sqrt{\alpha + t^2}}{\alpha} \nonumber \\
-            &= \frac{t}{\alpha u} \nonumber \\
-            &= \frac{1}{\alpha u} u\sqrt{\frac{\alpha}{1-u^2}} \nonumber \\
-            &= \frac{1}{\sqrt{\alpha}}\sqrt{\frac{1}{1-u^2}}
+            t^2)^{\frac{3}{2}}}{\alpha} \md u \nonumber \\
+            &= \frac{\sqrt{\alpha + t^2}}{\alpha} \md u \nonumber \\
+            &= \frac{t}{\alpha u} \md u \nonumber \\
+            &= \frac{1}{\alpha u} u\sqrt{\frac{\alpha}{1-u^2}} \md u \nonumber \\
+            &= \frac{1}{\sqrt{\alpha}}\sqrt{\frac{1}{1-u^2}} \md u
         \end{align}
     giving
         \begin{align}
@@ -526,7 +526,8 @@
     Inserting in the definition for $u$(the substitution in \Arf{eq:uSubs1})
     and using the extremely useful Gaussian product rule for the product
     between the distribution centered in $\blds{B}$ and the exponential factor
-    in $I$(which is the same for both the two- and three dimensional case) is
+    in $I$(which is labelled the same for both the two- and three dimensional
+    case) is
         \begin{equation}
             \me^{-\alpha u^2(\blds{r}-\blds{A})^2} \me^{-\beta(\blds{r} -
             \blds{B})^2} = \me^{-(\alpha u^2 + \beta)\blds{r_S}^2}
@@ -537,21 +538,19 @@
         \begin{equation}
             \upsilon \equiv \left\{
                 \begin{matrix}
-                    \sqrt{\frac{\pi}{1-u^2}},&\indent
+                    \sqrt{\frac{\pi}{\alpha}}\sqrt{\frac{1}{1-u^2}},&\indent
                     \text{2D} \\
                     \pi,&\indent \text{3D}
                 \end{matrix}\right.
         \end{equation}
     we have
         \begin{align}
-            I' &= \frac{1}{\sqrt{\alpha}}\infint \int\limits^1_{-1} \upsilon
-            \me^{-(\alpha u^2 + \beta)\blds{r_S}^2} \me^{-\frac{\alpha
-            u^2\beta}{\alpha u^2 + \beta} (\blds{A}-\blds{B})^2} \md\blds{r}\md
-            u \nonumber \\
-            &= \frac{1}{\sqrt{\alpha}}\int\limits^1_{-1} \upsilon
-            \left(\frac{\pi}{\alpha u^2 + \beta}\right)^{\frac{d}{2}}
-            \me^{-\frac{\alpha u^2\beta}{\alpha u^2 +
-            \beta}(\blds{A}-\blds{B})^2} \md u
+            I' &= \infint \int\limits^1_{-1} \upsilon \me^{-(\alpha u^2 +
+            \beta)\blds{r_S}^2} \me^{-\frac{\alpha u^2\beta}{\alpha u^2 +
+            \beta} (\blds{A}-\blds{B})^2} \md\blds{r}\md u \nonumber \\
+            &= \int\limits^1_{-1} \upsilon \left(\frac{\pi}{\alpha u^2 +
+            \beta}\right)^{\frac{d}{2}} \me^{-\frac{\alpha u^2\beta}{\alpha u^2
+            + \beta}(\blds{A}-\blds{B})^2} \md u
         \end{align}
     Specializing to the two-dimensional case and substituting
         \begin{equation}
@@ -598,19 +597,20 @@
             \begin{aligned}
                 \zeta_n(x) &\equiv \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
                 u^2}} \me^{-u^2x} \md u \\
-                \prd{x}[\zeta_n] &= \zeta_{n+1}
+                \prd{x}[\zeta_n] &= -\zeta_{n+1}
             \end{aligned}
             \label{eq:zetaDef}
         \end{equation}
     The Coulomb potential integral is then, in terms of $\zeta_n(x)$
         \begin{equation}
-            \twoDI = \frac{1}{\sqrt{\alpha}} \zeta_0\left(\alpha R^2_{AB}\right)
+            \twoDI = \sqrt{\frac{\pi}{\alpha}} \zeta_0\left(\alpha
+            R^2_{AB}\right)
         \end{equation}
     and the first derivative with respect to $A_x$ is
         \begin{align}
-            \prd{A_x}[\twoDI] &= \frac{1}{\sqrt{\alpha}} \prd{A_x}
+            \prd{A_x}[\twoDI] &= \sqrt{\frac{\pi}{\alpha}} \prd{A_x}
             \zeta_0\left(\alpha R^2_{AB}\right) \nonumber \\
-            &= 2\sqrt{\alpha}X_{AB}\zeta_1\left(\alpha R^2_{AB}\right)
+            &= -2\sqrt{\alpha\pi}X_{AB}\zeta_1\left(\alpha R^2_{AB}\right)
         \end{align}
     With this we define an auxiliary function
         \begin{equation}
@@ -651,12 +651,10 @@
     will write it out for the sake of clarity
         \begin{equation}
             \begin{aligned}
-                \prd{A_x}[I'_{\text{2D}}] &=
-                \frac{2}{\sqrt{\alpha\beta(\alpha+\beta)}}
+                \prd{A_x}[I'_{\text{2D}}] &= -\frac{2\alpha\beta}{\alpha+\beta}
                 X_{AB}\zeta_1\left(\frac{\alpha\beta}{\alpha+\beta}R^2_{AB}\right)
                 \\
-                \xi^n_{00} &=
-                \left(\frac{-2}{\sqrt{\alpha\beta(\alpha+\beta)}}\right)^n
+                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
                 \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
             \end{aligned}
             \label{eq:recurrInteraction}
@@ -692,11 +690,10 @@
             \frac{g_{p}(\alpha+\gamma,\blds{r_1},\blds{P})
             g_{q}(\beta+\delta,\blds{r_2},\blds{Q})}{\abs{\blds{r_1} -
             \blds{r_2}}} \md\blds{r_1} \md\blds{r_2}\nonumber \\
-            &= \frac{2\pi^{d-\frac{1}{2}}}{(\alpha+\gamma)(\beta+\delta)
-            \sqrt{\alpha+\gamma+\beta+\delta}} \suml{pq}{i+k,j+l}
-            E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
-            \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
-            \delta},\blds{R_{S_1S_2}}\right)
+            &= \frac{\pi^{d-\frac{1}{2}}}{\sqrt{(\alpha+\gamma)(\beta+\delta)
+            (\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q
+            (-1)^{q} \xi_{p+q}\left(\frac{(\alpha + \gamma)(\beta +
+            \delta)}{\alpha + \gamma + \beta + \delta},\blds{R_{S_1S_2}}\right)
         \end{align}
     Where we have used the multi-index\footnote{Essentially just expanding an
     index in each dimension, for instance $i=(i_x,i_y,i_z)$ with corresponding
