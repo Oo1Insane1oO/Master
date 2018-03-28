@@ -1,7 +1,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{}
-\section{Introduction}
-\subsection{bleh}
+\chapter{Introduction\label{chapter:1}}
+    This chapter will give a brief introduction to the structure of the thesis
+    and the goals laid forth beforehand.
 
-\clearpage
-\thispagestyle{empty}
+\section{Structure and Goals\label{sec:structure_and_goals}}
+    The main goal(at least at some point into the semester) was to make a
+    code-base for large-scale quantum many-body calculations from scratch. Of
+    course there exists many such code-bases and competing with those in terms
+    of scalability and computational efficiency is beyond the scope of this
+    thesis, the choice for a from-scratch approach was made in order to gain
+    some insight into the methods and a better understanding for the
+    programming aspects which would follow. With this in mind, we did however
+    get much inspiration from previous theses and implementations from other
+    sources as well. \\
+    The main goals for the thesis was
+        \begin{itemize}
+            \item Make a general \CC code for the \txtit{Hartree-Fock method}
+                and the \txtit{Variational Monte Carlo method} which could take
+                any basis into play with minimal effort.
+            \item Use the \CC code on different \txtit{quantum mechanical
+                many-body systems} and use this as validation of the code and
+                benchmark the code.
+            \item Build an optimal one-body basis with the Hartree-Fock method
+                and make improvements on this basis with the variational
+                Monte-Carlo method with a \txtit{Slater-Jastrow} wavefunction.
+        \end{itemize}
+    With this in mind a general open-source code for the restricted
+    Hartree-Fock method was developed and is open for use in
+    \url{https://github.com/Oo1Insane1oO/HartreeFock}. The variational
+    Monte-Carlo method is also open-source and for use in >> URL THIS <<. Both
+    repositories each have a directory with tests implemented, see
+    \Arf{sec:verification} for more information on these tests. \\
+    Extending the code to other systems is made easier with python scripts
+    given in the mentioned repositories. A better description of these are
+    given in the repositories themselves and involve auto-generation of
+    abstract wavefunction classes which only need to be filled in with
+    analytical expressions and are otherwise already integrated with the
+    existing code.

@@ -2,6 +2,32 @@
 
 \chapter{\label{appendix:A}}
 
+\section{Lagrange Multiplier Method\label{sec:lagrange_multipliers}}
+    See \cite{calcVar,calcVarSpring}. The optimization method of Lagrange
+    multipliers maximizes(or minimizes) a function
+    $f:\mathbb{R}^N\rightarrow\mathbb{R}$ with a constraint
+    $g:\mathbb{R}^N\rightarrow\mathbb{R}$ We assume that $f$ and $g$ have
+    continuous first derivatives in all variables(continuous first partial
+    derivatives). \\
+    Given the above we can define a so-called Lagrangian
+    $\mathcal{L}$
+        \begin{equation}
+            \mathcal{L}[x_1,\dots,x_N,\lambda_1,\dots,\lambda_M] =
+            f(x_1,\dots,x_N) - \lambda g(x_1,\dots,x_N)
+            \label{eq:lagrangian}
+        \end{equation}
+    where the $\lambda$ is called a Lagrange-multiplier. We now state that if
+    $f(x^0_1,\dots,x^0_N)$ is a maxima of $f(x_1,\dots,x_N)$ then there exists
+    a Lagrange-multiplier $\lambda_0$ such that
+    $(x^0_1,\dots,x^0_N,\lambda_0)$ is a stationary point
+    for the Lagrangian. This then yields the $N+1$ Lagrange-equations
+        \begin{align}
+            \sum^N_{i=1} \frac{\prtl\mathcal{L}}{\prtl x_i} +
+            \frac{\prtl\mathcal{L}}{\prtl \lambda} = 0
+            \label{eq:lagrangeEQ}
+        \end{align}
+    to be solved for $x_1,\dots,x_N$ and $\lambda$.
+
 \section{Interaction-Term in Fock-Operator}
         Introducing the so-called permutation operator $P$ which interchanges
         the labels of particles meaning we can define
@@ -51,15 +77,6 @@
             \end{equation}
         More comprehensive details and derivations are given in
         \cite{compphysThijssen,basicMB}.
-
-\section{Interaction-Matrix Elements}
-    The integrals involved in the matrix-elements of the Fock-matrix in
-    \Arf{sec:HFtheory} is calculated as follows
-        \begin{align}
-            D_{pqrs} = \Braket{pq | f_{12} | rs} = \infint\infint
-            \chi_p(\blds{r}_1)\chi_q(\blds{r}_2) \frac{1}{r_{12}}
-            \chi_r(\blds{r}_1)\chi_s(\blds{r}_2) \md r_1 \md r_2
-        \end{align}
 
 \section{Multi-Index Notation\label{sec:multiIndexNotation}}
     >> REF THIS <<
