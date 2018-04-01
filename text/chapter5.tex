@@ -81,10 +81,16 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
     method have been proven to be popular among problems in which the function
     to be minimized is an expectation value.
 
-\section{Conjugate Gradient\label{sec:conjugate_gradient}}
-    In the two previous section we methods used the gradient of $f$ as the
-    desired search direction. The method of \txtit{Conjugate Gradient} uses a
-    different approach and defines the search direction to be a so-called
-    \txtit{conjugate direction}.
+    
+\section{Newtons-Method and Quasi-Newton
+Methods\label{sec:newtons-method_and_quasi-newton_methods}}
+    Write something...
 
-
+\section{BFGS\label{sec:BFGS}}
+    In the two previous sections we mentioned methods that used the gradient of
+    $f$ as the desired search direction. The method known as
+    BFGS\footnote{Stands for Broyden-Fletcher-Goldfarb-Shanno algorithm after
+    the creators.} we use, in addition to the gradient, the \txtit{Hessian
+    matrix} as well (an approximation to it anyways). This method also belongs
+    to the class of quasi-Newton methods as it approximates the Hessian with
+    the gradient at each step.
