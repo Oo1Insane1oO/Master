@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Numerical Optimization \label{chapter:6}}
+\chapter{Numerical Optimization \label{chapter:5}}
     In the Variational Monte Carlo method in \Arf{sec:QMC} the essential point
     was to vary a set of \txtit{variational parameters} in order to reach an
     eigenbasis which gives the ground-state energy of the Hamiltonian in
@@ -55,7 +55,8 @@
     $\blds{\alpha}_0$ and keep updating the parameters according to the
     following recursive rule
         \begin{equation}
-            \blds{\alpha}_k = \blds{\alpha_{k-1}} - \gamma\nabla_{\alpha} f
+            \blds{\alpha}_n = \blds{\alpha_{n-1}} - \gamma\nabla_{\alpha} f
+            \label{eq:gdupdate}
         \end{equation}
     and terminate the search when \Arf{eq:minconditionapprox} is fulfilled. >>
     REF AND MAKE ALGORITHM <<\footnote{Change the negative sign in front of the
@@ -79,7 +80,37 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
     but also takes into account the variance introduced by the stochastic
     nature of the probability distribution. As such many variations of the
     method have been proven to be popular among problems in which the function
-    to be minimized is an expectation value.
+    to be minimized is an expectation value. The method used in this thesis is
+    the one described in \cite{ASGD}. We will give a summary of the method
+    here, for a more detailed outline and description see \cite{ASGD}. \\
+
+    Like the gradient descent method the adaptive stochastic gradient descent
+    method updates the parameters in the same manner as in \Arf{eq:gdupdate},
+    the difference however is that the step $\gamma$ is changed for each
+    iteration in accordance to the following
+        \begin{equation}
+            \begin{aligned}
+                \gamma_{n+1} &= \frac{a}{t_{n+1} + A} \\
+                t_{n+1} &= \text{max}(t_n + g(X_n), 0) \\
+                X_n &= - \nabla f_n \cdot \nabla f_{n+1} \\
+                g(x) &= g_{\text{min}} + \frac{g_{\text{max}} -
+                g_{\text{min}}}{1 - \frac{g_{\text{max}}}{g_{\text{min}}}
+                \me^{-\frac{x}{\omega}}}
+            \end{aligned}
+        \end{equation}
+    The whole idea of the method is that the form of $g$ and the accumulative
+    combination of gradient estimations for each step the total error would
+    tend quickly to zero, meaning the central element(namely the gradient) in
+    the minimization is well behaving. \\
+
+    The main concern with the method is the convergence, although the error in
+    the gradient estimations tend towards zero, the step-sizes themselves will
+    also be quite small after some iterations. Fro this reason we use the
+    adaptive method with a quasi-Newton method. This means that we start with a
+    random guess at the parameters and keep iterating with the quasi-Newton
+    method until the norm of the gradient is below some threshold, at which the
+    adaptive method is applied from that point and onward till convergence is
+    reached.
 
 \section{Newtons-Method and Quasi-Newton
 Methods\label{sec:newtons-method_and_quasi-newton_methods}}
@@ -113,8 +144,9 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             n\geq 0
         \end{equation}
     where $\blds{H}$ is the Hessian matrix. One might also introduce a
-    step-length multiplied to the Hessian part in order to induce conditions >>
-    REF THIS << which ensure some stability of the method. \\
+    step-length multiplied to the Hessian part in order to induce
+    conditions\cite{numOptNocWrig} which ensure some stability of the method.
+    \\
 
     Newton's method, in most cases, converges faster(less iterations) towards
     the minimum than gradient descent making it favorable, however the full
@@ -182,7 +214,8 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     the inverse of the Hessian matrix, which was updated at each step in the
     algorithm. For the sake of brevity only conditions employed to arrive at
     the expression for the updating formula and the formula itself is given
-    here >> REF BFGS <<. The conditions enforced is
+    here, for more see \cite{BFGSB, BFGSF, BFGSG, BFGSS, numOptNocWrig}. The
+    conditions enforced is
         \begin{itemize}
             \item Secant condition: $\blds{H}_{n+1} \blds{s}_n = \nabla
                 f(\blds{x}_{n+1}) - \nabla f(\blds{x}_n)$
@@ -198,7 +231,8 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             {\blds{s}^T_n\blds{H}_k\blds{s}_n}
             \label{eq:BFGSdef}
         \end{equation}
-    With the Sherman-Morrison formula the inverse is updated with
+    With the Sherman-Morrison formula\cite{shermorInv} the inverse is updated
+    with
         \begin{equation}
             \blds{H}^{-1}_{n+1} = \blds{H}^{-1}_n +
             \frac{\left(\blds{s}^T_n\blds{y}_n +
@@ -209,3 +243,36 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             \blds{s}_n\blds{y}^T_n\blds{H}^{-1}_n}{\blds{s}^T_n\blds{y}_n}
             \label{eq:shermanmorrisondef}
         \end{equation}
+
+\section{Linesearch methods\label{sec:linesearch_methods}}
+    In the optimization methods described in
+    \Arf{sec:newtons-method_and_quasi-newton_methods} There was one important
+    part neglected, namely how to find the step-length $\gamma$, introduced in
+    the updating formula. As it is, one can choose it in any manner desired,
+    however a class if one-dimensional minimization methods knows as
+    \txtit{lineasearch methods} are often used to get an (usually rough)
+    estimate for the step length at each iteration in the optimization. These
+    methods all have some conditions for stability and convergence as an innate
+    property in itself, meaning the validity of the step length is
+    better\foote{It's actually present...}. Some popular linesearch methods are
+    backtracking linesearch, Hager-Zhang method, Strong Wolfe conditions and
+    the More-Thuente linesearch method. The one used here is the latter. For an
+    exact derivation and explanation of linesearch methods in general see
+    \cite{numOptNocWrig}. \\
+    The idea of linesearch methods is to solve a one-dimensional problem of
+    minimizing
+        \begin{equation}
+            \phi(\alpha) = f(\alpha \blds{p}_k + \blds{x}_k)
+        \end{equation}
+    with $f:\mathbb{R}^n\rarr\mathbb{R}$ and $\blds{p}_k$ is a search direction
+    as described with the quasi-Newton methods and $\blds{x}_k$ is the current
+    iterate(point) in the minimization. Notice also that
+        \begin{equation}
+            \prd{\alpha}[\phi] = \blds{p}_k \cdot \nabla f(\alpha \blds{p}_k +
+            \blds{x}_k)
+        \end{equation}
+    by the chain-rule and the gradient on the right hand side is over the
+    parameters $\blds{x}_k$. One usually perform this linesearch loosely since
+    the search direction is not necessarily directly pointing towards the
+    minimum, meaning we only search for a step length that gives a
+    \txtit{sufficient decrease} in the function value $f$.
