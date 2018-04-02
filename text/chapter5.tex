@@ -7,7 +7,7 @@
     wildly guess random parameters and hope for the best, obviously this is a
     poor approach. The more sound approach would be to optimize(minimization
     int the VMC case) the wavefunction using methods from a popular field in
-    mathematics called \txttit{numerical optimization}. The two methods used in
+    mathematics called \txtit{numerical optimization}. The two methods used in
     this thesis was the \txtit{Conjugate Gradient method} and a version of the
     \txtit{Adaptive Stochastic Gradient Descent}. The explaining of the
     approaches for numerical optimization is only explained briefly. For a
@@ -81,16 +81,131 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
     method have been proven to be popular among problems in which the function
     to be minimized is an expectation value.
 
-    
 \section{Newtons-Method and Quasi-Newton
 Methods\label{sec:newtons-method_and_quasi-newton_methods}}
-    Write something...
+    We will here explain briefly \txtit{Newton's method} and
+    \txtit{Quasi-Newton} methods as the ideas presented will be used in the
+    next section. \\
+
+    Newton's method\cite{linalgDavid}(or Newton-Raphson method) is originally a
+    method for finding the zeros of a function. The rule states that given a
+    real-valued function $f:\mathbb{R}\rarr\mathbb{R}$ and an initial guess
+    $x\in\mathbb{R}$ for the zero-point, recursively find better
+    approximations for the zero by
+        \begin{equation}
+            x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+        \end{equation}
+    This method would then within a number iterations find the zero that is
+    closest to $x_0$.
+
+    For the optimization problem the condition for a point to be an extremal is
+    \Arf{eq:mincondition} meaning, again, that one needs to find the zero of
+    the derivative. Newton's method in this case would be
+        \begin{equation}
+            x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)},\indent n\geq 0
+        \end{equation}
+    Of course in the real world one might work with multi-variate function, not
+    to worry as Newton's method for optimization problems in the multi-variate
+    case with $f:\mathbb{R}^n\rarr\mathbb{R}$ (still real-valued) is
+        \begin{equation}
+            \blds{x}_{n+1} = \blds{x}_n -
+            \abs{\blds{H}f(\blds{x}_n)}^{-1}\dot\nabla f(\blds{x}_n),\indent
+            n\geq 0
+        \end{equation}
+    where $\blds{H}$ is the Hessian matrix. One might also introduce a
+    step-length multiplied to the Hessian part in order to induce conditions >>
+    REF THIS << which ensure some stability of the method. \\
+
+    Newton's method, in most cases, converges faster(less iterations) towards
+    the minimum than gradient descent making it favorable, however the full
+    Hessian has to be known. This matrix(or its inverse) is in many cases too
+    expensive to compute or difficult to express in closed-form. In these cases
+    the class of methods knows as Quasi-Newton methods can be utilized. \\
+
+    Quasi-Newton methods give an estimate of the inverse Hessian by using the
+    first derivatives. Introduce the Taylor approximation of $f$ around an
+    iteration point $\blds{x}_n$
+        \begin{equation}
+            f(\blds{x}_k + \blds{s}) \approx f(\blds{x}_k) + \left(\nabla
+            f(\blds{x}_k)\right)^T\blds{s} + \frac{1}{2}\blds{s}^T \blds{H}
+            \blds{s}
+        \end{equation}
+    differentiate with respect to the change $\blds{s}$
+        \begin{equation}
+            \nabla_s f(\blds{x}_k + \blds{s}) \approx \nabla f(\blds{x}_k) +
+            \blds{H}\blds{s}
+            \label{eq:secantEquationNewton}
+        \end{equation}
+    and introduce the condition in \Arf{eq:mincondition} and set this
+    gradient to zero to find the change $\blds{s}$
+        \begin{equation}
+            \blds{s} = -\blds{H}^{-1} \nabla f(\blds{x}_k)
+        \end{equation}
+    Another way to determine this particular form for $\blds{s}$ is to say that
+    the approximation to the Hessian must satisfy the \txtit{secant equation}
+    which is \Arf{eq:secantEquationNewton}. The updating rule for $\blds{x}_n$
+    is then given by
+        \begin{equation}
+            \blds{x}_{n+1} = \blds{x}_n - \gamma_k\blds{H}^{-1}_n\nabla
+            f(\blds{x}_n)
+        \end{equation}
+    where $\gamma_k$ is again introduced to give some stability conditions. The
+    important part of this equation is the index on the inverse Hessian. This
+    is essentially just a relabeling at the change $\blds{s}$ is technically
+    applied for each iterate $\blds{x}_n$. Note also that $\blds{s}$ takes the
+    role of the search direction in this case. The algorithm is then to make an
+    initial guess on the Hessian(usually just the identity matrix) and then use
+    a type of updating formula that finds a new approximation for the Hessian
+    at each step $n$. There are a number of these updating formulas, just to
+    mention some we have DFP, SR1, McCormick, Boryden, BFGS and more. The one
+    we will mention in more detail is the BFGS method, but a main formula that
+    shows up in all of the updating methods is the \txtit{Sherman-Morrison
+    formula} for the inverse. This basically means that the need calculation of
+    the inverse matrix is completely removed. \\
+
+    With the mention expression we can devise an algorithm similar to Newton's
+    method for finding the minimum $\blds{x}_m$. Starting with an initial guess
+    for the inverse Hessian $\blds{H}^{-1}_0$ and minimum $\blds{x}_0$ with the
+    condition that $\blds{H}^{-1}_0$ is positive-definite (identity matrix a
+    nice start if nothing else is known) proceed with
+        \begin{itemize}
+            \item $\blds{x}_{n+1} = \blds{x}_n -\gamma_n\blds{H}^{-1}_0\nabla
+                f(\blds{x}_n)$
+            \item Calculate the gradient $\nabla f(\blds{x}_{n+1})$
+            \item Use $\nabla f(\blds{x}_{n+1})$ and $f(\blds{x}_n)$ in a
+                updating formula of choice to find $\blds{H}^{-1}_{n+1}$
+        \end{itemize}
 
 \section{BFGS\label{sec:BFGS}}
-    In the two previous sections we mentioned methods that used the gradient of
-    $f$ as the desired search direction. The method known as
-    BFGS\footnote{Stands for Broyden-Fletcher-Goldfarb-Shanno algorithm after
-    the creators.} we use, in addition to the gradient, the \txtit{Hessian
-    matrix} as well (an approximation to it anyways). This method also belongs
-    to the class of quasi-Newton methods as it approximates the Hessian with
-    the gradient at each step.
+    In the previous section we gave an outline for Newton's method and the
+    class known as Quasi-Newton methods. The latter used an approximation for
+    the inverse of the Hessian matrix, which was updated at each step in the
+    algorithm. For the sake of brevity only conditions employed to arrive at
+    the expression for the updating formula and the formula itself is given
+    here >> REF BFGS <<. The conditions enforced is
+        \begin{itemize}
+            \item Secant condition: $\blds{H}_{n+1} \blds{s}_n = \nabla
+                f(\blds{x}_{n+1}) - \nabla f(\blds{x}_n)$
+            \item Strong curvature: $\blds{s}^T_k\cdot (f(\blds{x}_{n+1}) -
+                \nabla f(\blds{x}_n)) > 0$
+        \end{itemize}
+    and the resulting formula states with $\blds{y}_k = f(\blds{x}_{n+1}) -
+    \nabla f(\blds{x}_n)$
+        \begin{equation}
+            \blds{H}_{n+1} = \blds{H}_n +
+            \frac{\blds{y}_n\blds{y}^T_n}{\blds{y}^T_n \blds{s}_n} -
+            \frac{\blds{H}_n\blds{s}_n\blds{s}^T_n\blds{H}_n}
+            {\blds{s}^T_n\blds{H}_k\blds{s}_n}
+            \label{eq:BFGSdef}
+        \end{equation}
+    With the Sherman-Morrison formula the inverse is updated with
+        \begin{equation}
+            \blds{H}^{-1}_{n+1} = \blds{H}^{-1}_n +
+            \frac{\left(\blds{s}^T_n\blds{y}_n +
+            \blds{y}^T_n\blds{H}^{-1}_n\blds{y}_n\right)
+            \left(\blds{s}_n\blds{s}^T_n\right)}
+            {\left(\blds{s}^T_n\blds{y}_n\right)^2} -
+            \frac{\blds{H}^{-1}_n\blds{y}_n\blds{s}^T_n +
+            \blds{s}_n\blds{y}^T_n\blds{H}^{-1}_n}{\blds{s}^T_n\blds{y}_n}
+            \label{eq:shermanmorrisondef}
+        \end{equation}
