@@ -192,14 +192,14 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     mention some we have DFP, SR1, McCormick, Boryden, BFGS and more. The one
     we will mention in more detail is the BFGS method, but a main formula that
     shows up in all of the updating methods is the \txtit{Sherman-Morrison
-    formula} for the inverse. This basically means that the need calculation of
-    the inverse matrix is completely removed. \\
+    formula} for the inverse. This basically means that the need for
+    calculation of the inverse matrix is completely removed. \\
 
-    With the mention expression we can devise an algorithm similar to Newton's
-    method for finding the minimum $\blds{x}_m$. Starting with an initial guess
-    for the inverse Hessian $\blds{H}^{-1}_0$ and minimum $\blds{x}_0$ with the
-    condition that $\blds{H}^{-1}_0$ is positive-definite (identity matrix a
-    nice start if nothing else is known) proceed with
+    With the mentioned expression we can devise an algorithm similar to
+    Newton's method for finding the minimum $\blds{x}_m$. Starting with an
+    initial guess for the inverse Hessian $\blds{H}^{-1}_0$ and minimum
+    $\blds{x}_0$ with the condition that $\blds{H}^{-1}_0$ is positive-definite
+    (identity matrix a nice start if nothing else is known) proceed with
         \begin{itemize}
             \item $\blds{x}_{n+1} = \blds{x}_n -\gamma_n\blds{H}^{-1}_0\nabla
                 f(\blds{x}_n)$
@@ -254,11 +254,11 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     estimate for the step length at each iteration in the optimization. These
     methods all have some conditions for stability and convergence as an innate
     property in itself, meaning the validity of the step length is
-    better\foote{It's actually present...}. Some popular linesearch methods are
-    backtracking linesearch, Hager-Zhang method, Strong Wolfe conditions and
-    the More-Thuente linesearch method. The one used here is the latter. For an
-    exact derivation and explanation of linesearch methods in general see
-    \cite{numOptNocWrig}. \\
+    better\footnote{It's actually present...}. Some popular linesearch methods
+    are backtracking linesearch, Hager-Zhang method, Strong Wolfe conditions
+    and the More-Thuente linesearch method. The one used here is the latter.
+    For an exact derivation and explanation of linesearch methods in general
+    see \cite{numOptNocWrig}. \\
     The idea of linesearch methods is to solve a one-dimensional problem of
     minimizing
         \begin{equation}
