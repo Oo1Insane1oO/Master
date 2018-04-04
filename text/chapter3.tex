@@ -721,7 +721,7 @@
     \subsection{The Trial Wavefunction: Jastrow\label{susec:TWFJastrow}}
         As mentioned we model the wavefunction as a product of the one-body
         Slater and a correlation part known as a \txtit{Jastrow factor}. The
-        Jastrow can have many form, however a popular form is the
+        Jastrow can have many forms, however a popular form is the
         \txtit{pad\'e-Jastrow} function. It is defined as\cite{basicMB} >> REF
         MORE <<
             \begin{equation}
@@ -732,6 +732,24 @@
             \begin{equation}
                 \psiT = \det(\blds{\Phi})J
             \end{equation}
-        where the $\beta_l$'s are variational parameters and $a^{(l)}_{ij}$ is
-        a spin-dependant parameters which ensures a \txtit{cusp condition}.
-
+        where the $\beta_l$'s are variational parameters. The main feature
+        present regardless of the form of Jastrow is that it ensures that the
+        divergence at origin within the one-body wavefunction is canceled and
+        that the wavefunction itself goes towards zero as the radial distance
+        tends to infinity. The first conditions must be ensured directly by the
+        form of the Jastrow function while the latter condition is known as a
+        \txtit{cusp condition} and is ensured by the spin-dependant parameter
+        $a_{ij}$. \\
+        Following >> REF THIS << the conditions are
+            \begin{equation}
+                a^{\text{2D}}_{ij} = \left\{\begin{aligned}
+                        \frac{1}{3},&\indent& &\text{parallel spin} \\
+                        1,&\indent& &\text{anti-parallel spin} \\
+                    \end{aligned}\right.
+            \end{equation}
+            \begin{equation}
+                a^{\text{3D}}_{ij} = \left\{\begin{aligned}
+                        \frac{1}{4},&\indent& &\text{parallel spin} \\
+                        \frac{1}{2},&\indent& &\text{anti-parallel spin} \\
+                    \end{aligned}\right.
+            \end{equation}
