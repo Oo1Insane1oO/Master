@@ -2,22 +2,22 @@
 
 \chapter{\label{appendix:B}}
 
-\section{Integral-elements in Least-Squares Fitting}
-    The integral elements are as follows
-        \begin{align}
-            X_{ij} &= \int g_i(x)g_j(x) \md x \nonumber \\
-            &= \int x^i N_i N_j \me^{\frac{\omega}{2} x^2} x^j
-            \me^{\frac{\omega}{2} x^2} \md x
-        \end{align}
-    and
-        \begin{align}
-            b_i &= \int g_i(x)f(x) \md x \nonumber \\
-            &= \int N_i x^i \me^{\frac{\omega}{2} x^2}
-            \left(2^nn!\sqrt{\frac{\pi}{\omega}}\right)^{-\frac{1}{2}}
-            H_n(\sqrt{\omega}x) \me^{\frac{\omega}{2} x^2} \md x
-        \end{align}
-    We dont contract the expressions further in favor of reusing the
-    normalization factors.
+% \section{Integral-elements in Least-Squares Fitting}
+%     The integral elements are as follows
+%         \begin{align}
+%             X_{ij} &= \int g_i(x)g_j(x) \md x \nonumber \\
+%             &= \int x^i N_i N_j \me^{\frac{\omega}{2} x^2} x^j
+%             \me^{\frac{\omega}{2} x^2} \md x
+%         \end{align}
+%     and
+%         \begin{align}
+%             b_i &= \int g_i(x)f(x) \md x \nonumber \\
+%             &= \int N_i x^i \me^{\frac{\omega}{2} x^2}
+%             \left(2^nn!\sqrt{\frac{\pi}{\omega}}\right)^{-\frac{1}{2}}
+%             H_n(\sqrt{\omega}x) \me^{\frac{\omega}{2} x^2} \md x
+%         \end{align}
+%     We dont contract the expressions further in favor of reusing the
+%     normalization factors.
 
 \section{Derivative of Energy and Variance}
     The derivative with respect to a general variational parameter $\alpha$ of
@@ -41,4 +41,60 @@
             \ecp{\prd{\alpha}[\ecp{E}]\left(\ecp{E} - E_L\right)}\right)
             \nonumber \\
             &= 2\ecp{E}\left(\prd{\alpha}[\ecp{E}] - 1\right)
+        \end{align}
+
+\section{Derivatives of Hermite Functions}
+    The gradient of Hermite functions on the form
+        \begin{equation}
+            \psi_n(r) = \prod_d \psi_{n_d}(x_d) = \prod_d
+            H_{n_d}(\sqrt{\omega}x_d)\me^{-\frac{\omega}{2}x^2_d}
+        \end{equation}
+    is
+        \begin{align}
+            \nabla \psi_n(r) &= \sum_d\hat{e} \prod_{d'\neq d} \psi_{n_{d'}}
+            \prd{x_d}[\psi_{n_d}] \nonumber \\
+            &= \sum_d\hat{e} \prod_{d'\neq d} \psi_{n_{d'}} \psi_{n_d}
+            \sqrt{\omega} \left(\prd{u}[H_{n_d}]\frac{1}{H_{n_d}} - x_d\right)
+            \nonumber \\
+            &= \psi_n\sqrt{\omega}\sum_d \hat{e}
+            \left(2n_d\frac{H_{n_d-1}(\sqrt{\omega}x_d)}
+            {H_{n_d}(\sqrt{\omega}x_d)} - x_d\right)
+        \end{align}
+    and the Laplacian follows
+        \begin{align}
+            \nabla^2 \psi_n(r) &= \sum_d \prod_{d'\neq d} \psi_{n_{d'}}
+            \prd{x_d}[\psi_{n_d}][2] \nonumber \\
+            &= \psi_n\omega\sum_d
+            \left(\frac{\left(4n_d(n_d-1)H_{n_d-2}(\sqrt{\omega}x_d) -
+            \sqrt{\omega}x_dH_{n_d-1}(\sqrt{\omega}x_d)\right)}
+            {H_{n_d}(\sqrt{\omega}x_d)} + \omega x^2_d - 1\right)
+        \end{align}
+
+\section{Derivatives of Pad\'e-Jastrow Function}
+    Given the Pad\'e-Jastrow function
+        \begin{equation}
+            J = \exp\left(\sum\limits_{i<j}\frac{a_{ij}\sum\limits_l
+            r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right)
+        \end{equation}
+    The gradient is
+        \begin{align}
+            \nabla_k J &= J \nabla_k \sum\limits_{i<j}\frac{a_{ij}\sum\limits_l
+            r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}} \nonumber \\ &= J
+            \sum_d \hat{e}_d \sum_{j\neq k} a_{kj} \prd{x^{(d)}_k}[r_{kj}]
+            \prd{r_{kj}} \left(\frac{\sum\limits_l r^l_{kj}}{1 + \sum\limits_l
+            \beta_l r^l_{kj}}\right) \nonumber \\
+            &= J \sum_d \hat{e}_d \sum_{j\neq k} a_{kj}
+            \frac{x^{(d)}_{kj}}{r_{kj}}
+            \left(\frac{\sum\limits_llr^{l-1}_{kj}}{1 + \sum\limits_l \beta_l
+            r^l_{kj}} - \frac{\sum\limits_l
+            r^l_{kj}\sum\limits_{l'}\beta_{l'}l'r^{l'-1}_{kj}}{\left(1 +
+            \sum\limits_l\beta_lr^l_{kj}\right)^2}\right) \nonumber \\
+            &= J \sum_d \hat{e}_d \sum_{j\neq k}
+            a_{kj}\frac{x^{(d)}_{kj}}{r^2_{kj}\left(1 +
+            \sum\limits_l\beta_lr^l_{kj}\right)^2} \sum\limits_l lr^l_{kj}
+            \left(1 + \sum\limits_{l'}\beta_{l'}r^{L-l'}_{kj}\right) \nonumber
+            \\
+            &= J \sum_{j\neq k} \frac{a_{kj}\blds{r}_{kj}}{r^2_{kj}\left(1 +
+            \sum\limits_l\beta_lr^l_{kj}\right)^2} \sum\limits_l lr^l_{kj}
+            \left(1 + \sum\limits_{l'}\beta_{l'}r^{L-l'}_{kj}\right)
         \end{align}
