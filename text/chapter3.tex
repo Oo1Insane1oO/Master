@@ -717,8 +717,21 @@
                 \det(\blds{\Phi}) = \det(\blds{\Phi_{\urw}})
                 \det(\blds{\Phi_{\drw}})
             \end{equation}
-        Again, the main point of this splitting is to reduce the size of the
-        matrices in question.
 
     \subsection{The Trial Wavefunction: Jastrow\label{susec:TWFJastrow}}
+        As mentioned we model the wavefunction as a product of the one-body
+        Slater and a correlation part known as a \txtit{Jastrow factor}. The
+        Jastrow can have many form, however a popular form is the
+        \txtit{pad\'e-Jastrow} function. It is defined as\cite{basicMB} >> REF
+        MORE <<
+            \begin{equation}
+                J = \exp\left(\sum\limits_{i<j}\frac{a_{ij}\sum\limits_l
+                r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right)
+            \end{equation}
+        meaning the trial wavefunction is
+            \begin{equation}
+                \psiT = \det(\blds{\Phi})J
+            \end{equation}
+        where the $\beta_l$'s are variational parameters and $a^{(l)}_{ij}$ is
+        a spin-dependant parameters which ensures a \txtit{cusp condition}.
 
