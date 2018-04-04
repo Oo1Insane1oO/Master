@@ -464,17 +464,6 @@
         local energy would be much more of a hassle.\footnote{The
         differentiation of the wavefunction is enough to reduce the quality of
         life on its own!}
-
-    \subsection{The Trial Wave Function}
-        The trial wave function is generally an arbitrary choice specific for
-        the problem at hand, however it is in most cases favorable to expand
-        the wave function in the eigenbasis (eigenstates) of the Hamiltonian
-        since they forma complete set. This can be expressed as
-            \begin{equation}
-                \psiT = \sum_i C_i\psi_i(\mb{R};\mb{\alpha})
-            \end{equation}
-        where the $\psi_i$'s are the eigenstates of the Hamiltonian.
-
     \subsection{Use Diffusion Theory and the PDF\label{susec:diffTHpdf}}
         The statistics describing the expectation value states that any
         distribution may be applied in calculation, however if we take a close
@@ -629,3 +618,107 @@
                 +\frac{\left(\blds{r}^{(a)}_i - \blds{r}^{(b)}_i - D\Delta t
                 \blds{F}^{(b)}_i\right)^2}{4D\Delta t})
             \end{equation}
+
+    \subsection{The Trial Wavefunction: One-Body}
+        The trial wave function is generally an arbitrary choice specific for
+        the problem at hand, however it is in most cases favorable to expand
+        the wave function in the eigenbasis (eigenstates) of the Hamiltonian
+        since they form a complete set. This can be expressed as
+            \begin{equation}
+                \psiT = \sum_k C_i\psi_k(\mb{R};\mb{\alpha})
+            \end{equation}
+        where the $\psi_i$'s are the eigenstates of the Hamiltonian. The
+        coefficients can be found by any method preferable and is the usual
+        procedure is to use a set of basis functions and then minimize to find
+        the coefficients $\{C\}_{k=1}^L$. We use the Hartree-Fock method to
+        minimize in this thesis. The trial wavefunction is also generally
+        expressed as a \txtit{Slater determinant} >> REF SLATER <<for the
+        fermionic case and a general product for bosonic systems. We will
+        explain the fermionic case shortly since it is the main focus here and
+        since the bosonic wavefunction is simple to express. The Slater is
+        expressed as
+            \begin{equation}
+                \phiT = \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)
+            \end{equation}
+        where the \txtit{Slater matrix} $\blds{\Phi}$ has elements
+            \begin{equation}
+                \Phi_{ij} = \phi_{n_j}(\blds{r}_i;\blds{\alpha})
+            \end{equation}
+        such that each row is evaluated for particle $i$ and each column is for
+        a quantum number $n_j$ dependant on the basis used. The $\xi(s)$ is the
+        spin-dependant part. Notice also that we switched the labeling from
+        $\Psi_T$ to $\Phi_T$. This is to make a distinction between
+        \txtit{one-body} and \txtit{correlation} terms. The latter will be
+        introduced later in \Arf{susec:TWFJastrow}. In this case the
+        \txtit{single-particle} functions $\phi_j(r)$ are expanded in some
+        basis(i.e Hartree-Fock).
+
+    \subsection{The Trial Wavefunction: Splitting the Slater Determinant}
+        An important part of the trial-wavefunction presented here is that the
+        one-body term is \txtit{independent} of spin, that is, the Hamiltonian
+        is not explicitly dependant on the spin degrees of freedom. For the
+        case of a Hamiltonian with an inherent spin part The following
+        splitting of the Slater determinant is not valid! In that case the
+        expectation value(presented in the variational principal in
+        \Arf{eq:varPrinc}) would be a product of the expectation value over the
+        spin-independent part of the Hamiltonian and the expectation value over
+        the remaining spin-dependant parts\cite{spinDep}. The results presented
+        here is however for systems of spin-independent systems, and in those
+        cases the spin-part is essentially just another label which can be
+        integrated out(similar to the procedure with the restricted
+        Hartree-Fock method). For the splitting with a \txtit{spin-independent}
+        Hamiltonian see \cite{splitDet} and \cite{basicMB}. \\
+        
+        The procedure is simply to arrange the basis functions in such a way
+        that we have $N/2$ single-particle functions in spin-up and the same
+        basis functions for spin-down. This means that the Slater is
+            \begin{equation}
+                \frac{1}{N!} \begin{pmatrix}
+                    \phi_1(\blds{r}_1)\xi_{\urw} & \dots &
+                    \phi_{N/2}(\blds{r}_1)\xi_{\urw} &
+                    \phi_1(\blds{r}_1)\xi_{\drw} & \dots &
+                    \phi_{N/2}(\blds{r}_1)\xi_{\drw} \\
+                    \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+                    \phi_1(\blds{r}_N)\xi_{\urw} & \dots &
+                    \phi_{N/2}(\blds{r}_N)\xi_{\urw} &
+                    \phi_1(\blds{r}_N)\xi_{\drw} & \dots &
+                    \phi_{N/2}(\blds{r}_N)\xi_{\drw} \\
+                \end{pmatrix}
+            \end{equation}
+        This restructuring of the single-particle states implies that
+            \begin{equation}
+                \det(\blds{\Phi}) \propto \det(\blds{\Phi_{\urw}})
+                \det(\blds{\Phi_{\drw}})
+            \end{equation}
+        where we have defined
+            \begin{equation}
+                \begin{aligned}
+                    \blds{\Phi_{\urw}} &= \begin{pmatrix}
+                        \phi_1(\blds{r}_1) & \dots & \phi_{N/2}(\blds{r}_1) \\
+                        \vdots & \ddots & \vdots \\
+                        \phi_1(\blds{r}_{N/2}) & \dots &
+                        \phi_{N/2}(\blds{r}_{N/2})
+                    \end{pmatrix} \\
+                    \blds{\Phi_{\drw}} &= \begin{pmatrix}
+                        \phi_1(\blds{r}_{N/2+1}) & \dots &
+                        \phi_{N/2}(\blds{r}_{N/2+1}) \\
+                        \vdots & \ddots & \vdots \\
+                        \phi_1(\blds{r}_{N}) & \dots & \phi_{N}(\blds{r}_{N})
+                    \end{pmatrix}
+                \end{aligned}
+            \end{equation}
+        Which in this sense means to put the first $N/2$ particles in spin-up
+        configuration and the remaining in spin-down and use the same
+        single-particle functions.  On a technical note, this rewriting is an
+        approximation. However it can be shown(again see \cite{splitDet}) that
+        the expectation value is still the same.\\
+        The one-body term is now rewritten to
+            \begin{equation}
+                \det(\blds{\Phi}) = \det(\blds{\Phi_{\urw}})
+                \det(\blds{\Phi_{\drw}})
+            \end{equation}
+        Again, the main point of this splitting is to reduce the size of the
+        matrices in question.
+
+    \subsection{The Trial Wavefunction: Jastrow\label{susec:TWFJastrow}}
+
