@@ -89,57 +89,81 @@
             \end{aligned}
         \end{equation}
     Notice that the sum with $j\neq k$ is only a sum over $j$ with $k$ fixed.
-    The derivatives of $f$ is
+    The derivatives of $f$ are (with the added conclusion that only
+    $a^{(1)}_{kj}$ is non-zero)
+        \begin{equation}
+            \begin{aligned}
+                \prd{r_{kj}}[f_{kj}] &= \frac{a_{kj}\left(1 +
+                \sumll{l}\beta_lr^l_{kj}\left(1-l\right)\right)}{\left(1 +
+                \sumll{l}\beta_lr^l_{kj}\right)^2} \\
+                \prd{r_{kj}}[f_{kj}][2] &=
+                \frac{a_{kj}\left(\sumll{ll'}r^{l+l'}_{kj}\beta_l
+                \left(\beta_{l'}\left(1-l^2\right) -
+                \left(1-l'\right)\left(1+2l\right)\right) -
+                \sumll{l}r^l_{kj}\beta_ll\left(l+1\right)\right)}{r_{kj}\left(1
+                + \sumll{l}\beta_lr^l_{kj}\right)^3}
+            \end{aligned}
+        \end{equation}
+    The full derivation is as follows
         \begin{align}
-            \prd{r_{kj}}[f_{kj}] &= a_{kj}\prd{r_{kj}}
-            \left(\frac{\sum\limits_l r^l_{ij}}{1 + \sum\limits_l \beta_l
-            r^l_{ij}}\right) \nonumber \\
-            &= a_{kj}\frac{\sum\limits_llr^{l-1}_{kj}\left(1 + \sum\limits_l
-            \beta_l r^l_{kj}\right) - \sum\limits_l
-            r^l_{kj}\sum\limits_{l'}\beta_{l'}l'r^{l'-1}_{kj}}{\left(1 +
-            \sum\limits_l\beta_lr^l_{kj}\right)^2} \nonumber \\
-            &= \frac{a_{kj}}{r_{kj}\left(1 +
-            \sum\limits_l\beta_lr^l_{kj}\right)^2} \left(\sum_l lr^l_{kj} +
-            \sum_{ll'}\beta_{l'}r^{l+l'}_{kj}\left(l-l'\right)\right)
+            \prd{r_{kj}}[f_{kj}] &= \prd{r_{kj}} \left(\frac{\sum\limits_l
+            a^{(l)}_{kj}r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right)
+            \nonumber \\
+            &= \frac{\sum\limits_la^{(l)}_{kj}lr^{l-1}_{kj}\left(1 +
+            \sum\limits_l \beta_l r^l_{kj}\right) - \sum\limits_l
+            a^{(l)}_{kj}r^l_{kj}
+            \sum\limits_{l'}\beta_{l'}l'r^{l'-1}_{kj}}{\left(1 +
+            \sum\limits_l\beta_lr^l_{kj}\right)^2} \nonumber \\ 
+            &= \frac{\sum\limits_l a^{(l)}_{kj}lr^l_{kj} +
+            \sum\limits_{ll'}a^{(l)}_{kj}\beta_{l'}r^{l+l'}_{kj}
+            \left(l-l'\right)}{r_{kj}\left(1 +
+            \sum\limits_l\beta_lr^l_{kj}\right)^2} 
         \end{align}
     and
+        \newcommand{\akjl}{a^{(l)}_{kj}}
+        \newcommand{\akjll}{a^{(l')}_{kj}}
         \begin{align}
             \prd{r_{kj}}[f_{kj}][2] &= a_{kj}
-            \prd{r_{kj}}\left(\frac{\sum\limits_l lr^l_{kj} +
-            \sum\limits_{ll'}\beta_{l'}r^{l+l'}_{kj}\left(l-l'\right)}{r_{kj}
-            \left(1 + \sum\limits_l\beta_lr^l_{kj}\right)^2}\right) \nonumber
-            \\
-            &= a_{kj} \Biggm[\left(\sumll{l}l^2r^{l-1}_{kj} +
-            \sumll{ll'}\beta_{l'}r^{l+l'-1}_{kj}\left(l^2-l'^2\right)\right)
+            \prd{r_{kj}}\left(\frac{\sum\limits_l a^{(l)}_{kj}lr^l_{kj} +
+            \sum\limits_{ll'}a^{(l)}_{kj}\beta_{l'}r^{l+l'}_{kj}
+            \left(l-l'\right)}{r_{kj}\left(1 +
+            \sum\limits_l\beta_lr^l_{kj}\right)^2}\right) \nonumber \\
+            &= \Biggm[\left(\sumll{l}\akjl l^2r^{l-1}_{kj} +
+            \sumll{ll'}\akjl\beta_{l'}r^{l+l'-1}_{kj}\left(l^2-l'^2\right)\right)
             \left(r_{kj} \left(1 + \sum\limits_l\beta_lr^l_{kj}\right)^2\right)
             \nonumber \\ &-\left(\left(1 +
             \sum\limits_l\beta_lr^l_{kj}\right)^2 + 2r_{kj}\left(1 +
             \sumll{l}\beta_lr^l_{kj}\right)\sumll{l}\beta_llr^{l-1}_{kj}\right)
-            \nonumber \\ &\times\left(\sum\limits_l lr^l_{kj} +
-            \sum\limits_{ll'}\beta_{l'}r^{l+l'}_{kj}\left(l-l'\right)\right)
+            \nonumber \\ &\times\left(\sumll{l}\akjl lr^l_{kj} +
+            \sumll{ll'}\akjl\beta_{l'}r^{l+l'}_{kj}\left(l-l'\right)\right)
             \Biggm] \Biggm/ \left(r^2_{kj} \left(1 +
             \sum\limits_l\beta_lr^l_{kj}\right)^4\right) \nonumber \\
-            &= a_{kj} \Biggm[\left(\sumll{l}l^2r^l_{kj} +
-            \sumll{ll'}\beta_{l'}r^{l+l'}_{kj}\left(l^2-l'^2\right)\right)
+            &= \Biggm[\left(\sumll{l}\akjl l^2r^l_{kj} +
+            \sumll{ll'}\akjl\beta_{l'}r^{l+l'}_{kj}\left(l^2-l'^2\right)\right)
             \left(1 + \sumll{l}\beta_lr^l_{kj}\right) \nonumber \\ &-\left(1 +
-            \sumll{l}\beta_lr^l_{kj} + 2
-            \sumll{l}\beta_llr^l_{kj}\right) \left(\sum\limits_l lr^l_{kj}
-            + \sumll{ll'}\beta_{l'}r^{l+l'}_{kj}\left(l-l'\right)\right)
+            \sumll{l}\beta_lr^l_{kj} \left(1+2l\right) \right)
+            \left(\sum\limits_l\akjl lr^l_{kj} +
+            \sumll{ll'}\akjl\beta_{l'}r^{l+l'}_{kj}\left(l-l'\right)\right)
             \Biggm] \nonumber \\ &\Biggm/ \left(r^2_{kj} \left(1 +
             \sum\limits_l\beta_lr^l_{kj}\right)^3\right) \nonumber \\
-            &= a_{kj} \Biggm[\left(\sumll{l}l^2r^l_{kj} +
-            \sumll{ll'}l^2\beta_{l'}r^{l+l'}_{kj} +
-            \sumll{ll'}\beta_{l'}r^{l+l'}_{kj}\left(l^2-l'^2\right) +
-            \sumll{ll'l''}\beta_l\beta_{l''}r^{l+l'+l''}_{kj}\left(l'^2-l''^2\right)\right)
-            \nonumber \\ &- \Biggm(\sumll{l}lr^l_{kj} +
-            \sumll{ll'}\beta_{l'}r^{l+l'}_{kj}\left(l-l'\right) +
-            \sumll{ll'}\beta_ll'r^{l+l'}_{kj} +
-            \sumll{ll'l''}\beta_l\beta_{l''}r^{l+l'+l''}_{kj}\left(l'-l''\right)
-            \nonumber \\ &+ 2\sumll{ll'}\beta_lll'r^{l+l'}_{kj} +
-            2\sumll{ll'l''}\beta_l\beta_{l''}r^{l+l'+l''}_{kj}l\left(l'-l''\right)\Biggm)\Biggm]
-            \Biggm/ \left(r^2_{kj} \left(1 +
+            &= \Biggm[\sumll{l}\akjl l^2r^l_{kj} + \sumll{ll'}\akjl
+            l^2\beta_{l'}r^{l+l'}_{kj} +
+            \sumll{ll'}\akjl\beta_{l'}r^{l+l'}_{kj}\left(l^2-l'^2\right) +
+            \sumll{ll'l''}\akjl\beta_{l'}\beta_{l''}r^{l+l'+l''}_{kj}
+            \left(l^2-l'^2\right) \nonumber \\ &- \Biggm(\sumll{l}\akjl
+            lr^l_{kj} +
+            \sumll{ll'}\akjl\beta_{l'}r^{l+l'}_{kj}\left(l-l'\right) +
+            \sumll{ll'}\akjll\beta_ll'r^{l+l'}_{kj}\left(1+2l\right) \nonumber
+            \\ &+ \sumll{ll'l''}\akjll\beta_l\beta_{l''}r^{l+l'+l''}_{kj}
+            \left(l'-l''\right) \left(1+2l\right) \Biggm] \Biggm/
+            \left(r^2_{kj} \left(1 +
             \sum\limits_l\beta_lr^l_{kj}\right)^3\right) \nonumber \\
-            &= \frac{a_{kj}}{r^2_{kj} \left(1 + \sum\limits_l\beta_lr^l_{kj}\right)^3} \Biggm( \sumll{l}r^l_{kj}l\left(l-1\right) \nonumber \\
-            &+ \sumll{ll'}r^{l+l'}_{kj}\left(\beta_{l'}\left(2l(l-1) - l'(l'-1)\right) - \beta_ll'\left(2l+1\right)\right) \nonumber \\
-            &+ \sumll{ll'l''}\beta_l\beta_{ll'}r^{l+l'+l''}_{kj}\left(l'-l''\right)\left(l'+l''-2l-1\right)\Biggm)
+            &= \frac{1}{r^2_{kj} \left(1 +
+            \sum\limits_l\beta_lr^l_{kj}\right)^3} \Biggm(\sumll{l}\akjl
+            r^l_{kj}l\left(l-1\right) \nonumber \\ &+ \sumll{ll'}
+            r^{l+l'}_{kj}\left(\akjl\beta_{l'}\left(2l^2-l'^2-l+l'\right) -
+            \akjll\beta_ll'\left(1+2l\right)\right) \nonumber \\ &+
+            \sumll{ll'l''}\beta_{l''}r^{l+l'+l''}_{kj}
+            \left(\akjl\beta_{l'}\left(l^2-l'^2\right) -
+            \akjll\beta_l\left(l'-l''\right)\left(1+2l\right)\right)\Biggm)
         \end{align}
