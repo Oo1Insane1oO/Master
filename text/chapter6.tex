@@ -6,11 +6,88 @@
     and workflow of the code is given here. Theory backing the implementation
     is given in >> REF THEORY CHAPTER <<
 
-\section{Variational Monte Carlo}
+\section{Cartesian Basis}
+    In \Arf{chapter:4} we mentioned the use of basis functions the different
+    Many-Body methods. These can be pre-built using nifty intuition. One such
+    observation is in the way Harmonic oscillator functions station themselves
+    on energy-levels. The following image\footnote{As the old idiom goes; "A
+    picture is worth a thousand words"} describes this >> MAKE IMAGE << \\ This
+    specific arrangement of basis-functions is implemented in class
+    \hltexttt{Cartesian} and is used in both the Hartree-Fock and VMC
+    implementations. It essentially builds a matrix of states with the rows
+    being the specific state and the columns containing the quantum numbers(in
+    cartesian), the spin-value(as an integer), magic number and energy(in
+    natural units proportional to the oscillator frequency).
+
 \section{Hartree-Fock}
+    The Hartree-Fock method described in \Arf{sec:HFtheory} is implemented in
+    >> REF GITHUB <<. Only the restricted case is implemented and is present as
+    the class \hltexttt{HartreeFockSolver}. The matrix-elements(integrals) are
+    implemented in \hltexttt{HermiteIntegrals} class. This class also uses an
+    auto-generated header for the Hermite-coefficients, see
+    \Arf{sec:auto_generation} below. The \hltexttt{HartreeFockSolver} is
+    implemented in a general way such that an abstract class for the integral
+    elements is all that is needed. An example of how to create a
+    \hltexttt{HartreeFockSolver} object called HFS with number of dimensions
+    $D$, number of basis functions $L$ and number of particles $N$.
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            HartreeFockSolver* HFS = new HartreeFockSolver(D, L, N);
+        \end{lstlisting}
+    The specific integral class to be used must be know at compile time with
+    the BASIS flag. This is done by adding Basis='something' to the
+    compilation. After which one can initialize the specific class with the
+    \hltexttt{initializeParameters} function as
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            string message = HFS->getIntegralObj()->initializeParameters(...);
+        \end{lstlisting}
+    With the $\dots$ meaning one initializes it with in however manner the
+    function was made. The initialization function must also return a message
+    determined by the success of the initialization. If it succeeds it return
+    an empty message while if not it returns a pre-defined message. \\ Here is
+    a simple example code-snippet which initializes and runs the Hartree-Fock
+    algorithm
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            HartreeFockSolver* HFS = new HartreeFockSolver(D, L, N);
+
+            string message = HFS->getIntegralObj()->initializeParameters(...);
+            if (message.compare("")) {
+                if (myRank == 0) {
+                    std::cout << message << std::endl;
+                } // end if
+                delete HFS;
+                finalize();
+            } // end if
+
+            double E = HFS->iterate(M, 1e-8, true);
+        \end{lstlisting}
+    The \hltexttt{iterate} function takes in $M$ as the maximum number of
+    iterations, the convergence tolerance (when to break the iteration) and a
+    boolean for showing progress or not. It calculates the integral-elements
+    and runs the Hartree-Fock algorithm and returns the estimation of the
+    ground-state energy.
 \subsection{Parallelization of Two-Body Matrix}
+    The most time-consuming part of the Hartree-Fock procedure is the
+    calculation of the two-body matrix-elements giving the interaction terms.
+    This is parallelized in the \hltexttt{assemble} function in
+    \hltexttt{HartreeFockSolver}. The basic premise is to represent the
+    elements $\Braket{pq|r^{-1}|rs}$ as a one-dimensional array with the mapping
+        \begin{equation}
+            (p,q,r,s) \rarr p + N(q + N(r + Ns))
+        \end{equation}
+    that is the element $(p,q,r,s)$ is stored in positions $(p + N(q + N(r +
+    Ns))$ in the one-dimensional array.
+\section{Variational Monte Carlo}
 \section{Minimization}
 \subsection{More-Thuente Linesearch}
 \subsection{Conjugate Gradient}
-\subsubsection{BFGS}
+\subsection{BFGS}
+\section{Auto-Generation\label{sec:auto_generation}}
+    The analytic expressions involved in the quantum-dot systems are dependent
+    on Hermite-Polynomials and their coefficients. These are calculated
+    symbolically using the recurrence relation for Hermites with the SymPy
+    package in python. These expressions are then written to \CC code and
+    written to a \CC-header file. This file is then included in the integral
+    class in \hltexttt{HartreeFockSolver} and in the wavefunction
+    classes(namely \hltexttt{HartreeFock} and \hltexttt{HarmonicOscillator}) in
+    \hltexttt{VMC}. An example for call
 \section{Verification\label{sec:verification}}

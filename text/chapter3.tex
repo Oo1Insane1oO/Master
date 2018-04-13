@@ -492,8 +492,8 @@
         where $w(j\rarr i)$ is just a transition from state $j$ to state $i$.
         In order for the transition chain to reach a desired convergence while
         reversibility is kept, the well known condition for detailed balance
-        must be fulfilled >> REF HERE DETAILED BALANCE <<. If detailed balance
-        is true, then the following relations is true
+        must be fulfilled\cite{statmech}. If detailed balance is true, then the
+        following relation is true
             \begin{equation}
                 w_i \ufij{T}{i}{j}\ufij{A}{i}{j} = w_j \ufij{T}{j}{i}\ufij{A}{j}{i}
                 \Rarr \frac{w_i}{w_j} =
@@ -722,10 +722,10 @@
         As mentioned we model the wavefunction as a product of the one-body
         Slater and a correlation part known as a \txtit{Jastrow factor}. The
         Jastrow can have many forms, however a popular form is the
-        \txtit{pad\'e-Jastrow} function. It is defined as\cite{basicMB} >> REF
+        \txtit{Pad\'e-Jastrow} function. It is defined as\cite{basicMB} >> REF
         MORE <<
             \begin{equation}
-                J = \exp\left(\sum\limits_{i<j}\frac{a_{ij}\sum\limits_l
+                J = \exp\left(\sum\limits_{i<j}\frac{\sum\limits_la^{(l)}_{ij}
                 r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right)
             \end{equation}
         meaning the trial wavefunction is
@@ -753,6 +753,6 @@
                         \frac{1}{2},&\indent& &\text{anti-parallel spin} \\
                     \end{aligned}\right.
             \end{equation}
-        It also follows that $\beta_l=0$ for $l>1$ if the mentioned
+        It also follows that $a^{(l)}_{kj}=0$ for $l>1$ if the mentioned
         cusp-conditions are to be fulfilled. For expressions concerning the
         gradient and laplacian, see \Arf{appendix:B}.

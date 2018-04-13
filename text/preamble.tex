@@ -7,10 +7,11 @@
             doi=true,
             eprint=false]{biblatex}
 \usepackage[]{hyperref}
+\usepackage{courier}
 % \usepackage{fouriernc}
 \usepackage{listings}
 \usepackage[pdftex]{graphicx}
-\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -32,6 +33,12 @@
 \usepackage{etoolbox}
 \usepackage{fancyhdr}
 \usepackage{relsize}
+\usepackage{soul}
+% \usepackage{microtype}
+
+% color courier
+\definecolor{filecolor}{RGB}{150,43,190}
+\newcommand{\hltexttt}[1]{\texttt{\color{filecolor}{#1}}}
 
 % biblatex input file 
 \addbibresource{text/refs.bib}
@@ -75,9 +82,9 @@
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.3,0.3,0.3}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-\lstdefinestyle{mystyle}{
-        backgroundcolor=\color{backcolour},
+\definecolor{codebackground}{RGB}{172,203,160}
+\lstdefinestyle{pythonstyle}{
+        backgroundcolor=\color{codebackground},
         commentstyle=\color{codegreen},
         keywordstyle=\color{magenta},
         numberstyle=\tiny\color{codegray},
@@ -94,7 +101,18 @@
         showtabs=true, 
         tabsize=2
 }
-\lstset{style=mystyle}
+
+\lstdefinestyle{ccstyle}{
+    basicstyle=\footnotesize, % fontsize
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    backgroundcolor=\color{codebackground},
+    emph={HartreeFockSolver, string},
+    emphstyle={\color{magenta}},
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
 
 \hypersetup{
     colorlinks=true,
