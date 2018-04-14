@@ -69,13 +69,109 @@
     The most time-consuming part of the Hartree-Fock procedure is the
     calculation of the two-body matrix-elements giving the interaction terms.
     This is parallelized in the \hltexttt{assemble} function in
-    \hltexttt{HartreeFockSolver}. The basic premise is to represent the
+    \hltexttt{HartreeFockSolver}. The basic premise is to represent the $N^4$
     elements $\Braket{pq|r^{-1}|rs}$ as a one-dimensional array with the mapping
         \begin{equation}
             (p,q,r,s) \rarr p + N(q + N(r + Ns))
         \end{equation}
-    that is the element $(p,q,r,s)$ is stored in positions $(p + N(q + N(r +
-    Ns))$ in the one-dimensional array.
+    that is the element $(p,q,r,s)$ is stored in position $(p + N(q + N(r +
+    Ns))$ in the one-dimensional array. The symmetry $(p,q,r,s)=(q,p,r,s)$
+    reduces the number of elements down to $N(N+1)/2$. A $N(N+1)/2\times 4$
+    matrix of indices is then created with
+        \begin{algorithm}[H]
+            \caption{Parallelization Index Mapping}\label{alg:paraindiexmap}
+            \begin{algorithmic}[H]
+                \State Initialize matrix pqMap with $\frac{N}{2}(N+1)$ rows and
+                $4$ columns.
+                \State j = 0
+                \For{p=0 : N-1}
+                    \For{q=p : N-1}
+                        \For{r=0 : N-1}
+                            \For{s=r : N-1}
+                                \State pqMap[j,0] = p
+                                \State pqMap[j,1] = q
+                                \State pqMap[j,2] = r
+                                \State pqMap[j,3] = s
+                                \State j = j + 1
+                            \EndFor
+                        \EndFor
+                    \EndFor
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
+    The rows are then distributed evenly among $P$ processes according to
+        \begin{algorithm}[H]
+            \caption{Distribute Evenly}\label{alg:paraeven}
+            \begin{algorithmic}[H]
+                \If{rank < $\frac{N^2}{4}(N+1)^2\mod P$}
+                    \State rows =
+                    $\left\lceil\frac{\frac{N^2}{4}(N+1)^2}{P}\right\rceil$
+                    \Comment{Take ceil}
+                \Else
+                    \State rows =
+                    $\left\lfloor\frac{\frac{N^2}{4}(N+1)^2}{P}\right\rfloor$
+                    \Comment{Take floor}
+                \EndIf
+            \end{algorithmic}
+        \end{algorithm}
+    The problem now however is that processes of higher and higher ranks my end
+    up with calculating more since larger indices involve computationally more
+    heavy functions to be evaluated. We can account for this by weighting the
+    number of rows each process gets by the sum of the indices. The algorithm
+    is as follows
+        \begin{algorithm}[H]
+            \caption{Even Weighting}\label{alg:parasumweight}
+            \begin{algorithmic}[H]
+                \State Make array $S$ of size $P$ with each element being the
+                sum of the $(p,q,r,s)$ elements for the specific process.
+                \State Make an array sizes of size $P$ with the number of
+                elements for each process.
+                \State Make an array displ of size $P$ with the displacement
+                (index).
+                \State $O =$ Mean of $S$.
+                \For{$i=0$ to $P-2$}
+                    \For{j=displ[i] to displ[i]+sizes[i+1]} 
+                    \Comment{Iterate over elements in right adjacent process.}
+                        \State $L = S[i] + $sum(pqMap.row($j$))
+                        \If{$L < O$}
+                            \State sizes[$i$] = sizes[$i$] + 1
+                            \State sizes[$i+1$] = sizes[$i+1$]$ - 1$;
+                            \State displ[$i+1$] = displ[$i+1$]$ + 1$;
+                        \ElsIf{$L$ equals $O-1$ or $L$ equals $O+1$ or $L>O$}
+                            \State Break inner-most loop.
+                        \EndIf
+                    \EndFor
+                    \State Set elements of $S$.
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
+    Each process has access to the \hltexttt{pqMap} array such that the each
+    process calculates its own chunk according to the size set and the
+    \hltexttt{displ} tells the start-index. Each process then calculates the
+    two-body elements according to
+        \begin{algorithm}[H]
+            \caption{Two-Body Calculation}\label{alg:paratwobody}
+            \begin{algorithmic}[H]
+                \State Initialize $A$ for containing $(p,q,r,s)$ elements.
+                \State Initialize $B$ for containing $(p,q,s,r)$ elements.
+                \State $i_{\text{start}} =$ displ[rank]
+                \State $i_{\text{end}} =$ displ[rank] $+$ sizes[rank]
+                \State $k=0$
+                \For{$l=i_{\text{start}}$ to $i_{\text{end}}-1$}
+                    \State $p=$pqMap$[l,0]$
+                    \State $q=$pqMap$[l,1]$
+                    \State $r=$pqMap$[l,2]$
+                    \State $s=$pqMap$[l,3]$
+                    \State $A[l]=\Braket{pq|\frac{1}{r_{12}}|rs}$
+                    \State $B[l]=\Braket{pq|\frac{1}{r_{12}}|sr}$
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
+    Each $A$ and $B$ is then sent to root process and concatenated to a large
+    one-dimensional array and the actual two-body matrix of size $N^4$ is
+    assembled and antisymmetrized. The Hartree-Fock algorithm is then run only
+    on one process.
+
 \section{Variational Monte Carlo}
 \section{Minimization}
 \subsection{More-Thuente Linesearch}
