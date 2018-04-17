@@ -7,9 +7,7 @@
     throughout the entire chapter. We will address >> LIST METHODS << regarding
     computational quantum mechanics and further deepen into Hartree-Fock
     methods and Variational Monte Carlo method. Optimization of calculation is
-    also given while structure of program is given in >> REF TO PROGRAM
-    STRUCTURE CHAPTER <<. General statistical theory used is given in >> REF TO
-    STATISTICS CHAPTER <<
+    also given while structure of program is given in \Arf{chapter:6}.
 
 \section{The Hamiltonian and the Born-Oppenheimer Approximation\label{sec:3.1}}
     The task at hand is to solve the many-body system described by
@@ -126,11 +124,14 @@
     permanent is basically just a determinant with all the negative signs
     replaced by positive ones.}.
         \begin{equation}
-            \Psi^{\text{S}}_T = \frac{1}{\sqrt{N!}}\sum_{P}P\prod_i\psi_i
+            \Psi^{\text{S}}_T =
+            \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum_{P}P\prod_i\psi_i
         \end{equation}
     Notice that the coordinated ${\blds{r}}_{i=0}^{N}$ is a bit of a sloppy
-    notation as it also implicitly includes the spin orbitals discussed in >>
-    ref section on spin orbitals <<.
+    notation as it also implicitly includes the spin orbitals. The extra factor
+    in the symmetric case is to preserve the normalization due to number of
+    particles, the $n_i$ factor is determined by the the quantum-number for
+    state $i$.
 
 \section{Variational Principle\label{sec:varPrinc}}
     One important remark is that the Slater determinant and the permanent do

@@ -189,7 +189,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     initial guess on the Hessian(usually just the identity matrix) and then use
     a type of updating formula that finds a new approximation for the Hessian
     at each step $n$. There are a number of these updating formulas, just to
-    mention some we have DFP, SR1, McCormick, Boryden, BFGS and more. The one
+    mention some we have DFP, SR1, McCormick, Broyden, BFGS and more. The one
     we will mention in more detail is the BFGS method, but a main formula that
     shows up in all of the updating methods is the \txtit{Sherman-Morrison
     formula} for the inverse. This basically means that the need for
@@ -199,7 +199,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     Newton's method for finding the minimum $\blds{x}_m$. Starting with an
     initial guess for the inverse Hessian $\blds{H}^{-1}_0$ and minimum
     $\blds{x}_0$ with the condition that $\blds{H}^{-1}_0$ is positive-definite
-    (identity matrix a nice start if nothing else is known) proceed with
+    (identity matrix is a nice start if nothing else is known) proceed with
         \begin{itemize}
             \item $\blds{x}_{n+1} = \blds{x}_n -\gamma_n\blds{H}^{-1}_0\nabla
                 f(\blds{x}_n)$
@@ -208,7 +208,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
                 updating formula of choice to find $\blds{H}^{-1}_{n+1}$
         \end{itemize}
 
-\section{BFGS\label{sec:BFGS}}
+\section{BFGS Method\label{sec:BFGS}}
     In the previous section we gave an outline for Newton's method and the
     class known as Quasi-Newton methods. The latter used an approximation for
     the inverse of the Hessian matrix, which was updated at each step in the
