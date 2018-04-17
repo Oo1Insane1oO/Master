@@ -11,13 +11,110 @@
     Many-Body methods. These can be pre-built using nifty intuition. One such
     observation is in the way Harmonic oscillator functions station themselves
     on energy-levels. The following image\footnote{As the old idiom goes; "A
-    picture is worth a thousand words"} describes this >> MAKE IMAGE << \\ This
-    specific arrangement of basis-functions is implemented in class
+    picture is worth a thousand words"} describes this for the first few levels
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}[b!]{0.49\textwidth}
+                \centering
+                \begin{tikzpicture}[scale=0.5]
+                    \draw (-1,0) -- (1,0);
+                    \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-0.5,-0.5) -- (-0.5,0.5);
+                    \draw[blue, <-] (0.5,-0.5) -- (0.5,0.5);
+                    \node[text width=2.2cm, align=center] at (0,-1) {\footnotesize{$(0,0)$}};
+                    \draw (-2.5,2) -- (-0.5,2);
+                    \node at (-2.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-1.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-2.0,1.5) -- (-2.0,2.5);
+                    \draw[blue, <-] (-1.0,1.5) -- (-1.0,2.5);
+                    \node[text width=2.2cm, align=center] at (-1.5,1) {\footnotesize{$(1,0)$}};
+                    \draw (0.5,2) -- (2.5,2);
+                    \node at (1.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (2.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, <-] (1.0,1.5) -- (1.0,2.5);
+                    \draw[blue, ->] (2.0,1.5) -- (2.0,2.5);
+                    \node[text width=2.2cm, align=center] at (1.5,1) {\footnotesize{$(0,1)$}};
+                    \draw (-4.5,4) -- (-2.5,4);
+                    \node at (-4.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-3.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-4.0,3.5) -- (-4.0,4.5);
+                    \draw[blue, <-] (-3.0,3.5) -- (-3.0,4.5);
+                    \node[text width=2.2cm, align=center] at (-3.5,3) {\footnotesize{$(2,0)$}};
+                    \draw (-1,4) -- (1,4);
+                    \node at (-0.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (0.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-0.5,3.5) -- (-0.5,4.5);
+                    \draw[blue, <-] (0.5,3.5) -- (0.5,4.5);
+                    \node[text width=2.2cm, align=center] at (0,3) {\footnotesize{$(1,1)$}};
+                    \draw (4.5,4) -- (2.5,4);
+                    \node at (4.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (3.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (4.0,3.5) -- (4.0,4.5);
+                    \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
+                    \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
+                \end{tikzpicture}
+                \caption{2D}
+                \label{subfig:2Dspin}
+            \end{subfigure}
+            \begin{subfigure}[b!]{0.49\textwidth}
+                \centering
+                \begin{tikzpicture}[scale=0.5]
+                    \draw (-1,0) -- (1,0);
+                    \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-0.5,-0.5) -- (-0.5,0.5);
+                    \draw[blue, <-] (0.5,-0.5) -- (0.5,0.5);
+                    \node[text width=3.5cm, align=center] at (0,-1) {\footnotesize{$(0,0,0)$}};
+                    \draw (-4.5,2) -- (-2.5,2);
+                    \node at (-4.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-3.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-4.0,1.5) -- (-4.0,2.5);
+                    \draw[blue, <-] (-3.0,1.5) -- (-3.0,2.5);
+                    \node[text width=2.2cm, align=center] at (-3.5,1) {\footnotesize{$(1,0,0)$}};
+                    \draw (-1,2) -- (1,2);
+                    \node at (-0.5,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (0.5,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-0.5,1.5) -- (-0.5,2.5);
+                    \draw[blue, <-] (0.5,1.5) -- (0.5,2.5);
+                    \node[text width=2.2cm, align=center] at (0,1) {\footnotesize{$(0,1,0)$}};
+                    \draw (2.5,2) -- (4.5,2);
+                    \node at (3.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (4.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, <-] (3.0,1.5) -- (3.0,2.5);
+                    \draw[blue, ->] (4.0,1.5) -- (4.0,2.5);
+                    \node[text width=2.2cm, align=center] at (3.5,1) {\footnotesize{$(0,0,1)$}};
+                \end{tikzpicture}
+                \caption{3D}
+                \label{subfig:3Dspin}
+            \end{subfigure}
+            \caption{Harmonic Oscillator Levels}
+            \justify
+        \end{figure}
+    This specific arrangement of basis-functions is implemented in class
     \hltexttt{Cartesian} and is used in both the Hartree-Fock and VMC
     implementations. It essentially builds a matrix of states with the rows
     being the specific state and the columns containing the quantum numbers(in
     cartesian), the spin-value(as an integer), magic number and energy(in
-    natural units proportional to the oscillator frequency).
+    natural units proportional to the oscillator frequency). The essential form
+    is
+        \begin{equation}
+            \begin{aligned}
+                \begin{pmatrix}
+                    n_x & n_y & s & m_s & E & M
+                \end{pmatrix}
+                \indent
+                \begin{pmatrix}
+                    n_x & n_y & n_z & s & m_s & E & M
+                \end{pmatrix}
+            \end{aligned}
+        \end{equation}
+    with the $n$'s being the principal numbers, $s$ the spin value $m_s$ the
+    spin projection(up or down in our case), $E$ the energy and $M$ the magic
+    number. The \hltexttt{Cartesian} class builds the states with alternating
+    spin (the spacial parts are doubled with spin), but also has a function for
+    restructuring by setting the states with spin down in acending order first
+    and the same states with spin up after.
 
 \section{Hartree-Fock}
     The Hartree-Fock method described in \Arf{sec:HFtheory} is implemented in
