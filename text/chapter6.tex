@@ -9,14 +9,15 @@
 \section{Cartesian Basis}
     In \Arf{chapter:4} we mentioned the use of basis functions the different
     Many-Body methods. These can be pre-built using nifty intuition. One such
-    observation is in the way Harmonic oscillator functions station themselves
-    on energy-levels. The following image\footnote{As the old idiom goes; "A
-    picture is worth a thousand words"} describes this for the first few levels
+    observation is in the way harmonic oscillator functions station themselves
+    on energy-levels(in the full-shell case). The following image\footnote{As
+    the old idiom goes; "A picture is worth a thousand words"} describes this
+    for the first few levels
         \begin{figure}[H]
             \centering
             \begin{subfigure}[b!]{0.49\textwidth}
                 \centering
-                \begin{tikzpicture}[scale=0.5]
+                \begin{tikzpicture}[scale=0.55]
                     \draw (-1,0) -- (1,0);
                     \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
                     \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
@@ -54,12 +55,12 @@
                     \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
                     \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
                 \end{tikzpicture}
-                \caption{2D}
+                \caption{Two-dimensional case with $(n_x,n_y)$ notation.}
                 \label{subfig:2Dspin}
             \end{subfigure}
             \begin{subfigure}[b!]{0.49\textwidth}
                 \centering
-                \begin{tikzpicture}[scale=0.5]
+                \begin{tikzpicture}[scale=0.55]
                     \draw (-1,0) -- (1,0);
                     \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
                     \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
@@ -84,8 +85,32 @@
                     \draw[blue, <-] (3.0,1.5) -- (3.0,2.5);
                     \draw[blue, ->] (4.0,1.5) -- (4.0,2.5);
                     \node[text width=2.2cm, align=center] at (3.5,1) {\footnotesize{$(0,0,1)$}};
+                    \draw (-6.5,4) -- (-4.5,4);
+                    \node at (-6.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-5.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-6.0,3.5) -- (-6.0,4.5);
+                    \draw[blue, <-] (-5.0,3.5) -- (-5.0,4.5);
+                    \node[text width=2.2cm, align=center] at (-5.5,3) {\footnotesize{$(2,0,0)$}};
+                    \draw (-3.0,4) -- (-1.0,4);
+                    \node at (-2.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-1.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-2.5,3.5) -- (-2.5,4.5);
+                    \draw[blue, <-] (-1.5,3.5) -- (-1.5,4.5);
+                    \node[text width=2.2cm, align=center] at (-2.0,3) {\footnotesize{$(1,1,0)$}};
+                    \draw (3.0,4) -- (1.0,4);
+                    \node at (2.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (1.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (2.5,3.5) -- (2.5,4.5);
+                    \draw[blue, <-] (1.5,3.5) -- (1.5,4.5);
+                    \node[text width=2.2cm, align=center] at (2.0,3) {\footnotesize{$(0,1,1)$}};
+                    \draw (6.5,4) -- (4.5,4);
+                    \node at (6.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (5.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (6.0,3.5) -- (6.0,4.5);
+                    \draw[blue, <-] (5.0,3.5) -- (5.0,4.5);
+                    \node[text width=2.2cm, align=center] at (5.5,3) {\footnotesize{$(0,0,2)$}};
                 \end{tikzpicture}
-                \caption{3D}
+                \caption{Three-dimensional case with $(n_x,n_y,n_z)$ notation.}
                 \label{subfig:3Dspin}
             \end{subfigure}
             \caption{Harmonic Oscillator Levels}
@@ -282,5 +307,5 @@
     written to a \CC-header file. This file is then included in the integral
     class in \hltexttt{HartreeFockSolver} and in the wavefunction
     classes(namely \hltexttt{HartreeFock} and \hltexttt{HarmonicOscillator}) in
-    \hltexttt{VMC}. An example for call
+    \hltexttt{VMC}. >> REF GITHUB <<
 \section{Verification\label{sec:verification}}

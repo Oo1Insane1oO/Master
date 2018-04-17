@@ -105,7 +105,7 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
 
     The main concern with the method is the convergence, although the error in
     the gradient estimations tend towards zero, the step-sizes themselves will
-    also be quite small after some iterations. Fro this reason we use the
+    also be quite small after some iterations. For this reason we use the
     adaptive method with a quasi-Newton method. This means that we start with a
     random guess at the parameters and keep iterating with the quasi-Newton
     method until the norm of the gradient is below some threshold, at which the
@@ -253,13 +253,13 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     \txtit{lineasearch methods} are often used to get an (usually rough)
     estimate for the step length at each iteration in the optimization. These
     methods all have some conditions for stability and convergence as an innate
-    property in itself, meaning the validity of the step length is
-    better\footnote{It's actually present...}. Some popular linesearch methods
-    are backtracking linesearch, Hager-Zhang method, Strong Wolfe conditions
-    and the More-Thuente linesearch method. The one used here is the latter.
-    For an exact derivation and explanation of linesearch methods in general
-    see \cite{numOptNocWrig}. See also the fantastic article by Jorge J.
-    Mor{\'e} and David J. Thuente\cite{moreThuenteArticle}. \\
+    property, meaning the validity of the step length is better\footnote{It's
+    actually present...}. Some popular linesearch methods are backtracking
+    linesearch, Hager-Zhang method, Strong Wolfe conditions and the
+    More-Thuente linesearch method. The one used here is the latter.  For an
+    exact derivation and explanation of linesearch methods in general see
+    \cite{numOptNocWrig}. See also the fantastic article by Jorge J.  Mor{\'e}
+    and David J. Thuente\cite{moreThuenteArticle}. \\
     The basic idea of linesearch methods is to solve a one-dimensional problem
     of minimizing
         \begin{equation}
@@ -277,3 +277,46 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     the search direction is not necessarily directly pointing towards the
     minimum, meaning we only search for a step length that gives a
     \txtit{sufficient decrease} in the function value $f$.
+
+\section{Simulated Annealing\label{sec:simulated_annealing}}
+    A huge problem with the mentioned methods is the fact that they only
+    converge towards a \txtit{local minimum} which is not necessarily the
+    global minimum. Many methods already exists to account for this, the one
+    used in this thesis and to be described in this section is the method known
+    as \txtit{simulated annealing}. Simulated annealing follows a simple
+    algorithm, namely
+        \begin{algorithm}[H]
+            \caption{Simulated Annealing\label{alg:simulated_annealing}}
+            \begin{algorithmic}[H]
+                \State Initialize a solution $s=s_0$. \Comment{I.e a set of
+                parameters $\{\alpha\}_{k=1}^N$}
+                \For{$j=1$ to $M_{\text{max}}$}
+                    \State Set temperature $T$ with specific function for
+                    $\frac{j}{M_{\text{max}}}$
+                    \State Pick a new state $s_{\text{new}}$ within some
+                    neighbour of $s$
+                    \If{$P(f(s), f(s_{\text{new}}), T) \geq \xi$} 
+                    \Comment{$\xi$ uniformly distributed random in $[0,1]$.}
+                        \State $s = s_{\text{new}}$
+                    \EndIf
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
+    The idea is to start with searching a large part of the solution space,
+    since a high temperature increases the search-range, and hope that as $j$
+    reaches $M_{\text{max}}$ the probability function $P$ is such that the
+    solution is trapped within the down-hill of the global minimum. \\ 
+    The specific form of $P, T$ and how to choose a neighbour is specific from
+    problem to problem however an effective and simple way to define these is
+    by using the Metropolis-algorithm with
+        \begin{equation}
+            P = \exp(-\frac{f({\text{new}) - f(s)}}{T})
+        \end{equation}
+    define the temperature as
+        \begin{equation}
+            T_j = \frac{j}{M_{\text{max}}}
+        \end{equation}
+    and choose new neighbours within some min/max range from the current $s$.
+    >> REF THIS <<. \\
+    After the annealing is done a Quasi-Newton method is used and then the
+    adaptive method is used to converge to the minimum.
