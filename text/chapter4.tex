@@ -372,6 +372,7 @@
             \sum\limits_{l=0}^k {k\choose l}
             \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
             \left((-1)^l+1\right) \Gamma\left(\frac{l+1}{2}\right)
+            \label{eq:potIntegral}
         \end{align}
     The integrals are split in each dimension and the dimensions not equal to
     $d$(in $x^k_d$) are pulled out and the approach in \Arf{eq:stypeOverlap} is
@@ -719,3 +720,79 @@
             \prdp{P_x}{p_x}\prdp{Q_x}{q_x} = (-1)^{p_x+q_x} \prdp{P_x}{p_x+q_x}
         \end{equation}
     and the same for the other directions.
+
+\section{Double-Well Functions}
+    This section will explain the building of a basis for the
+    \txtit{double-well potential}. We will expand them in a linear combination
+    of harmonicoscillator functions and find the coefficients of this expansion
+    by solving the arising eigenvalue-problem. Let us first express the
+    potential
+        \begin{equation}
+            \UDW(r) = \VHO(r) + \VDW_n(r)
+            \label{eq:UDW}
+        \end{equation}
+    A double well potential is essentially just a perturbation of the usual
+    Harmonicoscillator potential(which is a single-well). The $\VDW_n$ part is
+    assumed to a polynomial of degree $n$. This means that the integral over
+    such a potential can be calculated using \Arf{eq:potIntegral}.
+
+\subsection{The Eigenvalue problem}
+    The mentioned eigenvalue problem comes from the basis expansion of the
+    spacial part and from the trick of projecting with a single function from
+    left. We will explain briefly. First let us express the expansion,
+        \begin{equation}
+            \ket{\psiDW_p} = \sumll{l}C_{lp}\ket{\psiHO_l}
+        \end{equation}
+    and then project from left the bra $\bra{\psiHO_k}$ in the
+    inner-product space of $h^{\text{DW}}$
+        \begin{equation}
+            \Braket{\psiHO_k|\hDW|\psiDW_p} =
+            \sumll{l}C_{pl}\Braket{\psiHO_k|\hDW|\psiHO_l} =
+            \sumll{l}C_{pl}\varepsilon^{\text{DW}}_l
+        \end{equation}
+    This gives us an eigenvalue equation
+        \begin{equation}
+            \blds{H}\blds{C} = \blds{\varepsilon^{\text{DW}}}\blds{C}
+        \end{equation}
+    with
+        \begin{equation}
+            H_{ij} = \Braket{\psiHO_i|h^{\text{DW}}|\psiHO_j}
+        \end{equation}
+    Using \Arf{eq:UDW} we can write $H_{ij}$ as
+        \begin{equation}
+            H_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
+            \Braket{\psiHO_i|\VDW_n|\psiHO_j}
+        \end{equation}
+    by using the solution to Schrödinger's equation for the harmonicoscillator
+    system. \\
+
+    We are now in a position to build a basis for the double-well system by
+    reusing all the results and expressions concerning the single-well system.
+    The only difference is the extra integral over $\VDW_n$ where $n$ would be
+    larger than $2$(as is the case with the harmonicoscillator potential). \\
+
+    For clarity let us also write out the expression for the resulting
+    Hartree-Fock basis to be used with the Variational Monte-Carlo method.
+        \begin{equation}
+            \psi^{\text{HF}}_p = \sumll{kl} C^{\text{HF}}_{pk}C_{kl}\psiHO_l
+        \end{equation}
+
+\subsection{Choosing the Basis Functions}
+    In order to actually solve the eigenvalue equation we use \text{Python} and
+    the \text{NumPy} package, however we still need to choose the $\psiHO$'s
+    first. This will be experimented with and we will choose enough to reach to
+    \txtit{Hartree-Fock limit}. The choice will also follow the
+    Harmonicoscillator levels in terms of degeneracy(see \Arf{subfig:3Dspin,
+    subfig:2Dspin}). This means for instance that if we choose to only use $1$
+    spacial function we only need the ground-state function, but there is no
+    reason to believe that the electron-configuration would prefer any two(or
+    $3$ in 3D) of the functions in the second level over one another. This
+    means that we choose the basisfunctions according to the \txtit{magic
+    numbers} of the Harmonicoscillator system basis.
+
+\subsection{Degeneracy}
+    When we tackled the single-well problem the energy-levels were degenerate
+    and followed the magic numbers. For the double-well only the degeneracy due
+    to spin is present. This means that we can(still with two-spin fermions)
+    run the simulations with $N=2,4,6,\dots$ instead of the original
+    $N=2,6,12,20,\dots$ in two dimensions and $N=2,8,20,30\dots$ in three.
