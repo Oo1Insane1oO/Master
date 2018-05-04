@@ -278,6 +278,20 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     minimum, meaning we only search for a step length that gives a
     \txtit{sufficient decrease} in the function value $f$.
 
+\section{Stochastic-Adaptive-BFGS\label{sec:stochastic_adaptive_bfgs}}
+    In \Arf{sec:BFGS} we mentioned the popular BFGS method for updating the
+    Hessian matrix and its inverse. A more resent method which uses that method
+    with the stochastic nature of a functional expectation value is a method
+    called SABFGS\cite{SABFGS} described by Zhou C., Gao W. and Goldfarb D.
+    This method uses the BFGS update for the Hessian, but uses an adaptive step
+    instead of the deterministic linesearch for the step-size. \\ 
+    There one problem however, the method itself is only valid for
+    \txtit{self-concordant} functions. The energy-functional is by-far not
+    within this criteria. This problem can be accounted for by using the
+    Wolfe-conditions. That is to check that the step-size satisfies the
+    Wolfe-conditions at each iteration before actually making an update. The
+    algorithm presented takes this into account aswell.
+
 \section{Simulated Annealing\label{sec:simulated_annealing}}
     A huge problem with the mentioned methods is the fact that they only
     converge towards a \txtit{local minimum} which is not necessarily the
