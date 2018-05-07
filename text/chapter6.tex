@@ -149,29 +149,24 @@
     auto-generated header for the Hermite-coefficients, see
     \Arf{sec:auto_generation} below. The \hltexttt{HartreeFockSolver} is
     implemented in a general way such that an abstract class for the integral
-    elements is all that is needed. An example of how to create a
-    \hltexttt{HartreeFockSolver} object called HFS with number of dimensions
-    $D$, number of basis functions $L$ and number of particles $N$.
+    elements is all that is needed. The \hltexttt{HartreeFockSolver} can then
+    be inherited and used.  An example of how to create a solver object with
+    the Double-Well system called HFS with number of dimensions $D$, number of
+    basis functions $L$ and number of particles $N$.
         \begin{lstlisting}[language=C++, style=ccstyle]
-            HartreeFockSolver* HFS = new HartreeFockSolver(D, L, N);
-        \end{lstlisting}
-    The specific integral class to be used must be know at compile time with
-    the BASIS flag. This is done by adding Basis='something' to the
-    compilation. After which one can initialize the specific class with the
-    \hltexttt{initializeParameters} function as
-        \begin{lstlisting}[language=C++, style=ccstyle]
-            string message = HFS->getIntegralObj()->initializeParameters(...);
+            DoubleWell* HFS = new DoubleWell(D, L, N);
+            string message = HFS->initializeParameters(...);
         \end{lstlisting}
     With the $\dots$ meaning one initializes it with in however manner the
     function was made. The initialization function must also return a message
     determined by the success of the initialization. If it succeeds it return
-    an empty message while if not it returns a pre-defined message. \\ Here is
-    a simple example code-snippet which initializes and runs the Hartree-Fock
-    algorithm
+    an empty message while if not it returns a pre-defined message. \\ 
+    Here is a simple example code-snippet which initializes and runs the
+    Hartree-Fock algorithm
         \begin{lstlisting}[language=C++, style=ccstyle]
-            HartreeFockSolver* HFS = new HartreeFockSolver(D, L, N);
+            DoubleWell* HFS = new DoubleWell(D, L, N);
 
-            string message = HFS->getIntegralObj()->initializeParameters(...);
+            string message = HFS->initializeParameters(...);
             if (message.compare("")) {
                 if (myRank == 0) {
                     std::cout << message << std::endl;
@@ -187,6 +182,7 @@
     boolean for showing progress or not. It calculates the integral-elements
     and runs the Hartree-Fock algorithm and returns the estimation of the
     ground-state energy.
+
 \subsection{Parallelization of Two-Body Matrix}
     The most time-consuming part of the Hartree-Fock procedure is the
     calculation of the two-body matrix-elements giving the interaction terms.
@@ -287,8 +283,31 @@
     one-dimensional array and the actual two-body matrix of size $N^4$ is
     assembled and antisymmetrized. The Hartree-Fock algorithm is then run only
     on one process.
+    
+    >> make structure (image??) of HartreeFock::All structure)
 
 \section{Variational Monte Carlo}
+    The Variational Monte-Carlo implementation is mainly in three classes,
+    namely \hltexttt{VMC}, \hltexttt{BruteForce} and
+    \hltexttt{ImportanceSampling}. The structure is set such that both
+    \hltexttt{BruteForce} and \hltexttt{ImportanceSampling} inherit
+    \hltexttt{VMC}. This structure essentially gives room for splitting
+    specific part of the Brute-Force algorithm from the Metropolis-Hastings
+    algorithm, but still using the same code for minimization. We will explain
+    the minimization parts in the next section. \\ The main input which
+    \hltexttt{VMC} needs is a wavefunction. An abstract class-template is
+    implemented and can be generated using a python script, also given in the
+    same GitHub repository >>REF GITHUB <<. The template is built in such a way
+    that one only needs to fill in specific analytic expressions for the
+    gradient, Laplacian and gradient for the variational parameters. The latter
+    part is optional. \\ The wavefunction itself is built using the
+    \hltexttt{Slater} or \hltexttt{SlaterJastrow} class. However, in order to
+    use the \hltexttt{SlaterJastrow} one has to specify which Jastrow function
+    to use at compile time. A simple example illustrates this in detail >> MAKE THIS EXAMPLE <<
+
+    >> explain Jastrow classes
+    >> make structure (image??) of VMC structure)
+
 \section{Minimization}
 \subsection{More-Thuente Linesearch}
 \subsection{Conjugate Gradient}
@@ -303,3 +322,5 @@
     classes(namely \hltexttt{HartreeFock} and \hltexttt{HarmonicOscillator}) in
     \hltexttt{VMC}. >> REF GITHUB <<
 \section{Verification\label{sec:verification}}
+
+    >> tables

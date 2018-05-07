@@ -291,6 +291,41 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     Wolfe-conditions. That is to check that the step-size satisfies the
     Wolfe-conditions at each iteration before actually making an update. The
     algorithm presented takes this into account aswell.
+        \begin{algorithm}[H]
+            \caption{SA-BFGS\label{alg:sabfgs}}
+            \begin{algorithmic}[H]
+                \State Input: $\blds{x}_0$, $\blds{H}_0$, $\blds{G}_0$, $\beta
+                < 1$
+                \For{$k=0$ to $M_{\text{max}}$}
+                    \State $\blds{g}_k = \nabla F_k(\blds{x}_k)$
+                    \Comment{Gradient in current step}
+                    \State $\blds{d}_k = -\blds{H}_k\blds{g}_k$ \Comment{Search
+                    direction}
+                    \State $\delta_k =
+                    \sqrt{\blds{d}^T_k\blds{G}_k(\blds{x}_k)\blds{d}_k}$
+                    \State $\alpha_k =
+                    \frac{\blds{g}^T_k\blds{H}_k\blds{g}_k}{\delta^2_k}$
+                    \State $t_k = \frac{\alpha_k}{1 + \alpha_k\delta_k}$
+                    \Comment{Step size}
+                    \State $\blds{g}_{k+1} = \nabla F_k(\blds{x}_k +
+                    t_k\blds{d}_k)$ \Comment{Propose new set of parameters}
+                    \If{$\blds{g}^T_{k+1}\blds{d}_k <
+                    \beta\blds{g}^T_k\blds{d}_k$} \Comment{Wolfe-Conditions}
+                    \State Set $\blds{d}_k = -\blds{g}_k$
+                    \State Recompute $\delta_k$, $\alpha_k$ and $t_k$
+                    \State Set $\blds{H}_{k+1} = \blds{H}_{k}$ and
+                    $\blds{G}_{k+1} = \blds{G}_{k}$
+                    \Else
+                    \State Set $\blds{H}_{k+1}$ with BFGS inverse update
+                    \Comment{\Arf{eq:shermanmorrisondef}}
+                    \State Set $\blds{G}_{k+1}$ with BFGS update
+                    \Comment{\Arf{eq:BFGSdef}}
+                    \EndIf
+                    \State $\blds{x}_{k+1} = \blds{x}_k + t_k\blds{d}_k$
+                    \Comment{Update parameters}
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
 
 \section{Simulated Annealing\label{sec:simulated_annealing}}
     A huge problem with the mentioned methods is the fact that they only

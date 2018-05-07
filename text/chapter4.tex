@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Basis Functions\label{chapter:4}}
-    We will in this chapter mentiond some popular basis-sets used in atomic
+    We will in this chapter mention some popular basis-sets used in atomic
     physics and deepen into a particular set of functions called
     \txtit{Gaussian Type orbitals} and use them with the well known
     \txtit{Hermite functions}.
@@ -706,6 +706,7 @@
             (\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q
             (-1)^{q} \xi_{p+q}\left(\frac{(\alpha + \gamma)(\beta +
             \delta)}{\alpha + \gamma + \beta + \delta},\blds{R_{S_1S_2}}\right)
+            \label{eq:coulomb_dist_integral_stype}
         \end{align}
     Where we have used the multi-index\footnote{Essentially just expanding an
     index in each dimension, for instance $i=(i_x,i_y,i_z)$ with corresponding
@@ -763,19 +764,37 @@
             H_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
             \Braket{\psiHO_i|\VDW_n|\psiHO_j}
         \end{equation}
-    by using the solution to Schrödinger's equation for the harmonicoscillator
+    by using the solution to Schrödinger's equation for the harmonic oscillator
     system. \\
 
     We are now in a position to build a basis for the double-well system by
     reusing all the results and expressions concerning the single-well system.
     The only difference is the extra integral over $\VDW_n$ where $n$ would be
-    larger than $2$(as is the case with the harmonicoscillator potential). \\
+    larger than $2$(as is the case with the harmonic oscillator potential). \\
 
     For clarity let us also write out the expression for the resulting
     Hartree-Fock basis to be used with the Variational Monte-Carlo method.
         \begin{equation}
             \psi^{\text{HF}}_p = \sumll{kl} C^{\text{HF}}_{pk}C_{kl}\psiHO_l
         \end{equation}
+
+    The procedure of diagonalizing $H_{ij}$ also gives an additional set of
+    energies we can use. The full form of the integral-elements involved in
+    Hartree-Fock is thus
+        \begin{equation}
+            \begin{aligned}
+                \Braket{\psiDW_p|\psiDW_q} &= \delta_{pq}
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p|h^{\text{DW}}|\psiDW_q} &=
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p\psiDW_q|\frac{1}{r_{12}}|\psiDW_r\psiDW_s} &=
+                \suml{tuvw}{ijkl} C_{tp}C_{uq}C_{vr}C_{ws}
+                \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
+            \end{aligned}
+        \end{equation}
+    Where the two-body elements over the harmonic oscillator functions can be
+    calculated by expansion in s-type Gaussian constituents and then using
+    \Arf{eq:coulomb_dist_integral_stype}.
 
 \subsection{Choosing the Basis Functions}
     In order to actually solve the eigenvalue equation we use \text{Python} and
