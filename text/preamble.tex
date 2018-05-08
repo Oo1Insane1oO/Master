@@ -34,6 +34,7 @@
 \usepackage{relsize}
 \usepackage{soul}
 \usepackage{tikz}
+\usepackage{minted}
 % \usepackage{microtype}
 
 % color courier
@@ -82,7 +83,7 @@
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.3,0.3,0.3}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{codebackground}{RGB}{172,203,160}
+\definecolor{codebackground}{RGB}{230,233,220}
 \lstdefinestyle{pythonstyle}{
         backgroundcolor=\color{codebackground},
         commentstyle=\color{codegreen},
@@ -107,8 +108,22 @@
     tabsize=4, % tab space width
     showstringspaces=false, % don't mark spaces in strings
     backgroundcolor=\color{codebackground},
-    emph={HartreeFockSolver, string, DoubleWell},
+    emph={HartreeFockSolver, string, DoubleWell, ImportanceSampling,
+    BruteForce, HarmonicOscillator, SlaterJastrow, Jastrow},
     emphstyle={\color{magenta}},
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+
+\lstdefinestyle{yamlstyle}{
+    basicstyle=\footnotesize, % fontsize
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    backgroundcolor=\color{codebackground},
+    emphstyle={\color{magenta}},
+    emph={omega, numParticles, dim, maxitermc. stepmc, progress, parameters,
+    numparameters, jastrow, importance, minimization, resampling}
     commentstyle=\color{green}, % comment color
     keywordstyle=\color{blue}, % keyword color
     stringstyle=\color{red} % string color
@@ -122,6 +137,47 @@
     citecolor=black
 }
 \urlstyle{same}
+
+\newcommand\YAMLcolonstyle{\color{red}\footnotesize\mdseries}
+\newcommand\YAMLkeystyle{\color{black}\footnotesize\bfseries}
+\newcommand\YAMLvaluestyle{\color{blue}\footnotesize\mdseries}
+
+\makeatletter
+
+% here is a macro expanding to the name of the language
+% (handy if you decide to change it further down the road)
+\newcommand\language@yaml{yaml}
+
+\expandafter\expandafter\expandafter\lstdefinelanguage
+\expandafter{\language@yaml}
+{
+    showstringspaces=false, % don't mark spaces in strings
+    backgroundcolor=\color{codebackground},
+    keywords={true,false,null,y,n},
+    keywordstyle=\color{darkgray},
+    basicstyle=\YAMLkeystyle,                                 % assuming a key comes first
+    sensitive=false,
+    comment=[l]{\#},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\YAMLvaluestyle\ttfamily,
+    moredelim=[l][\color{orange}]{\&},
+    moredelim=[l][\color{magenta}]{*},
+    moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+    morestring=[b]',
+    morestring=[b]",
+    literate =      {---}{{\ProcessThreeDashes}}3
+                    {>}{{\textcolor{red}\textgreater}}1     
+                    {|}{{\textcolor{red}\textbar}}1 
+                    {\ -\ }{{\mdseries\ -\ }}3,
+}
+
+% switch to key style at EOL
+\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
+\makeatother
+
+\newcommand\ProcessThreeDashes{\llap{\color{cyan}\mdseries-{-}-}}
+
 
 \newcommand{\onefigure}[4]{
     \begin{figure}[H]

@@ -181,7 +181,7 @@
     iterations, the convergence tolerance (when to break the iteration) and a
     boolean for showing progress or not. It calculates the integral-elements
     and runs the Hartree-Fock algorithm and returns the estimation of the
-    ground-state energy.
+    ground-state energy. >> REF (NOT REALLY) EXPLAIN INPUTS <<
 
 \subsection{Parallelization of Two-Body Matrix}
     The most time-consuming part of the Hartree-Fock procedure is the
@@ -194,25 +194,19 @@
         \end{equation}
     that is the element $(p,q,r,s)$ is stored in position $(p + N(q + N(r +
     Ns))$ in the one-dimensional array. The symmetry $(p,q,r,s)=(q,p,r,s)$
-    reduces the number of elements down to $N(N+1)/2$. A $N(N+1)/2\times 4$
+    reduces the number of elements down to $N(N+1)/2$. A $N(N+1)/2\times 2$
     matrix of indices is then created with
         \begin{algorithm}[H]
             \caption{Parallelization Index Mapping}\label{alg:paraindiexmap}
             \begin{algorithmic}[H]
                 \State Initialize matrix pqMap with $\frac{N}{2}(N+1)$ rows and
-                $4$ columns.
+                $2$ columns.
                 \State j = 0
                 \For{p=0 : N-1}
                     \For{q=p : N-1}
-                        \For{r=0 : N-1}
-                            \For{s=r : N-1}
-                                \State pqMap[j,0] = p
-                                \State pqMap[j,1] = q
-                                \State pqMap[j,2] = r
-                                \State pqMap[j,3] = s
-                                \State j = j + 1
-                            \EndFor
-                        \EndFor
+                        \State pqMap[j,0] = p
+                        \State pqMap[j,1] = q
+                        \State j = j + 1
                     \EndFor
                 \EndFor
             \end{algorithmic}
@@ -220,9 +214,9 @@
     The rows are then distributed evenly among $P$ processes according to
         \begin{equation}
             \text{rows} = \left\{\begin{aligned}
-                \left\lceil\frac{\frac{N^2}{4}(N+1)^2}{P}\right\rceil &\indent&
-                &\text{rank} < \left(\frac{N^2}{4}(N+1)^2\mod P\right) \\
-                \left\lfloor\frac{\frac{N^2}{4}(N+1)^2}{P}\right\rfloor
+                \left\lceil\frac{\frac{N}{2}(N+1)}{P}\right\rceil &\indent&
+                &\text{rank} < \left(\frac{N}{2}(N+1)\mod P\right) \\
+                \left\lfloor\frac{\frac{N}{2}(N+1)}{P}\right\rfloor
                 &\indent& &\text{else}
                 \end{aligned}\right.
         \end{equation}
@@ -235,7 +229,7 @@
             \caption{Even Weighting}\label{alg:parasumweight}
             \begin{algorithmic}[H]
                 \State Make array $S$ of size $P$ with each element being the
-                sum of the $(p,q,r,s)$ elements for the specific process.
+                sum of the $(p,q)$ elements for the specific process.
                 \State Make an array sizes of size $P$ with the number of
                 elements for each process.
                 \State Make an array displ of size $P$ with the displacement
@@ -270,12 +264,14 @@
                 \State $i_{\text{end}} =$ displ[rank] $+$ sizes[rank]
                 \State $k=0$
                 \For{$l=i_{\text{start}}$ to $i_{\text{end}}-1$}
-                    \State $p=$pqMap$[l,0]$
-                    \State $q=$pqMap$[l,1]$
-                    \State $r=$pqMap$[l,2]$
-                    \State $s=$pqMap$[l,3]$
-                    \State $A[l]=\Braket{pq|\frac{1}{r_{12}}|rs}$
-                    \State $B[l]=\Braket{pq|\frac{1}{r_{12}}|sr}$
+                    \For{$r=0$ to $N-1$}
+                        \For{$s=r$ to $N-1$}
+                            \State $p=$pqMap$[l,0]$
+                            \State $q=$pqMap$[l,1]$
+                            \State $A[l]=\Braket{pq|\frac{1}{r_{12}}|rs}$
+                            \State $B[l]=\Braket{pq|\frac{1}{r_{12}}|sr}$
+                        \EndFor
+                    \EndFor
                 \EndFor
             \end{algorithmic}
         \end{algorithm}
@@ -294,24 +290,80 @@
     \hltexttt{VMC}. This structure essentially gives room for splitting
     specific part of the Brute-Force algorithm from the Metropolis-Hastings
     algorithm, but still using the same code for minimization. We will explain
-    the minimization parts in the next section. \\ The main input which
-    \hltexttt{VMC} needs is a wavefunction. An abstract class-template is
-    implemented and can be generated using a python script, also given in the
-    same GitHub repository >>REF GITHUB <<. The template is built in such a way
-    that one only needs to fill in specific analytic expressions for the
-    gradient, Laplacian and gradient for the variational parameters. The latter
-    part is optional. \\ The wavefunction itself is built using the
-    \hltexttt{Slater} or \hltexttt{SlaterJastrow} class. However, in order to
-    use the \hltexttt{SlaterJastrow} one has to specify which Jastrow function
-    to use at compile time. A simple example illustrates this in detail >> MAKE THIS EXAMPLE <<
+    the minimization parts in the next section. \\ 
+    The main input which \hltexttt{VMC} needs is a wavefunction. An abstract
+    class-template is implemented and can be generated using a python script,
+    also given in the same GitHub repository >>REF GITHUB <<. The template is
+    built in such a way that one only needs to fill in specific analytic
+    expressions for the gradient, Laplacian and gradient for the variational
+    parameters. The latter part is optional. \\ 
+    The wavefunction itself is built using the \hltexttt{Slater} or
+    \hltexttt{SlaterJastrow} class. However, in order to use the
+    \hltexttt{SlaterJastrow} one has to specify which Jastrow function to use
+    at compile time. A simple example illustrates this better
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            SlaterJastrow* wf = new SlaterJastrow(dim, numParticles, parameters);
+            wf->initializeParameters(omega);
+            wf->initializeMatrices();
 
-    >> explain Jastrow classes
-    >> make structure (image??) of VMC structure)
+            ImportanceSampling<SlaterJastrow>* vmc = new
+                    ImportanceSampling<SlaterJastrow>(stepmc, parameters,
+                    maxIterations, rank, numProcs);
+
+            double E = vmc->sampler();
+
+            delete vmc;
+            delete wf;
+        \end{lstlisting}
+    The first chunk initializes the SlaterJastrow class with the pre-specified
+    system which needs to be given at compile time as a flag i.e
+    WAVEFUNCTION=HarmonicOscillator. The second part sets the sampling to use
+    Metropolis-Hastings algortihm. The parameters variable must be an
+    \hltexttt{Eigen} >>REF EIGEN<< vector or array and contains the variational
+    parameters present. The representation of each element in this vector(or
+    array) is specific to each system. For a more detailed explanation see >>
+    REF GITHUB <<. \\
+    This is just an example of how to build a simple run, however we have also
+    built a run file which uses YAML >> REF THIS <<. The basic template is as
+    follows
+        \begin{lstlisting}[language=yaml]
+            omega: 1.0
+            numparticles: 6
+            maxitermc: 100000
+            stepmc: 0.01
+            parameters: [0.99, 0.47] #optional
+            numparameters: 2
+            jastrow: true #optional
+            importance: true #optional
+        \end{lstlisting}
+    This is a template used for the \hltexttt{HarmonicOscillator} with the
+    Pad\'e-function as Jastrow factor. If the NQS-function is used an
+    additional parameter 'numhiddenbias' giving the number of hidden biases
+    used, is needed. Again, for more detail see >> REF GITHUB << \\ 
+    This form of input makes it fairly simple to actually run the code for
+    different systems with ease. One needs to compile with the specific flag
+    for the system(wavefunction and Jastrow) and then supply an YAML input file
+    at runtime.
+
+\subsection{Optimization For Tabulation}
+    The \hltexttt{Slater} class checks on compile time the specific
+    wavefunction class for the functions \hltexttt{set}, \hltexttt{reSetAll},
+    \hltexttt{initializeMatrices}, \hltexttt{update}, \hltexttt{reset},
+    \hltexttt{resetGradient}, \hltexttt{acceptState} and
+    \hltexttt{acceptGradient}. If these functions are implemented in the
+    wavefunction class they will be called in by the \hltexttt{VMC} class
+    during the Metropolis sampling. The whole purpose for this is so that
+    calculations can be tabulated and then only the parts which are changed be
+    updated.
 
 \section{Minimization}
-\subsection{More-Thuente Linesearch}
-\subsection{Conjugate Gradient}
-\subsection{BFGS}
+    The central part of the Variational Monte-Carlo method is the actual
+    \txtit{variation} of parameters. This is, as explained in \Arf{chapter:3},
+    a minimization problem. We will in this chapter explain the implementation
+    of the methods presented in \Arf{chapter:5} and also show some examples of
+    how to use \hltexttt{Minimizer} class, in which the mentioned methods are
+    implemented.
+
 \section{Auto-Generation\label{sec:auto_generation}}
     The analytic expressions involved in the quantum-dot systems are dependent
     on Hermite-Polynomials and their coefficients. These are calculated
