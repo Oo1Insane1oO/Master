@@ -318,7 +318,7 @@
     The first chunk initializes the SlaterJastrow class with the pre-specified
     system which needs to be given at compile time as a flag i.e
     WAVEFUNCTION=HarmonicOscillator. The second part sets the sampling to use
-    Metropolis-Hastings algortihm. The parameters variable must be an
+    Metropolis-Hastings algortithm. The parameters variable must be an
     \hltexttt{Eigen} >>REF EIGEN<< vector or array and contains the variational
     parameters present. The representation of each element in this vector(or
     array) is specific to each system. For a more detailed explanation see >>
@@ -345,7 +345,107 @@
     for the system(wavefunction and Jastrow) and then supply an YAML input file
     at runtime.
 
-\subsection{Optimization For Tabulation}
+\subsection{Slater Optimizations}
+    In the Metropolis sampling we need access to the ratio of two determinants,
+    namely the Slater wavefunction at the current state and the one at previous
+    state. These are quite expensive to calculate\footnote{Actual complexity of
+    a determinant is $n\times n$, with $n$ being the size of the Slater
+    matrix.}. This can be overcome by using the fact that moving only
+    \txtit{one} particle at each iteration also constitutes to a
+    state-transition. Following \cite{vmc} and given row $i$ as the index for
+    the row that is changed, the following expressions are valid
+        \begin{equation}
+            \begin{aligned}
+                \frac{\Psi}{\Psi'} &= \sum_j \psi_{ij} \psi_{ji}'^{-1} \\
+                \frac{\nabla_i \Psi}{\Psi} &= \sum_j \psi_{ij} \nabla_i
+                \psi_{ji}^{-1} \\
+                \frac{\nabla^2_i \Psi}{\Psi} &= \sum_j \psi_{ij} \nabla^2_i
+                \psi_{ji}^{-1} \\
+            \end{aligned}
+        \end{equation}
+    with $\Psi'$ being the wavefunction at previous state. One might ask now,
+    but isn't this just worse? We have gone from needing two determinants to
+    needing two inverses!? Fret not, the Sherman-Morrison\cite{shermorInv}
+    formula for updating an inverse matrix if only one row has changed in the
+    original matrix comes to the rescue. The elements of the inverse can by
+    this be expressed as(with $i$ being the row that changed)
+        \begin{equation}
+            \psi^{-1}_{kj} = \left\{\begin{aligned}
+                \psi'^{-1}_{kj} - \frac{\Psi}{\Psi'}\psi'^{-1}_{ki}
+                \suml{l=1}{N}\psi_{il}\psi'^{-1}_{lj}, \indent j \neq i\\
+                \frac{\Psi}{\Psi'}\psi'^{-1}_{ki}\psi'^{-1}_{ki}
+                \suml{l=1}{N}\psi'_{il}\psi'^{-1}_{lj}, \indent j = i
+            \end{aligned}\right.
+        \end{equation}
+    This means that the inverses and the determinant ratios can be calculated
+    fully once before the sampling and then updated using the above formulas.
+    This procedure is implemented in the \hltexttt{Slater} class.
+
+\subsection{Jastrow Optimizations}
+    The Jastrow factors presented in \Arf{susec:TWFJastrow,
+    sususec:TWFPadeJastrow, sususec:NQSJastrow} also give rise to optimizations
+    in the case of moving only one particle at a time. In particular, the
+    Pade\'e function and the simple exponential can both be represented by a
+    matrix of size $N\times D$ as
+        \begin{equation}
+            \blds{J} = 
+                \begin{pmatrix}
+                    \blds{J}(\blds{r}_1) \dots \blds{J}(\blds{r}_N)
+                \end{pmatrix}
+        \end{equation}
+    Moving one particle at a time means only one column in $\blds{J}$ is
+    changed meaning only that column needs to be updated. Additionally, the
+    $\blds{J}$ matrix doesn't actually need to be present in the code since we
+    are only interested in ratios $J/J'$. If only one index $i$ changes we have
+        \begin{align}
+            \frac{J}{J'} &= \exp(\sumll{i<j} \left(f_{ij} - f'_{ij}\right))
+            \nonumber \\
+            &= \exp(\sumll{i\neq j} f_{ij})
+        \end{align}
+    Notice that $i$ is fixed in the last step. \\
+    The gradient of $J$ can be represented as a $N\times N\times D$ matrix
+        \begin{equation}
+            \nabla \blds{J} = 
+                \begin{pmatrix}
+                    0 & \nabla \blds{J}(\blds{r}_{1,2}) & \dots & \nabla
+                    \blds{J}(\blds{r}_{1,N-1}) \\
+                    \nabla \blds{J}(\blds{r}_{2,1}) & 0 & \dots & \nabla
+                    \blds{J}(\blds{r}_{2,N-1} \\
+                    \vdots & \vdots & \ddots & \vdots \\
+                    \nabla \blds{J}(\blds{r}_{N,1}) & \dots & \dots & 0 
+                \end{pmatrix}
+        \end{equation}
+    When only one particle is moved at a time only one row and column changes
+    in this matrix. In addition the matrix is symmetric with the expect a
+    negative sign,
+        \begin{equation}
+            \nabla \blds{J}(\blds{r}_{ij}) = -\nabla\blds{J}(\blds{r}_{ji})
+        \end{equation}
+    Both of these optimizations are implemented in the \hltexttt{PadeJastrow}
+    and \hltexttt{ExpNQS} classes. \\ 
+    For the NQS-Jastrow we notice that the sum in the exponential involving the
+    weights can be represented as a matrix $\blds{W}$ of size $N\times H$ with
+    $H$ being the number of hidden biases with elements
+        \begin{equation}
+            W_{i,j} = \sumll{d}\frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}
+        \end{equation}
+    and the entire exponential with the hidden biases is represented as a
+    vector $\blds{B}$ of size $H$ with elements
+        \begin{equation}
+            B_j = \exp(b_j + \sumll{i} W_{i,j})
+        \end{equation}
+    So for each iteration only one row in $\blds{W}$ is updated and then the
+    entire $\blds{B}$ vector is recalculated and reused. \\ The part involving
+    only the visible biases can be optimized in the same manner as with the
+    Pade\'e function and simple exponential, meaning one only needs to
+    calculate
+        \begin{equation}
+            \frac{J_a}{J'_a} = \exp(\frac{\left(r_i -
+            a_i\right)^2}{\sigma^2})
+        \end{equation}
+    Again with $i$ being the index of the moved particle.
+
+\subsection{Optimization For Tabulation\label{susec:optTab}}
     The \hltexttt{Slater} class checks on compile time the specific
     wavefunction class for the functions \hltexttt{set}, \hltexttt{reSetAll},
     \hltexttt{initializeMatrices}, \hltexttt{update}, \hltexttt{reset},
@@ -354,7 +454,40 @@
     wavefunction class they will be called in by the \hltexttt{VMC} class
     during the Metropolis sampling. The whole purpose for this is so that
     calculations can be tabulated and then only the parts which are changed be
-    updated.
+    updated. Detailed explanation of what the functions can, and need to, do is
+    given in the GitHub repository.
+
+\subsection{Tabulating Hermite Polynomials}
+    In the \hltexttt{HarmonicOscillator} and \hltexttt{HartreeFock} classes
+    used by \hltexttt{VMC} we calculate the Hermite polynomials
+        \begin{equation}
+            \begin{aligned}
+                H_n(\sqrt{\omega}r) = \prod_d
+                H_{n_d}\left(\sqrt{\omega}x_d\right) \\
+                H_n(\sqrt{\omega}r) = \prod_d
+                H_{n_d-1}\left(\sqrt{\omega}x_d\right) \\
+                H_n(\sqrt{\omega}r) = \prod_d
+                H_{n_d-2}\left(\sqrt{\omega}x_d\right)
+            \end{aligned}
+        \end{equation}
+    for $n=0,\dots L$ where $L$ is the number of basis functions in the
+    Hartree-Fock basis for \hltexttt{HartreeFock} and highest order of
+    single-particle function for \hltexttt{HarmonicOscillator}. These are
+    tabulated in a matrix of size $N\times D\times L$ with $N$ being the number
+    of particles and $D$. The mapping goes by
+        \begin{equation}
+            \blds{H}_{ijk} = H_{n^{(d)}_j}\left(\sqrt{\omega}x^{(d)}_i\right)
+        \end{equation}
+    For each iteration in the Metropolis sampling, if we only move one particle
+    at a time, only one row changes in $\blds{H}_{ijk}$. This update is
+    reflected in the functions mentioned in \Arf{susec:optTab}.
+    \hltexttt{initializeMatrices} firstly allocates space for two matrices
+    which represent the current and old versions of $\blds{H}_{ijk}$, the
+    \hltexttt{set} function set calculates $\blds{H}_{ijk}$ using the
+    auto-generated header explained in \Arf{sec:auto_generation},
+    \hltexttt{update} then updates the row which has changed and then
+    \hltexttt{acceptState} or \hltexttt{reset} is called depending on the
+    Metropolis-Test.
 
 \section{Minimization}
     The central part of the Variational Monte-Carlo method is the actual
