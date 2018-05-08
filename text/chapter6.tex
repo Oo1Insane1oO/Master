@@ -101,6 +101,26 @@
         \caption{Flow chart of Hartree-Fock implementation.}
     \end{figure}
 
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    activityStarts/.style = {base, fill=blue!30},
+                    startstop/.style = {base, fill=red!30},
+                    activityRuns/.style = {base, fill=green!30},
+                    process/.style = {base, fill=orange!15, font=\sffamily},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily},
+                align=center]
+            \node (main) [activityStarts] {Main};
+        \end{tikzpicture}
+        \caption{Flow chart of Variational Monte-Carlo implementation.}
+    \end{figure}
+
 \section{Cartesian Basis}
     In \Arf{chapter:4} we mentioned the use of basis functions the different
     Many-Body methods. These can be pre-built using nifty intuition. One such
