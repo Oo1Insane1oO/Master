@@ -34,9 +34,10 @@
 \usepackage{relsize}
 \usepackage{soul}
 \usepackage{tikz}
-\usepackage{minted}
-% \usepackage{microtype}
+
 \usetikzlibrary{arrows.meta}
+
+\lstset{mathescape}
 
 % color courier
 \definecolor{filecolor}{RGB}{150,43,190}
@@ -103,23 +104,6 @@
         showtabs=true, 
         tabsize=2
 }
-% 
-% \lstdefinestyle{ccchartstyle}{
-%     resetmargins=true,
-%     framexleftmargin=0pt,
-%     framexrightmargin=0pt,
-%     basicstyle=\footnotesize, % fontsize
-%     tabsize=4, % tab space width
-%     showstringspaces=false, % don't mark spaces in strings
-%     backgroundcolor=\color{codebackground},
-%     emph={HartreeFockSolver, string, DoubleWell, ImportanceSampling,
-%     BruteForce, HarmonicOscillator, SlaterJastrow, Jastrow, Integral},
-%     emphstyle={\color{magenta}},
-%     commentstyle=\color{green}, % comment color
-%     keywordstyle=\color{blue}, % keyword color
-%     stringstyle=\color{red} % string color
-% }
-
 
 \lstdefinestyle{ccstyle}{
     basicstyle=\footnotesize, % fontsize
@@ -127,7 +111,7 @@
     showstringspaces=false, % don't mark spaces in strings
     backgroundcolor=\color{codebackground},
     emph={HartreeFockSolver, string, DoubleWell, ImportanceSampling,
-    BruteForce, HarmonicOscillator, SlaterJastrow, Jastrow, Integral},
+    BruteForce, HarmonicOscillator, SlaterJastrow, Jastrow, Integral, Slater},
     emphstyle={\color{magenta}},
     commentstyle=\color{green}, % comment color
     keywordstyle=\color{blue}, % keyword color

@@ -27,7 +27,7 @@
                 Initialize Integral Object 
                 \\ Iterate};
             \node (integralcode) [process, right of=initIntegral, xshift=6cm] {
-                \lstinline[language=C++, style=ccstyle]{Integral* HFS = new Integral(D, L, N);} \\
+                \lstinline[language=C++, style=ccstyle]{Integral$^*$ HFS = new Integral(D, L, N);} \\
                 \lstinline[language=C++, style=ccstyle]{string message = HFS->initializeParameters(...);}};
             \node (intcodeexplan) [process, below of=integralcode] {
                 \hltexttt{Integral} is one of
@@ -48,13 +48,13 @@
                 Calculate $\Braket{p|h|q}$ (only for root)
             };
             \node (obspec) [process, left of=onebody, xshift=-6cm] {
-                Using function within \hltexttt{Integral}
+                Using function \hltexttt{oneBodyElement} in \hltexttt{Integral}
             };
             \node (twobody) [startstop, below of=onebody] {
                 Calculate $\Braket{pq|h|rs}$ (in parallel)
             };
             \node (tbspec) [process, left of=twobody, xshift=-6cm] {
-                Using function within \hltexttt{Integral}
+                Using function \hltexttt{coulombElement} in \hltexttt{Integral}
             };
             \node (hfalgo) [process, below of=twobody] {
                 Run Hartree-Fock Algorithm
@@ -116,7 +116,46 @@
                 node distance=1.5cm, 
                 every node/.style={fill=white, font=\sffamily},
                 align=center]
+            \node (compile) [activityRuns, above of =main, yshift=6cm] {
+                Compilation};
+            \node (system) [process, right of=compile, xshift=2cm] {
+                Choose SYSTEM flag};
+            \node (systems) [process, below of=system] {
+                HARMONICOSCILLATOR \\
+                HARTREEFOCK \\
+                DOUBLEWELL};
+            \node (jastrow) [process, left of=compile, xshift=-2cm] {
+                Choose JASTROW flag};
+            \node (jastrows) [process, below of=jastrow] {
+                PADEJASTROW \\
+                RBMJASTROW \\
+                EXPNQS};
+            \node (make) [activityRuns, below of=compile, yshift=-1.6cm] {
+                run make with flags \\
+                WAVEFUNCTION=SYSTEM \\
+                JASTROW=JASTROW
+            };
+            \node (arr) [below of=make, yshift=0.2cm] {
+                $\Big\Downarrow$
+            };
+            \draw[->] (compile) -- (make);
+            \draw[-] (systems) -- (system);
+            \draw[<-] (compile) -- (system);
+            \draw[-] (jastrows) -- (jastrow);
+            \draw[<-] (compile) -- (jastrow);
             \node (main) [activityStarts] {Main};
+            \node (SJ) [process, above left of=main, xshift=-2cm, yshift=1.0cm] {
+                \hltexttt{SlaterJastrow} \\
+                \hltexttt{Slater}};
+            \node (IB) [process, above right of=main, xshift=2cm, yshift=1.0cm] {
+                \hltexttt{ImportanceSampling} \\
+                \hltexttt{BruteForce}};
+            \node (choiceSSJ) [process, below of=SJ] {Choose one};
+            \node (choiceIB) [process, below of=IB] {Choose one};
+            \draw[<-] (main) -- (choiceSSJ);
+            \draw[<-] (main) -- (choiceIB);
+            \draw[<-] (choiceSSJ) -- (SJ);
+            \draw[<-] (choiceIB) -- (IB);
         \end{tikzpicture}
         \caption{Flow chart of Variational Monte-Carlo implementation.}
     \end{figure}
@@ -269,7 +308,7 @@
     the Double-Well system called HFS with number of dimensions $D$, number of
     basis functions $L$ and number of particles $N$.
         \begin{lstlisting}[language=C++, style=ccstyle]
-            DoubleWell* HFS = new DoubleWell(D, L, N);
+            DoubleWell$^*$ HFS = new DoubleWell(D, L, N);
             string message = HFS->initializeParameters(...);
         \end{lstlisting}
     With the $\dots$ meaning one initializes it with in however manner the
@@ -279,7 +318,7 @@
     Here is a simple example code-snippet which initializes and runs the
     Hartree-Fock algorithm
         \begin{lstlisting}[language=C++, style=ccstyle]
-            DoubleWell* HFS = new DoubleWell(D, L, N);
+            DoubleWell$^*$ HFS = new DoubleWell(D, L, N);
 
             string message = HFS->initializeParameters(...);
             if (message.compare("")) {
@@ -394,8 +433,6 @@
     one-dimensional array and the actual two-body matrix of size $N^4$ is
     assembled and antisymmetrized. The Hartree-Fock algorithm is then run only
     on one process.
-    
-    >> make structure (image??) of HartreeFock::All structure)
 
 \section{Variational Monte Carlo}
     The Variational Monte-Carlo implementation is mainly in three classes,
@@ -417,13 +454,13 @@
     \hltexttt{SlaterJastrow} one has to specify which Jastrow function to use
     at compile time. A simple example illustrates this better
         \begin{lstlisting}[language=C++, style=ccstyle]
-            SlaterJastrow* wf = new SlaterJastrow(dim, numParticles, parameters);
+            SlaterJastrow$^*$ wf = new SlaterJastrow(dim, numParticles, parameters);
             wf->initializeParameters(omega);
             wf->initializeMatrices();
 
-            ImportanceSampling<SlaterJastrow>* vmc = new
-                    ImportanceSampling<SlaterJastrow>(stepmc, parameters,
-                    maxIterations, rank, numProcs);
+            ImportanceSampling<SlaterJastrow>$^*$ vmc = new
+                    ImportanceSampling<SlaterJastrow>(wf, stepmc, parameters,
+                                                 maxIterations, rank, numProcs);
 
             double E = vmc->sampler();
 
