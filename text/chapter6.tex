@@ -8,25 +8,97 @@
     implementation and the Variational Monte-Carlo implmentation.
     \begin{figure}[H]
         \centering
-        \begin{subfigure}[b!]{0.49\textwidth}
-            \centering
-            \begin{tikzpicture}[
-                    >={Latex[width=2mm,length=2mm]},
-                        base/.style = {rectangle, rounded corners, draw=black,
-                                    minimum width=4cm, minimum height=1cm, text
-                                    centered, font=\sffamily},
-                        activityStarts/.style = {base, fill=blue!30},
-                        startstop/.style = {base, fill=red!30},
-                        activityRuns/.style = {base, fill=green!30},
-                        process/.style = {base, minimum width=2.5cm,
-                        fill=orange!15, font=\ttfamily},
-                    scale=0.8, 
-                    node distance=1.5cm, 
-                    every node/.style={fill=white, font=\sffamily},
-                    align=center]
-                \node (start)       [activityStarts]        {Bleh};
-            \end{tikzpicture}
-        \end{subfigure}
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    activityStarts/.style = {base, fill=blue!30},
+                    startstop/.style = {base, fill=red!30},
+                    activityRuns/.style = {base, fill=green!30},
+                    process/.style = {base, fill=orange!15, font=\sffamily},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily},
+                align=center]
+            \node (main) [activityStarts] {Main};
+            \node (initIntegral) [activityStarts, below of=main] {
+                Read YAML file \\ 
+                Initialize Integral Object 
+                \\ Iterate};
+            \node (integralcode) [process, right of=initIntegral, xshift=6cm] {
+                \lstinline[language=C++, style=ccstyle]{Integral* HFS = new Integral(D, L, N);} \\
+                \lstinline[language=C++, style=ccstyle]{string message = HFS->initializeParameters(...);}};
+            \node (intcodeexplan) [process, below of=integralcode] {
+                \hltexttt{Integral} is one of
+            };
+            \node (harmonic) [process, below left of=intcodeexplan, xshift=-1cm] {
+                \hltexttt{HarmonicOscillator}
+            };
+            \node (doublewell) [process, below right of=intcodeexplan, xshift=1cm] {
+                \hltexttt{DoubleWell}
+            };
+            \node (iteratecode) [startstop, below of=initIntegral, yshift=-2cm] {
+                Calculate integral elements
+            };
+            \node (assemble) [startstop, right of=iteratecode, xshift=6cm] {
+                \lstinline[language=C++, style=ccstyle]{assemble();}
+            };
+            \node (onebody) [startstop, below of=assemble] {
+                Calculate $\Braket{p|h|q}$ (only for root)
+            };
+            \node (obspec) [process, left of=onebody, xshift=-6cm] {
+                Using function within \hltexttt{Integral}
+            };
+            \node (twobody) [startstop, below of=onebody] {
+                Calculate $\Braket{pq|h|rs}$ (in parallel)
+            };
+            \node (tbspec) [process, left of=twobody, xshift=-6cm] {
+                Using function within \hltexttt{Integral}
+            };
+            \node (hfalgo) [process, below of=twobody] {
+                Run Hartree-Fock Algorithm
+            };
+            \node (hfloopstart) [startstop, left of=hfalgo, xshift=-6cm] {
+                While $i<\text{maxiteration}$ do
+            };
+            \node (hflgoexplfock) [startstop, below of=hfloopstart] {
+                Set Fock-Matrix with \Arf{eq:FockRestrictedDef}
+            };
+            \node (hfleig) [startstop, below of=hflgoexplfock] {
+                Solve eigenvalue \Arf{eq:eigvalrestr} 
+            };
+            \node (hflgoexpldens) [startstop, below of=hfleig] {
+                Set density matrix with \Arf{eq:densitymatrixdef}
+            };
+            \node (hflconvtest) [startstop, below of=hflgoexpldens] {
+                Break if converged
+            };
+            \node (finish) [activityStarts, below of=hfalgo] {
+                Output $E_0$ \\
+                free HFS object \\
+                Finalize MPI
+            };
+            \draw[->] (main) -- (initIntegral);
+            \draw[<-] (initIntegral) -- (integralcode);
+            \draw[-] (integralcode) -- (intcodeexplan);
+            \draw[-] (intcodeexplan) -- (harmonic);
+            \draw[-] (intcodeexplan) -- (doublewell);
+            \draw[->] (initIntegral) -- (iteratecode);
+            \draw[<-] (onebody) -- (obspec);
+            \draw[<-] (twobody) -- (tbspec);
+            \draw[->] (iteratecode) -- (assemble);
+            \draw[->] (assemble) -- (onebody);
+            \draw[->] (onebody) -- (twobody);
+            \draw[->] (twobody) -- (hfalgo);
+            \draw[<-] (hfalgo) -- (hfloopstart);
+            \draw[->] (hfloopstart) -- (hflgoexplfock);
+            \draw[->] (hflgoexplfock) -- (hfleig);
+            \draw[->] (hfleig) -- (hflgoexpldens);
+            \draw[->] (hflgoexpldens) -- (hflconvtest);
+            \draw[->] (hfalgo) -- (finish);
+        \end{tikzpicture}
+        \caption{Flow chart of Hartree-Fock implementation.}
     \end{figure}
 
 \section{Cartesian Basis}

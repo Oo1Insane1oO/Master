@@ -103,6 +103,23 @@
         showtabs=true, 
         tabsize=2
 }
+% 
+% \lstdefinestyle{ccchartstyle}{
+%     resetmargins=true,
+%     framexleftmargin=0pt,
+%     framexrightmargin=0pt,
+%     basicstyle=\footnotesize, % fontsize
+%     tabsize=4, % tab space width
+%     showstringspaces=false, % don't mark spaces in strings
+%     backgroundcolor=\color{codebackground},
+%     emph={HartreeFockSolver, string, DoubleWell, ImportanceSampling,
+%     BruteForce, HarmonicOscillator, SlaterJastrow, Jastrow, Integral},
+%     emphstyle={\color{magenta}},
+%     commentstyle=\color{green}, % comment color
+%     keywordstyle=\color{blue}, % keyword color
+%     stringstyle=\color{red} % string color
+% }
+
 
 \lstdefinestyle{ccstyle}{
     basicstyle=\footnotesize, % fontsize
@@ -110,7 +127,7 @@
     showstringspaces=false, % don't mark spaces in strings
     backgroundcolor=\color{codebackground},
     emph={HartreeFockSolver, string, DoubleWell, ImportanceSampling,
-    BruteForce, HarmonicOscillator, SlaterJastrow, Jastrow},
+    BruteForce, HarmonicOscillator, SlaterJastrow, Jastrow, Integral},
     emphstyle={\color{magenta}},
     commentstyle=\color{green}, % comment color
     keywordstyle=\color{blue}, % keyword color
@@ -119,6 +136,7 @@
 
 \lstdefinestyle{yamlstyle}{
     basicstyle=\footnotesize, % fontsize
+    numberstyle=\footnotesize,
     tabsize=4, % tab space width
     showstringspaces=false, % don't mark spaces in strings
     backgroundcolor=\color{codebackground},
