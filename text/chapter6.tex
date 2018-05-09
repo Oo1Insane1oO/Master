@@ -22,6 +22,27 @@
                 every node/.style={fill=white, font=\sffamily},
                 align=center]
             \node (main) [activityStarts] {Main};
+            \node (make) [activityRuns, right of=main, xshift=4cm] {
+               run make with flag \\
+               make BASIS=SYSTEM
+            };
+            \node (compilation) [activityRuns, right of=make, xshift=2cm] {
+                Compilation
+            };
+            \node (chooseBasis) [process, above of=compilation] {
+                Choose system flag
+            };
+            \node (HO) [process, left of=chooseBasis, xshift=-3.5cm] {
+                HARMONICOSCILLATOR
+            };
+            \node (DW) [process, above of=chooseBasis] {
+               DOUBLEWELL 
+            };
+            \draw[-] (HO) -- (chooseBasis);
+            \draw[-] (DW) -- (chooseBasis);
+            \node (arr) [right of=main, xshift=1cm] {
+                $\Longleftarrow$
+            };
             \node (initIntegral) [activityStarts, below of=main] {
                 Read YAML file \\ 
                 Initialize Integral Object 
@@ -60,25 +81,19 @@
                 Run Hartree-Fock Algorithm
             };
             \node (hfloopstart) [startstop, left of=hfalgo, xshift=-6cm] {
-                While $i<\text{maxiteration}$ do
-            };
-            \node (hflgoexplfock) [startstop, below of=hfloopstart] {
-                Set Fock-Matrix with \Arf{eq:FockRestrictedDef}
-            };
-            \node (hfleig) [startstop, below of=hflgoexplfock] {
-                Solve eigenvalue \Arf{eq:eigvalrestr} 
-            };
-            \node (hflgoexpldens) [startstop, below of=hfleig] {
-                Set density matrix with \Arf{eq:densitymatrixdef}
-            };
-            \node (hflconvtest) [startstop, below of=hflgoexpldens] {
-                Break if converged
+                while $i<\text{maxiteration}$ \\
+                    Set Fock-Matrix with \Arf{eq:FockRestrictedDef} \\
+                    Solve eigenvalue \Arf{eq:eigvalrestr} \\
+                    Set density matrix with \Arf{eq:densitymatrixdef} \\
+                    Break if converged
             };
             \node (finish) [activityStarts, below of=hfalgo] {
                 Output $E_0$ \\
                 free HFS object \\
                 Finalize MPI
             };
+            \draw[-] (compilation) -- (chooseBasis);
+            \draw[<-] (make) -- (compilation);
             \draw[->] (main) -- (initIntegral);
             \draw[<-] (initIntegral) -- (integralcode);
             \draw[-] (integralcode) -- (intcodeexplan);
@@ -92,10 +107,6 @@
             \draw[->] (onebody) -- (twobody);
             \draw[->] (twobody) -- (hfalgo);
             \draw[<-] (hfalgo) -- (hfloopstart);
-            \draw[->] (hfloopstart) -- (hflgoexplfock);
-            \draw[->] (hflgoexplfock) -- (hfleig);
-            \draw[->] (hfleig) -- (hflgoexpldens);
-            \draw[->] (hflgoexpldens) -- (hflconvtest);
             \draw[->] (hfalgo) -- (finish);
         \end{tikzpicture}
         \caption{Flow chart of Hartree-Fock implementation.}
