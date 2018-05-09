@@ -96,61 +96,9 @@
     polynomial of order $n_d$. This means that the matrix-elements in
     Hartree-Fock is just a linear combination over integrals over
     Hermite-Gaussians. The following section will tackle this in detail for the
-    two-dimensional case. The three-dimensional is given by >> REF HELGAKER <<.
-
-% \section{Fitting GTO's to Hermite Functions with Least-Squares}
-%     Looking at \Arf{eq:HermiteFunc, eq:GTOdef1d} we see that both functions are
-%     separable in the different dimensions. For this reason we simplify to only
-%     work in one dimensions with label $x$ for the positions and omit the
-%     subscript $d$. We will also specialize to the quantum dot case where the
-%     imagined nuclei is centered in origo for all orbitals. The functions will
-%     hereby be written as
-%         \begin{equation}
-%             \begin{aligned}
-%                 \phi_n(x) &= NH_n(\sqrt{\omega}x)\me^{-\frac{\omega}{2}x^2} \\
-%                 G_n(x, A) &= \sum\limits^{n+1}_{b_n=0} C_{b_n}
-%                 G_{b_n}(\alpha;x, A)
-%             \end{aligned}
-%         \end{equation}
-%     First observation here is that we choose the scaling parameter in the GTO
-%     to be equal to the oscillator frequency $\omega$ halved. We then only have
-%     $1$ set of coefficients to determine, namely the $\{C\}^P_{a_k}$. Note also
-%     that the sum in the contracted function runs to $n+1$, we will show later
-%     that this is sufficient to approximate the Hermite of order $n$.
-% 
-%     A Least-Squares problem for a continuous set $x\in\mathbb{R}$ is defined to
-%     be of form
-%         \begin{equation}
-%             \min_{\{a\}} \abs{\int (f(x) - \sum_ja_jg_j(x)) \md x}^2 \indent
-%             \forall \;\;x\in\mathbb{R}
-%         \end{equation}
-%     where we minimize with respect to a set of parameters $\{a\}$. The
-%     stationary point in the parameters space of the $a$'s is reached when all
-%     partial derivatives of $\{a\}$ is zero. This can be expressed as a linear system
-%         \begin{equation}
-%             \blds{X} \blds{a} = \blds{b}
-%         \end{equation}
-%     with the matrix $\blds{X}$ having elements
-%         \begin{equation}
-%             X_{ij} \equiv \int g_i(x)g_j(x) \md x
-%         \end{equation}
-%     and the vector $\blds{b}$
-%         \begin{equation}
-%             b_i \equiv \int g_i(x)f(x) \md x
-%         \end{equation}
-%     Inserting the Hermite function for $f$ and the GTO for $g$ the integrands
-%     (see \Arf{appendix:B}) we get
-%         \begin{equation}
-%             \begin{aligned}
-%                 X_{ij} &= \int x^i N_i N_j \me^{\frac{\omega}{2} x^2} x^j
-%                 \me^{\frac{\omega}{2} x^2} \md x \\
-%                 b_i &= \int N_i x^i \me^{\frac{\omega}{2} x^2}
-%                 \left(2^nn!\sqrt{\frac{\pi}{\omega}}\right)^{-\frac{1}{2}}
-%                 H_n(\sqrt{\omega}x) \me^{\frac{\omega}{2} x^2} \md x
-%             \end{aligned}
-%         \end{equation}
-%     We can solve this by hand, but it is desirable to solve it using Sympy. See
-%     >>REF IMPLEMENTATION CHAPTER <<.
+    two-dimensional case. The three-dimensional case is given by an excellent
+    text by Trygve Helgaker and Peter R. Taylor\cite{HelgakerTaylorGauss}, see
+    also \cite{HelgakerGauss}.
 
 \section{Integral Elements}
     In the Hartree-Fock scheme described in \Arf{chapter:3} we need to
@@ -177,15 +125,20 @@
             \me^{-\alpha (x_d-A_d)^2}
             \label{eq:hermiteGauss2}
         \end{equation}
-    We will in this chapter limit ourselves to work with isotropic gaussians
+    We will in this chapter limit ourselves to work with isotropic Gaussians
     (meaning $\alpha_d$ is the same for all dimensions) as this will yield a
-    simpler closed-form solution to the integrals. >> Ref non-isotropic <<. \\
-    The approach given further follows closely the excellent text by Helgaker
-    >>REF<<, who calculates the integral elements in 3 dimensions.
+    simpler closed-form solution to the integrals. For a calculation of
+    integral elements using non-isotropic Gaussian functions see this wonderful
+    article \cite{nonIsoGauss}, this article takes gives a detailed
+    calculations of integrals over s-type non-isotropic gaussians. The
+    extension to general Gauss-Hermites can be done in the exact same manner as
+    presented here, however the proportionality factors involved in the
+    recursive relation is different. \\
 
     Before we throw ourselves out into the integrals, let us first express the
-    Hermite-Gaussians in a more convenient way >> REF HELGAKER <<. The
-    Gaussians can be expressed as
+    Hermite-Gaussians in a more convenient way(again see
+    \cite{HelgakerTaylorGauss} and \cite{HelgakerGauss}. The Gaussians can be
+    expressed as
         \begin{equation}
             g_n(\alpha;\blds{r},\blds{A}) = \prod_d  \prdp{A_{x_d}}{n_d}
             \me^{-\alpha (x_d-A_d)^2} = \prod_d \prdp{A_{x_d}}{n_d}
@@ -237,9 +190,10 @@
     $\blds{r}-\blds{A}$ and $\blds{r}-\blds{B}$. These factors are troublesome
     when integrating. With the motivation that Hermite-Gaussians make life
     simpler, we expand the overlap distribution in a Hermite-Gaussian basis.
-    Following >>REF HELGAKER<< and working in one dimension(since
-    Hermite-Gaussians can be split in each respective dimension) we
-    have\footnote{The indices $i$ and $j$ are now in 1 dimension!}
+    Following T. Helgaker\cite{HelgakerTaylorGauss} and working in one
+    dimension(since Hermite-Gaussians can be split in each respective
+    dimension) we have\footnote{The indices $i$ and $j$ are now in 1
+    dimension!}
         \begin{equation}
             \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) =
             \sum\limits^{i+j}_{t=0} E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P})
@@ -316,8 +270,8 @@
     With The simplification to s-types and the product rule, the integration
     may begin. Starting with the overlap $\Braket{i|j}$ and using
     \Arf{eq:omegaDef}\footnote{Also using the following integral $\infint
-    \me^{-\lambda x^2} = \sqrt{\frac{\pi}{\lambda}},\indent \lambda>0$. >>REF
-    ROTTMANN<<}
+    \me^{-\lambda x^2} = \sqrt{\frac{\pi}{\lambda}},\indent \lambda>0$. See
+    \cite{handbookmath}.}
         \begin{align}
             \Braket{i|j} &= \infint
             \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
@@ -380,7 +334,7 @@
     $u=x_d+P_d$. In line four $(u+P_d)^k$ is rewritten with the \txtit{binomial
     expansion}\footnote{The integral $\infint x^n\me^{-ax^2}\md x =
     \frac{1}{2}a^{-\frac{n}{2}}\Gamma\left(\frac{k+1}{2}\right),\indent n>-1,
-    n\;\text{even}$, >> REF THIS <<< is used as well.}.
+    n\;\text{even}$, see \cite{handbookmath}.}.
 
 \subsection{Laplacian Integral}
     The third integral with the Laplacian operator arises in the kinetic part
@@ -503,13 +457,16 @@
             - \blds{B}}^2} \md u
             \label{eq:oneElectron3D}
         \end{align}
-    These integrals must be solved numerically. One can also rewrite the
-    2D-integral in terms of the \txtit{Modified Bessel function of first kind}
-    by using $u^2=1/2(1 - \cos(\theta)$ >> REF WOLFRAM(MATHWORKS) <<. The
-    3D-integral can be rewritten with an \txtit{incomplete Gamma function}
-    >>REF HELGAKER<<. From \Arf{eq:centerDerGauss}, the integrals have to be
-    differentiated in order to get the final closed form expressions, see
-    \Arf{sub:445}.
+    These integrals must be solved numerically using \txtit{Chebyshev-Gauss
+    Quadrature}\cite{gausschebyshev}. One can also rewrite the 2D-integral in
+    terms of the \txtit{Modified Bessel function of first kind} by using
+    $u^2=1/2(1 - \cos(\theta)$\cite{modifiedBessel}.
+    \cite{HelgakerTaylorGauss}. A take on this resulted nowhere as the closed
+    form expanded itself in ever-increasing order of polynomial factors with
+    the first and second order of the modified Bessel function of first kind.
+    The 3D-integral can be rewritten with an \txtit{incomplete Gamma function}
+    From \Arf{eq:centerDerGauss}, the integrals have to be differentiated in
+    order to get the final closed form expressions, see \Arf{sub:445}.
 
 \subsection{Coulomb Interaction Integral}
     In the previous section an expression for integral over a Coulomb potential
@@ -602,9 +559,9 @@
     is calculated
 
 \subsection{Recurrence Relation\label{sub:445}}
-    Following >>REF HELGAKER<<, we proceed with finding a similar recurrence
-    relation for the derivatives. We define a function containing the integral
-    which needs to be solved numerically
+    Following directly from \cite{HelgakerTaylorGauss}, we proceed with finding
+    a similar recurrence relation for the derivatives. We define a function
+    containing the integral which needs to be solved numerically
         \begin{equation}
             \begin{aligned}
                 \zeta_n(x) &\equiv \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
@@ -672,21 +629,10 @@
             \label{eq:recurrInteraction}
         \end{equation}
     Notice that the only difference between the obtained recurrence relations
-    and the ones obtained by Helgaker >> REF HELGAKER << is in
+    and the ones obtained by Helgaker\cite{HelgakerGauss} is in
     \Arf{eq:auxiliary2d1} and \Arf{eq:recurrInteraction}. Other than this the
     incrementation of $\zeta_n$ gives the exact same $X_{AB}$(and similar for
     the other directions) as with the incomplete gamma function.
-
-% \subsection{Overlap Distribution Integral}
-%     We have already calculated the overlap integrals directly in
-%     \Arf{susec:overlapIntegral} however, in order to calculate the full Coulomb
-%     integrals a polynomial expansion of the Hermite-Gaussians is needed for
-%     finding a closed-form expression. The polynomials in questian are the
-%     well-known Hermite polynomials >> REF MOTIVATION HERMITE <<
-% 
-%     This concludes the pre-calculations needed in order to find a closed-form
-%     expression for the Coulomb distribution integral. The next chapter will
-%     handle just that.
 
 \subsection{Coulomb Distribution Integral}
     With the derived expressions for the Coulomb potential integral the full
@@ -702,10 +648,10 @@
             \frac{g_{p}(\alpha+\gamma,\blds{r_1},\blds{P})
             g_{q}(\beta+\delta,\blds{r_2},\blds{Q})}{\abs{\blds{r_1} -
             \blds{r_2}}} \md\blds{r_1} \md\blds{r_2}\nonumber \\
-            &= \frac{\pi^{d-\frac{1}{2}}}{\sqrt{(\alpha+\gamma)(\beta+\delta)
-            (\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q
-            (-1)^{q} \xi_{p+q}\left(\frac{(\alpha + \gamma)(\beta +
-            \delta)}{\alpha + \gamma + \beta + \delta},\blds{R_{S_1S_2}}\right)
+            &= \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
+            E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
+            \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
+            \delta},\blds{R_{S_1S_2}}\right)
             \label{eq:coulomb_dist_integral_stype}
         \end{align}
     Where we have used the multi-index\footnote{Essentially just expanding an
@@ -720,7 +666,15 @@
         \begin{equation}
             \prdp{P_x}{p_x}\prdp{Q_x}{q_x} = (-1)^{p_x+q_x} \prdp{P_x}{p_x+q_x}
         \end{equation}
-    and the same for the other directions.
+    and the same for the other directions. The factor $a$ is
+        \begin{equation}
+            a \equiv \left\{\begin{aligned}
+                \frac{\pi^{\frac{3}{2}}}
+                {\sqrt{(\alpha+\gamma)(\beta+\delta)}},\indent \text{2D} \\
+                \frac{\pi^{\frac{5}{2}}}
+                {(\alpha+\gamma)(\beta+\delta)},\indent \text{3D} \\
+            \end{aligned}\right.
+        \end{equation}
 
 \section{Double-Well Functions}
     This section will explain the building of a basis for the
@@ -815,3 +769,124 @@
     to spin is present. This means that we can(still with two-spin fermions)
     run the simulations with $N=2,4,6,\dots$ instead of the original
     $N=2,6,12,20,\dots$ in two dimensions and $N=2,8,20,30\dots$ in three.
+
+\section{Summary\label{sec:basis_summary}}
+    This chapter tackled the one- and two-body integrals over s-type Gaussian
+    functions in two dimensions by using the results and approach of Trygve
+    Helgaker. We will here rewrite the expressions found and write out the full
+    expression for integrals over harmonic oscillator functions. \\
+
+    Firstly the integrals over Hermite-Gaussians (monomials multiplied by
+    exponential). The Hermite-Gaussian was expressed as 
+        \begin{equation}
+            g_n(\blds{\alpha};\blds{r},\blds{A}) = \prod_d
+            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
+            \label{eq:HGsumdef}
+        \end{equation}
+    An expansion of these in terms of Hermite-polynomials was then made to
+    arrive at an overlap distribution, with the Gaussian product rule for the
+    product of two Hermite-Gaussians, with a recursive relation for the
+    expansion coefficients
+        \begin{equation}
+            \begin{aligned}
+                \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) &=
+                \sum\limits^{i+j}_{t=0}
+                E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P}) \\
+                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{00}_0 &= K_{AB} \\
+            \end{aligned}
+            \label{overlapdefsum}
+        \end{equation}
+    The overlap integral was then found to be
+        \begin{equation}
+            \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) |
+            g_j(\blds{\beta};\blds{r},\blds{B})} = \sumE{p}{i}{j}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
+            \label{eq:overlapdefsum}
+        \end{equation}
+    The integral over a potential $x^k_d$ was found with the binomial expansion
+    to be
+        \begin{equation}
+            \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) | x^k_d |
+            g_j(\blds{\beta};\blds{r},\blds{B})} = \suml{p=\text{even}}{i+j}
+            E^{i+j}_p \left(\frac{\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
+            \underset{\text{even}}{\sum\limits_{l=0}^k} {k\choose l}
+            \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
+            \Gamma\left(\frac{l+1}{2}\right)
+        \end{equation}
+    and the integral with the Laplacian was
+        \begin{equation}
+            \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) | \nabla^2 |
+            g_j(\blds{\beta};\blds{r},\blds{B})} = \sum_d\prod_{d'\neq d}
+            \Braket{g_{i_{d'}}(\alpha_{d'};x_{d'},A_{d'})
+            |\sigma_{d'}(S_d(\beta;x-B_d))|g_{j_{d'}}(\beta{d'};x_{d'},B_{d'})}
+            \label{eq:lapintdefsum}
+        \end{equation}
+    with
+        \begin{equation}
+            \begin{aligned}
+                S_d(\alpha;x_d-A_d) &\equiv
+                \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+                2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
+                i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \\
+                \sigma_d(S_d) &\equiv \left\{\begin{matrix}
+                                            1,&\indent d' \neq d \\
+                                            S_d,&\indent d' = d
+                                            \end{matrix}
+                                        \right.
+            \end{aligned}
+        \end{equation}
+    Finally the integral over the Coulomb interactions was calculated using a
+    recursive relation for the one-dimensional integral it was defined by. The
+    expressions are
+        \begin{equation}
+            \Braket{g^{\blds{\alpha}}_{iA}g^{\blds{\beta}}_{jB} |
+            \frac{1}{r_{12}} | g^{\blds{\delta}}_{kC}g^{\blds{\gamma}}_{lD}} =
+            \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
+            E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
+            \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
+            \delta},\blds{R_{S_1S_2}}\right)
+            \label{eq:coulombdistintdefsum}
+        \end{equation}
+    with
+        \begin{equation}
+            a \equiv \left\{\begin{aligned}
+                \frac{\pi^{\frac{3}{2}}}
+                {\sqrt{(\alpha+\gamma)(\beta+\delta)}},\indent \text{2D} \\
+                \frac{\pi^{\frac{5}{2}}}
+                {(\alpha+\gamma)(\beta+\delta)},\indent \text{3D} \\
+            \end{aligned}\right.
+        \end{equation}
+    And the recursive relation in two dimensions(left) and three dimensions
+    (right)
+        \begin{equation}
+            \begin{aligned}
+                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right) \\
+                \zeta_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+                u^2}} \me^{-u^2x} \md u
+            \end{aligned} \indent\indent\indent 
+            \begin{aligned}
+                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} + X_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} + Y_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} + Y_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{000} &= \left(-2\alpha\beta\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
+                \\
+                \zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md u
+            \end{aligned}
+        \end{equation}
+
+    We also give a reminder again that these expressions are only valid for
+    \txtit{isotropic} Gaussian functions, Gaussians whose scaling factor(i.e
+    $\alpha$) is the same in all dimensions. For the non-isotropic case the
+    reader is referred to \cite{nonIsoGauss}.
