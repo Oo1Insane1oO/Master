@@ -13,10 +13,15 @@
                     base/.style = {rectangle, rounded corners, draw=black,
                                 minimum width=2cm, minimum height=0.5cm, text
                                 centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
                     activityStarts/.style = {base, fill=blue!30},
                     startstop/.style = {base, fill=red!30},
+                    startstopcode/.style = {basecode, fill=red!30},
                     activityRuns/.style = {base, fill=green!30},
                     process/.style = {base, fill=orange!15, font=\sffamily},
+                    processcode/.style = {basecode, fill=orange!15, font=\sffamily},
                 scale=0.8, 
                 node distance=1.5cm, 
                 every node/.style={fill=white, font=\sffamily},
@@ -47,9 +52,9 @@
                 Read YAML file \\ 
                 Initialize Integral Object 
                 \\ Iterate};
-            \node (integralcode) [process, right of=initIntegral, xshift=6cm] {
+            \node (integralcode) [processcode, right of=initIntegral, xshift=6cm] {
                 \lstinline[language=C++, style=ccstyle]{Integral$^*$ HFS = new Integral(D, L, N);} \\
-                \lstinline[language=C++, style=ccstyle]{string message = HFS->initializeParameters(...);}};
+                \lstinline[language=C++, style=ccstyle]{string message = HFS$\rarr$initializeParameters(...);}};
             \node (intcodeexplan) [process, below of=integralcode] {
                 \hltexttt{Integral} is one of
             };
@@ -62,7 +67,7 @@
             \node (iteratecode) [startstop, below of=initIntegral, yshift=-2cm] {
                 Calculate integral elements
             };
-            \node (assemble) [startstop, right of=iteratecode, xshift=6cm] {
+            \node (assemble) [startstopcode, right of=iteratecode, xshift=6cm] {
                 \lstinline[language=C++, style=ccstyle]{assemble();}
             };
             \node (onebody) [startstop, below of=assemble] {
@@ -119,10 +124,14 @@
                     base/.style = {rectangle, rounded corners, draw=black,
                                 minimum width=2cm, minimum height=0.5cm, text
                                 centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
                     activityStarts/.style = {base, fill=blue!30},
                     startstop/.style = {base, fill=red!30},
                     activityRuns/.style = {base, fill=green!30},
                     process/.style = {base, fill=orange!15, font=\sffamily},
+                    processcode/.style = {basecode, fill=orange!15, font=\sffamily},
                 scale=0.8, 
                 node distance=1.5cm, 
                 every node/.style={fill=white, font=\sffamily},
@@ -146,6 +155,16 @@
                 WAVEFUNCTION=SYSTEM \\
                 JASTROW=JASTROW
             };
+            \node (test) [process, left of=make, xshift=-3cm] {
+                optional flag \\
+                TESTS=ON/OFF
+            };
+            \node (debug) [process, right of=make, xshift=3cm] {
+                optional flag \\
+                DEBUG=ON/OFF
+            };
+            \draw[<-] (make) -- (test);
+            \draw[<-] (make) -- (debug);
             \node (arr) [below of=make, yshift=0.2cm] {
                 $\Big\Downarrow$
             };
@@ -154,19 +173,115 @@
             \draw[<-] (compile) -- (system);
             \draw[-] (jastrows) -- (jastrow);
             \draw[<-] (compile) -- (jastrow);
-            \node (main) [activityStarts] {Main};
+            \node (main) [activityStarts] {
+                Main
+            };
+            \node (init) [activityStarts, below of=main] {
+                Create wavefunction object \\
+                Create sampler object
+            };
+            \draw[->] (main) -- (init);
+            \node (yaml) [activityStarts, above of=main, yshift=-0.5cm] {
+                Read YAML input file.
+            };
+            \draw[->] (yaml) -- (main);
+            \node (wavefunction) [processcode, above left of=init, xshift=-3.5cm, yshift=-1.0cm] {
+                \lstinline[language=C++, style=ccstyle]{T$^*$ wf = new T(D, N, P);} \\
+                \lstinline[language=C++, style=ccstyle]{wf$\rarr$initializeParameters(...);} \\
+                \lstinline[language=C++, style=ccstyle]{wf$\rarr$initializeMatrices();}
+            };
+            \draw[<-] (init) -- (wavefunction);
             \node (SJ) [process, above left of=main, xshift=-2cm, yshift=1.0cm] {
                 \hltexttt{SlaterJastrow} \\
-                \hltexttt{Slater}};
+                \hltexttt{Slater}
+            };
+            \node (emptywf) [left of=SJ, xshift=-1.85cm, inner sep=0pt, outer sep=0pt] {
+            };
+            \node (Twf) [process, below of=emptywf, xshift=0.01cm] {
+                \hltexttt{T}
+            };
+            \draw[-] (Twf) -- (wavefunction);
+            \draw[-] (SJ) -- (emptywf);
+            \draw[-] (emptywf) -- (Twf);
             \node (IB) [process, above right of=main, xshift=2cm, yshift=1.0cm] {
                 \hltexttt{ImportanceSampling} \\
-                \hltexttt{BruteForce}};
-            \node (choiceSSJ) [process, below of=SJ] {Choose one};
-            \node (choiceIB) [process, below of=IB] {Choose one};
+                \hltexttt{BruteForce}
+            };
+            \node (sampler) [processcode, right of=init, xshift=3.5cm] {
+                \lstinline[language=C++, style=ccstyle]{T$^*$ vmc = new T(wf, $\Delta t$, P, M);}
+            };
+            \node (emptyib) [right of=IB, xshift=1.0cm, inner sep=0pt, outer sep=0pt] {
+            };
+            \node (Tib) [process, below of=emptyib] {
+                \hltexttt{T}
+            };
+            \draw[->] (sampler) -- (init);
+            \draw[-] (Tib) -- (sampler);
+            \draw[-] (IB) -- (emptyib);
+            \draw[-] (emptyib) -- (Tib);
+            \node (choiceSSJ) [process, below of=SJ] {Choose one
+            };
+            \node (choiceIB) [process, below of=IB] {Choose one
+            };
             \draw[<-] (main) -- (choiceSSJ);
             \draw[<-] (main) -- (choiceIB);
             \draw[<-] (choiceSSJ) -- (SJ);
             \draw[<-] (choiceIB) -- (IB);
+            \node (minimize) [activityStarts, below of=init, yshift=-2.0cm] {
+                Find optimal set of parameters.
+            };
+            \draw[->] (init) -- (minimize);
+            \node (emptyminleft) [right of=minimize, inner sep=0pt, outer sep=0pt, xshift=3.5cm] {
+            };
+            \draw[-] (minimize) -- (emptyminleft);
+            \node (initparam) [process, above of=emptyminleft, yshift=-0.55cm] {
+                Find initial parameters.
+            };
+            \draw[-] (emptyminleft) -- (initparam);
+            \node (gaussinit) [process, above left of=initparam, xshift=-1.0cm, yshift=0.3cm] {
+                Gaussian random if \\
+                NQS parameters.
+            };
+            \node (uniinit) [process, above right of=initparam, xshift=1.0cm, yshift=0.3cm] {
+                Uniform random for \\
+                other parameters.
+            };
+            \node (minimizer) [processcode, above left of=minimize, xshift=-4cm] {
+                \lstinline[language=C++, style=ccstyle]{Minimizer<T>$^*$ m = new Minimizer<T>} \\
+                \lstinline[language=C++, style=ccstyle]{                (vmc, S, I, eps, M);} \\
+                \lstinline[language=C++, style=ccstyle]{m$\rarr$minimize();}
+            };
+            \node (emptymini) [left of=wavefunction, inner sep=0pt, outer sep=-0.51pt, xshift=-1.25cm] {
+            };
+            \draw[-] (emptymini) -- (Twf);
+            \draw[-] (minimizer) -- (emptymini);
+            \draw[-] (minimizer) -- (minimize);
+            \draw[-] (initparam) -- (gaussinit);
+            \draw[-] (initparam) -- (uniinit);
+            \node (minimizerexpl) [processcode, below of=minimizer, yshift=-0.7cm] {
+                S: Method \\
+                \hspace{0.2cm} - SA-BFGS \\
+                \hspace{0.2cm} - BFGS (MTLS) \\
+                \hspace{0.2cm} - ASGD \\
+                \hspace{0.2cm} - SD \\
+                \hspace{0.2cm} - CG (MTLS)
+            };
+            \draw[-] (minimizerexpl) -- (minimizer);
+            \node (finalsample) [activityStarts, below of=minimize] {
+                Run final sampling with optimal parameters.
+            };
+            \node (vmcsample) [processcode, right of=finalsample, xshift=4cm] {
+                \lstinline[language=C++, style=ccstyle]{vmc$\rarr$sampler()};
+            };
+            \draw[->] (minimize) -- (finalsample);
+            \draw[-] (vmcsample) -- (finalsample);
+            \node (end) [activityStarts, below of=finalsample, yshift=-1cm] {
+                Output $E_0$ \\
+                free Wavefunction object (wf) \\
+                free Sampler object (vmc) \\
+                free Minimizer object (m)
+            };
+            \draw[->] (finalsample) -- (end);
         \end{tikzpicture}
         \caption{Flow chart of Variational Monte-Carlo implementation.}
     \end{figure}
