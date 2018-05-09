@@ -32,8 +32,8 @@
     \txtit{Hermite-Gaussians}. See \Arf{sec:hermiteGaussFunc}.
 
 \section{Gaussian Type Orbitals}
-    \txtit{Gaussian Type Orbitals} or GTO's are functions of the following form
-    >> REF GTO here <<
+    \txtit{Gaussian Type Orbitals} or GTO's are functions of the following
+    form\cite{HelgakerMolElcTheory}
         \begin{equation}
             G_n(\blds{\alpha};\blds{r},\blds{A}) \equiv \prod_d (x_d-A_d)^{n_d}
             \me^{-\alpha_d (x_d-A_d)^2}
@@ -178,8 +178,8 @@
     is a constant.
 
 \subsection{Overlap Distribution}
-    An \txtit{overlap distribution} is defined >>REF THIS<< as the product
-    between two Hermite-Gaussian functions, that is
+    An \txtit{overlap distribution} is defined as the product between two
+    Hermite-Gaussian functions, that is
         \begin{equation}
             \Omega_{ij} = \prod_d g_{i_d}(x_d,\alpha,A_d)g_{j_d}(x_d,\beta,B_d)
             =
@@ -421,9 +421,10 @@
             \label{eq:coulombPotentialIntegral}
         \end{align}
     The integral over $t$ has to be addressed separately for two- and three
-    dimensions. For the three-dimensional case the reader is referred to >> REF
-    HELGAKER <<. Here we will derive a closed-form form expression for the
-    two-dimensional case. First let us use the following substitution
+    dimensions. For the three-dimensional case the reader is referred to
+    \cite{HelgakerTaylorGauss}. Here we will derive a closed-form form
+    expression for the two-dimensional case. First let us use the following
+    substitution
         \begin{equation}
             \begin{aligned}
                 u &= \frac{t}{\sqrt{\alpha+t^2}} \\
@@ -800,7 +801,7 @@
                 (t+1)E^{ij}_{t+1} \\
                 E^{00}_0 &= K_{AB} \\
             \end{aligned}
-            \label{overlapdefsum}
+            \label{overlapdistdefsum}
         \end{equation}
     The overlap integral was then found to be
         \begin{equation}
@@ -808,7 +809,7 @@
             g_j(\blds{\beta};\blds{r},\blds{B})} = \sumE{p}{i}{j}
             \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
             {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
-            \label{eq:overlapdefsum}
+            \label{eq:overlapintdefsum}
         \end{equation}
     The integral over a potential $x^k_d$ was found with the binomial expansion
     to be
@@ -888,5 +889,58 @@
 
     We also give a reminder again that these expressions are only valid for
     \txtit{isotropic} Gaussian functions, Gaussians whose scaling factor(i.e
-    $\alpha$) is the same in all dimensions. For the non-isotropic case the
-    reader is referred to \cite{nonIsoGauss}.
+    $\alpha$) is the same in all dimensions. For the non-isotropic case the see
+    \cite{nonIsoGauss}. \\
+
+    And as promised, here are the full expressions for the integral elements with
+    harmonic oscillator functions using \Arf{eq:coulombdistintdefsum} and the
+    orthogonality of the harmonic oscillator functions
+        \begin{equation}
+            \Braket{\psiHO_i|\psiHO_j} = N_i \delta_{ij}
+            \label{eq:HOoverlap}
+        \end{equation}
+        \begin{equation}
+            \Braket{\psiHO_i|h^{\text{HO}}|\psiHO_j} = N_i
+            \varepsilon^{\text{HO}}_i\delta_{ij}
+        \end{equation}
+        \begin{equation}
+            \Braket{\psiHO_i\psiHO_j|\frac{1}{r_{12}}|\psiHO_k\psiHO_l} =
+            N_{ijkl}\frac{a}{\sqrt{2\omega}}  \sum^{ijkl}_{tuvw}
+            H^{ijkl}_{tuvw} \suml{pq}{t+v,u+w} E^{tv}_pE^{uw}_q
+            (-1)^q\xi_{p+q}\left(\frac{\omega}{2}, \blds{0}\right)
+        \end{equation}
+        \begin{equation}
+            a \equiv \left\{\begin{aligned}
+                \frac{\pi^{\frac{3}{2}}} {\sqrt{\omega}},\indent \text{2D} \\
+                \frac{\pi^{\frac{5}{2}}} {\omega},\indent \text{3D} \\
+            \end{aligned}\right.
+        \end{equation}
+    with the notations
+        \begin{equation}
+            \begin{aligned}
+                N_{ijkl} &= X_i X_j X_k X_l \\
+                \suml{tuvw}{ijkl} &=
+                \suml{p}{t}\suml{q}{u}\suml{r}{v}\suml{s}{w} \\
+                \suml{pq}{t+v,u+w} &= \suml{p}{t+v}\suml{q}{u+w} \\
+                H^{ijkl}_{tuvw} &= H_{i,t} H_{j,u} H_{k,v} H_{l,w} \\
+                E^{tv}_p &= E_{p,t+v}
+            \end{aligned}
+        \end{equation}
+    And using the multi-index notation for the dimensions in $p$ and $q$
+    indices. The $H$ are the Hermite coefficients.
+
+\section{Further Work}
+    This concludes this chapter on basis functions. We have found an expression
+    for the integral elements involving Hermite-Gaussians and used these to
+    express the integral over harmonic oscillator functions which in turn gave
+    an expression for the integrals over double-well functions as they were
+    just expanded in harmonic oscillator functions. The next chapter will
+    present optimizations methods used in the variational method and the
+    implementations of these integrals are presented in \Arf{chapter:6}. \\
+
+    As a note for further work the expressions found here are for isotropic
+    gaussians only. For certain systems, like the one presented in
+    article\cite{nonIsoGauss}, more flexibility in the Gaussian functions can
+    be desired, such that finding expression for the integrals of Gaussian
+    functions with higher order monomial factors and extending the existing
+    code to calculate those can be of desire.
