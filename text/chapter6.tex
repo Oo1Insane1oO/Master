@@ -16,12 +16,12 @@
                     basecode/.style = {rectangle, rounded corners, draw=black,
                                 minimum width=2cm, minimum height=0.5cm, text
                                 centered, font=\sffamily, align=left},
-                    activityStarts/.style = {base, fill=blue!30},
-                    startstop/.style = {base, fill=red!30},
-                    startstopcode/.style = {basecode, fill=red!30},
-                    activityRuns/.style = {base, fill=green!30},
-                    process/.style = {base, fill=orange!15, font=\sffamily},
-                    processcode/.style = {basecode, fill=orange!15, font=\sffamily},
+                    activityStarts/.style = {base, fill=blue!30, drop shadow},
+                    startstop/.style = {base, fill=red!30, drop shadow},
+                    startstopcode/.style = {basecode, fill=red!30, drop shadow},
+                    activityRuns/.style = {base, fill=green!30, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
                 scale=0.8, 
                 node distance=1.5cm, 
                 every node/.style={fill=white, font=\sffamily},
@@ -127,11 +127,11 @@
                     basecode/.style = {rectangle, rounded corners, draw=black,
                                 minimum width=2cm, minimum height=0.5cm, text
                                 centered, font=\sffamily, align=left},
-                    activityStarts/.style = {base, fill=blue!30},
-                    startstop/.style = {base, fill=red!30},
-                    activityRuns/.style = {base, fill=green!30},
-                    process/.style = {base, fill=orange!15, font=\sffamily},
-                    processcode/.style = {basecode, fill=orange!15, font=\sffamily},
+                    activityStarts/.style = {base, fill=blue!30, drop shadow},
+                    startstop/.style = {base, fill=red!30, drop shadow},
+                    activityRuns/.style = {base, fill=green!30, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
                 scale=0.8, 
                 node distance=1.5cm, 
                 every node/.style={fill=white, font=\sffamily},
@@ -461,7 +461,7 @@
     iterations, the convergence tolerance (when to break the iteration) and a
     boolean for showing progress or not. It calculates the integral-elements
     and runs the Hartree-Fock algorithm and returns the estimation of the
-    ground-state energy. >> REF (NOT REALLY) EXPLAIN INPUTS <<
+    ground-state energy.
 
 \subsection{Parallelization of Two-Body Matrix}
     The most time-consuming part of the Hartree-Fock procedure is the
@@ -597,12 +597,12 @@
     system which needs to be given at compile time as a flag i.e
     WAVEFUNCTION=HarmonicOscillator. The second part sets the sampling to use
     Metropolis-Hastings algortithm. The parameters variable must be an
-    \hltexttt{Eigen} >>REF EIGEN<< vector or array and contains the variational
+    Eigen\cite{eigenweb} vector or array and contains the variational
     parameters present. The representation of each element in this vector(or
     array) is specific to each system. For a more detailed explanation see >>
     REF GITHUB <<. \\
     This is just an example of how to build a simple run, however we have also
-    built a run file which uses YAML >> REF THIS <<. The basic template is as
+    built a run file which uses YAML\cite{yaml}. The basic template is as
     follows
         \begin{lstlisting}[language=yaml]
             omega: 1.0

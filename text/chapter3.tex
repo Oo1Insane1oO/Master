@@ -468,23 +468,6 @@
         local energy would be much more of a hassle.\footnote{The
         differentiation of the wavefunction is enough to reduce the quality of
         life on its own!}
-    \subsection{Use Diffusion Theory and the PDF\label{susec:diffTHpdf}}
-        The statistics describing the expectation value states that any
-        distribution may be applied in calculation, however if we take a close
-        look at the local energy(\Arf{eq:ELdef}) we see that for all
-        distributions the local energy is not defined at the zeros of $\psiT$.
-        This means that an arbitrary PDF does not guarantee generation of
-        points which makes $\psi_T=0$. This can be overcome by introducing the
-        square of the wave function to be defined as the distribution function
-        as given in \Arf{eq:PDFdef}.
-
-        Because of the inherent statistical property of the wave function
-        Quantum Mechanics can be modelled as a diffusion process, or more
-        specifically, an \txtit{Isotropic Diffusion Process} which is
-        essentially just a random walk model. Such a process is described by
-        the Langevin equation with the corresponding Fokker-Planck equation
-        describing the motion of the walkers(particles). See \cite{numstoch}
-        for details.
 
     \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
         The Metropolis algorithm bases itself on moves (also called
@@ -533,20 +516,46 @@
                 \item Save the state $i$ and jump to step (ii).
             \end{enumerate}
 
-    \subsection{Importance Sampling\label{susec:impSamp}}
-        Using the selection probability mentioned in \Arf{susec:MHAlg} in the
-        Metropolis algorithm is called an \txtit{Importance sampling} because
-        it essentially makes the sampling more concentrated around areas where
-        the PDF has large values.
+    \subsection{Diffusion Theory and the PDF\label{susec:diffTHpdf}}
+        The motivation for the use of diffusion theory is described very well
+        in the Masters thesis of Jørgen Høgberget\cite{jorgenThesis}. The
+        essential results were a Green's function propagator arising from the
+        \txtit{short time approximation} and the observation of interest here
+        which has to do with the statistics describing the expectation value,
+        it states that \txtit{any} distribution may be applied in calculation,
+        however if we take a close look at the local energy(\Arf{eq:ELdef}) we
+        see that for all distributions the local energy is not defined at the
+        zeros of $\psiT$.  This means that an arbitrary PDF does not guarantee
+        generation of points which makes $\psi_T=0$. This can be overcome by
+        introducing the square of the wave function to be defined as the
+        distribution function as given in \Arf{eq:PDFdef}. This basically means
+        that when using Quantum Monte-Carlo methods, the incorporation of the
+        fact that when an energy is more undefined(meaning $\psi_T\rarr 0$ the
+        less probable that point is actually means the generation of states in
+        which $\psi_T$ is removed. The next chapter will derive the method that
+        includes this observation into play, the so-called \txtit{importance
+        sampling}.
 
-        In order to derive the form of this equation we use the statements
-        presented in \Arf{susec:diffTHpdf}. With
+    \subsection{Importance Sampling\label{susec:impSamp}}
+        Using the selection probability mentioned in \Arf{susec:MHAlg}, the
+        Metropolis-Hastings algorithm is called an \txtit{Importance sampling}
+        because it essentially makes the sampling more concentrated around
+        areas where the PDF has large values. \\
+
+        Because of the intrinsic statistical property of the wave function
+        Quantum Mechanics can be modelled as a diffusion process, or more
+        specifically, an \txtit{Isotropic Diffusion Process} which is
+        essentially just a random walk model. Such a process is described by
+        the Langevin equation with the corresponding Fokker-Planck equation
+        describing the motion of the walkers(particles). See \cite{numstoch,
+        compphysThijssen, vmc} for details. The full derivations presented here
+        follows closely the descriptions in \cite{compphysThijssen, vmc}. Let
+        us start off with the Langevin equation
             \begin{equation}
                 \langevin
                 \label{eq:langevin}
             \end{equation}
-        the \txtit{Langevin equation} >>REF HERE LANGEVIN<< and apply Euler's
-        method (Euler-Maryama >>REF<<) and obtain the new positions
+        and apply Euler's method and obtain the new positions
             \begin{equation}
                 \rnew = \rold + D\Fold\Delta t + \xi
                 \label{eq:rnewdef}
@@ -586,19 +595,20 @@
                 \label{eq:diffeqFP}
             \end{equation}
         Applying the \txtit{Fourier Transform} to spatial coordinate $r$ in
-        \Arf{eq:diffeqFP} >>REF THIS<<, the equation is transformed to
+        \Arf{eq:diffeqFP}, the equation is transformed to
             \begin{equation}
                 \prd{t}[P(\blds{s},t)] = -Ds^2 P(\blds{s},t)
             \end{equation}
-        which has solution >>REF THIS<<
+        which has solution
             \begin{equation}
                 P(\blds{s},\Delta t) = P(\blds{s},0)\me^{Ds^2\Delta t}
                 \label{eq:Punfin}
             \end{equation}
         Now we need to find the constant $P(\blds{s},0)$, and as is apparent
         with $t=0$, we will make use of an initial condition. The initial
-        positions are spread out from origin, that is $D\Delta t\blds{F}_j$. We can
-        express this with a \txtit{Dirac-delta function}>>REF THIS<< giving
+        positions are spread out from origin, that is $D\Delta t\blds{F}_j$. We
+        can express this with a \txtit{Dirac-delta function}\cite{GriffQuan,
+        boasMath} giving
             \begin{equation}
                 P(s,0) = \delta\left(\blds{r}_i - D\Delta t\blds{F}_j\right)
             \end{equation}
@@ -636,11 +646,11 @@
         procedure is to use a set of basis functions and then minimize to find
         the coefficients $\{C\}_{k=1}^L$. We use the Hartree-Fock method to
         minimize in this thesis. The trial wavefunction is also generally
-        expressed as a \txtit{Slater determinant} >> REF SLATER <<for the
-        fermionic case and a general product for bosonic systems. We will
-        explain the fermionic case shortly since it is the main focus here and
-        since the bosonic wavefunction is simple to express. The Slater is
-        expressed as
+        expressed as a \txtit{Slater determinant} for the fermionic case and a
+        general product for bosonic systems\cite{GriffQuan, NeOr, FeWa, DiVNe}
+        We will explain the fermionic case shortly since it is the main focus
+        here and since the bosonic wavefunction is simple to express. The
+        Slater is expressed as
             \begin{equation}
                 \phiT = \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)
             \end{equation}
@@ -738,8 +748,8 @@
     
     \subsubsection{The Trial Wavefunction: Pad\'e
         Function\label{sususec:TWFPadeJastrow}} A popular form is the
-        \txtit{Pad\'e-Jastrow} function. It is defined as\cite{basicMB} >> REF
-        MORE <<
+        \txtit{Pad\'e-Jastrow} function. It is defined as\cite{basicMB,
+        MCAbInitoChem}
             \begin{equation}
                 J = \exp\left(\sum\limits_{i<j}\frac{\sum\limits_la^{(l)}_{ij}
                 r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right)
@@ -751,9 +761,9 @@
         where the $\beta_l$'s are variational parameters. This function follows
         the key features mentioned for a correlation factor, but a keen
         observation is that we can choose the $a$ parameters to follow a
-        so-called \txtit{cusp condition} which cancels the divergency of the
-        Slater for particle positions close to one another.  Following >> REF
-        THIS << the conditions are
+        so-called \txtit{cusp condition} which cancels the divergence of the
+        Slater for particle positions close to one another.  Following
+        \cite{jastcorratms, larsEivindThesis} the conditions are
             \begin{equation}
                 a^{\text{2D}}_{ij} = \left\{\begin{aligned}
                         \frac{1}{3},&\indent& &\text{parallel spin} \\
