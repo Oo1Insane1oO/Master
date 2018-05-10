@@ -744,14 +744,20 @@
         \end{itemize}
         In this thesis we explore two form, the popular \txtit{Pad\'e Function}
         and a more resent one build with a specific neural network known as a
-        \txtit{Boltzmann Machine} >> REF THIS <<.
+        \txtit{Boltzmann Machine}.
+
+    \subsubsection{Cusp Condition}
+        The derivations for the cusp conditions is described well in the Master
+        Thesis of Lars Eivind Lervåg\cite{larsEivindThesis}. We will here
+        present the result of his for both two and three dimensions
     
-    \subsubsection{The Trial Wavefunction: Pad\'e
-        Function\label{sususec:TWFPadeJastrow}} A popular form is the
-        \txtit{Pad\'e-Jastrow} function. It is defined as\cite{basicMB,
+    \subsubsection{Pad\'e Function\label{sususec:TWFPadeJastrow}} 
+    A popular form is the \txtit{Pad\'e-Jastrow} function. It is defined
+    as\cite{basicMB,
         MCAbInitoChem}
             \begin{equation}
-                J = \exp\left(\sum\limits_{i<j}\frac{\sum\limits_la^{(l)}_{ij}
+                J_{\text{Pad\'e}} =
+                \exp\left(\sum\limits_{i<j}\frac{\sum\limits_la^{(l)}_{ij}
                 r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right)
             \end{equation}
         meaning the trial wavefunction is
@@ -780,17 +786,17 @@
         $a^{(l)}_{ij}\rarr a_{ij}$ and $\beta_l\rarr \beta$ and reduce the
         Pad\'e-Jastrow factor to
             \begin{equation}
-                J = \exp\left(\sum\limits_{i<j}\frac{a_{ij} r_{ij}}{1 + \beta
-                r_{ij}}\right)
+                J_{\text{Pad\'e}} = \exp\left(\sum\limits_{i<j}\frac{a_{ij}
+                r_{ij}}{1 + \beta r_{ij}}\right)
             \end{equation}
         For expressions concerning the gradient and Laplacian, see
         \Arf{appendix:B}.
 
-    \subsubsection{The Trial Wavefunction: Simple Exponential}
-        >> REF THIS << With the mentioned features in mind, one of the simplest
-        forms for a correlation factor is a scaled exponential evaluated with
-        the inter-particle distance, this is\footnote{The $a$'s can also be
-        variational parameters.}
+    \subsubsection{Simple Exponential}
+        >> REF THIS << With the desirable features for a correlation function
+        in mind, one of the simplest forms for a correlation factor is a scaled
+        exponential evaluated with the inter-particle distance, this
+        is\footnote{The $a$'s can also be variational parameters.}
             \begin{equation}
                 J = \exp(\sumll{i<j} a_{ij} r_{ij})
             \end{equation}
@@ -798,25 +804,27 @@
         itself this function is fairly useless as it doesn't model correlations
         very well for different systems or even the same system with different
         parameters. However we will present a new type of function in the next
-        section which with this function since it does give the mentions cusp
-        conditions, something the soon-to-be presented NQS-wavefunction does
-        not have.
+        section which does not give raise to any cusp conditions, but has a
+        more flexible form and may in connection with this simple exponential
+        give us all the necessary properties desired in a correlation function.
 
-    \subsubsection{The Trial Wavefunction: NQS
-    Wavefunction\label{sususec:NQSJastrow}}
-        A completely different approach is to model the wavefunction with a
-        \txtit{neural network}. Popular >> ref something << approach is the
-        \txtit{Restricted Boltzmann Machine} The form is
+    \subsubsection{The Trial Wavefunction: NQS Wavefunction
+    \label{sususec:NQSJastrow}}
+        A more resent and completely different approach is to model the
+        wavefunction with a \txtit{neural network} as presented by Carleo and
+        Troyer\cite{CarleoANN}. The approach used here is based on the
+        \txtit{Restricted Boltzmann Machine} as described by
+        Hinton\cite{RBMpractical}. The form is
             \begin{equation}
-                J = \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
+                J_{\text{NQS}} = \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
                 \blds{a}_i\right)^2}{2\sigma^2})\prod\limits^{M}_j \left(1 +
                 \exp(b_j + \suml{i=1}{N}\suml{d=1}{D}
                 \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2})\right)
                 \label{eq:nqsdef}
             \end{equation}
-        The derivatives and such is given in \Arf{appendix:B}.
+        The derivatives of this are given in \Arf{appendix:B}.
 
-    \subsection{The Trial Wavefunction: Connect the Jastrows}
+    \subsection{Connect the Jastrows}
         In the previous section we presented four functions that can be used to
         model correlations in quantum systems, however they all had some
         limitations as well as advantageous properties. The question then
