@@ -776,8 +776,66 @@
         For expressions concerning the gradient and Laplacian, see
         \Arf{appendix:B}.
 
+    \subsubsection{The Trial Wavefunction: Simple Exponential}
+        >> REF THIS << With the mentioned features in mind, one of the simplest
+        forms for a correlation factor is a scaled exponential evaluated with
+        the inter-particle distance, this is\footnote{The $a$'s can also be
+        variational parameters.}
+            \begin{equation}
+                J = \exp(\sumll{i<j} a_{ij} r_{ij})
+            \end{equation}
+        The $a$ would be defined the same as with the Pade\'e function. In
+        itself this function is fairly useless as it doesn't model correlations
+        very well for different systems or even the same system with different
+        parameters. However we will present a new type of function in the next
+        section which with this function since it does give the mentions cusp
+        conditions, something the soon-to-be presented NQS-wavefunction does
+        not have.
+
     \subsubsection{The Trial Wavefunction: NQS
     Wavefunction\label{sususec:NQSJastrow}}
         A completely different approach is to model the wavefunction with a
         \txtit{neural network}. Popular >> ref something << approach is the
         \txtit{Restricted Boltzmann Machine} The form is
+            \begin{equation}
+                J = \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
+                \blds{a}_i\right)^2}{2\sigma^2})\prod\limits^{M}_j \left(1 +
+                \exp(b_j + \suml{i=1}{N}\suml{d=1}{D}
+                \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2})\right)
+                \label{eq:nqsdef}
+            \end{equation}
+        The derivatives and such is given in \Arf{appendix:B}.
+
+    \subsection{The Trial Wavefunction: Connect the Jastrows}
+        In the previous section we presented four functions that can be used to
+        model correlations in quantum systems, however they all had some
+        limitations as well as advantageous properties. The question then
+        remains, can we create a function which exhibits all the nice
+        properties mentioned and none of the limitations? The answer is a bit
+        ambivalent. We don't really know for sure, but a good start is to
+        multiply the functions having the cusp conditions in order (Pad\'e and
+        exponential) with the NQS wavefunction and use this product as the new
+        jastrow. The motivations for this is simple, we want the cusp
+        conditions introduced by the old popular functions, but also want a
+        more flexible type of function which can take care of other(possible)
+        correlations in the system. How well this actually performed is
+        presented in >> REF RESULTS WHEN YOU HAVE SOME (GO GET THEM!) <<. We
+        will write out the exact form for clarity.
+            \begin{equation}
+                J = \exp(\sum\limits_{i<j}a_{ij} r_{ij})
+                \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
+                \blds{a}_i\right)^2}{2\sigma^2})\prod\limits^{M}_j \left(1 +
+                \exp(b_j + \suml{i=1}{N}\suml{d=1}{D}
+                \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2})\right)
+            \end{equation}
+            \begin{equation}
+                J = \exp\left(\sum\limits_{i<j}\frac{a_{ij} r_{ij}}{1 + \beta
+                r_{ij}}\right) \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
+                \blds{a}_i\right)^2}{2\sigma^2})\prod\limits^{M}_j \left(1 +
+                \exp(b_j + \suml{i=1}{N}\suml{d=1}{D}
+                \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2})\right)
+            \end{equation}
+        It might not be completely clear as to why this function still makes it
+        so that the total wavefunction satisfies the cusp conditions. The
+        reason lies in the derivation of the conditions >> REF (NOT REALLY)
+        derivate this maybe?) <<
