@@ -2,47 +2,6 @@
 
 \chapter{\label{appendix:B}}
 
-% \section{Integral-elements in Least-Squares Fitting}
-%     The integral elements are as follows
-%         \begin{align}
-%             X_{ij} &= \int g_i(x)g_j(x) \md x \nonumber \\
-%             &= \int x^i N_i N_j \me^{\frac{\omega}{2} x^2} x^j
-%             \me^{\frac{\omega}{2} x^2} \md x
-%         \end{align}
-%     and
-%         \begin{align}
-%             b_i &= \int g_i(x)f(x) \md x \nonumber \\
-%             &= \int N_i x^i \me^{\frac{\omega}{2} x^2}
-%             \left(2^nn!\sqrt{\frac{\pi}{\omega}}\right)^{-\frac{1}{2}}
-%             H_n(\sqrt{\omega}x) \me^{\frac{\omega}{2} x^2} \md x
-%         \end{align}
-%     We dont contract the expressions further in favor of reusing the
-%     normalization factors.
-
-\section{Derivative of Energy and Variance}
-    The derivative with respect to a general variational parameter $\alpha$ of
-    the energy expectation value $\ecp{E}$ is
-        \begin{align}
-            \prd{\alpha}[\ecp{E}] &= 2\ecp{\frac{E_L}{\psi}\prd{\alpha}[\psi]}
-            + \ecp{\prd{\alpha}[E_L]} -
-            2\ecp{\frac{\ecp{E}}{\psi}\prd{\alpha}[\psi]} \nonumber \\
-            &= 2\left(\ecp{\frac{E_L}{\psi}\prd{\alpha}[\psi]} -
-            \ecp{E}\ecp{\frac{1}{\psi}\prd{\alpha}[\psi]}\right)
-        \end{align}
-    by using the hermiticity of the Hamiltonian (contained in the local energy
-    $E_L$). \\
-    The derivative of the variance is >> REF THIS STARTER <<
-        \begin{align}
-            \prd{\alpha}[\sigma^2] &= 2\ecp{\left(\prd{\alpha}[E_L] -
-            \prd{\alpha}[\ecp{E}]\right) \left(E_L - \ecp{E}\right)} \nonumber
-            \\
-            &= 2\left(\ecp{E_L\prd{\alpha}[E_L]} -
-            \ecp{E}\ecp{\prd{\alpha}[E_L]} +
-            \ecp{\prd{\alpha}[\ecp{E}]\left(\ecp{E} - E_L\right)}\right)
-            \nonumber \\
-            &= 2\ecp{E}\left(\prd{\alpha}[\ecp{E}] - 1\right)
-        \end{align}
-
 \section{Derivatives of Hermite Functions}
     The gradient of Hermite functions on the form
         \begin{equation}

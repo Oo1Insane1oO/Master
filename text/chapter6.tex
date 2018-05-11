@@ -701,6 +701,7 @@
         \end{equation}
     Both of these optimizations are implemented in the \hltexttt{PadeJastrow}
     and \hltexttt{ExpNQS} classes. \\ 
+
     For the NQS-Jastrow we notice that the sum in the exponential involving the
     weights can be represented as a matrix $\blds{W}$ of size $N\times H$ with
     $H$ being the number of hidden biases with elements
@@ -715,13 +716,14 @@
     So for each iteration only one row in $\blds{W}$ is updated and then the
     entire $\blds{B}$ vector is recalculated and reused. \\ The part involving
     only the visible biases can be optimized in the same manner as with the
-    Pade\'e function and simple exponential, meaning one only needs to
+    Pad\'e function and simple exponential, meaning one only needs to
     calculate
         \begin{equation}
             \frac{J_a}{J'_a} = \exp(\frac{\left(r_i -
             a_i\right)^2}{\sigma^2})
         \end{equation}
-    Again with $i$ being the index of the moved particle.
+    Again with $i$ being the index of the moved particle. These optimizations
+    are implemented in the \hltexttt{RBMJastrow}.
 
 \subsection{Optimization For Tabulation\label{susec:optTab}}
     The \hltexttt{Slater} class checks on compile time the specific
@@ -773,11 +775,94 @@
     a minimization problem. We will in this chapter explain the implementation
     of the methods presented in \Arf{chapter:5} and also show some examples of
     how to use \hltexttt{Minimizer} class, in which the mentioned methods are
-    implemented.
+    implemented. \\
+    The main class for minimizations is the \hltexttt{Minimizer} and is built
+    as a \txtit{friend class}. This is a \CC declaration\footnote{A \CC
+    declaration is a phrase which goes in front of variables, functions and
+    other objects and is a pure compiler specific rule.} which goes into the
+    header of the class who is to befriended (in our case \hltexttt{VMC}) with
+    the class who is to be the friend (\hltexttt{Minimizer}). In this way
+    \hltexttt{Minimizer} has full access to all the variables and functions
+    defined inside \hltexttt{VMC} even if said variables and functions are
+    declared as \txtit{private}\footnote{On an equal note, this is really not a
+    good idea in general}. The reason for this choice is just to split the
+    whole minimization part of the variational method from the actual sampling.
+    \\
+    The means to to make a \hltexttt{Minimizer} object is to initialize it as
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            Minimizer<T>$^*$ m = new Minimizer<T>(vmc, "method", numIterations, eps);
+            m$\rarr$minimize();
+        \end{lstlisting}
+    where \hltexttt{T} is a sampler type (either \hltexttt{BruteForce} or
+    \hltexttt{ImportanceSampling}) and \hltexttt{vmc} is the object with said
+    type initializes. The \hltexttt{Minimize} function is the function which
+    actually does the minimization and follows the procedure given in
+    \Arf{fig:minimizeProc}.
+        \begin{figure}[H]
+            \centering
+            \begin{tikzpicture}[
+                    >={Latex[width=2mm,length=2mm]},
+                        base/.style = {rectangle, rounded corners, draw=black,
+                                    minimum width=2cm, minimum height=0.5cm, text
+                                    centered, font=\sffamily},
+                        basecode/.style = {rectangle, rounded corners, draw=black,
+                                    minimum width=2cm, minimum height=0.5cm, text
+                                    centered, font=\sffamily, align=left},
+                        activityStarts/.style = {base, fill=blue!30, drop shadow},
+                        startstop/.style = {base, fill=red!30, drop shadow},
+                        activityRuns/.style = {base, fill=green!30, drop shadow},
+                        process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                        processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                    scale=0.8, 
+                    node distance=1.5cm, 
+                    every node/.style={fill=white, font=\sffamily},
+                    align=center]
+                \node (setup) [activityStarts] {
+                    Setup \\
+                    Initialize vectors for derivatives \\
+                    Run \hltexttt{Sampler} \\
+                    Save energy given by Sampler
+                };
+                \node (loop) [startstop, below of=setup, yshift=-0.3cm] {
+                    Start loop for $m=0$ to $\text{numIterations}$
+                };
+                \draw[->] (setup) -- (loop);
+                \node (updater) [startstop, below of=loop] {
+                    call \hltexttt{updater}
+                };
+                \node (convergence) [process, below left of=updater, xshift=-0.5cm] {
+                    Check for \\
+                    convergence.
+                };
+                \node (exhaustion) [process, below right of=updater, xshift=0.8cm] {
+                    Switch to input \\
+                    method if exhausted
+                };
+                \draw[-] (exhaustion) -- (updater);
+                \draw[-] (convergence) -- (updater);
+                \draw[->] (loop) -- (updater);
+                \node (callFunc) [startstop, below of=updater, yshift=-1cm] {
+                    Save current energy and \\
+                    derivatives and \\
+                    execute given method
+                };
+                \node (finish) [activityRuns, below of=callFunc] {
+                    End
+                };
+                \draw[->] (updater) -- (callFunc);
+                \draw[->] (loop) to [out=0,in=0] (finish);
+                \draw[->] (callFunc) to [out=180,in=180] (loop);
+            \end{tikzpicture}
+            \caption{Flow chart of procedure done by \hltexttt{minimize}
+            function.\label{fig:minimizeProc}}
+        \end{figure}
+    The energy after the last cycle (or after threshold is met) is the energy
+    currently saved within the \hltexttt{VMC} object.
 
 \section{Auto-Generation\label{sec:auto_generation}}
+\subsection{Hermites}
     The analytic expressions involved in the quantum-dot systems are dependent
-    on Hermite-Polynomials and their coefficients. These are calculated
+    on Hermite polynomials and their coefficients. These are calculated
     symbolically using the recurrence relation for Hermites with the SymPy
     package in python. These expressions are then written to \CC code and
     written to a \CC-header file. The script can be found in
@@ -785,6 +870,18 @@
     then included in the integral class in \hltexttt{HartreeFockSolver} and in
     the wavefunction classes(namely \hltexttt{HartreeFock} and
     \hltexttt{HarmonicOscillator}) in \hltexttt{VMC}.
+
+\subsection{Double-Well Basis}
+    The basis built by the procedure described in \Arf{sec:dwfunc} is done in
+    python using the eigenvalue solver in the SciPy package. The script itself
+    can be found in \url{https://github.com/Oo1Insane1oO/doubleWellFit}, but is
+    also included in the Hartree-Fock repository. \\
+    The script itself basically just builds(calculates the elements of) the $H$
+    matrix from \Arf{eq:Heigdef} and then finding its eigenvalues and
+    eigenvectors which are then written to a \CC header file as a class with a
+    static function to get coefficients and eigenvalues. This file is then
+    included in the \hltexttt{DoubleWell} integral class as a base class of
+    inheritance.
 
 \section{Verification\label{sec:verification}}
 

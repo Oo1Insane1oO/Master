@@ -438,8 +438,10 @@
                 E[\psiT] = \ecp{E_L}
             \end{equation}
         The idea now is to find the lowest possible energy by varying a set of
-        parameters $\mb{\alpha}$. The expectation value itself is found with
-        the Metropolis algorithm, see \Arf{susec:MHAlg}. \\
+        parameters $\mb{\alpha}$. This is done by numerical
+        minimization(see\Arf{chapter:5}). We essentially minimize the
+        expectation value of the energy were the expectation value itself is
+        found with the Metropolis algorithm, see \Arf{susec:MHAlg}.
 
         An important property of the local energy is when we differentiate it
         with respect to one of the variational parameters $\{\alpha\}$ within
@@ -460,14 +462,21 @@
             \end{align}
         We have used the fact that $H$ is not dependant on any variational
         parameter and used the hermitian properties\cite{GriffQuan} of $H$ to
-        justify the movement of $H$ within the integral. 
+        justify the movement of $H$ within the integral.  
 
         This neat result presented in \Arf{eq:expELdelzero} will show its
         usefulness in the minimization when derivatives of the expectation
-        value and variance comes into play since finding the derivative of the
-        local energy would be much more of a hassle.\footnote{The
-        differentiation of the wavefunction is enough to reduce the quality of
-        life on its own!}
+        value come into play since finding the derivative of the local energy
+        would be much more of a hassle.\footnote{The differentiation of the
+        wavefunction is enough to reduce the quality of life on its own!} \\
+        We also write the derivative with respect to a variational parameters
+        $\alpha$ of the expectation value $\ecp{E}$ here for reference
+            \begin{equation}
+               \prd{\alpha}[\ecp{E}] =
+                2\left(\ecp{\frac{E_L}{\psi}\prd{\alpha}[\psi]} -
+                \ecp{E}\ecp{\frac{1}{\psi}\prd{\alpha}[\psi]}\right)
+            \end{equation}
+        We have also applied \Arf{eq:expELdelzero} here.
 
     \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
         The Metropolis algorithm bases itself on moves (also called
