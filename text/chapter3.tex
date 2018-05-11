@@ -730,6 +730,7 @@
             \begin{equation}
                 \det(\blds{\Phi}) = \det(\blds{\Phi_{\urw}})
                 \det(\blds{\Phi_{\drw}})
+                \label{eq:slatersplitdef}
             \end{equation}
 
     \subsection{The Trial Wavefunction: Jastrow Factor\label{susec:TWFJastrow}}
@@ -746,30 +747,37 @@
         and a more resent one build with a specific neural network known as a
         \txtit{Boltzmann Machine}.
 
-    \subsubsection{Cusp Condition}
-        The derivations for the cusp conditions is described well in the Master
-        Thesis of Lars Eivind Lervåg\cite{larsEivindThesis}. We will here
-        present the result of his for both two and three dimensions
+    \subsubsection{Cusp Condition\label{sususec:cusp_condition}}
+        The derivations for the cusp conditions is described well in the master
+        thesis of Lars Eivind Lervåg\cite{larsEivindThesis}. We will here
+        present the result of his for both two and three dimensions. Assuming
+        the Jastrow factor $J$ has the form
+            \begin{equation}
+                J = \prod_{i<j} \me^{f\left(r_{ij}\right)}
+            \end{equation}
+        and considering the local energy as two particles $i$ and $j$ approach,
+        the final results were the following conditions
+            \begin{equation} 
+                    \begin{aligned}
+                        \prd{r_{ij}}[f] \Bigg|_{r_{ij}=0} &=
+                        \frac{1}{D-1},&\indent& \text{anti-parallel spin} \\
+                        \prd{r_{ij}}[f] \Bigg|_{r_{ij}=0} &=
+                        \frac{1}{D+1},&\indent& \text{parallel spin}
+                    \end{aligned}
+            \end{equation}
+        which are known as the cusp conditions.
     
     \subsubsection{Pad\'e Function\label{sususec:TWFPadeJastrow}} 
     A popular form is the \txtit{Pad\'e-Jastrow} function. It is defined
-    as\cite{basicMB,
-        MCAbInitoChem}
+    as\cite{basicMB, MCAbInitoChem}
             \begin{equation}
                 J_{\text{Pad\'e}} =
                 \exp\left(\sum\limits_{i<j}\frac{\sum\limits_la^{(l)}_{ij}
                 r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right)
             \end{equation}
-        meaning the trial wavefunction is
-            \begin{equation}
-                \psiT = \det(\blds{\Phi})J
-            \end{equation}
         where the $\beta_l$'s are variational parameters. This function follows
-        the key features mentioned for a correlation factor, but a keen
-        observation is that we can choose the $a$ parameters to follow a
-        so-called \txtit{cusp condition} which cancels the divergence of the
-        Slater for particle positions close to one another.  Following
-        \cite{jastcorratms, larsEivindThesis} the conditions are
+        the key features mentioned for a correlation factor and the
+        restrictions
             \begin{equation}
                 a^{\text{2D}}_{ij} = \left\{\begin{aligned}
                         \frac{1}{3},&\indent& &\text{parallel spin} \\
@@ -782,9 +790,9 @@
                         \frac{1}{2},&\indent& &\text{anti-parallel spin} \\
                     \end{aligned}\right.
             \end{equation}
-        with $a^{(l)}_{kj}=0$ for $l>1$, meaning we can relabel
-        $a^{(l)}_{ij}\rarr a_{ij}$ and $\beta_l\rarr \beta$ and reduce the
-        Pad\'e-Jastrow factor to
+        on the factor $a$ along with the fact that $a^{(l)}_{kj}=0$ for $l>1$,
+        means we may relabel $a^{(l)}_{ij}\rarr a_{ij}$ and $\beta_l\rarr
+        \beta$ and reduce the Pad\'e-Jastrow factor to
             \begin{equation}
                 J_{\text{Pad\'e}} = \exp\left(\sum\limits_{i<j}\frac{a_{ij}
                 r_{ij}}{1 + \beta r_{ij}}\right)
@@ -855,5 +863,9 @@
             \end{equation}
         It might not be completely clear as to why this function still makes it
         so that the total wavefunction satisfies the cusp conditions. The
-        reason lies in the derivation of the conditions >> REF (NOT REALLY)
-        derivate this maybe?) <<
+        reason lies in the derivation of the conditions, the procedure in which
+        the conditions presented in \Arf{sususec:cusp_condition} were found the
+        only consideration was within the terms involving $r_{ij}$ in the local
+        energy, all other terms were canceled out or were otherwise
+        non-divergent meaning the product between the jastrow would yield the
+        same conditions.
