@@ -750,7 +750,16 @@
         \end{equation}
     Where the two-body elements over the harmonic oscillator functions can be
     calculated by expansion in s-type Gaussian constituents and then using
-    \Arf{eq:coulomb_dist_integral_stype}.
+    \Arf{eq:coulomb_dist_integral_stype}. \\
+
+    With this eigenvalue problem in mind, one might ask why go through the
+    trouble? The reason lies in the form of the double-well potential. Since it
+    is a simple shift of the single-well(harmonic oscillator) it is reasonable
+    to assume that the energies(the eigenvalues $\veps^{\text{DW}}$) are only
+    shifted slightly off from the single-well energies. It is then also
+    reasonable to believe that a basis set expansion in the single-well
+    functions(harmonic oscillator functions) give a nice basis for building the
+    double-well basis.
 
 \subsection{Choosing the Basis Functions}
     In order to actually solve the eigenvalue equation we use \text{Python} and
