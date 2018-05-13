@@ -74,13 +74,13 @@
                 Calculate $\Braket{p|h|q}$ (only for root)
             };
             \node (obspec) [process, left of=onebody, xshift=-6cm] {
-                Using function \hltexttt{oneBodyElement} in \hltexttt{Integral}
+                Using function \hltextttf{oneBodyElement} in \hltexttt{Integral}
             };
             \node (twobody) [startstop, below of=onebody] {
                 Calculate $\Braket{pq|h|rs}$ (in parallel)
             };
             \node (tbspec) [process, left of=twobody, xshift=-6cm] {
-                Using function \hltexttt{coulombElement} in \hltexttt{Integral}
+                Using function \hltextttf{coulombElement} in \hltexttt{Integral}
             };
             \node (hfalgo) [process, below of=twobody] {
                 Run Hartree-Fock Algorithm
@@ -457,7 +457,7 @@
 
             double E = HFS->iterate(M, 1e-8, true);
         \end{lstlisting}
-    The \hltexttt{iterate} function takes in $M$ as the maximum number of
+    The \hltextttf{iterate} function takes in $M$ as the maximum number of
     iterations, the convergence tolerance (when to break the iteration) and a
     boolean for showing progress or not. It calculates the integral-elements
     and runs the Hartree-Fock algorithm and returns the estimation of the
@@ -466,7 +466,7 @@
 \subsection{Parallelization of Two-Body Matrix}
     The most time-consuming part of the Hartree-Fock procedure is the
     calculation of the two-body matrix-elements giving the interaction terms.
-    This is parallelized in the \hltexttt{assemble} function in
+    This is parallelized in the \hltextttf{assemble} function in
     \hltexttt{HartreeFockSolver}. The basic premise is to represent the $N^4$
     elements $\Braket{pq|r^{-1}|rs}$ as a one-dimensional array with the mapping
         \begin{equation}
@@ -531,9 +531,9 @@
                 \EndFor
             \end{algorithmic}
         \end{algorithm}
-    Each process has access to the \hltexttt{pqMap} array such that the each
+    Each process has access to the \hltextttf{pqMap} array such that the each
     process calculates its own chunk according to the size set and the
-    \hltexttt{displ} tells the start-index. Each process then calculates the
+    \hltextttf{displ} tells the start-index. Each process then calculates the
     two-body elements according to
         \begin{algorithm}[H]
             \caption{Two-Body Calculation}\label{alg:paratwobody}
@@ -727,10 +727,26 @@
 
 \subsection{Optimization For Tabulation\label{susec:optTab}}
     The \hltexttt{Slater} class checks on compile time the specific
-    wavefunction class for the functions \hltexttt{set}, \hltexttt{reSetAll},
-    \hltexttt{initializeMatrices}, \hltexttt{update}, \hltexttt{reset},
-    \hltexttt{resetGradient}, \hltexttt{acceptState} and
-    \hltexttt{acceptGradient}. If these functions are implemented in the
+    wavefunction class for the functions 
+        \begin{itemize}
+            \item {\makebox[4cm]{\hltextttf{set}:\hfill} Called during
+                initialization (before each sampling)}
+            \item {\makebox[4cm]{\hltextttf{reSetAll}:\hfill} Sets all matrices
+                to zero (used in testing)}
+            \item {\makebox[4cm]{\hltextttf{initializeMatrices}:\hfill}
+                Allocate memory}
+            \item {\makebox[4cm]{\hltextttf{update}:\hfill} Update positions
+                and wavefunction}
+            \item {\makebox[4cm]{\hltextttf{reset}:\hfill} Revert to previous
+                positions and wavefunction}
+            \item {\makebox[4cm]{\hltextttf{resetGradient}:\hfill} Revert to
+                previous gradient}
+            \item {\makebox[4cm]{\hltextttf{acceptState}:\hfill} Update
+                previous positions and wavefunction to current}
+            \item {\makebox[4cm]{\hltextttf{acceptGradient}:\hfill} Update
+                previous gradient to current one}
+        \end{itemize}
+    If these functions are implemented in the
     wavefunction class they will be called in by the \hltexttt{VMC} class
     during the Metropolis sampling. The whole purpose for this is so that
     calculations can be tabulated and then only the parts which are changed be
@@ -761,12 +777,12 @@
     For each iteration in the Metropolis sampling, if we only move one particle
     at a time, only one row changes in $\blds{H}_{ijk}$. This update is
     reflected in the functions mentioned in \Arf{susec:optTab}.
-    \hltexttt{initializeMatrices} firstly allocates space for two matrices
+    \hltextttf{initializeMatrices} firstly allocates space for two matrices
     which represent the current and old versions of $\blds{H}_{ijk}$, the
-    \hltexttt{set} function set calculates $\blds{H}_{ijk}$ using the
+    \hltextttf{set} function set calculates $\blds{H}_{ijk}$ using the
     auto-generated header explained in \Arf{sec:auto_generation},
-    \hltexttt{update} then updates the row which has changed and then
-    \hltexttt{acceptState} or \hltexttt{reset} is called depending on the
+    \hltextttf{update} then updates the row which has changed and then
+    \hltextttf{acceptState} or \hltextttf{reset} is called depending on the
     Metropolis-Test.
 
 \section{Minimization}
@@ -794,8 +810,8 @@
             m$\rarr$minimize();
         \end{lstlisting}
     where \hltexttt{T} is a sampler type (either \hltexttt{BruteForce} or
-    \hltexttt{ImportanceSampling}) and \hltexttt{vmc} is the object with said
-    type initializes. The \hltexttt{Minimize} function is the function which
+    \hltexttt{ImportanceSampling}) and \hltextttf{vmc} is the object with said
+    type initializes. The \hltextttf{minimize} function is the function which
     actually does the minimization and follows the procedure given in
     \Arf{fig:minimizeProc}.
         \begin{figure}[H]
@@ -828,7 +844,7 @@
                 };
                 \draw[->] (setup) -- (loop);
                 \node (updater) [startstop, below of=loop] {
-                    call \hltexttt{updater}
+                    call \hltextttf{updater}
                 };
                 \node (convergence) [process, below left of=updater, xshift=-0.5cm] {
                     Check for \\
@@ -853,7 +869,7 @@
                 \draw[->] (loop) to [out=0,in=0] (finish);
                 \draw[->] (callFunc) to [out=180,in=180] (loop);
             \end{tikzpicture}
-            \caption{Flow chart of procedure done by \hltexttt{minimize}
+            \caption{Flow chart of procedure done by \hltextttf{minimize}
             function.\label{fig:minimizeProc}}
         \end{figure}
     The energy after the last cycle (or after threshold is met) is the energy
@@ -884,5 +900,7 @@
     inheritance.
 
 \section{Verification\label{sec:verification}}
-
-    >> tables
+    In order to be confident in the results presented for the double-well
+    potential we, along with unit-tests, benchmarked our results with the
+    harmonic oscillator potential. These are given in >> REF (AND MAKE) TABLE
+    <<
