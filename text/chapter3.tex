@@ -201,14 +201,23 @@
 \section{Hartree-Fock Theory\label{sec:HFtheory}}
     Hartree-Fock method is a many-body method for approximating the
     wavefunction of a stationary many-body quantum state and thereby also
-    obtain an estimate for the energy in this state. In this section we will
-    derive the Hartree-Fock equations from scratch, following closely the
-    literature by J.M Thjissen\cite{compphysThijssen}. 
+    obtain an estimate for the energy in this state. \\
+    The main idea is to represent the system as a \txtit{closed-shell} system
+    and then variationally optimize the Slater determinant
+    \cite{HelgakerMolElcTheory}. This approach is not generally feasable as the
+    size of the system increases, however for a closed-shell system in the
+    quantum dot case it should be enough to build a basis, which is the goal
+    here. \\
+    For more details around the motivation and usages of the Hartree-Fock
+    method see\cite{HelgakerMolElcTheory}. \\
+    
+    In this section we will derive the Hartree-Fock equations , following
+    closely the literature by J.M Thjissen\cite{compphysThijssen}. 
 
     \subsection{Assumptions}
         Hartree-Fock method makes the following assumptions of the system
             \begin{itemize}
-                \item \txtit{The Born-Oppenheimer approximation}, see >> REF BO <<.
+                \item \txtit{The Born-Oppenheimer approximation} holds. 
                 \item All relativistic effects are negligible.
                 \item The wavefunction can be described by a single
                     \txtit{Slater determinant}.
@@ -218,10 +227,10 @@
         to take into account as it can cause large deviations from test
         solutions (analytic solutions, experimental data etc.) since the
         electron correlations is in reality, for many cases, not negligible.
-        There exists many methods that try to fix this problem >> LIST METHODS
-        <<. The \txtit{Variational Monte Carlo} (or VMC) is the method for
-        deeper explorations in this Thesis, see \Arf{sec:QMC} for more details.
-
+        There exists many methods that try to fix this problem, but the
+        \txtit{Variational Monte Carlo} (or VMC) is the method for deeper
+        explorations in this Thesis, see \Arf{sec:QMC} for more details.
+    
     \subsection{The $\blds{\mathcal{J}}$ and $\blds{\mathcal{K}}$ Operators}
         Before we begin with the Hartree-Fock equations it is desirable to
         rewrite the energy function obtained in \Arf{sec:energyFunc} (form
@@ -274,7 +283,7 @@
         We know then that the minimum is reached when a displacement on the
         spin-orbitals $\psi_i\rarr\psi_i+\delta \psi_i$ results in an energy
         variation of zero meaning $\delta E\left[\Psi\right]=0$ in the minimum.
-        Which giving the variational problem 
+        Which gives the variational problem 
             \begin{equation}
                 \sum_i \Braket{\delta\psi_i | h + \mathcal{J} \pm \mathcal{K} |
                 \psi_i} - \sum_{ij} \Lambda_{ij}\braket{\delta\psi_i}{\psi_j} +
@@ -480,7 +489,7 @@
 
     \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
         The Metropolis algorithm bases itself on moves (also called
-        transitions) as given in a Markov process. >> REF THIS HERE <<. This
+        transitions) as given in a Markov process\cite{NeOr, FeWa}. This
         process is given by
             \begin{equation}
                 w_i(t+\veps) = \sum_j\ufij{w}{i}{j}w_j(t)
@@ -515,15 +524,68 @@
         each problem. For our case the PDF in question is the absolute square
         of the wave function and the selection $T$ is a Green's function
         derived in \Arf{susec:impSamp}.  The algorithm itself would then be
-            \begin{enumerate}[label=(\roman*)]
-                \item Pick initial state $i$ at random.
-                \item Pick proposed state at random in accordance to
+        \begin{figure}[H]
+            \centering
+            \begin{tikzpicture}[
+                    >={Latex[width=2mm,length=2mm]},
+                        base/.style = {rectangle, rounded corners, draw=black,
+                                    minimum width=2cm, minimum height=0.5cm, text
+                                    centered, font=\sffamily},
+                        basecode/.style = {rectangle, rounded corners, draw=black,
+                                    minimum width=2cm, minimum height=0.5cm, text
+                                    centered, font=\sffamily, align=left},
+                        activityStarts/.style = {base, fill=blue!30, drop shadow},
+                        startstop/.style = {base, fill=red!30, drop shadow},
+                        startstopcode/.style = {basecode, fill=red!30, drop shadow},
+                        activityRuns/.style = {base, fill=green!30, drop shadow},
+                        process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                        processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                    scale=0.8, 
+                    node distance=1.5cm, 
+                    every node/.style={fill=white, font=\sffamily},
+                    align=center]
+                \node (1) [activityStarts] {
+                    Pick initial state $i$ at random.
+                };
+                \node (2) [activityStarts, below of=1] {
+                    Pick proposed state at random in accordance to
                     $\ufij{T}{j}{i}$.
-                \item Accept state according to $\ufij{A}{j}{i}$.
-                \item Jump to step (ii) until a specified number of states have
-                    been generated.
-                \item Save the state $i$ and jump to step (ii).
-            \end{enumerate}
+                };
+                \node (3) [activityStarts, below of=2] {
+                    Accept state according to $\ufij{A}{j}{i}$.
+                };
+                \node (a) [activityRuns, below left of=3, xshift=-2cm] {
+                    Accepted \\
+                    $j = i$
+                };
+                \node (r) [startstop, below right of=3, xshift=2cm] {
+                    Rejected \\
+                    $i = j$
+                };
+                \draw[<-] (3) to [out=180,in=90] (a);
+                \draw[<-] (3) to [out=0,in=90] (r);
+                \node (4) [activityStarts, below of=3, yshift=-1cm] {
+                    Number of states satisfied?
+                };
+                \node (yes) [below of=4] {
+                    Yes
+                };
+                \node (no) [above left of=4, xshift=-4cm] {
+                    No
+                };
+                \draw[->] (4) to [out=180, in=-90] (no);
+                \draw[->] (no) to [out=90, in=180] (2);
+                \node (5) [activityStarts, below of=yes] {
+                    End.
+                };
+                \draw[->] (1) -- (2);
+                \draw[->] (2) -- (3);
+                \draw[->] (3) -- (4);
+                \draw[->] (4) -- (yes);
+                \draw[->] (yes) -- (5);
+            \end{tikzpicture}
+            \caption{Flow chart of the Metropolis algorithm.}
+        \end{figure}
 
     \subsection{Diffusion Theory and the PDF\label{susec:diffTHpdf}}
         The motivation for the use of diffusion theory is described very well
