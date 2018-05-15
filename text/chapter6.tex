@@ -503,53 +503,66 @@
     The problem now however is that processes of higher and higher ranks my end
     up with calculating more since larger indices involve computationally more
     heavy functions to be evaluated. We can account for this by weighting the
-    number of rows each process gets by the sum of the indices. The algorithm
-    is as follows
+    number of rows each process gets by the product of the principal quantum
+    numbers for the state which the indices represent, that is
+        \begin{equation}
+            S_i = \suml{j=0}{P_i} \prod_d (n_{j_d}+1)
+            \label{eq:Sdefpar}
+        \end{equation}
+    The sum with index $j$ runs over the sub-chunk for process $i$.
+    The algorithm is as follows
         \begin{algorithm}[H]
             \caption{Even Weighting}\label{alg:parasumweight}
             \begin{algorithmic}[H]
-                \State Make array $S$ of size $P$ with each element being the
-                sum of the $(p,q)$ elements for the specific process.
+                \State Make array $S$ of size $P$ with elements as sepcified in
+                \Arf{eq:Sdefpar}.
                 \State Make an array sizes of size $P$ with the number of
                 elements for each process.
                 \State Make an array displ of size $P$ with the displacement
                 (index).
-                \State $O =$ Mean of $S$.
-                \For{$i=0$ to $P-2$}
-                    \For{$j=$displ$[i]$ to displ$[i]+$sizes$[i+1]$} 
-                    \Comment{Iterate over elements in right adjacent process.}
-                        \State $L = S[i] + $sum(pqMap.row($j$))
-                        \If{$L < O$}
-                            \State sizes$[i] =$ sizes$[i] + 1$
-                            \State sizes[$i+1$] = sizes[$i+1$]$ - 1$;
-                            \State displ[$i+1$] = displ[$i+1$]$ + 1$;
-                        \ElsIf{$L$ equals $O-1$ or $L$ equals $O+1$ or $L>O$}
-                            \State Break inner-most loop.
-                        \EndIf
-                    \EndFor
-                    \State Set elements of $S$.
+                \State $O = $ Floor of mean of $S$
+                \State $p = 0$ \Comment{Index for process}
+                \State $j_S = 0$ \Comment{Total sum for each $p$}
+                \State $k = 0$ \Comment{Index for displacement in sizes array}
+                \For{$l=0$ to $l<\frac{N(N+1)}{2}$} \Comment{Iterate over rows in pqMap}
+                    \State $j_S$ = $j_S + \prod\limits_d (n^{(l)}_{p_d}+1)
+                    (n^{(l)}_{q_d}+1)$
+                    \If{$j_S>O$} \Comment{Chunk for process $p$ is good.}
+                        \State $\text{sizes}[p]$ = k \Comment{update sizes}
+                        \State $k=0$ \Comment{Reset $k$ for next $p$}
+                        \State $j_S=0$ \Comment{Reset $j_S$ for next $p$}
+                        \State $p += 1$ \Comment{Increment $p$ to find chunk for next process}
+                        \State continue \Comment{Comment so that $k$ is not incremented}
+                    \EndIf
+                    \If{$p \geq p-1$} \Comment{Last process is a special case}
+                        \State break
+                    \EndIf
+                    \State $k += 1$
                 \EndFor
+                \State$[p-1] = \frac{N(N+1)}{2} -
+                \text{sum}(\text{sizes}[0:p-1])$ \Comment{Leave last remaning rows
+                for last process}
             \end{algorithmic}
         \end{algorithm}
-    Each process has access to the \hltextttf{pqMap} array such that the each
-    process calculates its own chunk according to the size set and the
-    \hltextttf{displ} tells the start-index. Each process then calculates the
-    two-body elements according to
+    Each process then gets its respective chunk of \hltextttf{pqMap} array such
+    that the each process calculates its own chunk according to the size set
+    and the \hltextttf{displ} tells the start-index. Each process then
+    calculates the two-body elements according to
         \begin{algorithm}[H]
             \caption{Two-Body Calculation}\label{alg:paratwobody}
             \begin{algorithmic}[H]
-                \State Initialize $A$ for containing $(p,q,r,s)$ elements.
-                \State Initialize $B$ for containing $(p,q,s,r)$ elements.
-                \State $i_{\text{start}} =$ displ[rank]
-                \State $i_{\text{end}} =$ displ[rank] $+$ sizes[rank]
+                \State Initialize $A$ and $B$ of size
+                $\frac{N(N+1)}{2}\times\text{sizes}[\text{myRank}]$ for
+                containing $(p,q,r,s)$ and $(p,q,s,r)$ elements respectively.
                 \State $k=0$
-                \For{$l=i_{\text{start}}$ to $i_{\text{end}}-1$}
+                \For{$l=0$ to mySize}
+                    \State $p=$mypqMap$[l,0]$
+                    \State $q=$mypqMap$[l,1]$
                     \For{$r=0$ to $N-1$}
                         \For{$s=r$ to $N-1$}
-                            \State $p=$pqMap$[l,0]$
-                            \State $q=$pqMap$[l,1]$
-                            \State $A[l]=\Braket{pq|\frac{1}{r_{12}}|rs}$
-                            \State $B[l]=\Braket{pq|\frac{1}{r_{12}}|sr}$
+                            \State $A[k]=\Braket{pq|\frac{1}{r_{12}}|rs}$
+                            \State $B[k]=\Braket{pq|\frac{1}{r_{12}}|sr}$
+                            \State $k += 1$
                         \EndFor
                     \EndFor
                 \EndFor
