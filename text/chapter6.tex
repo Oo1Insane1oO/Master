@@ -16,10 +16,9 @@
                     basecode/.style = {rectangle, rounded corners, draw=black,
                                 minimum width=2cm, minimum height=0.5cm, text
                                 centered, font=\sffamily, align=left},
-                    activityStarts/.style = {base, fill=blue!30, drop shadow},
-                    startstop/.style = {base, fill=red!30, drop shadow},
-                    startstopcode/.style = {basecode, fill=red!30, drop shadow},
-                    activityRuns/.style = {base, fill=green!30, drop shadow},
+                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
+                    startstop/.style = {base, fill=Maroon!25, drop shadow},
+                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
                     process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
                     processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
                 scale=0.8, 
@@ -127,9 +126,9 @@
                     basecode/.style = {rectangle, rounded corners, draw=black,
                                 minimum width=2cm, minimum height=0.5cm, text
                                 centered, font=\sffamily, align=left},
-                    activityStarts/.style = {base, fill=blue!30, drop shadow},
-                    startstop/.style = {base, fill=red!30, drop shadow},
-                    activityRuns/.style = {base, fill=green!30, drop shadow},
+                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
+                    startstop/.style = {base, fill=Maroon!30, drop shadow},
+                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
                     process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
                     processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
                 scale=0.8, 
@@ -268,7 +267,8 @@
             };
             \draw[-] (minimizerexpl) -- (minimizer);
             \node (finalsample) [activityStarts, below of=minimize] {
-                Run final sampling with optimal parameters.
+                Run final sampling with \\
+                optimal parameters.
             };
             \node (vmcsample) [processcode, right of=finalsample, xshift=4cm] {
                 \lstinline[language=C++, style=ccstyle]{vmc$\rarr$sampler()};
