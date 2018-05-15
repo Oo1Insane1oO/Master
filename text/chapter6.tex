@@ -573,6 +573,20 @@
     assembled and antisymmetrized. The Hartree-Fock algorithm is then run only
     on one process.
 
+\subsection{Tabulation of Two-Body Matrix}
+    The \hltexttt{HartreeFockSolver} class uses an input file for the two-body
+    matrix if given and calculates  and writes one out if not given. As of now
+    this is done in a brute-force fashion, that is the entire matrix, including
+    all zero-values, are written to file. This entire structure can be improved
+    upon by introducing a \txtit{Sparse-Matrix} structure, which is a matrix in
+    which only the non-zero elements are stored and a displacement array for
+    the given indices of the non-zero elements is created. This would decrease
+    the every-increasing memory usage and reduce the calculation time as
+    look-up time in the array. \\
+    The most promising road for implementing a Sparse structure is to use the
+    SparseMatrix module in Eigen since the entire code-base already builds
+    heavily upon Eigen from before.
+
 \section{Variational Monte Carlo}
     The Variational Monte-Carlo implementation is mainly in three classes,
     namely \hltexttt{VMC}, \hltexttt{BruteForce} and
