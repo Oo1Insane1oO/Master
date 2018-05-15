@@ -11,12 +11,16 @@
     These functions are the central part of the particle-description in which
     quantum theory bases itself in, as such the choice of a basis is of
     monumental importance when solving quantum mechanical systems.
+    Often\footnote{Read always} the choice of basis functions determine the
+    efficiency and degree of usefulness that a specific method actually holds.
+    This is usually to such degree that a poor choice of basis renders the
+    method in question less useful or even completely unavailing.
 
     We will in this chapter mention some popular basis-sets used in atomic
     physics and deepen into a particular set of functions called
     \txtit{Gaussian Type orbitals} and use them with the well known
-    \txtit{Hermite functions} and calculate integral elements used in with the
-    Hartree-Fock method.
+    \txtit{Hermite functions} and make a detailed calculation of the integral
+    elements used in the Hartree-Fock method.
 
 \section{Hermite Functions}
     Hermite functions are functions of the following form
@@ -362,13 +366,15 @@
             A_d\right)^{i_d} \exp(-\alpha \left(x_d - A_d\right)^2)\right)
             \nonumber \\
             &= \sum_d \prod_{d'\neq d} g_{i,d'} g_{i,d}
-            \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
-            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
-            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \nonumber
+            \Bigg(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} \nonumber \\ 
+            &\hspace{3.5cm}+
+            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg) \nonumber
             \\
-            &= g_i\sum_d \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
-            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
-            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right)
+            &= g_i\sum_d \Bigg(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} \nonumber \\
+            &\hspace{2.0cm}+
+            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg)
         \end{align}
     Now for the integral we have
         \begin{align}
@@ -442,9 +448,13 @@
             \begin{aligned}
                 u &= \frac{t}{\sqrt{\alpha+t^2}} \\
                 t &= u\sqrt{\frac{\alpha}{1-u^2}} \\
-                \frac{\md u}{\md t} &= \frac{\alpha}{(\alpha + t^2)^{\frac{3}{2}}} \\
-                \lim\limits_{t\rarr -\infty} u(t) &= -1 \\
-                \lim\limits_{t\rarr \infty} u(t) &= 1 \\
+                \frac{\md u}{\md t} &= \frac{\alpha}{(\alpha +
+                t^2)^{\frac{3}{2}}}
+            \end{aligned}
+            \hspace{2.5cm}
+            \begin{aligned}
+                \lim\limits_{t\rarr -\infty} u(t) &= -1 \\ 
+                \lim\limits_{t\rarr \infty} u(t) &= 1
             \end{aligned}
             \label{eq:uSubs1}
         \end{equation}
@@ -837,20 +847,26 @@
     The integral over a potential $x^k_d$ was found with the binomial expansion
     to be
         \begin{equation}
-            \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) | x^k_d |
-            g_j(\blds{\beta};\blds{r},\blds{B})} = \suml{p=\text{even}}{i+j}
-            E^{i+j}_p \left(\frac{\Gamma\left(\frac{p+1}{2}\right)}
-            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
-            \underset{\text{even}}{\sum\limits_{l=0}^k} {k\choose l}
-            \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
-            \Gamma\left(\frac{l+1}{2}\right)
+            \begin{aligned}
+                \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) | x^k_d |
+                g_j(\blds{\beta};\blds{r},\blds{B})} =&
+                \suml{p=\text{even}}{i+j} E^{i+j}_p
+                \left(\frac{\Gamma\left(\frac{p+1}{2}\right)}
+                {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \bigtimes \\
+                &\underset{\text{even}}{\sum\limits_{l=0}^k} {k\choose l}
+                \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
+                \Gamma\left(\frac{l+1}{2}\right)
+            \end{aligned}
         \end{equation}
     and the integral with the Laplacian was
         \begin{equation}
-            \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) | \nabla^2 |
-            g_j(\blds{\beta};\blds{r},\blds{B})} = \sum_d\prod_{d'\neq d}
-            \Braket{g_{i_{d'}}(\alpha_{d'};x_{d'},A_{d'})
-            |\sigma_{d'}(S_d(\beta;x-B_d))|g_{j_{d'}}(\beta{d'};x_{d'},B_{d'})}
+            \begin{aligned}
+                \Bra{g_i(\blds{\alpha};\blds{r},\blds{A})} &\nabla^2
+                \Ket{g_j(\blds{\beta};\blds{r},\blds{B})} = \\
+                &\sum_d\prod_{d'\neq d}
+                \Braket{g_{i_{d'}}(\alpha_{d'};x_{d'},A_{d'})
+                |\sigma_{d'}(S_d(\beta;x_d-B_d))|g_{j_{d'}}(\beta_{d'};x_{d'},B_{d'})}
+            \end{aligned}
             \label{eq:lapintdefsum}
         \end{equation}
     with
@@ -874,7 +890,7 @@
             \Braket{g^{\blds{\alpha}}_{iA}g^{\blds{\beta}}_{jB} |
             \frac{1}{r_{12}} | g^{\blds{\delta}}_{kC}g^{\blds{\gamma}}_{lD}} =
             \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
-            E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
+            E^{ik}_pE^{jl}_q (\scalebox{1.0}[1.0]{-}1)^{q} \xi_{p+q}\left(\frac{(\alpha +
             \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
             \delta},\blds{R_{S_1S_2}}\right)
             \label{eq:coulombdistintdefsum}

@@ -186,9 +186,10 @@
                 \bra{pq}f\ket{rs} &\equiv
                 \bra{\psi_p(\blds{r}_1)\psi_q(\blds{r}_2)}
                 f(\blds{r}_1,\blds{r}_2)
-                \ket{\psi_r(\blds{r}_1)\psi_s(\blds{r}_2)} = \int
-                \psi_p(\blds{r}_1)\psi_q(\blds{r}_2) f(\blds{r}_1,\blds{r}_2)
-                \psi_r(\blds{r}_1)\psi_s(\blds{r}_2) \md r
+                \ket{\psi_r(\blds{r}_1)\psi_s(\blds{r}_2)} \nonumber \\
+                &= \int \psi_p(\blds{r}_1)\psi_q(\blds{r}_2)
+                f(\blds{r}_1,\blds{r}_2) \psi_r(\blds{r}_1)\psi_s(\blds{r}_2)
+                \md r
             \end{aligned}
         \end{equation}
     yields in
@@ -567,11 +568,11 @@
                 \node (3) [activityStarts, below of=2] {
                     Accept state according to $\ufij{A}{j}{i}$.
                 };
-                \node (a) [activityRuns, below left of=3, xshift=-2cm] {
+                \node (a) [activityRuns, below left of=3, xshift=-3cm] {
                     Accepted \\
                     $j = i$
                 };
-                \node (r) [startstop, below right of=3, xshift=2cm] {
+                \node (r) [startstop, below right of=3, xshift=3cm] {
                     Rejected \\
                     $i = j$
                 };
@@ -583,7 +584,7 @@
                 \node (yes) [below of=4] {
                     Yes
                 };
-                \node (no) [above left of=4, xshift=-4cm] {
+                \node (no) [above left of=4, xshift=-5cm] {
                     No
                 };
                 \draw[->] (4) to [out=180, in=-90] (no);
