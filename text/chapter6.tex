@@ -18,6 +18,7 @@
                                 centered, font=\sffamily, align=left},
                     activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
                     startstop/.style = {base, fill=Maroon!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=Maroon!25, drop shadow},
                     activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
                     process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
                     processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
@@ -26,11 +27,11 @@
                 every node/.style={fill=white, font=\sffamily},
                 align=center]
             \node (main) [activityStarts] {Main};
-            \node (make) [activityRuns, right of=main, xshift=4cm] {
+            \node (make) [activityRuns, right of=main, xshift=3.5cm] {
                run make with flag \\
                make BASIS=SYSTEM
             };
-            \node (compilation) [activityRuns, right of=make, xshift=2cm] {
+            \node (compilation) [activityRuns, right of=make, xshift=3cm] {
                 Compilation
             };
             \node (chooseBasis) [process, above of=compilation] {
@@ -44,7 +45,7 @@
             };
             \draw[-] (HO) -- (chooseBasis);
             \draw[-] (DW) -- (chooseBasis);
-            \node (arr) [right of=main, xshift=1cm] {
+            \node (arr) [right of=main, xshift=0.3cm] {
                 $\Longleftarrow$
             };
             \node (initIntegral) [activityStarts, below of=main] {
@@ -73,15 +74,17 @@
                 Calculate $\Braket{p|h|q}$ (only for root)
             };
             \node (obspec) [process, left of=onebody, xshift=-6cm] {
-                Using function \hltextttf{oneBodyElement} in \hltexttt{Integral}
+                Using function \hltextttf{oneBodyElement} \\
+                in \hltexttt{Integral}
             };
             \node (twobody) [startstop, below of=onebody] {
                 Calculate $\Braket{pq|h|rs}$ (in parallel)
             };
             \node (tbspec) [process, left of=twobody, xshift=-6cm] {
-                Using function \hltextttf{coulombElement} in \hltexttt{Integral}
+                Using function \hltextttf{coulombElement} \\
+                in \hltexttt{Integral}
             };
-            \node (hfalgo) [process, below of=twobody] {
+            \node (hfalgo) [process, below of=twobody, yshift=-1cm] {
                 Run Hartree-Fock Algorithm
             };
             \node (hfloopstart) [startstop, left of=hfalgo, xshift=-6cm] {
@@ -137,34 +140,34 @@
                 align=center]
             \node (compile) [activityRuns, above of =main, yshift=6cm] {
                 Compilation};
-            \node (system) [process, right of=compile, xshift=2cm] {
+            \node (system) [process, right of=compile, xshift=2.5cm] {
                 Choose SYSTEM flag};
             \node (systems) [process, below of=system] {
                 HARMONICOSCILLATOR \\
                 HARTREEFOCK \\
                 DOUBLEWELL};
-            \node (jastrow) [process, left of=compile, xshift=-2cm] {
+            \node (jastrow) [process, left of=compile, xshift=-2.5cm] {
                 Choose JASTROW flag};
             \node (jastrows) [process, below of=jastrow] {
                 PADEJASTROW \\
                 RBMJASTROW \\
                 EXPNQS};
-            \node (make) [activityRuns, below of=compile, yshift=-1.6cm] {
+            \node (make) [activityRuns, below of=compile, yshift=-2.0cm] {
                 run make with flags \\
                 WAVEFUNCTION=SYSTEM \\
                 JASTROW=JASTROW
             };
-            \node (test) [process, left of=make, xshift=-3cm] {
+            \node (test) [process, left of=make, xshift=-3.5cm] {
                 optional flag \\
                 TESTS=ON/OFF
             };
-            \node (debug) [process, right of=make, xshift=3cm] {
+            \node (debug) [process, right of=make, xshift=3.5cm] {
                 optional flag \\
                 DEBUG=ON/OFF
             };
             \draw[<-] (make) -- (test);
             \draw[<-] (make) -- (debug);
-            \node (arr) [below of=make, yshift=0.2cm] {
+            \node (arr) [below of=make, yshift=-0.3cm] {
                 $\Big\Downarrow$
             };
             \draw[->] (compile) -- (make);
@@ -172,7 +175,7 @@
             \draw[<-] (compile) -- (system);
             \draw[-] (jastrows) -- (jastrow);
             \draw[<-] (compile) -- (jastrow);
-            \node (main) [activityStarts] {
+            \node (main) [activityStarts, yshift=-1cm] {
                 Main
             };
             \node (init) [activityStarts, below of=main] {
@@ -180,17 +183,17 @@
                 Create sampler object
             };
             \draw[->] (main) -- (init);
-            \node (yaml) [activityStarts, above of=main, yshift=-0.5cm] {
-                Read YAML input file.
+            \node (yaml) [activityStarts, above of=main] {
+                Read YAML file.
             };
             \draw[->] (yaml) -- (main);
-            \node (wavefunction) [processcode, above left of=init, xshift=-3.5cm, yshift=-1.0cm] {
+            \node (wavefunction) [processcode, below left of=init, xshift=-2.0cm, yshift=-0.7cm] {
                 \lstinline[language=C++, style=ccstyle]{T$^*$ wf = new T(D, N, P);} \\
                 \lstinline[language=C++, style=ccstyle]{wf$\rarr$initializeParameters(...);} \\
                 \lstinline[language=C++, style=ccstyle]{wf$\rarr$initializeMatrices();}
             };
             \draw[<-] (init) -- (wavefunction);
-            \node (SJ) [process, above left of=main, xshift=-2cm, yshift=1.0cm] {
+            \node (SJ) [process, above left of=main, xshift=-2cm, yshift=1.5cm] {
                 \hltexttt{SlaterJastrow} \\
                 \hltexttt{Slater}
             };
@@ -202,11 +205,11 @@
             \draw[-] (Twf) -- (wavefunction);
             \draw[-] (SJ) -- (emptywf);
             \draw[-] (emptywf) -- (Twf);
-            \node (IB) [process, above right of=main, xshift=2cm, yshift=1.0cm] {
+            \node (IB) [process, above right of=main, xshift=2cm, yshift=1.5cm] {
                 \hltexttt{ImportanceSampling} \\
                 \hltexttt{BruteForce}
             };
-            \node (sampler) [processcode, right of=init, xshift=3.5cm] {
+            \node (sampler) [processcode, below right of=init, xshift=2.5cm, yshift=-0.5cm] {
                 \lstinline[language=C++, style=ccstyle]{T$^*$ vmc = new T(wf, $\Delta t$, P, M);}
             };
             \node (emptyib) [right of=IB, xshift=1.0cm, inner sep=0pt, outer sep=0pt] {
@@ -226,38 +229,38 @@
             \draw[<-] (main) -- (choiceIB);
             \draw[<-] (choiceSSJ) -- (SJ);
             \draw[<-] (choiceIB) -- (IB);
-            \node (minimize) [activityStarts, below of=init, yshift=-2.0cm] {
+            \node (minimize) [activityStarts, below of=init, yshift=-5.0cm] {
                 Find optimal set of parameters.
             };
             \draw[->] (init) -- (minimize);
             \node (emptyminleft) [right of=minimize, inner sep=0pt, outer sep=0pt, xshift=3.5cm] {
             };
             \draw[-] (minimize) -- (emptyminleft);
-            \node (initparam) [process, above of=emptyminleft, yshift=-0.55cm] {
+            \node (initparam) [process, above of=emptyminleft, yshift=-0.35cm] {
                 Find initial parameters.
             };
             \draw[-] (emptyminleft) -- (initparam);
-            \node (gaussinit) [process, above left of=initparam, xshift=-1.0cm, yshift=0.3cm] {
+            \node (gaussinit) [process, above left of=initparam, xshift=-1.5cm, yshift=0.3cm] {
                 Gaussian random if \\
                 NQS parameters.
             };
-            \node (uniinit) [process, above right of=initparam, xshift=1.0cm, yshift=0.3cm] {
+            \node (uniinit) [process, above right of=initparam, xshift=0.6cm, yshift=0.3cm] {
                 Uniform random for \\
                 other parameters.
             };
-            \node (minimizer) [processcode, above left of=minimize, xshift=-4cm] {
+            \node (minimizer) [processcode, above left of=minimize, xshift=-3.0cm, yshift=0.5cm] {
                 \lstinline[language=C++, style=ccstyle]{Minimizer<T>$^*$ m = new Minimizer<T>} \\
                 \lstinline[language=C++, style=ccstyle]{                (vmc, S, I, eps, M);} \\
                 \lstinline[language=C++, style=ccstyle]{m$\rarr$minimize();}
             };
-            \node (emptymini) [left of=wavefunction, inner sep=0pt, outer sep=-0.51pt, xshift=-1.25cm] {
+            \node (emptymini) [left of=wavefunction, inner sep=0pt, outer sep=-0.51pt, xshift=-1.796cm] {
             };
             \draw[-] (emptymini) -- (Twf);
             \draw[-] (minimizer) -- (emptymini);
             \draw[-] (minimizer) -- (minimize);
             \draw[-] (initparam) -- (gaussinit);
             \draw[-] (initparam) -- (uniinit);
-            \node (minimizerexpl) [processcode, below of=minimizer, yshift=-0.7cm] {
+            \node (minimizerexpl) [processcode, below of=minimizer, yshift=-1.5cm, xshift=-1.0cm] {
                 S: Method \\
                 \hspace{0.2cm} - SA-BFGS \\
                 \hspace{0.2cm} - BFGS (MTLS) \\
@@ -295,9 +298,9 @@
     for the first few levels
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[b!]{0.49\textwidth}
+            \begin{subfigure}[b!]{0.45\textwidth}
                 \centering
-                \begin{tikzpicture}[scale=0.55]
+                \begin{tikzpicture}[scale=0.45]
                     \draw (-1,0) -- (1,0);
                     \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
                     \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
@@ -335,12 +338,12 @@
                     \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
                     \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
                 \end{tikzpicture}
-                \caption{Two-dimensional case with $(n_x,n_y)$ notation.}
+                \caption{Two-dimensional case with $(n_x,n_y)$}
                 \label{subfig:2Dspin}
             \end{subfigure}
-            \begin{subfigure}[b!]{0.49\textwidth}
+            \begin{subfigure}[b!]{0.45\textwidth}
                 \centering
-                \begin{tikzpicture}[scale=0.55]
+                \begin{tikzpicture}[scale=0.45]
                     \draw (-1,0) -- (1,0);
                     \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
                     \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
@@ -390,7 +393,7 @@
                     \draw[blue, <-] (5.0,3.5) -- (5.0,4.5);
                     \node[text width=2.2cm, align=center] at (5.5,3) {\footnotesize{$(0,0,2)$}};
                 \end{tikzpicture}
-                \caption{Three-dimensional case with $(n_x,n_y,n_z)$ notation.}
+                \caption{Three-dimensional case with $(n_x,n_y,n_z)$}
                 \label{subfig:3Dspin}
             \end{subfigure}
             \caption{Harmonic Oscillator Levels}
@@ -590,10 +593,10 @@
 \section{Variational Monte Carlo}
     The Variational Monte-Carlo implementation is mainly in three classes,
     namely \hltexttt{VMC}, \hltexttt{BruteForce} and
-    \hltexttt{ImportanceSampling}. The structure is set such that both
-    \hltexttt{BruteForce} and \hltexttt{ImportanceSampling} inherit
-    \hltexttt{VMC}. This structure essentially gives room for splitting
-    specific part of the Brute-Force algorithm from the Metropolis-Hastings
+    \hltexttt{ImportanceSampling}. The structure is set with
+    \hltexttt{BruteForce} and \hltexttt{ImportanceSampling} both inheriting
+    from \hltexttt{VMC}. This structure essentially gives room for splitting
+    specific parts of the Brute-Force algorithm from the Metropolis-Hastings
     algorithm, but still using the same code for minimization. We will explain
     the minimization parts in the next section. \\ 
     The main input which \hltexttt{VMC} needs is a wavefunction. An abstract
@@ -624,8 +627,8 @@
     system which needs to be given at compile time as a flag i.e
     WAVEFUNCTION=HarmonicOscillator. The second part sets the sampling to use
     Metropolis-Hastings algortithm. The parameters variable must be an
-    Eigen\cite{eigenweb} vector or array and contains the variational
-    parameters present. The representation of each element in this vector(or
+    Eigen\cite{eigenweb} vector or array and contain the variational
+    parameters. The representation of each element in this vector(or
     array) is specific to each system. For a more detailed explanation see >>
     REF GITHUB <<. \\
     This is just an example of how to build a simple run, however we have also
@@ -756,21 +759,21 @@
     The \hltexttt{Slater} class checks on compile time the specific
     wavefunction class for the functions 
         \begin{itemize}
-            \item {\makebox[4cm]{\hltextttf{set}:\hfill} Called during
+            \item {\makebox[5cm]{\hltextttf{set}:\hfill} Called during
                 initialization (before each sampling)}
-            \item {\makebox[4cm]{\hltextttf{reSetAll}:\hfill} Sets all matrices
+            \item {\makebox[5cm]{\hltextttf{reSetAll}:\hfill} Sets all matrices
                 to zero (used in testing)}
-            \item {\makebox[4cm]{\hltextttf{initializeMatrices}:\hfill}
+            \item {\makebox[5cm]{\hltextttf{initializeMatrices}:\hfill}
                 Allocate memory}
-            \item {\makebox[4cm]{\hltextttf{update}:\hfill} Update positions
+            \item {\makebox[5cm]{\hltextttf{update}:\hfill} Update positions
                 and wavefunction}
-            \item {\makebox[4cm]{\hltextttf{reset}:\hfill} Revert to previous
+            \item {\makebox[5cm]{\hltextttf{reset}:\hfill} Revert to previous
                 positions and wavefunction}
-            \item {\makebox[4cm]{\hltextttf{resetGradient}:\hfill} Revert to
+            \item {\makebox[5cm]{\hltextttf{resetGradient}:\hfill} Revert to
                 previous gradient}
-            \item {\makebox[4cm]{\hltextttf{acceptState}:\hfill} Update
+            \item {\makebox[5cm]{\hltextttf{acceptState}:\hfill} Update
                 previous positions and wavefunction to current}
-            \item {\makebox[4cm]{\hltextttf{acceptGradient}:\hfill} Update
+            \item {\makebox[5cm]{\hltextttf{acceptGradient}:\hfill} Update
                 previous gradient to current one}
         \end{itemize}
     If these functions are implemented in the
