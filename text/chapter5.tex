@@ -1,18 +1,28 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Numerical Optimization \label{chapter:5}}
+    Numerical optimizations, the one field that can be applied to virtually
+    anything. All the big problems in the world, from cancer research to
+    financial modeling, from finding variational energies to modeling large
+    scale atomic systems. You can be pretty sure that any field of research one
+    can name has some scheme which can be reformulated into a problem in which
+    numerical optimization methods can be applied. As such, the field in
+    numerical optimization has not been viewed more useful than now, especially
+    with the computing power at hand and machine learning having become
+    somewhat of a popular hit. 
+
     In the Variational Monte Carlo method in \Arf{sec:QMC} the essential point
     was to vary a set of \txtit{variational parameters} in order to reach an
     eigenbasis which gives the ground-state energy of the Hamiltonian in
     question. There are many ways one could approach this. One way could be to
     wildly guess random parameters and hope for the best, obviously this is a
     poor approach. The more sound approach would be to optimize(minimization in
-    the VMC case) the wavefunction using methods from a popular field in
-    mathematics called \txtit{numerical optimization}. The methods used in this
-    thesis was the \txtit{Conjugate Gradient method}, a version of the
-    \txtit{Adaptive Stochastic Gradient Descent}, the well known \txtit{BFGS}
-    method and a more resent \txtit{Stochastic-Adaptive-BFGS}. The explaining
-    of the approaches for numerical optimization is only explained briefly. For
-    a better mathematical explanation see >> REF THESE <<
+    the VMC case) the wavefunction using methods from (as the title suggests)
+    from \txtit{numerical optimization}. The methods used in this thesis was
+    the \txtit{Conjugate Gradient method}, a version of the \txtit{Adaptive
+    Stochastic Gradient Descent}, the well known \txtit{BFGS} method and a more
+    resent \txtit{Stochastic-Adaptive-BFGS}. The explaining of the approaches
+    for numerical optimization is only made briefly. For a better mathematical
+    explanation see the various references in the text.
 
 \section{The Optimization Problem \label{sec:the_optimization_problem}}
     We will explain the general approach for minimizing a multi-variate
@@ -59,18 +69,69 @@
             \blds{\alpha}_n = \blds{\alpha_{n-1}} - \gamma\nabla_{\alpha} f
             \label{eq:gdupdate}
         \end{equation}
-    and terminate the search when \Arf{eq:minconditionapprox} is fulfilled. >>
-    REF AND MAKE ALGORITHM <<\footnote{Change the negative sign in front of the
-    gradient if a maximum is desired.} \\
-
+    and terminate the search when \Arf{eq:minconditionapprox} is
+    fulfilled\footnote{Change the negative sign in front of the gradient if a
+    maximum is desired.} \cite{numOptNocWrig}. Here is an algorithmic view
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
+                    startstop/.style = {base, fill=Maroon!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=Maroon!25, drop shadow},
+                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily},
+                align=center]
+            \node (start) [activityStarts] {
+                Initialize $\blds{\alpha}_0$ and find
+                $\nabla_{\alpha}f({\blds{\alpha}_0})$ \\
+                Set $\gamma$ and $n=1$.
+            };
+            \node (update) [activityRuns, below of=start] {
+                Find $\blds{\alpha}_{n} = \blds{\alpha}_{n-1} - \gamma
+                \nabla_{\alpha} f$
+            };
+            \draw[->] (start) -- (update);
+            \node (conv) [startstop, below of=update, yshift=-0.5cm] {
+                Check if \Arf{eq:minconditionapprox} holds \\
+                Increment index $n {\footnotesize\mathrel{+}=} 1$
+            };
+            \draw[->] (update) -- (conv);
+            \node (no) [above left of=conv, xshift=-3.0cm] {
+                $\abs{\nabla_{\alpha} f} > \epsilon$
+            };
+            \draw[->] (conv) to [out=180, in=-90] (no);
+            \draw[->] (no) to [out=90, in=180] (update);
+            \node (yes) [below of=conv] {
+                $\abs{\nabla_{\alpha} f} \leq \epsilon$
+            };
+            \draw[->] (conv) -- (yes);
+            \node (end) [activityStarts, below of=yes] {
+                Output $\blds{\alpha}_m=\blds{\alpha}_n$
+            };
+            \draw[->] (yes) -- (end);
+        \end{tikzpicture}
+        \caption{Gradient Descent algorithm.}
+    \end{figure}
+    
     This method of finding the minimum is known as the method of
     \txtit{Gradient Descent} and is the simplest method for finding a minimum.
     The problem however is stability, the termination condition is firstly not
-    optimal >> REF THIS << and the step-size $\gamma$ is a constant which can
-    give allot of oscillations around minimum as the algorithm might get close
-    to the minimum and then \txtit{over-shoot} and go past the minimum point,
-    turn around(because the sign changes) and over-shoot again and then keep
-    going. Many(seriously many) methods have been devised to account for these
+    optimal and the step-size $\gamma$ is a constant which can give allot of
+    oscillations around minimum as the algorithm might get close to the minimum
+    and then \txtit{over-shoot} and go past the minimum point, turn
+    around(because the sign changes) and over-shoot again and then keep going.
+    Many(seriously many) methods have been devised to account for these
     problems and other. We will contain ourselves with the methods mentioned in
     the introduction of this chapter.
 
