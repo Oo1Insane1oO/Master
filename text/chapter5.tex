@@ -262,13 +262,6 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     initial guess for the inverse Hessian $\blds{H}^{-1}_0$ and minimum
     $\blds{x}_0$ with the condition that $\blds{H}^{-1}_0$ is positive-definite
     (identity matrix is a nice start if nothing else is known) proceed with
-        \begin{itemize}
-            \item $\blds{x}_{n+1} = \blds{x}_n -\gamma_n\blds{H}^{-1}_0\nabla
-                f(\blds{x}_n)$
-            \item Calculate the gradient $\nabla f(\blds{x}_{n+1})$
-            \item Use $\nabla f(\blds{x}_{n+1})$ and $f(\blds{x}_n)$ in a
-                updating formula of choice to find $\blds{H}^{-1}_{n+1}$
-        \end{itemize}
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[
@@ -293,11 +286,15 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
                 Initialize $\blds{x}_0$ and find $\nabla f({\blds{x}_0})$ \\
                 Set $\blds{H}^{-1}_0$ and $n=1$.
             };
-            \node (update) [activityRuns, below of=start] {
+            \node (LS) [process, below of=start] {
+                Perform \txtit{linesearch} giving $\gamma_n$.
+            };
+            \node (update) [activityRuns, below of=LS] {
                 Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma_n
                 \blds{H}^{-1}_{n-1}\nabla f\left(\blds{x}_{n-1}\right)$
             };
-            \draw[->] (start) -- (update);
+            \draw[->] (start) -- (LS);
+            \draw[->] (LS) -- (update);
             \node (conv) [startstop, below of=update, yshift=-0.5cm] {
                 Check if \Arf{eq:minconditionapprox} holds
             };
@@ -312,7 +309,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             };
             \draw[->] (conv) to [out=180, in=0] (no);
             \draw[->] (no) to [out=90, in=-90] (hupdate);
-            \draw[->] (hupdate) to [out=90, in=180] (update);
+            \draw[->] (hupdate) to [out=90, in=180] (LS);
             \node (yes) [below of=conv] {
                 $\abs{\nabla_{x} f} \leq \epsilon$
             };
@@ -322,17 +319,17 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             };
             \draw[->] (yes) -- (end);
         \end{tikzpicture}
-        \caption{Quasi-Newton algorithm.}
+        \caption{Quasi-Newton algorithm.\label{fig:QNalgflow}}
     \end{figure}
 
 \section{BFGS Method\label{sec:BFGS}}
-    In the previous section we gave an outline for Newton's method and the
-    class known as Quasi-Newton methods. The latter used an approximation for
-    the inverse of the Hessian matrix, which was updated at each step in the
-    algorithm. For the sake of brevity only conditions employed to arrive at
-    the expression for the updating formula and the formula itself is given
-    here, for more see \cite{BFGSB, BFGSF, BFGSG, BFGSS, numOptNocWrig}. The
-    conditions enforced is
+    In the previous section(also mentioned in \Arf{fig:QNalgflow}) we gave an
+    outline for Newton's method and the class known as Quasi-Newton methods.
+    The latter used an approximation for the inverse of the Hessian matrix,
+    which was updated at each step in the algorithm. For the sake of brevity
+    only conditions employed to arrive at the expression for the updating
+    formula and the formula itself is given here, for more see \cite{BFGSB,
+    BFGSF, BFGSG, BFGSS, numOptNocWrig}. The conditions enforced is
         \begin{itemize}
             \item Secant condition: $\blds{H}_{n+1} \blds{s}_n = \nabla
                 f(\blds{x}_{n+1}) - \nabla f(\blds{x}_n)$
@@ -363,10 +360,10 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
 
 \section{Linesearch methods\label{sec:linesearch_methods}}
     In the optimization methods described in
-    \Arf{sec:newtons-method_and_quasi-newton_methods} There was one important
-    part neglected, namely how to find the step-length $\gamma$, introduced in
+    \Arf{sec:newtons-method_and_quasi-newton_methods} there was one important
+    part neglected, namely how to find the step-length $\gamma_n$ introduced in
     the updating formula. As it is, one can choose it in any manner desired,
-    however a class if one-dimensional minimization methods knows as
+    however a class of one-dimensional minimization methods knows as
     \txtit{lineasearch methods} are often used to get an (usually rough)
     estimate for the step length at each iteration in the optimization. These
     methods all have some conditions for stability and convergence as an innate
@@ -393,7 +390,10 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     parameters $\blds{x}_k$. One usually perform this linesearch loosely since
     the search direction is not necessarily directly pointing towards the
     minimum, meaning we only search for a step length that gives a
-    \txtit{sufficient decrease} in the function value $f$.
+    \txtit{sufficient decrease} in the function value $f$. The basic procedure
+    is then to use one of these linesearch methods to find $\gamma_n$ at each
+    iteration in the minimization and then use the step-length outputted by the
+    linesearch algorithm to update the parameters.
 
 \section{Stochastic-Adaptive-BFGS\label{sec:stochastic_adaptive_bfgs}}
     In \Arf{sec:BFGS} we mentioned the popular BFGS method for updating the
