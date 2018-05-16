@@ -4,13 +4,13 @@
     everything, anything from a coordinate system to an abstract vector-space
     or function-space are all part of the same set which we refer to as a
     basis. It is a set of objects applied to systems in order to essentially
-    change our view of them, to extract desirable properties and to describe in
-    a rigid fashion. In quantum mechanics the abstract vector-space models are
-    used and the functions in mind are the wavefunctions thrown into the
-    Schrödinger equation and the space at hand is the \txtit{Hilbert Space}.
-    These functions are the central part of the particle-description in which
-    quantum theory bases itself in, as such the choice of a basis is of
-    monumental importance when solving quantum mechanical systems.
+    change our view of them, to extract desirable properties and to describe
+    them in a rigidly fashion. In quantum mechanics the abstract vector-space
+    models are used and the functions in mind are the wavefunctions thrown into
+    the Schrödinger equation and the space at hand is the \txtit{Hilbert
+    Space}.  These functions are the central part of the particle-description
+    in which quantum theory bases itself in, as such the choice of a basis is
+    of monumental importance when solving quantum mechanical systems.
     Often\footnote{Read always} the choice of basis functions determine the
     efficiency and degree of usefulness that a specific method actually holds.
     This is usually to such degree that a poor choice of basis renders the
@@ -20,7 +20,13 @@
     physics and deepen into a particular set of functions called
     \txtit{Gaussian Type orbitals} and use them with the well known
     \txtit{Hermite functions} and make a detailed calculation of the integral
-    elements used in the Hartree-Fock method.
+    elements used in the Hartree-Fock method. These integrals have been
+    calculated in polar coordinates directly before\cite{anisimovas}, the
+    motivation for calculating the integrals elements in Cartesian is due to
+    the double-well potential, because of the higher order monomials in which
+    they can be defined by the symmetry in polar coordinates is broken making
+    the polar approach less desirable. The procedure in building the basis for
+    the double-well system is also explained detail.
 
 \section{Hermite Functions}
     Hermite functions are functions of the following form
@@ -235,7 +241,7 @@
             \frac{\beta}{\alpha+\beta}(A_x-B_x)\right)g_t
             \label{eq:omegaIncr}
         \end{align}
-    Using the properties listed in \Arf{eq:hermiteGaussProp}(mainly the
+    Using the properties listed in \Arf{eq:hermiteGaussProp} (mainly the
     recurrence) and the expansion \Arf{eq:omegaDef}. The incrementation of $j$
     follows the exact same derivation. The starting coefficient is thus
         \begin{equation}
@@ -507,7 +513,7 @@
     can rewrite the distribution centered in $\blds{A}$ and the Coulomb
     interaction with the previously calculated Coulomb potential integral given
     in \Arf{eq:coulombPotentialIntegral}. Using $I$ as a general label for
-    \Arf{eq:oneElectron2D,eq:oneElectron3D} we have
+    \Arf{eq:oneElectron2D} and \Arf{eq:oneElectron3D} we have
         \begin{align}
             I' &= \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
             \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
@@ -789,8 +795,8 @@
     the \text{NumPy} package, however we still need to choose the $\psiHO$'s
     first. This will be experimented with and we will choose enough to reach to
     \txtit{Hartree-Fock limit}. The choice will also follow the
-    Harmonicoscillator levels in terms of degeneracy(see \Arf{subfig:3Dspin,
-    subfig:2Dspin}). This means for instance that if we choose to only use $1$
+    Harmonicoscillator levels in terms of degeneracy(see \Arf{subfig:3Dspin} and
+    \Arf{subfig:2Dspin}). This means for instance that if we choose to only use $1$
     spacial function we only need the ground-state function, but there is no
     reason to believe that the electron-configuration would prefer any two(or
     $3$ in 3D) of the functions in the second level over one another. This

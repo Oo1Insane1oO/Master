@@ -43,11 +43,10 @@
             url=false,
             doi=true,
             eprint=false]{biblatex}
-\usepackage[]{hyperref}
+% \usepackage[]{hyperref}
 % \usepackage{courier}
-\usepackage{charter}
-\usepackage[charter]{mathdesign}
-% \usepackage{fouriernc}
+% \usepackage{charter}
+\usepackage[bitstream-charter]{mathdesign}
 \usepackage{listings}
 \usepackage[pdftex]{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
@@ -73,10 +72,14 @@
 \usepackage{relsize}
 \usepackage{soul}
 \usepackage{tikz}
+\usepackage{hyperref}
 
 \usetikzlibrary{arrows.meta, shadows}
 
 \lstset{mathescape}
+
+\let\oldcite\cite
+\renewcommand*\cite[1]{{\footnotesize\oldcite{#1}}}
 
 % color courier
 \definecolor{filecolor}{RGB}{180,43,190}
@@ -104,18 +107,19 @@
 % \rfoot{}
 
 %renew title numbering
-% \renewcommand{\thechapter}{\arabic{chapter}}
-% \renewcommand{\thesection}{\arabic{section}}
-% \renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thechapter}{\arabic{chapter}}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 
 %title settings
-% \renewcommand{\headrulewidth}{0pt}
+\renewcommand{\headrulewidth}{0pt}
 \renewcommand{\chapterautorefname}{chapter}
 \renewcommand{\sectionautorefname}{section}
 \renewcommand{\subsectionautorefname}{section}
-\renewcommand{\equationautorefname}{equation}
+\renewcommand{\equationautorefname}{eq.}
 \renewcommand{\figureautorefname}{figure}
 \renewcommand{\tableautorefname}{table}
+
 \captionsetup{compatibility=false}
 
 \patchcmd{\smallmatrix}{\thickspace}{\kern1.3em}{}{}
@@ -258,7 +262,7 @@
 
 \makeatletter
 % define a macro \Autoref to allow multiple references to be passed to \autoref
-\newcommand\Autoref[1]{\@first@ref#1,@}
+\newcommand\Autoref[1]{{\small\@first@ref#1,@}}
 \def\@throw@dot#1.#2@{#1}% discard everything after the dot
 \def\@set@refname#1{%    % set \@refname to autoefname+s using \getrefbykeydefault
     \edef\@tmp{\getrefbykeydefault{#1}{anchor}{}}%
