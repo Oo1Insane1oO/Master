@@ -30,20 +30,20 @@
 
     The problem in question is the following. Given a continuously
     differentiable function $f:\mathbb{R}^n\rarr\mathbb{R}$, for what set of
-    parameters $\{\alpha\}^{n}_{k=1}$ is 
+    parameters $\{x\}^{n}_{k=1}$ is 
         \begin{equation}
-            \nabla_{\alpha} f = \blds{0}
+            \nabla_{x} f = \blds{0}
             \label{eq:mincondition}
         \end{equation}
-    fulfilled\footnote{$\nabla_{\alpha}=\sum\limits_k\blds{e}_k\prd{\alpha_k}$
-    with $\blds{e}_k\in\mathbb{R}^n$ a unit vector along direction $k$.}. This
-    means we seek a point $\blds{\alpha}_m$ in real space were the variation of
-    the value of $f$ is zero. In reality the condition in \Arf{eq:mincondition}
-    is only approximate, that is we terminate the search for a minimum if we
-    reached a point where the absolute value of $f$ is within a threshold
+    fulfilled\footnote{$\nabla_{x}=\sum\limits_k\blds{e}_k\prd{x_k}$ with
+    $\blds{e}_k\in\mathbb{R}^n$ a unit vector along direction $k$.}. This means
+    we seek a point $\blds{x}_m$ in real space were the variation of the value
+    of $f$ is zero. In reality the condition in \Arf{eq:mincondition} is only
+    approximate, that is we terminate the search for a minimum if we reached a
+    point where the absolute value of $f$ is within a threshold
     $\epsilon$
         \begin{equation}
-            \abs{\nabla_{\alpha} f} \leq \epsilon
+            \abs{\nabla_{x} f} \leq \epsilon
             \label{eq:minconditionapprox}
         \end{equation}
     One might at this point have the question, wouldn't the condition presented
@@ -56,17 +56,17 @@
     We defined the optimization problem and defined a simple condition for the
     extremal and mentioned a search direction in the previous section. A search
     direction in our context is a direction $\blds{p}\in\mathbb{R}^n$ which
-    points towards $\blds{\alpha}_m$. To find $\blds{p}$ we use the well known
+    points towards $\blds{x}_m$. To find $\blds{p}$ we use the well known
     \txtit{second derivative test} to determine the curvature of $f$. This,
     mentioned qualitatively, means that the gradient of $f$ at any point
-    $\blds{\alpha}_i$ points towards an extremal and that the negative
+    $\blds{x}_i$ points towards an extremal and that the negative
     gradient(negative sign) points towards the minimum and the positive
     gradient points towards the maximum. This observation gives a simple rule
-    for finding $\blds{\alpha}_m$. Start out with blindly guessing a point
-    $\blds{\alpha}_0$ and keep updating the parameters according to the
-    following recursive rule
+    for finding $\blds{x}_m$. Start out with blindly guessing a point
+    $\blds{x}_0$ and keep updating the parameters according to the following
+    recursive rule
         \begin{equation}
-            \blds{\alpha}_n = \blds{\alpha_{n-1}} - \gamma\nabla_{\alpha} f
+            \blds{x}_n = \blds{x_{n-1}} - \gamma\nabla_{x} f
             \label{eq:gdupdate}
         \end{equation}
     and terminate the search when \Arf{eq:minconditionapprox} is
@@ -93,13 +93,13 @@
                 every node/.style={fill=white, font=\sffamily},
                 align=center]
             \node (start) [activityStarts] {
-                Initialize $\blds{\alpha}_0$ and find
-                $\nabla_{\alpha}f({\blds{\alpha}_0})$ \\
+                Initialize $\blds{x}_0$ and find
+                $\nabla_{x}f({\blds{x}_0})$ \\
                 Set $\gamma$ and $n=1$.
             };
             \node (update) [activityRuns, below of=start] {
-                Find $\blds{\alpha}_{n} = \blds{\alpha}_{n-1} - \gamma
-                \nabla_{\alpha} f$
+                Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma
+                \nabla_{x} f\left(\blds{x}_n\right)$
             };
             \draw[->] (start) -- (update);
             \node (conv) [startstop, below of=update, yshift=-0.5cm] {
@@ -108,16 +108,16 @@
             };
             \draw[->] (update) -- (conv);
             \node (no) [above left of=conv, xshift=-3.0cm] {
-                $\abs{\nabla_{\alpha} f} > \epsilon$
+                $\abs{\nabla_{x} f} > \epsilon$
             };
             \draw[->] (conv) to [out=180, in=-90] (no);
             \draw[->] (no) to [out=90, in=180] (update);
             \node (yes) [below of=conv] {
-                $\abs{\nabla_{\alpha} f} \leq \epsilon$
+                $\abs{\nabla_{x} f} \leq \epsilon$
             };
             \draw[->] (conv) -- (yes);
             \node (end) [activityStarts, below of=yes] {
-                Output $\blds{\alpha}_m=\blds{\alpha}_n$
+                Output $\blds{x}_m=\blds{x}_n$
             };
             \draw[->] (yes) -- (end);
         \end{tikzpicture}
@@ -269,6 +269,61 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             \item Use $\nabla f(\blds{x}_{n+1})$ and $f(\blds{x}_n)$ in a
                 updating formula of choice to find $\blds{H}^{-1}_{n+1}$
         \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
+                    startstop/.style = {base, fill=Maroon!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=Maroon!25, drop shadow},
+                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily},
+                align=center]
+            \node (start) [activityStarts] {
+                Initialize $\blds{x}_0$ and find $\nabla f({\blds{x}_0})$ \\
+                Set $\blds{H}^{-1}_0$ and $n=1$.
+            };
+            \node (update) [activityRuns, below of=start] {
+                Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma_n
+                \blds{H}^{-1}_{n-1}\nabla f\left(\blds{x}_{n-1}\right)$
+            };
+            \draw[->] (start) -- (update);
+            \node (conv) [startstop, below of=update, yshift=-0.5cm] {
+                Check if \Arf{eq:minconditionapprox} holds
+            };
+            \draw[->] (update) -- (conv);
+            \node (no) [below left of=conv, xshift=-4.0cm, yshift=-0.3cm] {
+                $\abs{\nabla_{x} f} > \epsilon$
+            };
+            \node (hupdate) [process, above of=no, xshift=-2.0cm, yshift=0.5cm] {
+                Use $\nabla f(\blds{x}_n)$ and $f(\blds{x}_{n-1})$ in an \\
+                updating formula of choice to find $\blds{H}^{-1}_n$ \\
+                Increment index $n {\footnotesize\mathrel{+}=} 1$
+            };
+            \draw[->] (conv) to [out=180, in=0] (no);
+            \draw[->] (no) to [out=90, in=-90] (hupdate);
+            \draw[->] (hupdate) to [out=90, in=180] (update);
+            \node (yes) [below of=conv] {
+                $\abs{\nabla_{x} f} \leq \epsilon$
+            };
+            \draw[->] (conv) -- (yes);
+            \node (end) [activityStarts, below of=yes] {
+                Output $\blds{x}_m=\blds{x}_n$
+            };
+            \draw[->] (yes) -- (end);
+        \end{tikzpicture}
+        \caption{Quasi-Newton algorithm.}
+    \end{figure}
 
 \section{BFGS Method\label{sec:BFGS}}
     In the previous section we gave an outline for Newton's method and the
