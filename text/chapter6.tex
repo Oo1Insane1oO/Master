@@ -876,18 +876,18 @@
                 \node (updater) [startstop, below of=loop] {
                     call \hltextttf{updater}
                 };
-                \node (convergence) [process, below left of=updater, xshift=-0.5cm] {
+                \node (convergence) [process, below left of=updater, xshift=-0.5cm, yshift=-0.3cm] {
                     Check for \\
                     convergence.
                 };
-                \node (exhaustion) [process, below right of=updater, xshift=0.8cm] {
+                \node (exhaustion) [process, below right of=updater, xshift=1.1cm, yshift=-0.3cm] {
                     Switch to input \\
                     method if exhausted
                 };
                 \draw[-] (exhaustion) -- (updater);
                 \draw[-] (convergence) -- (updater);
                 \draw[->] (loop) -- (updater);
-                \node (callFunc) [startstop, below of=updater, yshift=-1cm] {
+                \node (callFunc) [startstop, below of=updater, yshift=-2cm] {
                     Save current energy and \\
                     derivatives and \\
                     execute given method
