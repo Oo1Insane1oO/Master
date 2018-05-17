@@ -625,7 +625,7 @@
         \end{lstlisting}
     The first chunk initializes the SlaterJastrow class with the pre-specified
     system which needs to be given at compile time as a flag i.e
-    WAVEFUNCTION=HarmonicOscillator. The second part sets the sampling to use
+    WAVEFUNCTION=HARMONICOSCILLATOR. The second part sets the sampling to use
     Metropolis-Hastings algortithm. The parameters variable must be an
     Eigen\cite{eigenweb} vector or array and contain the variational
     parameters. The representation of each element in this vector(or
@@ -693,8 +693,8 @@
     The Jastrow factors presented in \Arf{susec:TWFJastrow},
     \Arf{sususec:TWFPadeJastrow} and \Arf{sususec:NQSJastrow} also give rise to
     optimizations in the case of moving only one particle at a time. In
-    particular, the Pade\'e function and the simple exponential can both be
-    represented by a matrix of size $N\times D$ as
+    particular, the Pad\'e function and the simple exponential can both be
+    represented by a matrix of size $N\times D$ like this
         \begin{equation}
             \blds{J} = 
                 \begin{pmatrix}
@@ -711,7 +711,7 @@
             &= \exp(\sumll{i\neq j} f_{ij})
         \end{align}
     Notice that $i$ is fixed in the last step. \\
-    The gradient of $J$ can be represented as a $N\times N\times D$ matrix
+    The gradient of $J$ can be represented as an $N\times N\times D$ matrix
         \begin{equation}
             \nabla \blds{J} = 
                 \begin{pmatrix}
@@ -753,7 +753,7 @@
             a_i\right)^2}{\sigma^2})
         \end{equation}
     Again with $i$ being the index of the moved particle. These optimizations
-    are implemented in the \hltexttt{RBMJastrow}.
+    are implemented in the \hltexttt{RBMJastrow} class.
 
 \subsection{Optimization For Tabulation\label{susec:optTab}}
     The \hltexttt{Slater} class checks on compile time the specific
