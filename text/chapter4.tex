@@ -1,991 +1,489 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Basis Functions\label{chapter:4}}
-    Basis sets, the fundamental objects used in describing pretty much
-    everything, anything from a coordinate system to an abstract vector-space
-    or function-space are all part of the same set which we refer to as a
-    basis. It is a set of objects applied to systems in order to essentially
-    change our view of them, to extract desirable properties and to describe
-    them in a rigidly fashion. In quantum mechanics the abstract vector-space
-    models are used and the functions in mind are the wavefunctions thrown into
-    the Schrödinger equation and the space at hand is the \txtit{Hilbert
-    Space}.  These functions are the central part of the particle-description
-    in which quantum theory bases itself in, as such the choice of a basis is
-    of monumental importance when solving quantum mechanical systems.
-    Often\footnote{Read always} the choice of basis functions determine the
-    efficiency and degree of usefulness that a specific method actually holds.
-    This is usually to such degree that a poor choice of basis renders the
-    method in question less useful or even completely unavailing.
+\chapter{Numerical Optimization \label{chapter:4}}
+    Numerical optimizations, the one field that can be applied to virtually
+    anything. All the big problems in the world, from cancer research to
+    financial modeling, from finding variational energies to modeling large
+    scale atomic systems. You can be pretty sure that any field of research one
+    can name has some scheme which can be reformulated into a problem in which
+    numerical optimization methods can be applied. As such, the field of
+    numerical optimization has not been viewed more useful than now -especially
+    with the computing power at hand and machine learning having become quite
+    of a popular. 
 
-    We will in this chapter mention some popular basis-sets used in atomic
-    physics and deepen into a particular set of functions called
-    \txtit{Gaussian Type orbitals} and use them with the well known
-    \txtit{Hermite functions} and make a detailed calculation of the integral
-    elements used in the Hartree-Fock method. These integrals have been
-    calculated in polar coordinates directly before\cite{anisimovas}, the
-    motivation for calculating the integrals elements in Cartesian is due to
-    the double-well potential, because of the higher order monomials in which
-    they can be defined by the symmetry in polar coordinates is broken making
-    the polar approach less desirable. The procedure in building the basis for
-    the double-well system is also explained detail.
+    In the Variational Monte Carlo method in \Arf{sec:QMC} the essential point
+    was to vary a set of \txtit{variational parameters} in order to reach an
+    eigenbasis which gives the ground-state energy of the Hamiltonian in
+    question. There are many ways one could approach this. One way could be to
+    wildly guess random parameters and hope for the best, obviously this is a
+    poor approach. The more sound approach would be to optimize(minimization in
+    the VMC case) the wavefunction using methods from (as the title suggests)
+    \txtit{numerical optimization}. The methods used in this thesis was the
+    \txtit{Conjugate Gradient method}, a version of the \txtit{Adaptive
+    Stochastic Gradient Descent}, the well known \txtit{BFGS} method and a more
+    resent \txtit{Stochastic-Adaptive-BFGS} and also \txtit{Simulated
+    Annealing}. The explaining of the approaches for numerical optimization is
+    only made briefly. For a better mathematical explanation see the various
+    references in the text.
 
-\section{Hermite Functions}
-    Hermite functions are functions of the following form
+\section{The Optimization Problem \label{sec:the_optimization_problem}}
+    We will explain the general approach for minimizing a multi-variate
+    function and set the terminology in this section. \\
+
+    The problem in question is the following. Given a continuously
+    differentiable function $f:\mathbb{R}^n\rarr\mathbb{R}$, for what set of
+    parameters $\{x\}^{n}_{k=1}$ is 
         \begin{equation}
-            \phi^a_n(\blds{r}) \equiv \prod_d N_d
-            H_{n_d}(\sqrt{a}x_d)\exp(-\frac{a}{2}x^2_d)
-            \label{eq:HermiteFunc}
+            \nabla_{x} f = \blds{0}
+            \label{eq:mincondition}
         \end{equation}
-    with $\blds{r} = \sum\limits_d \blds{\me}_dx_d$ and the sum over $d$ being
-    the sum over the number of dimensions and the $H_n$ is the Hermite
-    polynomial of order $n$. The integer $n_d$ is the order of the
-    function\footnote{In quantum mechanics the number $n$ is referred to as the
-    principal quantum number and is associated with the energy of a given
-    orbital(energy-level) of the system.} while the parameter $a$ is a scaling
-    factor and $N_d$ is a normalization factor. These functions show up as
-    eigenfunctions for the \txtit{quantum harmonic oscillator
-    system}\cite{GriffQuan} with the scaling parameter $a$ equal to the
-    oscillator frequency ($\omega$) of the system.
-
-    The Hermite functions are orthogonal and give a good ansatz for the VMC
-    method, see \Arf{sec:QMC}, with the scaling parameter transformed with an
-    additional variational parameter. The problem with these are however that
-    the matrix-elements introduced in the Hartree-Fock method
-    (\Arf{sec:HFtheory}) are not solvable directly with the Hermite functions
-    as basis functions. However, we can write the Hermite functions in terms of
-    \txtit{Hermite-Gaussians}. See \Arf{sec:hermiteGaussFunc}.
-
-\section{Gaussian Type Orbitals}
-    \txtit{Gaussian Type Orbitals} or GTO's are functions of the following
-    form\cite{HelgakerMolElcTheory}
+    fulfilled\footnote{$\nabla_{x}=\sum\limits_k\blds{e}_k\prd{x_k}$ with
+    $\blds{e}_k\in\mathbb{R}^n$ a unit vector along direction $k$.}. This means
+    we seek a point $\blds{x}_m$ in real space were the variation of the value
+    of $f$ is zero. In reality the condition in \Arf{eq:mincondition} is only
+    approximate, that is we terminate the search for a minimum if we reached a
+    point where the absolute value of $f$ is within a threshold
+    $\epsilon$
         \begin{equation}
-            G_n(\blds{\alpha};\blds{r},\blds{A}) \equiv \prod_d (x_d-A_d)^{n_d}
-            \me^{-\alpha_d (x_d-A_d)^2}
-            \label{eq:GTOdef1d}
+            \abs{\nabla_{x} f} \leq \epsilon
+            \label{eq:minconditionapprox}
         \end{equation}
-    We call $\alpha$ for the scaling parameter and $i$ for the order of the
-    GTO. The variable $A$ is where the function is centered. These are in many
-    literatures referred to as \txtit{primitive Gaussians} and they alone
-    make a poor approximation to the true wave function.
+    One might at this point have the question, wouldn't the condition presented
+    in \Arf{eq:minconditionapprox}(and \Arf{eq:mincondition} be valid for a
+    maximum as well? The answer is yes, it would. The simple fix to this is to
+    define the \txtit{search direction}, more precisely the sign of the search
+    direction. The next section explains this in better detail.
 
-    In atomic physics these functions are used directly as a linear combination
-    referred to as \txtit{contracted Gaussian functions}. These are written as
+\section{Gradient Descent\label{sec:gradient_descent}}
+    We defined the optimization problem and defined a simple condition for the
+    extremal and mentioned a search direction in the previous section. A search
+    direction in our context is a direction $\blds{p}\in\mathbb{R}^n$ which
+    points towards $\blds{x}_m$. To find $\blds{p}$ we use the well known
+    \txtit{second derivative test} to determine the curvature of $f$. This,
+    mentioned qualitatively, means that the gradient of $f$ at any point
+    $\blds{x}_i$ points towards an extremal and that the negative
+    gradient(negative sign) points towards the minimum and the positive
+    gradient points towards the maximum. This observation gives a simple rule
+    for finding $\blds{x}_m$. Start out with blindly guessing a point
+    $\blds{x}_0$ and keep updating the parameters according to the following
+    recursive rule
         \begin{equation}
-            G_k(x, A) \equiv \sum\limits^P_{a_k=0} C_{a_k}
-            G_{a_k}(\alpha_{a_k};x, A)
+            \blds{x}_n = \blds{x_{n-1}} - \gamma\nabla_{x} f
+            \label{eq:gdupdate}
         \end{equation}
-    and are fitted\footnote{Meaning we find the parameters $C_{a_k}.$ and
-    $\alpha_{a_k}$} to \txtit{Slater-type orbitals}, which are functions with
-    decaying properties(present in atomic systems), or found by some variational
-    method before-hand. \\
+    and terminate the search when \Arf{eq:minconditionapprox} is
+    fulfilled\footnote{Change the negative sign in front of the gradient if a
+    maximum is desired.} \cite{numOptNocWrig}. Here is an algorithmic view
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
+                    startstop/.style = {base, fill=Maroon!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=Maroon!25, drop shadow},
+                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily},
+                align=center]
+            \node (start) [activityStarts] {
+                Initialize $\blds{x}_0$ and find
+                $\nabla_{x}f({\blds{x}_0})$ \\
+                Set $\gamma$ and $n=1$.
+            };
+            \node (update) [activityRuns, below of=start] {
+                Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma
+                \nabla_{x} f\left(\blds{x}_n\right)$
+            };
+            \draw[->] (start) -- (update);
+            \node (conv) [startstop, below of=update, yshift=-0.5cm] {
+                Check if \Arf{eq:minconditionapprox} holds \\
+                Increment index $n {\footnotesize\mathrel{+}=} 1$
+            };
+            \draw[->] (update) -- (conv);
+            \node (no) [above left of=conv, xshift=-3.0cm] {
+                $\abs{\nabla_{x} f} > \epsilon$
+            };
+            \draw[->] (conv) to [out=180, in=-90] (no);
+            \draw[->] (no) to [out=90, in=180] (update);
+            \node (yes) [below of=conv] {
+                $\abs{\nabla_{x} f} \leq \epsilon$
+            };
+            \draw[->] (conv) -- (yes);
+            \node (end) [activityStarts, below of=yes] {
+                Output $\blds{x}_m=\blds{x}_n$
+            };
+            \draw[->] (yes) -- (end);
+        \end{tikzpicture}
+        \caption{Gradient Descent algorithm.}
+    \end{figure}
+    
+    This method of finding the minimum is known as the method of
+    \txtit{Gradient Descent} and is the simplest method for finding a minimum.
+    The problem however is stability, the termination condition is firstly not
+    optimal and the step-size $\gamma$ is a constant which can give allot of
+    oscillations around minimum as the algorithm might get close to the minimum
+    and then \txtit{over-shoot} and go past the minimum point, turn
+    around(because the sign changes) and over-shoot again and then keep going.
+    Many(seriously many) methods have been devised to account for these
+    problems and other. We will contain ourselves with the methods mentioned in
+    the introduction of this chapter.
 
-    These functions are unfortunately not orthogonal, but they behave nicely in
-    integrals and actually give an analytic expression for the
-    interaction-elements mentioned in \Arf{sec:HFtheory}. For this reason we
-    will go forth and use the Gaussian contracted functions and actually fit
-    them to Hermite functions.
+\section{Adaptive Stochastic Gradient
+Descent\label{sec:adaptive_stochastic_gradient_descent}}
+    Along with the limitations of the method of gradient descent, the
+    \txtit{Adaptive Stochastic Gradient Descent} tries to account for those,
+    but also takes into account the variance introduced by the stochastic
+    nature of the probability distribution. As such many variations of the
+    method have been proven to be popular among problems in which the function
+    to be minimized is an expectation value. The method used in this thesis is
+    the one described in \cite{ASGD}. We will give a summary of the method
+    here, for a more detailed outline and description see \cite{ASGD}. \\
 
-\subsection{Hermite-Gaussian Functions\label{sec:hermiteGaussFunc}}
-    The GTO's described can be explicitly expressed in terms of so-called
-    \txtit{Hermite-Gaussian functions}\footnote{The reason for the name is that
-    the polynomial factors generated by the differentiation are precisely the
-    Hermite polynomials.} defined as
-        \begin{equation}
-            g_n(\blds{\alpha};\blds{r},\blds{A}) = \prod_d
-            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
-        \end{equation}
-    meaning
-        \begin{equation}
-            G_n(\blds{\alpha;\blds{r},\blds{A}}) = \prod_d
-            (2\alpha_d)^{-n_d}\prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
-        \end{equation}
-    Some properties of the one-dimensional Hermite-Gaussians are as follows
+    Like the gradient descent method the adaptive stochastic gradient descent
+    method updates the parameters in the same manner as in \Arf{eq:gdupdate},
+    the difference however is that the step $\gamma$ is changed for each
+    iteration in accordance to the following
         \begin{equation}
             \begin{aligned}
-                \prd{A_x}[g_t] &= g_{t+1} \\
-                g_{t+1} &= \prdp{A_x}{t}\prd{A_x}[g_0] =
-                2\alpha(x-A_x)\prdp{A_x}{t}g_0 \\
-                g_{t+1} &= 2\alpha((x-A_x)g_t - tg_{t-1}) \\
-                (x-A_x)g_t &= \frac{1}{2\alpha}g_{t+1} + tg_{t-1}
-            \end{aligned}
-            \label{eq:hermiteGaussProp}
-        \end{equation}
-    The mentioned rewriting of the Hermite functions in terms of the
-    Hermite-Gaussians is
-        \begin{equation}
-            \phi^a_n(\blds{r}) = \prod_d N_d \sum\limits^{n_d}_{l=0} C_{n_dl}
-            g_l\left(\frac{\blds{\alpha}}{2},\blds{r},\blds{A}\right)
-        \end{equation}
-    with $C_{n_dl}$ being the $l'th$ Hermite-coefficient for the Hermite
-    polynomial of order $n_d$. This means that the matrix-elements in
-    Hartree-Fock is just a linear combination over integrals over
-    Hermite-Gaussians. The following section will tackle this in detail for the
-    two-dimensional case. The three-dimensional case is given by an excellent
-    text by Trygve Helgaker and Peter R. Taylor\cite{HelgakerTaylorGauss}, see
-    also \cite{HelgakerGauss}.
-
-\section{Integral Elements}
-    In the Hartree-Fock scheme described in \Arf{chapter:3} we need to
-    calculate the integrals which define the different matrix elements. The
-    integrals to be found are of the following form
-        \begin{equation}
-            \begin{aligned}
-                \Braket{i|j} &= \infint g_i(\alpha_i;r,A)g_j(\alpha_j;r,B) \md
-                \blds{r} \\
-                \Braket{i|x^k_d|j} &= \infint g_i(\alpha_i;r,A) r^k
-                g_j(\alpha_j;r,B) \md \blds{r} \\
-                \Braket{i|\nabla^2|j} &= \infint g_i(\alpha_i;r,A)\nabla^2
-                g_j(\alpha_j;r,B) \md \blds{r} \\
-                \Braket{ij|\frac{1}{r}|kl} &= \infint\infint
-                g_i(\alpha_i;r_1,A)g_j(\alpha_j;r_2,B) \frac{1}{r_{12}}
-                g_k(\alpha_k;r_1,C)g_l(\alpha_l;r_2,D) \md \blds{r}_1 \md
-                \blds{r}_2\\
+                \gamma_{n+1} &= \frac{a}{t_{n+1} + A} \\
+                t_{n+1} &= \text{max}(t_n + g(X_n), 0) \\
+                X_n &= - \nabla f_n \cdot \nabla f_{n+1} \\
+                g(x) &= g_{\text{min}} + \frac{g_{\text{max}} -
+                g_{\text{min}}}{1 - \frac{g_{\text{max}}}{g_{\text{min}}}
+                \me^{-\frac{x}{\omega}}}
             \end{aligned}
         \end{equation}
-    where $\md\blds{r}$ means integration over all dimensions and with the
-    $g$'s being the usual \txtit{Hermite-Gaussians} defined as
-        \begin{equation}
-            g_n(\alpha;\blds{r},\blds{A}) = \prod_d (x_d-A_d)^{n_d}
-            \me^{-\alpha (x_d-A_d)^2}
-            \label{eq:hermiteGauss2}
-        \end{equation}
-    We will in this chapter limit ourselves to work with isotropic Gaussians
-    (meaning $\alpha_d$ is the same for all dimensions) as this will yield a
-    simpler closed-form solution to the integrals. For a calculation of
-    integral elements using non-isotropic Gaussian functions see this wonderful
-    article \cite{nonIsoGauss}, this article takes gives a detailed
-    calculations of integrals over s-type non-isotropic gaussians. The
-    extension to general Gauss-Hermites can be done in the exact same manner as
-    presented here, however the proportionality factors involved in the
-    recursive relation is different. \\
+    The whole idea of the method is that the form of $g$ and the accumulative
+    combination of gradient estimations for each step the total error would
+    tend quickly to zero, meaning the central element(namely the gradient) in
+    the minimization is well behaving. \\
 
-    Before we throw ourselves out into the integrals, let us first express the
-    Hermite-Gaussians in a more convenient way(again see
-    \cite{HelgakerTaylorGauss} and \cite{HelgakerGauss}. The Gaussians can be
-    expressed as
-        \begin{equation}
-            g_n(\alpha;\blds{r},\blds{A}) = \prod_d  \prdp{A_{x_d}}{n_d}
-            \me^{-\alpha (x_d-A_d)^2} = \prod_d \prdp{A_{x_d}}{n_d}
-            g_0(\alpha;\blds{r},\blds{A})
-            \label{eq:centerDerGauss}
-        \end{equation}
-    Since the derivatives are with respect to the center variables we may pull
-    them out of the integration meaning the integrals will only be over s-type
-    Gaussians, greatly simplifying the calculations. With the mentioned
-    simplification in mind, the problem is to find a closed-form expression for
-    the integrals over s-type Gaussians.
+    The main concern with the method is the convergence, although the error in
+    the gradient estimations tend towards zero, the step-sizes themselves will
+    also be quite small after some iterations. For this reason we use the
+    adaptive method with a quasi-Newton method. This means that we start with a
+    random guess at the parameters and keep iterating with the quasi-Newton
+    method until the norm of the gradient is below some threshold, at which the
+    adaptive method is applied from that point and onward till convergence is
+    reached.
 
-    We also introduce the \txtit{Gaussian product rule}\footnote{Still in the
-    isotropic case.} which basically states that the product of two Gaussian
-    functions is just a third Gaussian centered between the center of the two.
-    The expressions give
-        \begin{equation}
-            g_0(\alpha;\blds{r},\blds{A})g_0(\beta;\blds{r},\blds{B}) =
-            K_{AB}\exp(-(\alpha+\beta)\blds{r}^2_s)
-            \label{eq:gaussianProductRule}
-        \end{equation}
-    where
-        \begin{equation}
-            \begin{aligned}
-                K_{AB} &\equiv \exp(-\frac{\alpha\beta}{\alpha+\beta}R^2_{AB})
-                \\
-                R_{AB} &= \abs{\blds{A} - \blds{B}} \\
-                \blds{r_s} &= \blds{r} - \blds{P} \\
-                \blds{P} &= \frac{\alpha\blds{A} +
-                \beta\blds{B}}{\alpha + \beta}
-            \end{aligned}
-        \end{equation}
-    the vector $\blds{r}_S$ is just somewhere between $\blds{A}$ and
-    $\blds{B}$(We will see that $r_S$ disappears when the integration is done).
-    The Gaussian product rule greatly simplifies the integral over two Gaussian
-    functions since we can just pull $K_{AB}$ out of the integration since it
-    is a constant.
+\section{Newtons-Method and Quasi-Newton
+Methods\label{sec:newtons-method_and_quasi-newton_methods}}
+    We will here explain briefly \txtit{Newton's method} and
+    \txtit{Quasi-Newton} methods as the ideas presented will be used in the
+    next section. \\
 
-\subsection{Overlap Distribution}
-    An \txtit{overlap distribution} is defined as the product between two
-    Hermite-Gaussian functions, that is
+    Newton's method\cite{linalgDavid}(or Newton-Raphson method) is originally a
+    method for finding the zeros of a function. The rule states that given a
+    real-valued function $f:\mathbb{R}\rarr\mathbb{R}$ and an initial guess
+    $x\in\mathbb{R}$ for the zero-point, recursively find better
+    approximations for the zero by
         \begin{equation}
-            \Omega_{ij} = \prod_d g_{i_d}(x_d,\alpha,A_d)g_{j_d}(x_d,\beta,B_d)
-            =
-            K_{A_dB_d}x_A^{i_d}x_B^{j_d}\me^{-(\alpha+\beta)x^2_P}
+            x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
         \end{equation}
-    with the Gaussian product rule, which is just another Gaussian function
-    centered in $P$, but with the extra \txtit{monomial} factors in
-    $\blds{r}-\blds{A}$ and $\blds{r}-\blds{B}$. These factors are troublesome
-    when integrating. With the motivation that Hermite-Gaussians make life
-    simpler, we expand the overlap distribution in a Hermite-Gaussian basis.
-    Following T. Helgaker\cite{HelgakerTaylorGauss} and working in one
-    dimension(since Hermite-Gaussians can be split in each respective
-    dimension) we have\footnote{The indices $i$ and $j$ are now in 1
-    dimension!}
-        \begin{equation}
-            \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) =
-            \sum\limits^{i+j}_{t=0} E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P})
-            \label{eq:omegaDef}
-        \end{equation}
-    Again, we stress that the indices in \Arf{eq:omegaDef} and the calculations
-    further are in 1 dimension. Explicit expressions for the coefficients
-    $E^{ij}_t$ are difficult to derive, however a set of recurrence relations
-    are possible to find using the properties of the Hermite-Gaussian
-    functions. Consider firstly the incremented distribution
-        \begin{align}
-            \Omega_{i+1,j} &= \sum^{i+1+j}_{t=0} E^{i+1,j}_tg_t \nonumber \\
-            &= \left(x_P -
-            \frac{\beta}{\alpha+\beta}(A_x-B_x)\right)\Omega_{ij} \nonumber \\
-            &= \suml{t=0}{i+j} E^{ij}_t\left(x_P -
-            \frac{\beta}{\alpha+\beta}(A_x-B_x)\right) g_t \nonumber \\
-            &= \suml{t=0}{i+j} E^{ij}_t\left(\left(tg_{t-1} +
-            \frac{1}{2(\alpha+\beta)}g_{t+1}\right) -
-            \frac{\beta}{\alpha+\beta}(A_x-B_x)g_t\right) \nonumber \\
-            &= \suml{t=0}{i+j} \left((t+1)E^{ij}_{t+1} +
-            \frac{1}{2(\alpha+\beta)}E^{ij}_{j-1} -
-            \frac{\beta}{\alpha+\beta}(A_x-B_x)\right)g_t
-            \label{eq:omegaIncr}
-        \end{align}
-    Using the properties listed in \Arf{eq:hermiteGaussProp} (mainly the
-    recurrence) and the expansion \Arf{eq:omegaDef}. The incrementation of $j$
-    follows the exact same derivation. The starting coefficient is thus
-        \begin{equation}
-            E^{00}_0 = K_{AB}
-        \end{equation}
-    This is found by inserting in $i=j=0$ into \Arf{eq:omegaIncr}, realizing
-    the exponental is the same for all $i$ and $j$ and using the orthogonality
-    between the Hermite-Gaussians\footnote{Another way of expressing this
-    statement is to say that each index $t$ in the sum corresponds to an
-    equation for $E^{ij}_t$.}. The recurrent coupled relations for the
-    $E$'s are
-        \begin{equation}
-            \begin{aligned}
-                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
-                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
-                (t+1)E^{ij}_{t+1} \\
-                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
-                \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
-                (t+1)E^{ij}_{t+1}
-            \end{aligned}
-        \end{equation}
-    The overlap distribution can with this be expanded in Hermite-Gaussian
-    functions.
+    This method would then within a number iterations find the zero that is
+    closest to $x_0$.
 
-    As mentioned, the whole point of using Hermite-Gaussian functions is
-    because of the inherent definition with the derivative with respect to the
-    centering(remember s-types). This means that for attaining the final
-    expression we must in the end differentiate the expansion coefficients. We
-    state here the coefficients differentiated with respect to the difference
-    variable $Q_x=A_x-B_x$
+    For the optimization problem the condition for a point to be an extremal is
+    \Arf{eq:mincondition} meaning, again, that one needs to find the zero of
+    the derivative. Newton's method in this case would be
         \begin{equation}
-            \begin{aligned}
-                E^{00;n+1}_0 &=
-                -\frac{2\alpha\beta}{\alpha+\beta}\left(Q_xE^{00;n}_0 +
-                nE^{00;n-1}_0\right) \\
-                E^{i+1,j;n}_t &= \frac{1}{2(\alpha+\beta)}E^{ij;n}_{t-1} -
-                \frac{\beta}{\alpha+\beta}\left(Q_xE^{ij;n}_t +
-                nE^{ij;n-1}_t\right) + (t+1)E^{ij;n}_{t+1} \\
-                E^{i,j+1;n}_t &= \frac{1}{2(\alpha+\beta)}E^{ij;n}_{t-1} -
-                \frac{\alpha}{\alpha+\beta}\left(Q_xE^{ij;n}_t +
-                nE^{ij;n-1}_t\right) + (t+1)E^{ij;n}_{t+1} \\
-                E^{ij;n}_t &\equiv \frac{\prtl^n E^{ij}_t}{\prtl Q^n_x}
-            \end{aligned}
+            x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)},\indent n\geq 0
         \end{equation}
-    Notice that these expressions are just the same relations as for the
-    coefficients, but with an extra factor in the middle.
-
-\subsection{Overlap Integral\label{susec:overlapIntegral}}
-    With The simplification to s-types and the product rule, the integration
-    may begin. Starting with the overlap $\Braket{i|j}$ and using
-    \Arf{eq:omegaDef}\footnote{Also using the following integral $\infint
-    \me^{-\lambda x^2} = \sqrt{\frac{\pi}{\lambda}},\indent \lambda>0$. See
-    \cite{handbookmath}.}
-        \begin{align}
-            \Braket{i|j} &= \infint
-            \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
-            \blds{r} \nonumber \\
-            &= \sumE{p}{i}{j} \infint g_p(\alpha,\beta,\blds{r},\blds{P})
-            \md\blds{r} \nonumber \\
-            &= \sumE{p}{i}{j} \infint (\blds{r}-\blds{P})^p \me^{-(\alpha_p +
-            \beta_p)(\blds{r} - \blds{P})^2} \md\blds{r} \nonumber \\
-            &= \sumE{p}{i}{j}
-            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
-            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
-            \label{eq:stypeOverlap}
-        \end{align}
-    The power $d$ comes from splitting the integral into the $d$ dimensions.
-    Also using the \txtit{multi-index
-    notation}(\Arf{sec:multiIndexNotation})\footnote{The power $d$ also means
-    that with the multi-index notation the entire expression in the paranthesis
-    are to be calculated for each dimension in $p$ and then multiplied
-    together.} and expanding
+    Of course in the real world one might work with multi-variate function, not
+    to worry as Newton's method for optimization problems in the multi-variate
+    case with $f:\mathbb{R}^n\rarr\mathbb{R}$ (still real-valued) is
         \begin{equation}
-            E^{ab}_{n} = \prod_d E^{a_db_d}_{n_d}
-            \label{eq:Enotation}
+            \blds{x}_{n+1} = \blds{x}_n -
+            \abs{\blds{H}f(\blds{x}_n)}^{-1}\dot\nabla f(\blds{x}_n),\indent
+            n\geq 0
         \end{equation}
-    Such that the coefficients are all just products over coefficients in each
-    dimension. A substitution in each dimension(i.e $u=x-P_x$) is also used.
-    Notice in addition that the scaling factors $\alpha$ and $\beta$ are
-    specific for each $p$ because of the overlap expansion.
+    where $\blds{H}$ is the Hessian matrix. One might also introduce a
+    step-length multiplied to the Hessian part in order to induce
+    conditions\cite{numOptNocWrig} which ensure some stability of the method.
+    \\
 
-\subsection{Potential Integral}
-    The second integral with the $x^k_d$ part shows up in the external
-    potential part of the Hamiltonian and again with the Gaussian product rule
-    the expression gives
-        \begin{align}
-            \Braket{i|x^k_d|j} &= \infint x^{k}_d
-            \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
-            \blds{r} \nonumber \\
-            &= \sumE{p}{i}{j} \infint x^k_d (\blds{r}-\blds{P})^p
-            \me^{-(\alpha_p+\beta_p)(\blds{r} - \blds{P}_p)^2} \md \blds{r}
-            \nonumber \\
-            &= \sumE{p}{i}{j}
-            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
-            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \infint
-            (u+P_d)^k\exp(-(\alpha_p+\beta_p)u^2) \md u \nonumber \\
-            &= \sumE{p}{i}{j}
-            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
-            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
-            \sum\limits_{l=0}^k {k\choose l} P^{k-l}_d \infint
-            u^l\exp(-(\alpha_p+\beta_p)u^2) \md u \nonumber \\
-            &= \sumE{p}{i}{j}
-            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
-            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
-            \sum\limits_{l=0}^k {k\choose l}
-            \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
-            \left((-1)^l+1\right) \Gamma\left(\frac{l+1}{2}\right)
-            \label{eq:potIntegral}
-        \end{align}
-    The integrals are split in each dimension and the dimensions not equal to
-    $d$(in $x^k_d$) are pulled out and the approach in \Arf{eq:stypeOverlap} is
-    applied. The integral over dimension $d$ is then substituted with
-    $u=x_d+P_d$. In line four $(u+P_d)^k$ is rewritten with the \txtit{binomial
-    expansion}\footnote{The integral $\infint x^n\me^{-ax^2}\md x =
-    \frac{1}{2}a^{-\frac{n}{2}}\Gamma\left(\frac{k+1}{2}\right),\indent n>-1,
-    n\;\text{even}$, see \cite{handbookmath}.}.
+    Newton's method, in most cases, converges faster(less iterations) towards
+    the minimum than gradient descent making it favorable, however the full
+    Hessian has to be known. This matrix(or its inverse) is in many cases too
+    expensive to compute or difficult to express in closed-form. In these cases
+    the class of methods knows as Quasi-Newton methods can be utilized. \\
 
-\subsection{Laplacian Integral}
-    The third integral with the Laplacian operator arises in the kinetic part
-    of the Hamiltonian. This integral can be expressed in terms of
-    \Arf{eq:stypeOverlap}, the overlap integral, however the Laplacian applied
-    to a Hermite-Gaussian has to be calculated first
-        \begin{align}
-            \nabla^2 g_i(\alpha;\blds{r},\blds{A}) &= \sum_d \prd{x_d}[][2]
-            \left(\prod_{d'} \left(x - A_{d'}\right)^{i_{d'}}_{d'} \exp(-\alpha
-            \left(x_{d'} - A_{d'}\right)^2)\right)\nonumber \\
-            &= \sum_d \prod_{d'\neq d} g_{i,d'} \prd{x_d}[][2]\left(\left(x_d -
-            A_d\right)^{i_d} \exp(-\alpha \left(x_d - A_d\right)^2)\right)
-            \nonumber \\
-            &= \sum_d \prod_{d'\neq d} g_{i,d'} g_{i,d}
-            \Bigg(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
-            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} \nonumber \\ 
-            &\hspace{3.5cm}+
-            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg) \nonumber
-            \\
-            &= g_i\sum_d \Bigg(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
-            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} \nonumber \\
-            &\hspace{2.0cm}+
-            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg)
-        \end{align}
-    Now for the integral we have
-        \begin{align}
-            \Braket{i|\nabla^2|j} &= \infint
-            g_i(\alpha;\blds{r},\blds{A})\nabla^2g_j(\beta;\blds{r},\blds{B}) 
-            \md\blds{r} \nonumber \\
-            &= \sum_d\prod_{d'\neq d}
-            \Braket{i_{d'}|\sigma_{d'}(S_d(\beta;x-B_d))|j_{d'}}
-            \label{eq:laplacianIntegral}
-        \end{align}
+    Quasi-Newton methods give an estimate of the inverse Hessian by using the
+    first derivatives. Introduce the Taylor approximation of $f$ around an
+    iteration point $\blds{x}_n$
+        \begin{equation}
+            f(\blds{x}_k + \blds{s}) \approx f(\blds{x}_k) + \left(\nabla
+            f(\blds{x}_k)\right)^T\blds{s} + \frac{1}{2}\blds{s}^T \blds{H}
+            \blds{s}
+        \end{equation}
+    differentiate with respect to the change $\blds{s}$
+        \begin{equation}
+            \nabla_s f(\blds{x}_k + \blds{s}) \approx \nabla f(\blds{x}_k) +
+            \blds{H}\blds{s}
+            \label{eq:secantEquationNewton}
+        \end{equation}
+    and introduce the condition in \Arf{eq:mincondition} and set this
+    gradient to zero to find the change $\blds{s}$
+        \begin{equation}
+            \blds{s} = -\blds{H}^{-1} \nabla f(\blds{x}_k)
+        \end{equation}
+    Another way to determine this particular form for $\blds{s}$ is to say that
+    the approximation to the Hessian must satisfy the \txtit{secant equation}
+    which is \Arf{eq:secantEquationNewton}. The updating rule for $\blds{x}_n$
+    is then given by
+        \begin{equation}
+            \blds{x}_{n+1} = \blds{x}_n - \gamma_k\blds{H}^{-1}_n\nabla
+            f(\blds{x}_n)
+        \end{equation}
+    where $\gamma_k$ is again introduced to give some stability conditions. The
+    important part of this equation is the index on the inverse Hessian. This
+    is essentially just a relabeling at the change $\blds{s}$ is technically
+    applied for each iterate $\blds{x}_n$. Note also that $\blds{s}$ takes the
+    role of the search direction in this case. The algorithm is then to make an
+    initial guess on the Hessian(usually just the identity matrix) and then use
+    a type of updating formula that finds a new approximation for the Hessian
+    at each step $n$. There are a number of these updating formulas, just to
+    mention some we have DFP, SR1, McCormick, Broyden, BFGS and more. The one
+    we will mention in more detail is the BFGS method, but a main formula that
+    shows up in all of the updating methods is the \txtit{Sherman-Morrison
+    formula} for the inverse. This basically means that the need for
+    calculation of the inverse matrix is completely removed. \\
+
+    With the mentioned expression we can devise an algorithm similar to
+    Newton's method for finding the minimum $\blds{x}_m$. Starting with an
+    initial guess for the inverse Hessian $\blds{H}^{-1}_0$ and minimum
+    $\blds{x}_0$ with the condition that $\blds{H}^{-1}_0$ is positive-definite
+    (identity matrix is a nice start if nothing else is known) proceed with
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
+                    startstop/.style = {base, fill=Maroon!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=Maroon!25, drop shadow},
+                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily},
+                align=center]
+            \node (start) [activityStarts] {
+                Initialize $\blds{x}_0$ and find $\nabla f({\blds{x}_0})$ \\
+                Set $\blds{H}^{-1}_0$ and $n=1$.
+            };
+            \node (LS) [process, below of=start] {
+                Perform \txtit{linesearch} giving $\gamma_n$.
+            };
+            \node (update) [activityRuns, below of=LS] {
+                Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma_n
+                \blds{H}^{-1}_{n-1}\nabla f\left(\blds{x}_{n-1}\right)$
+            };
+            \draw[->] (start) -- (LS);
+            \draw[->] (LS) -- (update);
+            \node (conv) [startstop, below of=update, yshift=-0.5cm] {
+                Check if \Arf{eq:minconditionapprox} holds
+            };
+            \draw[->] (update) -- (conv);
+            \node (no) [below left of=conv, xshift=-4.0cm, yshift=-0.3cm] {
+                $\abs{\nabla_{x} f} > \epsilon$
+            };
+            \node (hupdate) [process, above of=no, xshift=-2.0cm, yshift=0.5cm] {
+                Use $\nabla f(\blds{x}_n)$ and $f(\blds{x}_{n-1})$ in an \\
+                updating formula of choice to find $\blds{H}^{-1}_n$ \\
+                Increment index $n {\footnotesize\mathrel{+}=} 1$
+            };
+            \draw[->] (conv) to [out=180, in=0] (no);
+            \draw[->] (no) to [out=90, in=-90] (hupdate);
+            \draw[->] (hupdate) to [out=90, in=180] (LS);
+            \node (yes) [below of=conv] {
+                $\abs{\nabla_{x} f} \leq \epsilon$
+            };
+            \draw[->] (conv) -- (yes);
+            \node (end) [activityStarts, below of=yes] {
+                Output $\blds{x}_m=\blds{x}_n$
+            };
+            \draw[->] (yes) -- (end);
+        \end{tikzpicture}
+        \caption{Quasi-Newton algorithm.\label{fig:QNalgflow}}
+    \end{figure}
+
+\section{BFGS Method\label{sec:BFGS}}
+    In the previous section(also mentioned in \Arf{fig:QNalgflow}) we gave an
+    outline for Newton's method and the class known as Quasi-Newton methods.
+    The latter used an approximation for the inverse of the Hessian matrix,
+    which was updated at each step in the algorithm. For the sake of brevity
+    only conditions employed to arrive at the expression for the updating
+    formula and the formula itself is given here, for more see \cite{BFGSB,
+    BFGSF, BFGSG, BFGSS, numOptNocWrig}. The conditions enforced is
+        \begin{itemize}
+            \item Secant condition: $\blds{H}_{n+1} \blds{s}_n = \nabla
+                f(\blds{x}_{n+1}) - \nabla f(\blds{x}_n)$
+            \item Strong curvature: $\blds{s}^T_k\cdot (f(\blds{x}_{n+1}) -
+                \nabla f(\blds{x}_n)) > 0$
+        \end{itemize}
+    and the resulting formula states with $\blds{y}_k = f(\blds{x}_{n+1}) -
+    \nabla f(\blds{x}_n)$
+        \begin{equation}
+            \blds{H}_{n+1} = \blds{H}_n +
+            \frac{\blds{y}_n\blds{y}^T_n}{\blds{y}^T_n \blds{s}_n} -
+            \frac{\blds{H}_n\blds{s}_n\blds{s}^T_n\blds{H}_n}
+            {\blds{s}^T_n\blds{H}_k\blds{s}_n}
+            \label{eq:BFGSdef}
+        \end{equation}
+    With the Sherman-Morrison formula\cite{shermorInv} the inverse is updated
     with
         \begin{equation}
-            \begin{aligned}
-                S_d(\alpha;x_d-A_d) &\equiv
-                \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
-                2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
-                i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \\
-                \sigma_d(S_d) &\equiv \left\{\begin{matrix}
-                                            1,&\indent d' \neq d \\
-                                            S_d,&\indent d' = d
-                                            \end{matrix}
-                                        \right.
-            \end{aligned}
-        \end{equation}
-    meaning the Laplacian integral can be expressed in terms of the overlap
-    integrals $\Braket{i|j+2}$, $\Braket{i|j}$ and
-    $\Braket{i|i-2}$\footnote{Since $xg_i=g_{i+1}$ and
-    $\frac{g_i}{x}=g_{i-1}$.}.
-
-\subsection{Coulomb Potential Integral}
-    Lastly, the troublesome\footnote{Damn inverse term prevents dimensional
-    decomposition.} Coulomb integral needs to be calculated. Due to the $1/r$
-    term we cannot split the integral in each respective dimension as
-    previously. Before we approach the full Coulomb integral, lets calculate a
-    simpler integral over a so-called \txtit{Coulomb Potential distribution}
-        \begin{equation}
-            \infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
-            \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r}
-        \end{equation}
-    The calculation of this integral will be beneficial for the calculation of
-    the Coulomb integral as we can reuse most of the tricks used. With
-    \Arf{eq:gaussianProductRule}, the Gaussian product rule, in mind. We
-    rewrite the inverse term with
-        \begin{equation}
-            \infint \me^{r^2_B t^2} \md t = \frac{\sqrt{\pi}}{r_B} \Rarr
-            \frac{1}{r_B} = \frac{1}{\sqrt{\pi}} \infint \me^{r^2_Bt^2} \md t
-            \label{eq:onelectronTrick1}
-        \end{equation}
-    The Coulomb potential integral is thus, with
-    \Arf{eq:gaussianProductRule}(again the product rule)
-        \begin{align}
-            \infint\infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
-            \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r} &=
-            \frac{1}{\sqrt{\pi}}\infint \me^{-\alpha\left(\blds{r} -
-            \blds{A}\right)^2} \me^{t^2(\blds{r} - \blds{B})^2} \md\blds{r} \md
-            t \nonumber \\
-            &= \frac{1}{\sqrt{\pi}} \infint\infint \me^{-\frac{\alpha
-            t^2}{\alpha + t^2}\left(\blds{A} - \blds{B}\right)^2}
-            \me^{-(\alpha+t^2)r^2_S} \md\blds{r} \md t \nonumber \\
-            &= \frac{1}{\sqrt{\pi}} \infint \left(\frac{\pi}{\alpha +
-            t^2}\right)^{\frac{d}{2}} \me^{-\frac{\alpha t^2}{\alpha +
-            t^2}\left(\blds{A} - \blds{B}\right)^2} \md t
-            \label{eq:coulombPotentialIntegral}
-        \end{align}
-    The integral over $t$ has to be addressed separately for two- and three
-    dimensions. For the three-dimensional case the reader is referred to
-    \cite{HelgakerTaylorGauss}. Here we will derive a closed-form form
-    expression for the two-dimensional case. First let us use the following
-    substitution
-        \begin{equation}
-            \begin{aligned}
-                u &= \frac{t}{\sqrt{\alpha+t^2}} \\
-                t &= u\sqrt{\frac{\alpha}{1-u^2}} \\
-                \frac{\md u}{\md t} &= \frac{\alpha}{(\alpha +
-                t^2)^{\frac{3}{2}}}
-            \end{aligned}
-            \hspace{2.5cm}
-            \begin{aligned}
-                \lim\limits_{t\rarr -\infty} u(t) &= -1 \\ 
-                \lim\limits_{t\rarr \infty} u(t) &= 1
-            \end{aligned}
-            \label{eq:uSubs1}
-        \end{equation}
-    The integrand(ignoring the exponential part) is then
-        \begin{align}
-            \frac{\md t}{\alpha + t^2} &= \frac{1}{\alpha + t^2} \frac{(\alpha +
-            t^2)^{\frac{3}{2}}}{\alpha} \md u \nonumber \\
-            &= \frac{\sqrt{\alpha + t^2}}{\alpha} \md u \nonumber \\
-            &= \frac{t}{\alpha u} \md u \nonumber \\
-            &= \frac{1}{\alpha u} u\sqrt{\frac{\alpha}{1-u^2}} \md u \nonumber \\
-            &= \frac{1}{\sqrt{\alpha}}\sqrt{\frac{1}{1-u^2}} \md u
-        \end{align}
-    giving
-        \begin{align}
-            I_{\text{2D}} = \sqrt{\frac{\pi}{\alpha}}\int\limits^1_{-1}
-            \frac{1}{\sqrt{1-u^2}} \me^{-\alpha u^2\abs{\blds{A} - \blds{B}}^2}
-            \md u
-            \label{eq:oneElectron2D}
-        \end{align}
-    and for the three-dimensional case we have a simpler form(easily seen with
-    the same substitution)
-        \begin{align}
-            I_{\text{3D}} = \pi\int\limits^1_{-1} \me^{-\alpha u^2\abs{\blds{A}
-            - \blds{B}}^2} \md u
-            \label{eq:oneElectron3D}
-        \end{align}
-    These integrals must be solved numerically using \txtit{Chebyshev-Gauss
-    Quadrature}\cite{gausschebyshev}. One can also rewrite the 2D-integral in
-    terms of the \txtit{Modified Bessel function of first kind} by using
-    $u^2=1/2(1 - \cos(\theta)$\cite{modifiedBessel}.
-    \cite{HelgakerTaylorGauss}. A take on this resulted nowhere as the closed
-    form expanded itself in ever-increasing order of polynomial factors with
-    the first and second order of the modified Bessel function of first kind.
-    The 3D-integral can be rewritten with an \txtit{incomplete Gamma function}
-    From \Arf{eq:centerDerGauss}, the integrals have to be differentiated in
-    order to get the final closed form expressions, see \Arf{sub:445}.
-
-\subsection{Coulomb Interaction Integral}
-    In the previous section an expression for integral over a Coulomb potential
-    was derived. Before we embark into handling the full Coulomb interaction
-    integral, another exercise with simpler interaction integral is worthwhile.
-    The integral in question is
-        \begin{equation}
-            I' = \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
-            \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
-            \blds{r}}} \md\blds{r} \md\blds{r'}
-            \label{eq:coulombInteractionSimple}
-        \end{equation}
-    This is an interaction between two distributions. Firstly, notice that we
-    can rewrite the distribution centered in $\blds{A}$ and the Coulomb
-    interaction with the previously calculated Coulomb potential integral given
-    in \Arf{eq:coulombPotentialIntegral}. Using $I$ as a general label for
-    \Arf{eq:oneElectron2D} and \Arf{eq:oneElectron3D} we have
-        \begin{align}
-            I' &= \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
-            \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
-            \blds{r}}} \md\blds{r} \md\blds{r'} \nonumber \\
-            &= \infint I_D(\alpha;\abs{\blds{r}-\blds{A}}) \me^{-\beta(\blds{r}
-            - \blds{B})^2} \md\blds{r}
-            \label{eq:Cintr1}
-        \end{align}
-    Inserting in the definition for $u$(the substitution in \Arf{eq:uSubs1})
-    and using the extremely useful Gaussian product rule for the product
-    between the distribution centered in $\blds{B}$ and the exponential factor
-    in $I$(which is labelled the same for both the two- and three dimensional
-    case) is
-        \begin{equation}
-            \me^{-\alpha u^2(\blds{r}-\blds{A})^2} \me^{-\beta(\blds{r} -
-            \blds{B})^2} = \me^{-(\alpha u^2 + \beta)\blds{r_S}^2}
-            \me^{-\frac{\alpha u^2\beta}{\alpha u^2 + \beta}
-            (\blds{A}-\blds{B})^2}
-        \end{equation}
-    Inserting this into \Arf{eq:Cintr1} with
-        \begin{equation}
-            \upsilon \equiv \left\{
-                \begin{matrix}
-                    \sqrt{\frac{\pi}{\alpha}}\sqrt{\frac{1}{1-u^2}},&\indent
-                    \text{2D} \\
-                    \pi,&\indent \text{3D}
-                \end{matrix}\right.
-        \end{equation}
-    we have
-        \begin{align}
-            I' &= \infint \int\limits^1_{-1} \upsilon \me^{-(\alpha u^2 +
-            \beta)\blds{r_S}^2} \me^{-\frac{\alpha u^2\beta}{\alpha u^2 +
-            \beta} (\blds{A}-\blds{B})^2} \md\blds{r}\md u \nonumber \\
-            &= \int\limits^1_{-1} \upsilon \left(\frac{\pi}{\alpha u^2 +
-            \beta}\right)^{\frac{d}{2}} \me^{-\frac{\alpha u^2\beta}{\alpha u^2
-            + \beta}(\blds{A}-\blds{B})^2} \md u
-        \end{align}
-    Specializing to the two-dimensional case and substituting
-        \begin{equation}
-            \begin{aligned}
-                v &= u\sqrt{\frac{\alpha+\beta}{\alpha u^2 + \beta}} \\
-                \frac{\md v}{\md u} &= \frac{\beta\sqrt{\alpha+\beta}}{(\alpha
-                u^2 + \beta)^{3/2}} \\
-                u &= v \sqrt{\frac{\beta}{\alpha+\beta - \alpha v^2}} \\
-                v(-1) &= -1 \\
-                v(1) &= 1
-            \end{aligned}
-        \end{equation}
-    The integrand is
-        \begin{align}
-            \frac{1}{\sqrt{1 - u^2}} \frac{1}{\alpha u^2 + \beta} \md u &=
-            \frac{1}{\sqrt{1-u^2}} \frac{1}{\alpha u^2 + \beta} \frac{(\alpha
-            u^2 + \beta)^{3/2}}{\beta\sqrt{\alpha+\beta}}\md v \nonumber \\
-            &= \frac{1}{\sqrt{1-u^2}} \frac{u}{\beta v}\md v \nonumber \\
-            &= \sqrt{\frac{\alpha+\beta -\alpha
-            v^2}{(\alpha+\beta)(1-v^2)}}\frac{1}{\beta
-            v}v\sqrt{\frac{\beta}{\alpha+\beta-\alpha v^2}} \md v \nonumber \\
-            &= \frac{1}{\sqrt{\beta(\alpha+\beta)}} \frac{1}{\sqrt{1 - v^2}}
-            \md v
-        \end{align}
-    we have
-        \begin{equation}
-            I'_{\text{2D}} =
-            \frac{\pi^{\frac{3}{2}}}{\sqrt{\alpha\beta(\alpha+\beta)}}
-            \int\limits^{1}_{-1} \frac{1}{\sqrt{1 - v^2}}
-            \me^{-\frac{\alpha\beta}{(\alpha + \beta)}v^2(\blds{A}-\blds{B})^2}
-            \md v
-            \label{eq:coulombInteractionSimpleFinal}
-        \end{equation}
-    This expression will be of great use when calculating the final full
-    interaction integral over the Coulomb distribution. The next section will
-    derive the mentioned recurrence relation before the full Coulomb integral
-    is calculated
-
-\subsection{Recurrence Relation\label{sub:445}}
-    Following directly from \cite{HelgakerTaylorGauss}, we proceed with finding
-    a similar recurrence relation for the derivatives. We define a function
-    containing the integral which needs to be solved numerically
-        \begin{equation}
-            \begin{aligned}
-                \zeta_n(x) &\equiv \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
-                u^2}} \me^{-u^2x} \md u \\
-                \prd{x}[\zeta_n] &= -\zeta_{n+1}
-            \end{aligned}
-            \label{eq:zetaDef}
-        \end{equation}
-    The Coulomb potential integral is then, in terms of $\zeta_n(x)$
-        \begin{equation}
-            \twoDI = \sqrt{\frac{\pi}{\alpha}} \zeta_0\left(\alpha
-            R^2_{AB}\right)
-        \end{equation}
-    and the first derivative with respect to $A_x$ is
-        \begin{align}
-            \prd{A_x}[\twoDI] &= \sqrt{\frac{\pi}{\alpha}} \prd{A_x}
-            \zeta_0\left(\alpha R^2_{AB}\right) \nonumber \\
-            &= -2\sqrt{\alpha\pi}X_{AB}\zeta_1\left(\alpha R^2_{AB}\right)
-        \end{align}
-    With this we define an auxiliary function
-        \begin{equation}
-            \begin{aligned}
-                \xi^n_{tu} &=\prdp{A_x}{t}\prdp{A_y}{u} \xi^n_{00} \\
-                \xi^n_{00} &= (-2)^n\alpha^{n-\frac{1}{2}} \zeta_n\left(\alpha
-                R^2_{AB}\right)
-            \end{aligned}
-            \label{eq:auxiliary2d1}
-        \end{equation}
-    and take a look at the incrementation of $t$
-        \begin{align}
-            \xi^n_{t+1,u} &= \prdp{A_x}{t}\prdp{A_y}{u} \prd{A_x}[\xi^n_{00}]
-            \nonumber \\
-            &= \prdp{A_x}{t}X_{AB}\xi^{n+1}_{0u}
-            \label{eq:Rtincr}
-        \end{align}
-    Using the commutator between
-    $\prtl^t_{A_x}$\footnote{$\prtl^t_x=\prd{x}[][t]$}
-        \begin{align}
-            \prd{A_x}[][t] X_{AB} &= \left[\prd{A_x}[][t], X_{AB}\right] +
-            X_{AB}\prd{A_x}[][t] \nonumber \\
-            &= t\prd{A_x}[][t-1] + X_{AB}\prd{A_x}[][t]
-        \end{align}
-    the final form of \Arf{eq:Rtincr} is\footnote{The incrementation of $u$ is
-    derived in the exact same manner as with $t$.}
-        \begin{equation}
-            \begin{aligned}
-                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
-                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u}
-            \end{aligned}
-        \end{equation}
-    With this all Hermite integrals of order $t+u\leq N$ can be calculated from
-    $\zeta$ of order $n\leq N$, the only difference being $X_{AB}$ and
-    $Y_{AB}$. The Coulomb interaction integral
-    (\Arf{eq:coulombInteractionSimpleFinal}) follows this exact recurrence, but
-    with a different proportionality factor $\alpha\beta/(\alpha+\beta)$. We
-    will write it out for the sake of clarity
-        \begin{equation}
-            \begin{aligned}
-                \prd{A_x}[I'_{\text{2D}}] &= -\frac{2\alpha\beta}{\alpha+\beta}
-                X_{AB}\zeta_1\left(\frac{\alpha\beta}{\alpha+\beta}R^2_{AB}\right)
-                \\
-                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
-                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
-            \end{aligned}
-            \label{eq:recurrInteraction}
-        \end{equation}
-    Notice that the only difference between the obtained recurrence relations
-    and the ones obtained by Helgaker\cite{HelgakerGauss} is in
-    \Arf{eq:auxiliary2d1} and \Arf{eq:recurrInteraction}. Other than this the
-    incrementation of $\zeta_n$ gives the exact same $X_{AB}$(and similar for
-    the other directions) as with the incomplete gamma function.
-
-\subsection{Coulomb Distribution Integral}
-    With the derived expressions for the Coulomb potential integral the full
-    two-body distribution can be treated. The expression with the
-    simplification in \Arf{eq:centerDerGauss} gives
-        \begin{align}
-            \Braket{ij|\frac{1}{r_{12}}|kl} &= \infint\infint
-            \Omega_{ik}(\blds{\alpha},\blds{\gamma},\blds{r_1},
-            \blds{A},\blds{C}) \frac{1}{\abs{\blds{r_1} - \blds{r_2}}}
-            \Omega_{jl}(\blds{\beta},\blds{\delta},\blds{r_2},
-            \blds{B},\blds{D}) \md\blds{r_1} \md\blds{r_2} \nonumber \\
-            &= \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q \infint\infint
-            \frac{g_{p}(\alpha+\gamma,\blds{r_1},\blds{P})
-            g_{q}(\beta+\delta,\blds{r_2},\blds{Q})}{\abs{\blds{r_1} -
-            \blds{r_2}}} \md\blds{r_1} \md\blds{r_2}\nonumber \\
-            &= \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
-            E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
-            \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
-            \delta},\blds{R_{S_1S_2}}\right)
-            \label{eq:coulomb_dist_integral_stype}
-        \end{align}
-    Where we have used the multi-index\footnote{Essentially just expanding an
-    index in each dimension, for instance $i=(i_x,i_y,i_z)$ with corresponding
-    $p=(p_x, p_y, p_z)$ with each index inside the tuple running to each
-    respective index, meaning for instance $p_x=0$ to $i_x$ and so on.}
-    notation for $p$, $q$, $i$, $k$, $j$, and $l$ \Arf{eq:Enotation}
-    and used \Arf{eq:coulombInteractionSimpleFinal} to arrive at the final
-    step. An additional simplification due to the fact that $\zeta_n$ is only
-    dependant on the relative distance of the centers is also used, for the
-    x-coordinate it is stated as
-        \begin{equation}
-            \prdp{P_x}{p_x}\prdp{Q_x}{q_x} = (-1)^{p_x+q_x} \prdp{P_x}{p_x+q_x}
-        \end{equation}
-    and the same for the other directions. The factor $a$ is
-        \begin{equation}
-            a \equiv \left\{\begin{aligned}
-                \frac{\pi^{\frac{3}{2}}}
-                {\sqrt{(\alpha+\gamma)(\beta+\delta)}},\indent \text{2D} \\
-                \frac{\pi^{\frac{5}{2}}}
-                {(\alpha+\gamma)(\beta+\delta)},\indent \text{3D} \\
-            \end{aligned}\right.
+            \blds{H}^{-1}_{n+1} = \blds{H}^{-1}_n +
+            \frac{\left(\blds{s}^T_n\blds{y}_n +
+            \blds{y}^T_n\blds{H}^{-1}_n\blds{y}_n\right)
+            \left(\blds{s}_n\blds{s}^T_n\right)}
+            {\left(\blds{s}^T_n\blds{y}_n\right)^2} -
+            \frac{\blds{H}^{-1}_n\blds{y}_n\blds{s}^T_n +
+            \blds{s}_n\blds{y}^T_n\blds{H}^{-1}_n}{\blds{s}^T_n\blds{y}_n}
+            \label{eq:shermanmorrisondef}
         \end{equation}
 
-\section{Double-Well Functions\label{sec:dwfunc}}
-    This section will explain the building of a basis for the
-    \txtit{double-well potential}. We will expand them in a linear combination
-    of harmonicoscillator functions and find the coefficients of this expansion
-    by solving the arising eigenvalue-problem. Let us first express the
-    potential
+\section{Linesearch methods\label{sec:linesearch_methods}}
+    In the optimization methods described in
+    \Arf{sec:newtons-method_and_quasi-newton_methods} there was one important
+    part neglected, namely how to find the step-length $\gamma_n$ introduced in
+    the updating formula. As it is, one can choose it in any manner desired,
+    however a class of one-dimensional minimization methods knows as
+    \txtit{lineasearch methods} are often used to get an (usually rough)
+    estimate for the step length at each iteration in the optimization. These
+    methods all have some conditions for stability and convergence as an innate
+    property, meaning the validity of the step length is better\footnote{It's
+    actually present...}. Some popular linesearch methods are backtracking
+    linesearch, Hager-Zhang method, Strong Wolfe conditions and the
+    More-Thuente linesearch method. The one used here is the latter.  For an
+    exact derivation and explanation of linesearch methods in general see
+    \cite{numOptNocWrig}. See also the fantastic article by Jorge J.  Mor{\'e}
+    and David J. Thuente\cite{moreThuenteArticle}. \\
+    The basic idea of linesearch methods is to solve a one-dimensional problem
+    of minimizing
         \begin{equation}
-            \UDW(r) = \VHO(r) + \VDW_n(r)
-            \label{eq:UDW}
+            \phi(\alpha) = f(\alpha \blds{p}_k + \blds{x}_k)
         \end{equation}
-    A double well potential is essentially just a perturbation of the usual
-    Harmonicoscillator potential(which is a single-well). The $\VDW_n$ part is
-    assumed to a polynomial of degree $n$. This means that the integral over
-    such a potential can be calculated using \Arf{eq:potIntegral}.
+    with $f:\mathbb{R}^n\rarr\mathbb{R}$ and $\blds{p}_k$ is a search direction
+    as described with the quasi-Newton methods and $\blds{x}_k$ is the current
+    iterate(point) in the minimization. Notice also that
+        \begin{equation}
+            \prd{\alpha}[\phi] = \blds{p}_k \cdot \nabla f(\alpha \blds{p}_k +
+            \blds{x}_k)
+        \end{equation}
+    by the chain-rule and the gradient on the right hand side is over the
+    parameters $\blds{x}_k$. One usually perform this linesearch loosely since
+    the search direction is not necessarily directly pointing towards the
+    minimum, meaning we only search for a step length that gives a
+    \txtit{sufficient decrease} in the function value $f$. The basic procedure
+    is then to use one of these linesearch methods to find $\gamma_n$ at each
+    iteration in the minimization and then use the step-length outputted by the
+    linesearch algorithm to update the parameters.
 
-\subsection{The Eigenvalue problem}
-    The mentioned eigenvalue problem comes from the basis expansion of the
-    spacial part and from the trick of projecting with a single function from
-    left. We will explain briefly. First let us express the expansion,
-        \begin{equation}
-            \ket{\psiDW_p} = \sumll{l}C_{lp}\ket{\psiHO_l}
-        \end{equation}
-    and then project from left the bra $\bra{\psiHO_k}$ in the
-    inner-product space of $h^{\text{DW}}$
-        \begin{equation}
-            \Braket{\psiHO_k|\hDW|\psiDW_p} =
-            \sumll{l}C_{pl}\Braket{\psiHO_k|\hDW|\psiHO_l} =
-            \sumll{l}C_{pl}\varepsilon^{\text{DW}}_l
-        \end{equation}
-    This gives us an eigenvalue equation
-        \begin{equation}
-            \blds{H}\blds{C} = \blds{\varepsilon^{\text{DW}}}\blds{C}
-        \end{equation}
-    with
-        \begin{equation}
-            H_{ij} = \Braket{\psiHO_i|h^{\text{DW}}|\psiHO_j}
-        \end{equation}
-    Using \Arf{eq:UDW} we can write $H_{ij}$ as
-        \begin{equation}
-            H_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
-            \Braket{\psiHO_i|\VDW_n|\psiHO_j}
-            \label{eq:Heigdef}
-        \end{equation}
-    by using the solution to Schrödinger's equation for the harmonic oscillator
-    system. \\
+\section{Stochastic-Adaptive-BFGS\label{sec:stochastic_adaptive_bfgs}}
+    In \Arf{sec:BFGS} we mentioned the popular BFGS method for updating the
+    Hessian matrix and its inverse. A more resent method which uses that method
+    with the stochastic nature of a functional expectation value is a method
+    called SABFGS\cite{SABFGS} described by Zhou C., Gao W. and Goldfarb D.
+    This method uses the BFGS update for the Hessian, but uses an adaptive step
+    instead of the deterministic linesearch for the step-size. \\ 
+    There one problem however, the method itself is only valid for
+    \txtit{self-concordant} functions. The energy-functional is by-far not
+    within this criteria. This problem can be accounted for by using the
+    Wolfe-conditions. That is to check that the step-size satisfies the
+    Wolfe-conditions at each iteration before actually making an update. The
+    algorithm presented takes this into account aswell.
+        \begin{algorithm}[H]
+            \caption{SA-BFGS\label{alg:sabfgs}}
+            \begin{algorithmic}[H]
+                \State Input: $\blds{x}_0$, $\blds{H}_0$, $\blds{G}_0$, $\beta
+                < 1$
+                \For{$k=0$ to $M_{\text{max}}$}
+                    \State $\blds{g}_k = \nabla F_k(\blds{x}_k)$
+                    \Comment{Gradient in current step}
+                    \State $\blds{d}_k = -\blds{H}_k\blds{g}_k$ \Comment{Search
+                    direction}
+                    \State $\delta_k =
+                    \sqrt{\blds{d}^T_k\blds{G}_k(\blds{x}_k)\blds{d}_k}$
+                    \State $\alpha_k =
+                    \frac{\blds{g}^T_k\blds{H}_k\blds{g}_k}{\delta^2_k}$
+                    \State $t_k = \frac{\alpha_k}{1 + \alpha_k\delta_k}$
+                    \Comment{Step size}
+                    \State $\blds{g}_{k+1} = \nabla F_k(\blds{x}_k +
+                    t_k\blds{d}_k)$ \Comment{Propose new set of parameters}
+                    \If{$\blds{g}^T_{k+1}\blds{d}_k <
+                    \beta\blds{g}^T_k\blds{d}_k$} \Comment{Wolfe-Conditions}
+                    \State Set $\blds{d}_k = -\blds{g}_k$
+                    \State Recompute $\delta_k$, $\alpha_k$ and $t_k$
+                    \State Set $\blds{H}_{k+1} = \blds{H}_{k}$ and
+                    $\blds{G}_{k+1} = \blds{G}_{k}$
+                    \Else
+                    \State Set $\blds{H}_{k+1}$ with BFGS inverse update
+                    \Comment{\Arf{eq:shermanmorrisondef}}
+                    \State Set $\blds{G}_{k+1}$ with BFGS update
+                    \Comment{\Arf{eq:BFGSdef}}
+                    \EndIf
+                    \State $\blds{x}_{k+1} = \blds{x}_k + t_k\blds{d}_k$
+                    \Comment{Update parameters}
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
 
-    We are now in a position to build a basis for the double-well system by
-    reusing all the results and expressions concerning the single-well system.
-    The only difference is the extra integral over $\VDW_n$ where $n$ would be
-    larger than $2$(as is the case with the harmonic oscillator potential). \\
-
-    For clarity let us also write out the expression for the resulting
-    Hartree-Fock basis to be used with the Variational Monte-Carlo method.
+\section{Simulated Annealing\label{sec:simulated_annealing}}
+    A huge problem with the mentioned methods is the fact that they only
+    converge towards a \txtit{local minimum} which is not necessarily the
+    \txtit{global minimum} which of desire. Many methods already exists to
+    account for this, the one used in this thesis and to be described in this
+    section is the method known as \txtit{simulated annealing}. Simulated
+    annealing follows a simple algorithm, namely
+        \begin{algorithm}[H]
+            \caption{Simulated Annealing\label{alg:simulated_annealing}}
+            \begin{algorithmic}[H]
+                \State Initialize a solution $s=s_0$. \Comment{I.e a set of
+                parameters $\{\alpha\}_{k=1}^N$}
+                \For{$j=1$ to $M_{\text{max}}$}
+                    \State Set temperature $T$ with specific function for
+                    $\frac{j}{M_{\text{max}}}$
+                    \State Pick a new state $s_{\text{new}}$ within some
+                    neighbour of $s$
+                    \If{$P(f(s), f(s_{\text{new}}), T) \geq \xi$} 
+                    \Comment{$\xi$ uniformly distributed random in $[0,1]$.}
+                        \State $s = s_{\text{new}}$
+                    \EndIf
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
+    The idea is to start with searching a large part of the solution space,
+    since a high temperature increases the search-range, and hope that as $j$
+    reaches $M_{\text{max}}$ the probability function $P$ is such that the
+    solution is trapped within the down-hill of the global minimum. \\ 
+    The specific form of $P, T$ and how to choose a neighbour is specific from
+    problem to problem however an effective and simple way to define these is
+    by using the Metropolis-algorithm with
         \begin{equation}
-            \psi^{\text{HF}}_p = \sumll{kl} C^{\text{HF}}_{pk}C_{kl}\psiHO_l
+            P = \exp(-\frac{f({\text{new}) - f(s)}}{T})
         \end{equation}
-
-    The procedure of diagonalizing $H_{ij}$ also gives an additional set of
-    energies we can use. The full form of the integral-elements involved in
-    Hartree-Fock is thus
+    define the temperature as
         \begin{equation}
-            \begin{aligned}
-                \Braket{\psiDW_p|\psiDW_q} &= \delta_{pq}
-                \varepsilon^{\text{DW}}_p\delta_{pq} \\
-                \Braket{\psiDW_p|h^{\text{DW}}|\psiDW_q} &=
-                \varepsilon^{\text{DW}}_p\delta_{pq} \\
-                \Braket{\psiDW_p\psiDW_q|\frac{1}{r_{12}}|\psiDW_r\psiDW_s} &=
-                \suml{tuvw}{ijkl} C_{tp}C_{uq}C_{vr}C_{ws}
-                \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
-            \end{aligned}
+            T_j = \frac{j}{M_{\text{max}}}
         \end{equation}
-    Where the two-body elements over the harmonic oscillator functions can be
-    calculated by expansion in s-type Gaussian constituents and then using
-    \Arf{eq:coulomb_dist_integral_stype}. \\
-
-    With this eigenvalue problem in mind, one might ask why go through the
-    trouble? The reason lies in the form of the double-well potential. Since it
-    is a simple shift of the single-well(harmonic oscillator) it is reasonable
-    to assume that the energies(the eigenvalues $\veps^{\text{DW}}$) are only
-    shifted slightly off from the single-well energies. It is then also
-    reasonable to believe that a basis set expansion in the single-well
-    functions(harmonic oscillator functions) give a nice basis for building the
-    double-well basis.
-
-\subsection{Choosing the Basis Functions}
-    In order to actually solve the eigenvalue equation we use \text{Python} and
-    the \text{NumPy} package, however we still need to choose the $\psiHO$'s
-    first. This will be experimented with and we will choose enough to reach to
-    \txtit{Hartree-Fock limit}. The choice will also follow the
-    Harmonicoscillator levels in terms of degeneracy(see \Arf{subfig:3Dspin} and
-    \Arf{subfig:2Dspin}). This means for instance that if we choose to only use $1$
-    spacial function we only need the ground-state function, but there is no
-    reason to believe that the electron-configuration would prefer any two(or
-    $3$ in 3D) of the functions in the second level over one another. This
-    means that we choose the basisfunctions according to the \txtit{magic
-    numbers} of the Harmonicoscillator system basis.
-
-\subsection{Degeneracy}
-    When we tackled the single-well problem the energy-levels were degenerate
-    and followed the magic numbers. For the double-well only the degeneracy due
-    to spin is present. This means that we can(still with two-spin fermions)
-    run the simulations with $N=2,4,6,\dots$ instead of the original
-    $N=2,6,12,20,\dots$ in two dimensions and $N=2,8,20,30\dots$ in three.
-
-\section{Summary\label{sec:basis_summary}}
-    This chapter tackled the one- and two-body integrals over s-type Gaussian
-    functions in two dimensions by using the results and approach of Trygve
-    Helgaker. We will here rewrite the expressions found and write out the full
-    expression for integrals over harmonic oscillator functions. \\
-
-    Firstly the integrals over Hermite-Gaussians (monomials multiplied by
-    exponential). The Hermite-Gaussian was expressed as 
-        \begin{equation}
-            g_n(\blds{\alpha};\blds{r},\blds{A}) = \prod_d
-            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
-            \label{eq:HGsumdef}
-        \end{equation}
-    An expansion of these in terms of Hermite-polynomials was then made to
-    arrive at an overlap distribution, with the Gaussian product rule for the
-    product of two Hermite-Gaussians, with a recursive relation for the
-    expansion coefficients
-        \begin{equation}
-            \begin{aligned}
-                \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) &=
-                \sum\limits^{i+j}_{t=0}
-                E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P}) \\
-                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
-                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
-                (t+1)E^{ij}_{t+1} \\
-                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
-                \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
-                (t+1)E^{ij}_{t+1} \\
-                E^{00}_0 &= K_{AB} \\
-            \end{aligned}
-            \label{overlapdistdefsum}
-        \end{equation}
-    The overlap integral was then found to be
-        \begin{equation}
-            \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) |
-            g_j(\blds{\beta};\blds{r},\blds{B})} = \sumE{p}{i}{j}
-            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
-            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
-            \label{eq:overlapintdefsum}
-        \end{equation}
-    The integral over a potential $x^k_d$ was found with the binomial expansion
-    to be
-        \begin{equation}
-            \begin{aligned}
-                \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) | x^k_d |
-                g_j(\blds{\beta};\blds{r},\blds{B})} =&
-                \suml{p=\text{even}}{i+j} E^{i+j}_p
-                \left(\frac{\Gamma\left(\frac{p+1}{2}\right)}
-                {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \bigtimes \\
-                &\underset{\text{even}}{\sum\limits_{l=0}^k} {k\choose l}
-                \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
-                \Gamma\left(\frac{l+1}{2}\right)
-            \end{aligned}
-        \end{equation}
-    and the integral with the Laplacian was
-        \begin{equation}
-            \begin{aligned}
-                \Bra{g_i(\blds{\alpha};\blds{r},\blds{A})} &\nabla^2
-                \Ket{g_j(\blds{\beta};\blds{r},\blds{B})} = \\
-                &\sum_d\prod_{d'\neq d}
-                \Braket{g_{i_{d'}}(\alpha_{d'};x_{d'},A_{d'})
-                |\sigma_{d'}(S_d(\beta;x_d-B_d))|g_{j_{d'}}(\beta_{d'};x_{d'},B_{d'})}
-            \end{aligned}
-            \label{eq:lapintdefsum}
-        \end{equation}
-    with
-        \begin{equation}
-            \begin{aligned}
-                S_d(\alpha;x_d-A_d) &\equiv
-                \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
-                2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
-                i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \\
-                \sigma_d(S_d) &\equiv \left\{\begin{matrix}
-                                            1,&\indent d' \neq d \\
-                                            S_d,&\indent d' = d
-                                            \end{matrix}
-                                        \right.
-            \end{aligned}
-        \end{equation}
-    Finally the integral over the Coulomb interactions was calculated using a
-    recursive relation for the one-dimensional integral it was defined by. The
-    expressions are
-        \begin{equation}
-            \Braket{g^{\blds{\alpha}}_{iA}g^{\blds{\beta}}_{jB} |
-            \frac{1}{r_{12}} | g^{\blds{\delta}}_{kC}g^{\blds{\gamma}}_{lD}} =
-            \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
-            E^{ik}_pE^{jl}_q (\scalebox{1.0}[1.0]{-}1)^{q} \xi_{p+q}\left(\frac{(\alpha +
-            \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
-            \delta},\blds{R_{S_1S_2}}\right)
-            \label{eq:coulombdistintdefsum}
-        \end{equation}
-    with
-        \begin{equation}
-            a \equiv \left\{\begin{aligned}
-                \frac{\pi^{\frac{3}{2}}}
-                {\sqrt{(\alpha+\gamma)(\beta+\delta)}},\indent \text{2D} \\
-                \frac{\pi^{\frac{5}{2}}}
-                {(\alpha+\gamma)(\beta+\delta)},\indent \text{3D} \\
-            \end{aligned}\right.
-        \end{equation}
-    And the recursive relation in two dimensions(left) and three dimensions
-    (right)
-        \begin{equation}
-            \begin{aligned}
-                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
-                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u} \\
-                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
-                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right) \\
-                \zeta_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
-                u^2}} \me^{-u^2x} \md u
-            \end{aligned} \indent\indent\indent 
-            \begin{aligned}
-                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} + X_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} + Y_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} + Y_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{000} &= \left(-2\alpha\beta\right)^n
-                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
-                \\
-                \zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md u
-            \end{aligned}
-        \end{equation}
-
-    We also give a reminder again that these expressions are only valid for
-    \txtit{isotropic} Gaussian functions, Gaussians whose scaling factor(i.e
-    $\alpha$) is the same in all dimensions. For the non-isotropic case the see
-    \cite{nonIsoGauss}. \\
-
-    And as promised, here are the full expressions for the integral elements with
-    harmonic oscillator functions using \Arf{eq:coulombdistintdefsum} and the
-    orthogonality of the harmonic oscillator functions
-        \begin{equation}
-            \Braket{\psiHO_i|\psiHO_j} = N_i \delta_{ij}
-            \label{eq:HOoverlap}
-        \end{equation}
-        \begin{equation}
-            \Braket{\psiHO_i|h^{\text{HO}}|\psiHO_j} = N_i
-            \varepsilon^{\text{HO}}_i\delta_{ij}
-        \end{equation}
-        \begin{equation}
-            \Braket{\psiHO_i\psiHO_j|\frac{1}{r_{12}}|\psiHO_k\psiHO_l} =
-            N_{ijkl}\frac{a}{\sqrt{2\omega}}  \sum^{ijkl}_{tuvw}
-            H^{ijkl}_{tuvw} \suml{pq}{t+v,u+w} E^{tv}_pE^{uw}_q
-            (-1)^q\xi_{p+q}\left(\frac{\omega}{2}, \blds{0}\right)
-        \end{equation}
-        \begin{equation}
-            a \equiv \left\{\begin{aligned}
-                \frac{\pi^{\frac{3}{2}}} {\sqrt{\omega}},\indent \text{2D} \\
-                \frac{\pi^{\frac{5}{2}}} {\omega},\indent \text{3D} \\
-            \end{aligned}\right.
-        \end{equation}
-    with the notations
-        \begin{equation}
-            \begin{aligned}
-                N_{ijkl} &= X_i X_j X_k X_l \\
-                \suml{tuvw}{ijkl} &=
-                \suml{p}{t}\suml{q}{u}\suml{r}{v}\suml{s}{w} \\
-                \suml{pq}{t+v,u+w} &= \suml{p}{t+v}\suml{q}{u+w} \\
-                H^{ijkl}_{tuvw} &= H_{i,t} H_{j,u} H_{k,v} H_{l,w} \\
-                E^{tv}_p &= E_{p,t+v}
-            \end{aligned}
-        \end{equation}
-    And using the multi-index notation for the dimensions in $p$ and $q$
-    indices. The $H$ are the Hermite coefficients.
-
-\section{Further Work}
-    This concludes this chapter on basis functions. We have found an expression
-    for the integral elements involving Hermite-Gaussians and used these to
-    express the integral over harmonic oscillator functions which in turn gave
-    an expression for the integrals over double-well functions as they were
-    just expanded in harmonic oscillator functions. The next chapter will
-    present optimizations methods used in the variational method and the
-    implementations of these integrals are presented in \Arf{chapter:6}. \\
-
-    As a note for further work the expressions found here are for isotropic
-    gaussians only. For certain systems, like the one presented in
-    article\cite{nonIsoGauss}, more flexibility in the Gaussian functions can
-    be desired, such that finding expression for the integrals of Gaussian
-    functions with higher order monomial factors and extending the existing
-    code to calculate those can be of desire.
+    and choose new neighbours within some min/max range from the current $s$.
+    >> REF THIS <<. \\
+    After the annealing is done a Quasi-Newton method is used and then the
+    adaptive method is used to converge to the minimum.

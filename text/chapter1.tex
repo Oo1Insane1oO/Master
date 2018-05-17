@@ -28,12 +28,25 @@
     With this in mind a general open-source code for the restricted
     Hartree-Fock method was developed and is open for use in
     \url{https://github.com/Oo1Insane1oO/HartreeFock}. The variational
-    Monte-Carlo method is also open-source and for use in >> URL THIS <<. Both
-    repositories each have a directory with tests implemented, see
-    \Arf{sec:verification} for more information on these tests. \\
+    Monte-Carlo method is also open-source and for use in
+    \url{https://github.com/Oo1Insane1oO/VMC}. Both repositories each have a
+    directory with tests implemented, see \Arf{sec:verification} for more
+    information on these tests. \\
     Extending the code to other systems is made easier with python scripts
     given in the mentioned repositories. A better description of these are
     given in the repositories themselves and involve auto-generation of
     abstract wavefunction classes which only need to be filled in with
     analytical expressions and are otherwise already integrated with the
-    existing code.
+    existing code. \\
+    The thesis itself is built in three parts
+        \begin{itemize}
+            \item Quantum Theory: Theory for the implementation.
+            \item Choice of Basis: The form of the wavefunction.
+            \item Implementation: The code with optimizations.
+            \item Results: The resulting data from the simulations.
+        \end{itemize}
+    We basically start of with the background in quantum many-body theory, make
+    a specialization into a set of basis functions, implement these in a
+    general \CC-code with auto-generation of expressions and template classes
+    in Python and present the results from the simulations run with the
+    implementation.

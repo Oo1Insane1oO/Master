@@ -1,1116 +1,991 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Many-Body Quantum Theory\label{chapter:3}}
-    Ever since the dawn of Quantum-Mechanics, with Boltzmanns model for the
-    $I_2$ molecule in 1877 to the photoelectric by Einstein in 1905, Bohrs
-    model for the hydrogen atom in 1913 and - of course - the discovery of the
-    Schrödinger equation, physicists have been qurious as to if the theory
-    could be applied to larger systems. The first milestone however can be
-    traced back to the 1927 paper by Walter Heitler and Fritz London which
-    studied the stability of the hydrogen molecule and of course the well-known
-    Pauli-principle. Still it wasn't before later when increased computational
-    power came into play that many-body quantum mechanics and many-body quantum
-    chemistry sky-rocketed and started to become as natural a part of the
-    science laboratory as physical experiments since the former is far less
-    expensive\footnote{Economically}. The challenge thus became to tackle the
-    ever-increasing computational cost of actually solving Schrödingers
-    equation for a many-body system. Many methods have been devised and we will
-    in this chapter take forth the theory regarding the basics of identical
-    particles and \txtit{many-body quantum mechanics}. The reader is referred
-    to \cite{GriffQuan} for an introductory text on quantum mechanics(for
-    single particles) and also the so-called \txtit{Dirac-notation} used
-    throughout the entire chapter. We will address methods regarding
-    computational quantum mechanics and further deepen into Hartree-Fock
-    methods and Variational Monte Carlo method. 
+\chapter{Basis Functions\label{chapter:3}}
+    Basis sets, the fundamental objects used in describing pretty much
+    everything, anything from a coordinate system to an abstract vector-space
+    or function-space are all part of the same set which we refer to as a
+    basis. It is a set of objects applied to systems in order to essentially
+    change our view of them, to extract desirable properties and to describe
+    them in a rigidly fashion. In quantum mechanics the abstract vector-space
+    models are used and the functions in mind are the wavefunctions thrown into
+    the Schrödinger equation and the space at hand is the \txtit{Hilbert
+    Space}.  These functions are the central part of the particle-description
+    in which quantum theory bases itself in, as such the choice of a basis is
+    of monumental importance when solving quantum mechanical systems.
+    Often\footnote{Read always} the choice of basis functions determine the
+    efficiency and degree of usefulness that a specific method actually holds.
+    This is usually to such degree that a poor choice of basis renders the
+    method in question less useful or even completely unavailing.
 
-\section{The Hamiltonian and the Born-Oppenheimer Approximation\label{sec:3.1}}
-    The task at hand is to solve the many-body system described by
-    \txtit{Schrödinger's} equation
-        \begin{equation}
-            H\ket{\Psi_i} = E_i\ket{\Psi_i}
-            \label{eq:SE}
-        \end{equation}
-    for some state $\ket{\Psi_i}$ with energy $E_i$. Usually the desired state
-    is the ground-state energy $E_0$ of the system meaning we are primarily
-    interested in the \txtit{ground-state} $\ket{\Psi_0}$. \\ With the goal
-    determined we can define the system to consist of $N$ identical
-    particles\footnote{These are in both atomic physics and in the quantum dot
-    case always fermions or bosons.} with positions
-    $\{\blds{r}_i\}^{N-1}_{i=0}$ and $A$ nuclei with positions
-    $\{\blds{R}_k\}^{A-1}_{k=0}$. The Hamiltonian $H$ is then
-        \begin{equation}
-            H = - \frac{1}{2} \sum\limits_i \nabla^2_i + \sum_{i<j}
-            f\left(\blds{r}_j, \blds{r}_j\right) - \frac{1}{2} \sum_k
-            \frac{\nabla^2_k}{M_k} + \sum_{k<l}
-            g\left(\blds{R}_k,\blds{R}_l\right) +
-            V\left(\blds{R},\blds{r}\right)
-        \end{equation}
-    The first and second terms represent the kinetic- and inter-particle
-    interaction terms\footnote{This is usually the well-known Coulomb
-    interaction.} for the $N$ identical particles while the latter three
-    represent kinetic- and interaction terms for the nuclei(with the last one
-    being the nuclei-particle interaction). The constant $M_k$ is the mass of
-    nucleon $k$ and $Z_k$ is the corresponding atomic number.
+    We will in this chapter mention some popular basis-sets used in atomic
+    physics and deepen into a particular set of functions called
+    \txtit{Gaussian Type orbitals} and use them with the well known
+    \txtit{Hermite functions} and make a detailed calculation of the integral
+    elements used in the Hartree-Fock method. These integrals have been
+    calculated in polar coordinates directly before\cite{anisimovas}, the
+    motivation for calculating the integrals elements in Cartesian is due to
+    the double-well potential, because of the higher order monomials in which
+    they can be defined by the symmetry in polar coordinates is broken making
+    the polar approach less desirable. The procedure in building the basis for
+    the double-well system is also explained detail.
 
-    We assume the nuclei to be much heavier than the identical particles,
-    meaning they move much slower, at which the system can be viewed as
-    electrons moving around the vicinity of stationary nuclei.  This means the
-    kinetic term for the nuclei vanish and the nuclei-nuclei interaction
-    becomes a constant\footnote{Adding a constant to an operator does not alter
-    the eigenvector, only the eigenvalues by the constant
-    factor\cite{linalgDavid}.}. The approximation we end up with is the
-    so-called \txtit{Born-Oppenheimer approximation} and the Hamiltonian is now
+\section{Hermite Functions}
+    Hermite functions are functions of the following form
         \begin{equation}
-            H = H_0 + H_I
+            \phi^a_n(\blds{r}) \equiv \prod_d N_d
+            H_{n_d}(\sqrt{a}x_d)\exp(-\frac{a}{2}x^2_d)
+            \label{eq:HermiteFunc}
         \end{equation}
-    where we have split the Hamiltonian in a \txtit{one-body} part and a
-    \txtit{two-body} or \txtit{interaction} parts defined as
-        \begin{equation}
-            H_0 \equiv - \frac{1}{2} \sum\limits_i \nabla^2_i +
-            V\left(\blds{R},\blds{r}\right)
-        \end{equation}
-    and
-        \begin{equation}
-            H_I \equiv \sum_{i<j} f\left(\blds{r}_i, \blds{r}_j\right)
-        \end{equation}
+    with $\blds{r} = \sum\limits_d \blds{\me}_dx_d$ and the sum over $d$ being
+    the sum over the number of dimensions and the $H_n$ is the Hermite
+    polynomial of order $n$. The integer $n_d$ is the order of the
+    function\footnote{In quantum mechanics the number $n$ is referred to as the
+    principal quantum number and is associated with the energy of a given
+    orbital(energy-level) of the system.} while the parameter $a$ is a scaling
+    factor and $N_d$ is a normalization factor. These functions show up as
+    eigenfunctions for the \txtit{quantum harmonic oscillator
+    system}\cite{GriffQuan} with the scaling parameter $a$ equal to the
+    oscillator frequency ($\omega$) of the system.
 
-\section{Slater Determinant and Permanent}
-    Throughout \Arf{sec:3.1} we only referred to the wavefunction $\Psi$ as a
-    state, a function closely connected to the probabilistic nature of the
-    quantum particles. However, we have not given it a form. One possible
-    solution is the \txtit{Hartree product} $\Psi_{\text{H}}$ defined as
-        \begin{equation}
-            \Psi_{\text{H}} = \prod_i\psi_i(\blds{r}_i)
-        \end{equation}
-    with $\{\psi\}_{i=0}^N$ being the orbitals which solve the single-particle
-    Schrödinger equation for $H_0$. The Hartree-product is unfortunately a poor
-    choice since it does not solve the $H_I$ part meaning it is not a
-    physically valid solution. This comes from the fact that the
-    Hartree-product does not take into account the fact that the particles in
-    question are \txtit{identical particles}. Since the particles are
-    identical, switching the labels on the particles shouldn't change the
-    expectation value of some observable. If we run this remark through we
-    end up with the conclusion that the state $\ket{\Psi}$ must be either
-    symmetric or antisymmetric with the symmetric part being the \txtit{bosonic
-    state} and antisymmetric being the \txtit{fermionic state}. The connection
-    between antisymmetric states and fermions is called the \txtit{Pauli
-    exclusion principle}.
+    The Hermite functions are orthogonal and give a good ansatz for the VMC
+    method, see \Arf{sec:QMC}, with the scaling parameter transformed with an
+    additional variational parameter. The problem with these are however that
+    the matrix-elements introduced in the Hartree-Fock method
+    (\Arf{sec:HFtheory}) are not solvable directly with the Hermite functions
+    as basis functions. However, we can write the Hermite functions in terms of
+    \txtit{Hermite-Gaussians}. See \Arf{sec:hermiteGaussFunc}.
 
-    The problem with the Hartree-product is, with the above sentiment, that it
-    is not symmetric nor antisymmetric. However we can transform it with an
-    operator
+\section{Gaussian Type Orbitals}
+    \txtit{Gaussian Type Orbitals} or GTO's are functions of the following
+    form\cite{HelgakerMolElcTheory}
         \begin{equation}
-            \mathcal{B} \equiv \frac{1}{N!}\sum_P\sigma_bP
+            G_n(\blds{\alpha};\blds{r},\blds{A}) \equiv \prod_d (x_d-A_d)^{n_d}
+            \me^{-\alpha_d (x_d-A_d)^2}
+            \label{eq:GTOdef1d}
         \end{equation}
-    where $\sigma_b$ is defined as 
-        \begin{equation}
-            \sigma_b \equiv  
-                \begin{cases}
-                    1 \indent &\text{$b$ represents bosonic system} \\
-                    (-1)^p \indent &\text{$b$ represents fermionic system}
-                \end{cases}
-        \end{equation}
-    $P$ is a permutation operator that switches the labels on particles
-    \footnote{$P_{ij}\Psi_(\blds{r}_1,\dots,\blds{r}_i,\dots,\blds{r}_j,\dot,\blds{r}_N)
-    = \Psi_(\blds{r}_1,\dots,\blds{r}_j,\dots,\blds{r}_i,\dot,\blds{r}_N)$
-    \cite{compphysThijssen}.} and $p$ is the parity of permutations. The
-    operator $\mathcal{B}$ has the following properties
-        \begin{itemize}
-            \item Applying $\mathcal{B}$ to itself doesn't change the operator
-                meaning $\mathcal{B}^2 = \mathcal{B}$.
-            \item The Hamiltonian $H$ and $\mathcal{B}$ \txtit{commute}, that
-                is $\left[\mathcal{B},H\right] = \left[H,\mathcal{B}\right]$.
-            \item $\mathcal{B}$ is \txtit{unitary}, which means
-                $\mathcal{B}^{\dagger}\mathcal{B}=\mathcal{I}$.
-        \end{itemize}
-    The solution $\Psi_T$ to the Schrödinger equation can now be written as
-        \begin{equation}
-            \Psi_T\left(\blds{r}\right) =
-            \sqrt{N!}\mathcal{B}\Psi_{\text{H}}\left(\blds{r}\right)
-            \label{eq:psiOpB}
-        \end{equation}
-    The antisymmetric case of $\mathcal{B}$ results in a \txtit{Slater
-    determinant} 
-        \begin{equation}
-            \Psi^{\text{AS}}_T = \frac{1}{\sqrt{N!}}\sum_{P}(-1)^pP\prod_i\psi_i
-        \end{equation}
-    while the symmetric case gives the so-called \txtit{permanent}\footnote{The
-    permanent is basically just a determinant with all the negative signs
-    replaced by positive ones.}.
-        \begin{equation}
-            \Psi^{\text{S}}_T =
-            \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum_{P}P\prod_i\psi_i
-        \end{equation}
-    Notice that the coordinated ${\blds{r}}_{i=0}^{N}$ is a bit of a sloppy
-    notation as it also implicitly includes the spin orbitals. The extra factor
-    in the symmetric case is to preserve the normalization due to number of
-    particles, the $n_i$ factor is determined by the the quantum-number for
-    state $i$.
+    We call $\alpha$ for the scaling parameter and $i$ for the order of the
+    GTO. The variable $A$ is where the function is centered. These are in many
+    literatures referred to as \txtit{primitive Gaussians} and they alone
+    make a poor approximation to the true wave function.
 
-\section{Variational Principle\label{sec:varPrinc}}
-    One important remark is that the Slater determinant and the permanent do
-    not solve the interaction part, but only serves as a so-called
-    \txtit{ansatz} or guess on the true ground-state wavefunction. This is
-    quite useful due to the \txtit{variational principle}. \\
-    The Variational principle states that for any normalized function $\Psi$ in
-    Hilbert Space >> REF HILBERT << with a Hermitian operator $H$ the minimum
-    eigenvalue $E_0$ for $H$ has an upper-bound given by the expectation value
-    of $H$ in the function $\Psi$. That is
+    In atomic physics these functions are used directly as a linear combination
+    referred to as \txtit{contracted Gaussian functions}. These are written as
         \begin{equation}
-            E_0 \leq \ecp{H} = \bra{\Psi}H\ket{\Psi} = \int \Psi^{*}H\Psi \md r
-            \label{eq:varPrinc}
+            G_k(x, A) \equiv \sum\limits^P_{a_k=0} C_{a_k}
+            G_{a_k}(\alpha_{a_k};x, A)
         \end{equation}
-    See \cite{GriffQuan} for proof and more.
+    and are fitted\footnote{Meaning we find the parameters $C_{a_k}.$ and
+    $\alpha_{a_k}$} to \txtit{Slater-type orbitals}, which are functions with
+    decaying properties(present in atomic systems), or found by some variational
+    method before-hand. \\
 
-    The mentioned ansatz is thereby guaranteed to give energies larger than or
-    equal the true ground state energy meaning a minimization method is
-    sufficient in order to get closer to this minimum. 
-   
-\section{Energy Functional\label{sec:energyFunc}}
-    We can find a more convenient expression for this energy by using
-    \Arf{eq:psiOpB} and \Arf{eq:varPrinc}. This gives us
+    These functions are unfortunately not orthogonal, but they behave nicely in
+    integrals and actually give an analytic expression for the
+    interaction-elements mentioned in \Arf{sec:HFtheory}. For this reason we
+    will go forth and use the Gaussian contracted functions and actually fit
+    them to Hermite functions.
+
+\subsection{Hermite-Gaussian Functions\label{sec:hermiteGaussFunc}}
+    The GTO's described can be explicitly expressed in terms of so-called
+    \txtit{Hermite-Gaussian functions}\footnote{The reason for the name is that
+    the polynomial factors generated by the differentiation are precisely the
+    Hermite polynomials.} defined as
         \begin{equation}
-            E\left[\Psi\right] =
-            N!\bra{\Psi_{\text{H}}}H\mathcal{B}\ket{\Psi_{\text{H}}}
+            g_n(\blds{\alpha};\blds{r},\blds{A}) = \prod_d
+            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
         \end{equation}
-    where the hermitian and unitary property of $\mathcal{B}$ as well as the
-    fact that $\mathcal{B}$ and $H$ commute have been used. This energy
-    functional(functional in the sense that it is dependant on the wave
-    function). Applying the $\mathcal{B}$ operator to the Hartree-product,
-    pulling the sum out of the integrals and relabeling with the following
-    definitions
+    meaning
+        \begin{equation}
+            G_n(\blds{\alpha;\blds{r},\blds{A}}) = \prod_d
+            (2\alpha_d)^{-n_d}\prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
+        \end{equation}
+    Some properties of the one-dimensional Hermite-Gaussians are as follows
         \begin{equation}
             \begin{aligned}
-                \bra{p}h\ket{q} &\equiv
-                \bra{\psi_p(\blds{r})}h(\blds{r})\ket{\psi_q(\blds{r})} =
-                \int\psi^{*}_p(x)h(\blds{r})\psi_q(\blds{r})\md r \\
-                \bra{pq}f\ket{rs} &\equiv
-                \bra{\psi_p(\blds{r}_1)\psi_q(\blds{r}_2)}
-                f(\blds{r}_1,\blds{r}_2)
-                \ket{\psi_r(\blds{r}_1)\psi_s(\blds{r}_2)} \nonumber \\
-                &= \int \psi_p(\blds{r}_1)\psi_q(\blds{r}_2)
-                f(\blds{r}_1,\blds{r}_2) \psi_r(\blds{r}_1)\psi_s(\blds{r}_2)
-                \md r
+                \prd{A_x}[g_t] &= g_{t+1} \\
+                g_{t+1} &= \prdp{A_x}{t}\prd{A_x}[g_0] =
+                2\alpha(x-A_x)\prdp{A_x}{t}g_0 \\
+                g_{t+1} &= 2\alpha((x-A_x)g_t - tg_{t-1}) \\
+                (x-A_x)g_t &= \frac{1}{2\alpha}g_{t+1} + tg_{t-1}
             \end{aligned}
+            \label{eq:hermiteGaussProp}
         \end{equation}
-    yields in
+    The mentioned rewriting of the Hermite functions in terms of the
+    Hermite-Gaussians is
         \begin{equation}
-            E\left[\Psi\right] = \bra{p}H_0\ket{p} +
-            \frac{1}{2}\sum_{p,q}\left[\bra{pq}f_{pq}\ket{pq} \pm
-            \bra{pq}f_{pq}\ket{qp}\right]
-            \label{eq:ch3Efunc}
+            \phi^a_n(\blds{r}) = \prod_d N_d \sum\limits^{n_d}_{l=0} C_{n_dl}
+            g_l\left(\frac{\blds{\alpha}}{2},\blds{r},\blds{A}\right)
         \end{equation}
-    The first part is written with the assumption that the single-particle wave
-    functions $\{\psi\}$ are orthogonal and the $1/2$ factor in front of the
-    so-called \txtit{direct} and \txtit{exchange} terms\footnote{The direct
-    term is just due to inherent behaviour of the charge of the particles
-    (known as the Coulomb repulsion). The exchange term is a direct consequence
-    of the probabilistic nature of the identical particles.} is due to the fact
-    that we count the permutations twice in the sum when applying the
-    $\mathcal{B}$ operator. The sign in the interaction term are chosen as
-    positive for bosonic systems and negative for fermionic systems.
+    with $C_{n_dl}$ being the $l'th$ Hermite-coefficient for the Hermite
+    polynomial of order $n_d$. This means that the matrix-elements in
+    Hartree-Fock is just a linear combination over integrals over
+    Hermite-Gaussians. The following section will tackle this in detail for the
+    two-dimensional case. The three-dimensional case is given by an excellent
+    text by Trygve Helgaker and Peter R. Taylor\cite{HelgakerTaylorGauss}, see
+    also \cite{HelgakerGauss}.
 
-    The expression given in \Arf{eq:ch3Efunc} is the functional form we will
-    use to derive the Hartree-fock equations in the following section.
-
-\section{Hartree-Fock Theory\label{sec:HFtheory}}
-    Hartree-Fock method is a many-body method for approximating the
-    wavefunction of a stationary many-body quantum state and thereby also
-    obtain an estimate for the energy in this state. \\
-    The main idea is to represent the system as a \txtit{closed-shell} system
-    and then variationally optimize the Slater determinant
-    \cite{HelgakerMolElcTheory}. This approach is not generally feasable as the
-    size of the system increases, however for a closed-shell system in the
-    quantum dot case it should be enough to build a basis, which is the goal
-    here. \\
-    For more details around the motivation and usages of the Hartree-Fock
-    method see\cite{HelgakerMolElcTheory}. \\
-    
-    In this section we will derive the Hartree-Fock equations , following
-    closely the literature by J.M Thjissen\cite{compphysThijssen}. 
-
-    \subsection{Assumptions}
-        Hartree-Fock method makes the following assumptions of the system
-            \begin{itemize}
-                \item \txtit{The Born-Oppenheimer approximation} holds. 
-                \item All relativistic effects are negligible.
-                \item The wavefunction can be described by a single
-                    \txtit{Slater determinant}.
-                \item The \txtit{Mean Field Approximation} holds.
-            \end{itemize}
-        With these inherent approximations the last one is the most important
-        to take into account as it can cause large deviations from test
-        solutions (analytic solutions, experimental data etc.) since the
-        electron correlations is in reality, for many cases, not negligible.
-        There exists many methods that try to fix this problem, but the
-        \txtit{Variational Monte Carlo} (or VMC) is the method for deeper
-        explorations in this Thesis, see \Arf{sec:QMC} for more details.
-    
-    \subsection{The $\blds{\mathcal{J}}$ and $\blds{\mathcal{K}}$ Operators}
-        Before we begin with the Hartree-Fock equations it is desirable to
-        rewrite the energy function obtained in \Arf{sec:energyFunc} (form
-        given in \Arf{eq:ch3Efunc}) with two operators $\mathcal{J}$ and
-        $\mathcal{K}$ defined as
-            \begin{equation}
-                \begin{aligned}
-                    \mathcal{J} &\equiv \sum_k
-                    \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
-                    \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r \\
-                    \mathcal{K} &\equiv \sum_k
-                    \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
-                    \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r \\
-                \end{aligned}
-            \end{equation}
-        The $\mathcal{J}$ operator just gives the simple interaction-term while
-        the $\mathcal{K}$ operator gives the exchange term with the arbitrary
-        (notice no index) $\psi(\blds{r})$. The energy functional is thus
-        rewritten to
-            \begin{equation}
-                E\left[\Psi\right] = \sum_i\Braket{\psi_i | h +
-                \frac{1}{2}\left(\mathcal{J} \pm \mathcal{K}\right) | \psi_i}
-                \label{eq:JKEfunc}
-            \end{equation}
-        where the one-body Hamiltonian is split into a sum of single particle
-        functions as $H_0 = \sum\limits_i h(\blds{r}_i)$.
-
-    \subsection{Hartree-Fock Equations}
-        As a reminder. The wavefunctions $\{\psi\}$ in \Arf{eq:JKEfunc} are
-        spin-orbitals with both a spacial part and a spin part. In order to
-        obtain the Hartree-Fock equations we try to minimize the energy
-        functional in order to obtain the ground-state energy for a many-body
-        system. This is done by a variational method.
-
-        The first observation to notice is the fact that variations in the
-        spin-orbitals $\{\psi\}$ need to respect the spin-orthogonality
-        relation
-            \begin{equation}
-                \braket{\psi_i}{\psi_j} = \delta_{ij}
-            \end{equation}
-        with $\delta_{ij}$ being the well-known Kronecker-delta. This property
-        is essentially a constraint to the minimization problem and the method
-        to be used is the \txtit{Lagrange multiplier method}\cite{linalgDavid},
-        with the following \txtit{Lagrangian}
-            \begin{equation}
-                \mathcal{L} = \delta E\left[\Psi\right] -
-                \sum_{ij}\Lambda_{ij}\left[\braket{\psi_i}{\psi_j} -
-                \delta_{ij}\right]
-            \end{equation}
-        We know then that the minimum is reached when a displacement on the
-        spin-orbitals $\psi_i\rarr\psi_i+\delta \psi_i$ results in an energy
-        variation of zero meaning $\delta E\left[\Psi\right]=0$ in the minimum.
-        Which gives the variational problem 
-            \begin{equation}
-                \sum_i \Braket{\delta\psi_i | h + \mathcal{J} \pm \mathcal{K} |
-                \psi_i} - \sum_{ij} \Lambda_{ij}\braket{\delta\psi_i}{\psi_j} +
-                \text{c.c} = 0
-            \end{equation}
-        where $\text{c.c}$ is a notation for the complex conjugate of the
-        inner-products on its left-hand side.
-
-        The shift in the spin orbitals $\{\delta \psi\}$ is arbitrary and the
-        constraints are
-        symmetric\footnote{$\braket{\psi_i}{\psi_j}=\braket{\psi_j}{\psi_i}^{*}
-        \Rarr \Lambda_{ij}=\Lambda^{*}_{ji}$} meaning we can with the
-        \txtit{Fock-operator}
-            \begin{equation}
-                \mathcal{F} \equiv h + \mathcal{J} \pm \mathcal{K}
-            \end{equation}
-        define the following eigenvalue problem
-            \begin{equation}
-                \mathcal{F}\psi_i = \sum_j\Lambda_{ij}\psi_j
-            \end{equation}
-        Choosing the Lagrange parameter $\Lambda_{ij}$ such that
-        $\{\psi\}^N_{k=1}$ forms an orthonormal set for $\mathcal{F}$ with
-        eigenvalues $\{\veps\}^N_{k=1}$. This reduces the eigenvalue equation
-        to
-            \begin{equation}
-                \mathcal{F}\ket{\psi} = \blds{\veps}\ket{\psi}
-                \label{eq:HFequations}
-            \end{equation}
-        with $\blds{\veps}=(\veps_0,\dots,\veps_N)$ being the set of
-        eigenvalues of $\mathcal{F}$ meaning we have $N+1$ equations to be
-        solved.
-
-        If we only take the $N$ lowest eigenfunctions into the Slater the
-        corresponding eigenenergy is referred to as the \txtit{Hartree-Fock
-        energy} and is the estimated ground-state energy which the Hartree-Fock
-        method gives. We can rewrite the energy functional with the
-        eigenenergies to
-            \begin{equation}
-                E\left[\Psi\right] = \sum_i\Braket{\psi_i | \veps_i -
-                \frac{1}{2}\left(\mathcal{J} \pm \mathcal{K}\right) | \psi_i}
-                \label{eq:energyJKHF}
-            \end{equation}
-        In the derivation of the Hartree-Fock equations we only worked with
-        spin-orbital functions $\{\psi\}$. However it is much more convenient
-        to rewrite these in terms of spatial orbitals $\{\phi\}$ and integrate
-        the spin-dependant part out. There are two ways of doing this and the
-        two different approaches give the so-called \txtit{restricted
-        Hartree-Fock} and \txtit{unrestricted Hartree-Fock} methods.
-
-    \section{Restricted Hartree-Fock and Roothan-Hall-Equations}
-        The restricted spin-orbitals are paired as\footnote{This is specialised
-        for a two-spin system. For a system with more spin-states one needs to
-        either choose different spacial-orbitals or add more such orbitals
-        which effectively changes the energy-levels.}
-            \begin{equation}
-                \{\psi_{2l-1}, \psi_{2l}\} =
-                \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}
-                \label{eq:spinpairingHF}
-            \end{equation}
-        with $\alpha(s)$ and $\beta(s)$ being different spin-states (up and
-        down). This pairing of spin-states with same and same spacial-orbitals
-        means we can pull the spin degrees of freedom out from the
-        $\mathcal{J}$ and $\mathcal{K}$ operators, reduce the sum to only run
-        over half the states and multiply the entire sum by $2$. The result is
-        that the restricted energy-functional reads
-            \begin{equation}
-                E\left[\Psi\right] = \sum\limits^N_{i=1}\veps_i -
-                \sum\limits^{\frac{N}{2}}_{i=1} \Braket{i | 2\mathcal{J}
-                \pm \mathcal{K} | i}
-            \end{equation}
-        Notice that the $\mathcal{K}$ operators sum only runs up to half the
-        number of states.
-        
-        As the title suggests we are going to end up with a set of equations
-        referred to as the \txtit{Roothan-equations}. We start by first
-        expanding the spacial part $\{\phi\}$ of the spin orbitals $\{\psi\}$
-        in some known orthonormal basis $\{\chi\}^L_{i=1}$
-            \begin{equation}
-                \phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})
-            \end{equation}
-        and introduce the \txtit{Fock-matrix} $F$(associated with the
-        Fock-operator) with elements
-            \begin{equation}
-                F_{pq} = h_{pq} + \sum_{pq}\rho_{pq}\left(2D_{prqs} \pm
-                D_{prsq}\right)
-                \label{eq:FockRestrictedDef}
-            \end{equation}
-        We have here introduced a one-body matrix defined as
-            \begin{equation}
-                h_{pq} \equiv \Braket{p | h | q}
-            \end{equation}
-        a \txtit{density matrix} defined
-        as\footnote{This is just the matrix formed by \begin{equation}
-        \sum_i\ket{\phi_i}\bra{\psi_i}\end{equation} which is in quantum
-        mechanics defined as the so-called \txtit{density matrix}.}
-            \begin{equation}
-                \rho_{pq} \equiv \sum\limits^{\frac{N}{2}}_{i=1}
-                C_{pi}C^{*}_{qi}
-                \label{eq:densitymatrixdef}
-            \end{equation}
-        and an interaction-matrix $D$ with elements
-            \begin{equation}
-                D_{pqrs} \equiv \Braket{pq | f_{12} | rs}
-            \end{equation}
-        for convenience. The implicit relabeling of $\chi_p(\blds{r})\rarr p$
-        is also present in the above expression for the Fock-matrix. The
-        Hartree-Fock equations (\Arf{eq:HFequations}) are then for the
-        restricted case written as
-            \begin{equation}
-                \blds{F}\blds{C}_i = \blds{\veps}S\blds{C}_i
-                \label{eq:eigvalrestr}
-            \end{equation}
-        with $S$ being the overlap matrix with elements
-            \begin{equation}
-                S_{pq} \equiv \Braket{p | q}
-            \end{equation}
-        This concludes the essential parts of the derivations of the
-        Hartree-Fock equations. We also present the unrestricted case in
-        \Arf{sec:UHFPNE} below. 
-    
-\section{Unrestricted Hartree-Fock and Poople-Nesbet-Equations\label{sec:UHFPNE}}
-    In the spirit of completion we also write out the equations for the
-    unrestricted case. The equations are in this case called the
-    \txtit{Poople-Nesbet equations}. The derivations are exactly the same as
-    for the restricted case, but without the spin-pairing in
-    \Arf{eq:spinpairingHF}. We get two equations, one for the spin-up states
-    and one for the spin-down\cite{compphysThijssen}. The equations
-    are\footnote{These are just two Roothan-Hall equations.}
+\section{Integral Elements}
+    In the Hartree-Fock scheme described in \Arf{chapter:3} we need to
+    calculate the integrals which define the different matrix elements. The
+    integrals to be found are of the following form
         \begin{equation}
             \begin{aligned}
-                \blds{F}^{+}\blds{C}^{+} &=
-                \blds{\veps}^{\+}\blds{S}\blds{C}^{+} \\
-                \blds{F}^{-}\blds{C}^{-} &=
-                \blds{\veps}^{-}\blds{S}\blds{C}^{-}
+                \Braket{i|j} &= \infint g_i(\alpha_i;r,A)g_j(\alpha_j;r,B) \md
+                \blds{r} \\
+                \Braket{i|x^k_d|j} &= \infint g_i(\alpha_i;r,A) r^k
+                g_j(\alpha_j;r,B) \md \blds{r} \\
+                \Braket{i|\nabla^2|j} &= \infint g_i(\alpha_i;r,A)\nabla^2
+                g_j(\alpha_j;r,B) \md \blds{r} \\
+                \Braket{ij|\frac{1}{r}|kl} &= \infint\infint
+                g_i(\alpha_i;r_1,A)g_j(\alpha_j;r_2,B) \frac{1}{r_{12}}
+                g_k(\alpha_k;r_1,C)g_l(\alpha_l;r_2,D) \md \blds{r}_1 \md
+                \blds{r}_2\\
             \end{aligned}
         \end{equation}
-    The elements of the Fock-matrices for spin-up and spin-down are
+    where $\md\blds{r}$ means integration over all dimensions and with the
+    $g$'s being the usual \txtit{Hermite-Gaussians} defined as
         \begin{equation}
-            F^{\pm}_{pq} = h_{pq} + \sumll{k_{\pm}}\sumll{rs}
-            C^{\pm\dagger}_{rk_{\pm}} C^{\pm\dagger}_{sk_{\pm}} \left[D_{prqs}
-            - D_{prsq}\right] + \sumll{k_{\mp}}\sumll{rs}
-            C^{\mp\dagger}_{rk_{\mp}} C^{\mp\dagger}_{sk_{\mp}} D_{prqs}
-            \label{eq:UHFFockdef}
+            g_n(\alpha;\blds{r},\blds{A}) = \prod_d (x_d-A_d)^{n_d}
+            \me^{-\alpha (x_d-A_d)^2}
+            \label{eq:hermiteGauss2}
         \end{equation}
-    The Hartree-Fock algorithm thus involves two eigenvalue problems at each
-    iteration. Notice also that the summation index $k_{\pm}$ runs over the
-    spin-up or spin-down states respectively and the $r$ and $s$ runs over all
-    the spacial basis functions.
+    We will in this chapter limit ourselves to work with isotropic Gaussians
+    (meaning $\alpha_d$ is the same for all dimensions) as this will yield a
+    simpler closed-form solution to the integrals. For a calculation of
+    integral elements using non-isotropic Gaussian functions see this wonderful
+    article \cite{nonIsoGauss}, this article takes gives a detailed
+    calculations of integrals over s-type non-isotropic gaussians. The
+    extension to general Gauss-Hermites can be done in the exact same manner as
+    presented here, however the proportionality factors involved in the
+    recursive relation is different. \\
 
-\section{Convergence and Mixing}
-    The Hartree-Fock equations themselves are what we call a system of
-    non-linear equations meaning that they need to be solved
-    iteratively\footnote{and pray for convergence...}. A simple brute-force way
-    of setting a convergence threshold is to say
+    Before we throw ourselves out into the integrals, let us first express the
+    Hermite-Gaussians in a more convenient way(again see
+    \cite{HelgakerTaylorGauss} and \cite{HelgakerGauss}. The Gaussians can be
+    expressed as
         \begin{equation}
-            \abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
-            \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \text{threshold}
-            \label{eq:HFconvthresh}
+            g_n(\alpha;\blds{r},\blds{A}) = \prod_d  \prdp{A_{x_d}}{n_d}
+            \me^{-\alpha (x_d-A_d)^2} = \prod_d \prdp{A_{x_d}}{n_d}
+            g_0(\alpha;\blds{r},\blds{A})
+            \label{eq:centerDerGauss}
         \end{equation}
-    The factors determining the achievement that is correct convergence to a
-    ground-state is the basis set of choice, but even with a good set the
-    notorious divergence can occur.  There are two methods in particular which
-    are made to account for this. The first one is a simple
-    \txtit{mixing}\cite{compphysThijssen} of the current density matrix and the
-    one obtained at previous iteration
+    Since the derivatives are with respect to the center variables we may pull
+    them out of the integration meaning the integrals will only be over s-type
+    Gaussians, greatly simplifying the calculations. With the mentioned
+    simplification in mind, the problem is to find a closed-form expression for
+    the integrals over s-type Gaussians.
+
+    We also introduce the \txtit{Gaussian product rule}\footnote{Still in the
+    isotropic case.} which basically states that the product of two Gaussian
+    functions is just a third Gaussian centered between the center of the two.
+    The expressions give
         \begin{equation}
-            \blds{\rho}_{\text{new}} = \alpha\blds{\rho}_{\text{new}} + (1 -
-            \alpha)\blds{\rho}_{\text{old}},\indent 0<\alpha\leq 1
-            \label{eq:mixing}
+            g_0(\alpha;\blds{r},\blds{A})g_0(\beta;\blds{r},\blds{B}) =
+            K_{AB}\exp(-(\alpha+\beta)\blds{r}^2_s)
+            \label{eq:gaussianProductRule}
         \end{equation}
-    This method stems from the observation that for some systems the
-    Hartree-Fock energies start to oscillate and the above mixing seems to be
-    quite efficient at reducing the oscillations. \\
-    The more popular approach however is the DIIS procedure, also known as
-    Pulay mixing\cite{PULAY,PULAY2}. \\
-    We use the simple mixing in this thesis.
+    where
+        \begin{equation}
+            \begin{aligned}
+                K_{AB} &\equiv \exp(-\frac{\alpha\beta}{\alpha+\beta}R^2_{AB})
+                \\
+                R_{AB} &= \abs{\blds{A} - \blds{B}} \\
+                \blds{r_s} &= \blds{r} - \blds{P} \\
+                \blds{P} &= \frac{\alpha\blds{A} +
+                \beta\blds{B}}{\alpha + \beta}
+            \end{aligned}
+        \end{equation}
+    the vector $\blds{r}_S$ is just somewhere between $\blds{A}$ and
+    $\blds{B}$(We will see that $r_S$ disappears when the integration is done).
+    The Gaussian product rule greatly simplifies the integral over two Gaussian
+    functions since we can just pull $K_{AB}$ out of the integration since it
+    is a constant.
 
-    Here is also a figure describing the algorithm.
-        \begin{figure}[H]
-            \centering
-            \begin{tikzpicture}[
-                    >={Latex[width=2mm,length=2mm]},
-                        base/.style = {rectangle, rounded corners, draw=black,
-                                    minimum width=2cm, minimum height=0.5cm, text
-                                    centered, font=\sffamily},
-                        basecode/.style = {rectangle, rounded corners, draw=black,
-                                    minimum width=2cm, minimum height=0.5cm, text
-                                    centered, font=\sffamily, align=left},
-                        activityStarts/.style = {base, fill=blue!30, drop shadow},
-                        startstop/.style = {base, fill=red!30, drop shadow},
-                        activityRuns/.style = {base, fill=green!30, drop shadow},
-                        process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                        processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-                    scale=0.8, 
-                    node distance=1.5cm, 
-                    every node/.style={fill=white, font=\sffamily},
-                    align=center]
-                \node (pre) [activityStarts] {
-                    Pre-build two-body matrix $D_{pqrs}$ \\
-                    Pre-build one-body matrix $h_{pq}$ \\
-                    Pre-build overlap matrix $S_{pq}$ \\
-                    Initialize $\blds{C}$
-                };
-                \node (Fock) [activityRuns, below of=pre, yshift=-1.0cm] {
-                    Set Fock-matrix $\blds{F}$
-                };
-                \node (RHF) [process, above right of=Fock, xshift=3.0cm, yshift=-0.3cm] {
-                    Use \Arf{eq:FockRestrictedDef} if RHF
-                };
-                \node (UHF) [process, below right of=Fock, xshift=3.0cm, yshift=0.1cm] {
-                    Use \Arf{eq:UHFFockdef} if UHF
-                };
-                \draw[-] (Fock) to [out=15, in=180] (RHF);
-                \draw[-] (Fock) to [out=-15, in=180] (UHF);
-                \draw[->] (pre) -- (Fock);
-                \node (eigcomp) [activityRuns, below of=Fock, yshift=-1.0cm] {
-                    Solve generalized \\ 
-                    eigenvalue problem. \\
-                    $\blds{F}\blds{C} = \blds{\veps}S\blds{C}$
-                };
-                \draw[->] (Fock) -- (eigcomp);
-                \node (density) [activityRuns, below of=eigcomp] {
-                   Set density matrix $\blds{\rho}$.
-                };
-                \draw[->] (eigcomp) -- (density);
-                \node (densityeq) [process, right of=density, xshift=2.5cm] {
-                    \Arf{eq:densitymatrixdef}
-                };
-                \draw[-] (density) -- (densityeq);
-                \node (mix) [activityRuns, below of=density] {
-                    Perform mixing of $\blds{\rho}$.
-                };
-                \draw[->] (density) -- (mix);
-                \node (mixeq) [process, right of=mix, xshift=2.5cm] {
-                    \Arf{eq:mixing}
-                };
-                \draw[-] (mix) -- (mixeq);
-                \node (conv) [startstop, below of=mix] {
-                    Check convergence.
-                };
-                \node (conveq) [process, right of=conv, xshift=2.5cm] {
-                    \Arf{eq:HFconvthresh}
-                };
-                \draw[->] (mix) -- (conv);
-                \draw[-] (conv) -- (conveq);
-                \node (no) [above left of=conv, xshift=-4.0cm] {
-                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
-                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} \geq \epsilon$
-                };
-                \draw[->] (conv) to [out=180,in=-90] (no);
-                \node (keepOld) [process, above of=no, yshift=1.5cm, xshift=-0.5cm] {
-                    Save energy eigenvalues and \\
-                    density matrix(mixed). \\
-                    $\blds{\varepsilon}^{\text{HF}}_{\text{old}} =
-                    \blds{\varepsilon}^{\text{HF}}_{\text{new}}$ \\
-                    $\blds{\rho}_{\text{old}} = \blds{\rho}_{\text{new}}$
-                };
-                \draw[->] (no) to [out=90,in=-90] (keepOld);
-                \draw[->] (keepOld) to [out=90,in=180] (Fock);
-                \node (yes) [below of=conv] {
-                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
-                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \epsilon$
-                };
-                \draw[->] (conv) -- (yes);
-                \node (end) [activityStarts, below of=yes] {
-                    Output energy
-                };
-                \node (endeq) [process, right of=end, xshift=3.0cm] {
-                    \Arf{eq:energyJKHF, eq:ch3Efunc}
-                };
-                \draw[->] (yes) -- (end);
-                \draw[-] (end) -- (endeq);
-            \end{tikzpicture}
-            \caption{Hartree-Fock Algorithm.}
-        \end{figure}
+\subsection{Overlap Distribution}
+    An \txtit{overlap distribution} is defined as the product between two
+    Hermite-Gaussian functions, that is
+        \begin{equation}
+            \Omega_{ij} = \prod_d g_{i_d}(x_d,\alpha,A_d)g_{j_d}(x_d,\beta,B_d)
+            =
+            K_{A_dB_d}x_A^{i_d}x_B^{j_d}\me^{-(\alpha+\beta)x^2_P}
+        \end{equation}
+    with the Gaussian product rule, which is just another Gaussian function
+    centered in $P$, but with the extra \txtit{monomial} factors in
+    $\blds{r}-\blds{A}$ and $\blds{r}-\blds{B}$. These factors are troublesome
+    when integrating. With the motivation that Hermite-Gaussians make life
+    simpler, we expand the overlap distribution in a Hermite-Gaussian basis.
+    Following T. Helgaker\cite{HelgakerTaylorGauss} and working in one
+    dimension(since Hermite-Gaussians can be split in each respective
+    dimension) we have\footnote{The indices $i$ and $j$ are now in 1
+    dimension!}
+        \begin{equation}
+            \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) =
+            \sum\limits^{i+j}_{t=0} E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P})
+            \label{eq:omegaDef}
+        \end{equation}
+    Again, we stress that the indices in \Arf{eq:omegaDef} and the calculations
+    further are in 1 dimension. Explicit expressions for the coefficients
+    $E^{ij}_t$ are difficult to derive, however a set of recurrence relations
+    are possible to find using the properties of the Hermite-Gaussian
+    functions. Consider firstly the incremented distribution
+        \begin{align}
+            \Omega_{i+1,j} &= \sum^{i+1+j}_{t=0} E^{i+1,j}_tg_t \nonumber \\
+            &= \left(x_P -
+            \frac{\beta}{\alpha+\beta}(A_x-B_x)\right)\Omega_{ij} \nonumber \\
+            &= \suml{t=0}{i+j} E^{ij}_t\left(x_P -
+            \frac{\beta}{\alpha+\beta}(A_x-B_x)\right) g_t \nonumber \\
+            &= \suml{t=0}{i+j} E^{ij}_t\left(\left(tg_{t-1} +
+            \frac{1}{2(\alpha+\beta)}g_{t+1}\right) -
+            \frac{\beta}{\alpha+\beta}(A_x-B_x)g_t\right) \nonumber \\
+            &= \suml{t=0}{i+j} \left((t+1)E^{ij}_{t+1} +
+            \frac{1}{2(\alpha+\beta)}E^{ij}_{j-1} -
+            \frac{\beta}{\alpha+\beta}(A_x-B_x)\right)g_t
+            \label{eq:omegaIncr}
+        \end{align}
+    Using the properties listed in \Arf{eq:hermiteGaussProp} (mainly the
+    recurrence) and the expansion \Arf{eq:omegaDef}. The incrementation of $j$
+    follows the exact same derivation. The starting coefficient is thus
+        \begin{equation}
+            E^{00}_0 = K_{AB}
+        \end{equation}
+    This is found by inserting in $i=j=0$ into \Arf{eq:omegaIncr}, realizing
+    the exponental is the same for all $i$ and $j$ and using the orthogonality
+    between the Hermite-Gaussians\footnote{Another way of expressing this
+    statement is to say that each index $t$ in the sum corresponds to an
+    equation for $E^{ij}_t$.}. The recurrent coupled relations for the
+    $E$'s are
+        \begin{equation}
+            \begin{aligned}
+                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1}
+            \end{aligned}
+        \end{equation}
+    The overlap distribution can with this be expanded in Hermite-Gaussian
+    functions.
 
-\section{Quantum Monte Carlo\label{sec:QMC}}
-    Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
-    by a statistical approach using so-called \txtit{Markov Chain} simulations
-    (also called random walk). The nature of the wave function at hand is
-    fundamentally a statistical model defined on a large configuration space
-    with small areas of densities. The Monte Carlo method is perfect for
-    solving such a system because of the non-homogeneous distribution of
-    calculation across the space. An standard approach with equal distribution
-    of calculation would then be a waste of computation time. 
+    As mentioned, the whole point of using Hermite-Gaussian functions is
+    because of the inherent definition with the derivative with respect to the
+    centering(remember s-types). This means that for attaining the final
+    expression we must in the end differentiate the expansion coefficients. We
+    state here the coefficients differentiated with respect to the difference
+    variable $Q_x=A_x-B_x$
+        \begin{equation}
+            \begin{aligned}
+                E^{00;n+1}_0 &=
+                -\frac{2\alpha\beta}{\alpha+\beta}\left(Q_xE^{00;n}_0 +
+                nE^{00;n-1}_0\right) \\
+                E^{i+1,j;n}_t &= \frac{1}{2(\alpha+\beta)}E^{ij;n}_{t-1} -
+                \frac{\beta}{\alpha+\beta}\left(Q_xE^{ij;n}_t +
+                nE^{ij;n-1}_t\right) + (t+1)E^{ij;n}_{t+1} \\
+                E^{i,j+1;n}_t &= \frac{1}{2(\alpha+\beta)}E^{ij;n}_{t-1} -
+                \frac{\alpha}{\alpha+\beta}\left(Q_xE^{ij;n}_t +
+                nE^{ij;n-1}_t\right) + (t+1)E^{ij;n}_{t+1} \\
+                E^{ij;n}_t &\equiv \frac{\prtl^n E^{ij}_t}{\prtl Q^n_x}
+            \end{aligned}
+        \end{equation}
+    Notice that these expressions are just the same relations as for the
+    coefficients, but with an extra factor in the middle.
 
-    We will in this chapter address the Metropolis algorithm which is used to
-    create a Markov chain and derive the equations used in the variational
-    method.
+\subsection{Overlap Integral\label{susec:overlapIntegral}}
+    With The simplification to s-types and the product rule, the integration
+    may begin. Starting with the overlap $\Braket{i|j}$ and using
+    \Arf{eq:omegaDef}\footnote{Also using the following integral $\infint
+    \me^{-\lambda x^2} = \sqrt{\frac{\pi}{\lambda}},\indent \lambda>0$. See
+    \cite{handbookmath}.}
+        \begin{align}
+            \Braket{i|j} &= \infint
+            \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
+            \blds{r} \nonumber \\
+            &= \sumE{p}{i}{j} \infint g_p(\alpha,\beta,\blds{r},\blds{P})
+            \md\blds{r} \nonumber \\
+            &= \sumE{p}{i}{j} \infint (\blds{r}-\blds{P})^p \me^{-(\alpha_p +
+            \beta_p)(\blds{r} - \blds{P})^2} \md\blds{r} \nonumber \\
+            &= \sumE{p}{i}{j}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
+            \label{eq:stypeOverlap}
+        \end{align}
+    The power $d$ comes from splitting the integral into the $d$ dimensions.
+    Also using the \txtit{multi-index
+    notation}(\Arf{sec:multiIndexNotation})\footnote{The power $d$ also means
+    that with the multi-index notation the entire expression in the paranthesis
+    are to be calculated for each dimension in $p$ and then multiplied
+    together.} and expanding
+        \begin{equation}
+            E^{ab}_{n} = \prod_d E^{a_db_d}_{n_d}
+            \label{eq:Enotation}
+        \end{equation}
+    Such that the coefficients are all just products over coefficients in each
+    dimension. A substitution in each dimension(i.e $u=x-P_x$) is also used.
+    Notice in addition that the scaling factors $\alpha$ and $\beta$ are
+    specific for each $p$ because of the overlap expansion.
 
-    The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
-    equations stated assume atomic units ($\hbar=m_e=e=4\pi\veps_0$) >> REF
-    HERE ATOMIC UNITS <<.
+\subsection{Potential Integral}
+    The second integral with the $x^k_d$ part shows up in the external
+    potential part of the Hamiltonian and again with the Gaussian product rule
+    the expression gives
+        \begin{align}
+            \Braket{i|x^k_d|j} &= \infint x^{k}_d
+            \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
+            \blds{r} \nonumber \\
+            &= \sumE{p}{i}{j} \infint x^k_d (\blds{r}-\blds{P})^p
+            \me^{-(\alpha_p+\beta_p)(\blds{r} - \blds{P}_p)^2} \md \blds{r}
+            \nonumber \\
+            &= \sumE{p}{i}{j}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \infint
+            (u+P_d)^k\exp(-(\alpha_p+\beta_p)u^2) \md u \nonumber \\
+            &= \sumE{p}{i}{j}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
+            \sum\limits_{l=0}^k {k\choose l} P^{k-l}_d \infint
+            u^l\exp(-(\alpha_p+\beta_p)u^2) \md u \nonumber \\
+            &= \sumE{p}{i}{j}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
+            \sum\limits_{l=0}^k {k\choose l}
+            \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
+            \left((-1)^l+1\right) \Gamma\left(\frac{l+1}{2}\right)
+            \label{eq:potIntegral}
+        \end{align}
+    The integrals are split in each dimension and the dimensions not equal to
+    $d$(in $x^k_d$) are pulled out and the approach in \Arf{eq:stypeOverlap} is
+    applied. The integral over dimension $d$ is then substituted with
+    $u=x_d+P_d$. In line four $(u+P_d)^k$ is rewritten with the \txtit{binomial
+    expansion}\footnote{The integral $\infint x^n\me^{-ax^2}\md x =
+    \frac{1}{2}a^{-\frac{n}{2}}\Gamma\left(\frac{k+1}{2}\right),\indent n>-1,
+    n\;\text{even}$, see \cite{handbookmath}.}.
 
-    \subsection{The Variational Principle and Expectation Value of Energy}
-        Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the
-        variational principle \cite{GriffQuan, NeOr} states that the
-        expectation value of $\Ham$
-            \begin{equation}
-                E[\psi_T] = \ecp{\Ham} =
-                \frac{\dinner{\psi_T}{\Ham}}{\pinner}
-                \label{eq:ecpE}
-            \end{equation}
-        is an upper bound to the ground state energy
-            \begin{equation}
-                E_0 \leq \ecp{\Ham}
-                \label{eq:ecpEBound}
-            \end{equation}
-        Now we can define our PDF as(see \Arf{susec:diffTHpdf} for a more
-        detailed reasoning)
-            \begin{equation}
-                P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}
-                \label{eq:PDFdef}
-            \end{equation}
-        and with a new quantity
-            \begin{equation}
-                E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\psiT}\Ham\psiT
-                \label{eq:ELdef}
-            \end{equation}
-        the so-called local energy, we can rewrite \Arf{eq:ecpE} as
-            \begin{equation}
-                E[\psiT] = \ecp{E_L}
-            \end{equation}
-        The idea now is to find the lowest possible energy by varying a set of
-        parameters $\mb{\alpha}$. This is done by numerical
-        minimization(see \Arf{chapter:5}). We essentially minimize the
-        expectation value of the energy were the expectation value itself is
-        found with the Metropolis algorithm, see \Arf{susec:MHAlg}.
+\subsection{Laplacian Integral}
+    The third integral with the Laplacian operator arises in the kinetic part
+    of the Hamiltonian. This integral can be expressed in terms of
+    \Arf{eq:stypeOverlap}, the overlap integral, however the Laplacian applied
+    to a Hermite-Gaussian has to be calculated first
+        \begin{align}
+            \nabla^2 g_i(\alpha;\blds{r},\blds{A}) &= \sum_d \prd{x_d}[][2]
+            \left(\prod_{d'} \left(x - A_{d'}\right)^{i_{d'}}_{d'} \exp(-\alpha
+            \left(x_{d'} - A_{d'}\right)^2)\right)\nonumber \\
+            &= \sum_d \prod_{d'\neq d} g_{i,d'} \prd{x_d}[][2]\left(\left(x_d -
+            A_d\right)^{i_d} \exp(-\alpha \left(x_d - A_d\right)^2)\right)
+            \nonumber \\
+            &= \sum_d \prod_{d'\neq d} g_{i,d'} g_{i,d}
+            \Bigg(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} \nonumber \\ 
+            &\hspace{3.5cm}+
+            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg) \nonumber
+            \\
+            &= g_i\sum_d \Bigg(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+            2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} \nonumber \\
+            &\hspace{2.0cm}+
+            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg)
+        \end{align}
+    Now for the integral we have
+        \begin{align}
+            \Braket{i|\nabla^2|j} &= \infint
+            g_i(\alpha;\blds{r},\blds{A})\nabla^2g_j(\beta;\blds{r},\blds{B}) 
+            \md\blds{r} \nonumber \\
+            &= \sum_d\prod_{d'\neq d}
+            \Braket{i_{d'}|\sigma_{d'}(S_d(\beta;x-B_d))|j_{d'}}
+            \label{eq:laplacianIntegral}
+        \end{align}
+    with
+        \begin{equation}
+            \begin{aligned}
+                S_d(\alpha;x_d-A_d) &\equiv
+                \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+                2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
+                i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \\
+                \sigma_d(S_d) &\equiv \left\{\begin{matrix}
+                                            1,&\indent d' \neq d \\
+                                            S_d,&\indent d' = d
+                                            \end{matrix}
+                                        \right.
+            \end{aligned}
+        \end{equation}
+    meaning the Laplacian integral can be expressed in terms of the overlap
+    integrals $\Braket{i|j+2}$, $\Braket{i|j}$ and
+    $\Braket{i|i-2}$\footnote{Since $xg_i=g_{i+1}$ and
+    $\frac{g_i}{x}=g_{i-1}$.}.
 
-        An important property of the local energy is when we differentiate it
-        with respect to one of the variational parameters $\{\alpha\}$ within
-        the context of an expectation value. The result in this case would be
-        zero. This is easily seen by direct calculation
-            \begin{align}
-                \ecp{\prd{\alpha}[E_L]} &= \int \frac{\abs{\psi}^2\prd{\alpha}
-                \left[\frac{1}{\psi}H\psi\right]}{\int \abs{\psi}^2 \md r} \md
-                r \nonumber \\
-                &= \int \frac{\abs{\psi}^2 \frac{\psi^{*}\prd{\alpha}(H\psi) -
-                (H\psi^{*}) \prd{\alpha}[\psi]}{\abs{\psi}^2}}{\int
-                \abs{\psi}^2 \md r} \md r \nonumber \\
-                &= \int \frac{\psi^{*}H\prd{\alpha}[\psi] -
-                \psi^{*}H\prd{\alpha}[\psi]}{\int \abs{\psi}^2 \md r} \md r
-                \nonumber \\
-                &= 0
-                \label{eq:expELdelzero}
-            \end{align}
-        We have used the fact that $H$ is not dependant on any variational
-        parameter and used the hermitian properties\cite{GriffQuan} of $H$ to
-        justify the movement of $H$ within the integral.  
+\subsection{Coulomb Potential Integral}
+    Lastly, the troublesome\footnote{Damn inverse term prevents dimensional
+    decomposition.} Coulomb integral needs to be calculated. Due to the $1/r$
+    term we cannot split the integral in each respective dimension as
+    previously. Before we approach the full Coulomb integral, lets calculate a
+    simpler integral over a so-called \txtit{Coulomb Potential distribution}
+        \begin{equation}
+            \infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
+            \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r}
+        \end{equation}
+    The calculation of this integral will be beneficial for the calculation of
+    the Coulomb integral as we can reuse most of the tricks used. With
+    \Arf{eq:gaussianProductRule}, the Gaussian product rule, in mind. We
+    rewrite the inverse term with
+        \begin{equation}
+            \infint \me^{r^2_B t^2} \md t = \frac{\sqrt{\pi}}{r_B} \Rarr
+            \frac{1}{r_B} = \frac{1}{\sqrt{\pi}} \infint \me^{r^2_Bt^2} \md t
+            \label{eq:onelectronTrick1}
+        \end{equation}
+    The Coulomb potential integral is thus, with
+    \Arf{eq:gaussianProductRule}(again the product rule)
+        \begin{align}
+            \infint\infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
+            \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r} &=
+            \frac{1}{\sqrt{\pi}}\infint \me^{-\alpha\left(\blds{r} -
+            \blds{A}\right)^2} \me^{t^2(\blds{r} - \blds{B})^2} \md\blds{r} \md
+            t \nonumber \\
+            &= \frac{1}{\sqrt{\pi}} \infint\infint \me^{-\frac{\alpha
+            t^2}{\alpha + t^2}\left(\blds{A} - \blds{B}\right)^2}
+            \me^{-(\alpha+t^2)r^2_S} \md\blds{r} \md t \nonumber \\
+            &= \frac{1}{\sqrt{\pi}} \infint \left(\frac{\pi}{\alpha +
+            t^2}\right)^{\frac{d}{2}} \me^{-\frac{\alpha t^2}{\alpha +
+            t^2}\left(\blds{A} - \blds{B}\right)^2} \md t
+            \label{eq:coulombPotentialIntegral}
+        \end{align}
+    The integral over $t$ has to be addressed separately for two- and three
+    dimensions. For the three-dimensional case the reader is referred to
+    \cite{HelgakerTaylorGauss}. Here we will derive a closed-form form
+    expression for the two-dimensional case. First let us use the following
+    substitution
+        \begin{equation}
+            \begin{aligned}
+                u &= \frac{t}{\sqrt{\alpha+t^2}} \\
+                t &= u\sqrt{\frac{\alpha}{1-u^2}} \\
+                \frac{\md u}{\md t} &= \frac{\alpha}{(\alpha +
+                t^2)^{\frac{3}{2}}}
+            \end{aligned}
+            \hspace{2.5cm}
+            \begin{aligned}
+                \lim\limits_{t\rarr -\infty} u(t) &= -1 \\ 
+                \lim\limits_{t\rarr \infty} u(t) &= 1
+            \end{aligned}
+            \label{eq:uSubs1}
+        \end{equation}
+    The integrand(ignoring the exponential part) is then
+        \begin{align}
+            \frac{\md t}{\alpha + t^2} &= \frac{1}{\alpha + t^2} \frac{(\alpha +
+            t^2)^{\frac{3}{2}}}{\alpha} \md u \nonumber \\
+            &= \frac{\sqrt{\alpha + t^2}}{\alpha} \md u \nonumber \\
+            &= \frac{t}{\alpha u} \md u \nonumber \\
+            &= \frac{1}{\alpha u} u\sqrt{\frac{\alpha}{1-u^2}} \md u \nonumber \\
+            &= \frac{1}{\sqrt{\alpha}}\sqrt{\frac{1}{1-u^2}} \md u
+        \end{align}
+    giving
+        \begin{align}
+            I_{\text{2D}} = \sqrt{\frac{\pi}{\alpha}}\int\limits^1_{-1}
+            \frac{1}{\sqrt{1-u^2}} \me^{-\alpha u^2\abs{\blds{A} - \blds{B}}^2}
+            \md u
+            \label{eq:oneElectron2D}
+        \end{align}
+    and for the three-dimensional case we have a simpler form(easily seen with
+    the same substitution)
+        \begin{align}
+            I_{\text{3D}} = \pi\int\limits^1_{-1} \me^{-\alpha u^2\abs{\blds{A}
+            - \blds{B}}^2} \md u
+            \label{eq:oneElectron3D}
+        \end{align}
+    These integrals must be solved numerically using \txtit{Chebyshev-Gauss
+    Quadrature}\cite{gausschebyshev}. One can also rewrite the 2D-integral in
+    terms of the \txtit{Modified Bessel function of first kind} by using
+    $u^2=1/2(1 - \cos(\theta)$\cite{modifiedBessel}.
+    \cite{HelgakerTaylorGauss}. A take on this resulted nowhere as the closed
+    form expanded itself in ever-increasing order of polynomial factors with
+    the first and second order of the modified Bessel function of first kind.
+    The 3D-integral can be rewritten with an \txtit{incomplete Gamma function}
+    From \Arf{eq:centerDerGauss}, the integrals have to be differentiated in
+    order to get the final closed form expressions, see \Arf{sub:445}.
 
-        This neat result presented in \Arf{eq:expELdelzero} will show its
-        usefulness in the minimization when derivatives of the expectation
-        value come into play since finding the derivative of the local energy
-        would be much more of a hassle.\footnote{The differentiation of the
-        wavefunction is enough to reduce the quality of life on its own!} \\
-        We also write the derivative with respect to a variational parameters
-        $\alpha$ of the expectation value $\ecp{E}$ here for reference
-            \begin{equation}
-               \prd{\alpha}[\ecp{E}] =
-                2\left(\ecp{\frac{E_L}{\psi}\prd{\alpha}[\psi]} -
-                \ecp{E}\ecp{\frac{1}{\psi}\prd{\alpha}[\psi]}\right)
-            \end{equation}
-        We have also applied \Arf{eq:expELdelzero} here.
+\subsection{Coulomb Interaction Integral}
+    In the previous section an expression for integral over a Coulomb potential
+    was derived. Before we embark into handling the full Coulomb interaction
+    integral, another exercise with simpler interaction integral is worthwhile.
+    The integral in question is
+        \begin{equation}
+            I' = \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
+            \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
+            \blds{r}}} \md\blds{r} \md\blds{r'}
+            \label{eq:coulombInteractionSimple}
+        \end{equation}
+    This is an interaction between two distributions. Firstly, notice that we
+    can rewrite the distribution centered in $\blds{A}$ and the Coulomb
+    interaction with the previously calculated Coulomb potential integral given
+    in \Arf{eq:coulombPotentialIntegral}. Using $I$ as a general label for
+    \Arf{eq:oneElectron2D} and \Arf{eq:oneElectron3D} we have
+        \begin{align}
+            I' &= \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
+            \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
+            \blds{r}}} \md\blds{r} \md\blds{r'} \nonumber \\
+            &= \infint I_D(\alpha;\abs{\blds{r}-\blds{A}}) \me^{-\beta(\blds{r}
+            - \blds{B})^2} \md\blds{r}
+            \label{eq:Cintr1}
+        \end{align}
+    Inserting in the definition for $u$(the substitution in \Arf{eq:uSubs1})
+    and using the extremely useful Gaussian product rule for the product
+    between the distribution centered in $\blds{B}$ and the exponential factor
+    in $I$(which is labelled the same for both the two- and three dimensional
+    case) is
+        \begin{equation}
+            \me^{-\alpha u^2(\blds{r}-\blds{A})^2} \me^{-\beta(\blds{r} -
+            \blds{B})^2} = \me^{-(\alpha u^2 + \beta)\blds{r_S}^2}
+            \me^{-\frac{\alpha u^2\beta}{\alpha u^2 + \beta}
+            (\blds{A}-\blds{B})^2}
+        \end{equation}
+    Inserting this into \Arf{eq:Cintr1} with
+        \begin{equation}
+            \upsilon \equiv \left\{
+                \begin{matrix}
+                    \sqrt{\frac{\pi}{\alpha}}\sqrt{\frac{1}{1-u^2}},&\indent
+                    \text{2D} \\
+                    \pi,&\indent \text{3D}
+                \end{matrix}\right.
+        \end{equation}
+    we have
+        \begin{align}
+            I' &= \infint \int\limits^1_{-1} \upsilon \me^{-(\alpha u^2 +
+            \beta)\blds{r_S}^2} \me^{-\frac{\alpha u^2\beta}{\alpha u^2 +
+            \beta} (\blds{A}-\blds{B})^2} \md\blds{r}\md u \nonumber \\
+            &= \int\limits^1_{-1} \upsilon \left(\frac{\pi}{\alpha u^2 +
+            \beta}\right)^{\frac{d}{2}} \me^{-\frac{\alpha u^2\beta}{\alpha u^2
+            + \beta}(\blds{A}-\blds{B})^2} \md u
+        \end{align}
+    Specializing to the two-dimensional case and substituting
+        \begin{equation}
+            \begin{aligned}
+                v &= u\sqrt{\frac{\alpha+\beta}{\alpha u^2 + \beta}} \\
+                \frac{\md v}{\md u} &= \frac{\beta\sqrt{\alpha+\beta}}{(\alpha
+                u^2 + \beta)^{3/2}} \\
+                u &= v \sqrt{\frac{\beta}{\alpha+\beta - \alpha v^2}} \\
+                v(-1) &= -1 \\
+                v(1) &= 1
+            \end{aligned}
+        \end{equation}
+    The integrand is
+        \begin{align}
+            \frac{1}{\sqrt{1 - u^2}} \frac{1}{\alpha u^2 + \beta} \md u &=
+            \frac{1}{\sqrt{1-u^2}} \frac{1}{\alpha u^2 + \beta} \frac{(\alpha
+            u^2 + \beta)^{3/2}}{\beta\sqrt{\alpha+\beta}}\md v \nonumber \\
+            &= \frac{1}{\sqrt{1-u^2}} \frac{u}{\beta v}\md v \nonumber \\
+            &= \sqrt{\frac{\alpha+\beta -\alpha
+            v^2}{(\alpha+\beta)(1-v^2)}}\frac{1}{\beta
+            v}v\sqrt{\frac{\beta}{\alpha+\beta-\alpha v^2}} \md v \nonumber \\
+            &= \frac{1}{\sqrt{\beta(\alpha+\beta)}} \frac{1}{\sqrt{1 - v^2}}
+            \md v
+        \end{align}
+    we have
+        \begin{equation}
+            I'_{\text{2D}} =
+            \frac{\pi^{\frac{3}{2}}}{\sqrt{\alpha\beta(\alpha+\beta)}}
+            \int\limits^{1}_{-1} \frac{1}{\sqrt{1 - v^2}}
+            \me^{-\frac{\alpha\beta}{(\alpha + \beta)}v^2(\blds{A}-\blds{B})^2}
+            \md v
+            \label{eq:coulombInteractionSimpleFinal}
+        \end{equation}
+    This expression will be of great use when calculating the final full
+    interaction integral over the Coulomb distribution. The next section will
+    derive the mentioned recurrence relation before the full Coulomb integral
+    is calculated
 
-    \subsection{Metropolis-Hastings Algorithm\label{susec:MHAlg}}
-        The Metropolis algorithm bases itself on moves (also called
-        transitions) as given in a Markov process\cite{NeOr, FeWa}. This
-        process is given by
-            \begin{equation}
-                w_i(t+\veps) = \sum_j\ufij{w}{i}{j}w_j(t)
-            \end{equation}
-        where $w(j\rarr i)$ is just a transition from state $j$ to state $i$.
-        In order for the transition chain to reach a desired convergence while
-        reversibility is kept, the well known condition for detailed balance
-        must be fulfilled\cite{statmech}. If detailed balance is true, then the
-        following relation is true
-            \begin{equation}
-                w_i \ufij{T}{i}{j}\ufij{A}{i}{j} = w_j \ufij{T}{j}{i}\ufij{A}{j}{i}
-                \Rarr \frac{w_i}{w_j} =
-                \frac{\ufij{T}{j}{i}\ufij{A}{j}{i}}{\ufij{T}{i}{j}\ufij{A}{i}{j}}
-                \label{eq:detailedBalance}
-            \end{equation}
-        We have here introduced two scenarios, the transition from
-        configuration $i$ to configuration $j$ and the reverse process $j$ to
-        $i$. Solving the acceptance $A$ for the two cases where the ratio in
-        \ref{eq:detailedBalance} is either $1$(in which case the proposed state
-        $j$ is accepted and transitions is made) and when the ratio is less
-        then $1$. The Metropolis algorithm would in this case not automatically
-        reject the latter case, but rather reject it with a proposed uniform
-        probability. Introducing now a probability distribution function(PDF) $P$
-        the acceptance $A$ can be expressed as
-            \begin{equation}
-                \ufij{A}{i}{j} =
-                \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
-                \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)
-                \label{eq:metropolisAcceptance}
-            \end{equation}
-        The so-called selection probability $T$ is defined specifically for
-        each problem. For our case the PDF in question is the absolute square
-        of the wave function and the selection $T$ is a Green's function
-        derived in \Arf{susec:impSamp}.  The algorithm itself would then be
-        \begin{figure}[H]
-            \centering
-            \begin{tikzpicture}[
-                    >={Latex[width=2mm,length=2mm]},
-                        base/.style = {rectangle, rounded corners, draw=black,
-                                    minimum width=2cm, minimum height=0.5cm, text
-                                    centered, font=\sffamily},
-                        basecode/.style = {rectangle, rounded corners, draw=black,
-                                    minimum width=2cm, minimum height=0.5cm, text
-                                    centered, font=\sffamily, align=left},
-                        activityStarts/.style = {base, fill=blue!30, drop shadow},
-                        startstop/.style = {base, fill=red!30, drop shadow},
-                        activityRuns/.style = {base, fill=green!30, drop shadow},
-                        process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                        processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-                    scale=0.8, 
-                    node distance=1.5cm, 
-                    every node/.style={fill=white, font=\sffamily},
-                    align=center]
-                \node (1) [activityStarts] {
-                    Pick initial state $i$ at random.
-                };
-                \node (2) [activityStarts, below of=1] {
-                    Pick proposed state at random in accordance to
-                    $\ufij{T}{j}{i}$.
-                };
-                \node (3) [activityStarts, below of=2] {
-                    Accept state according to $\ufij{A}{j}{i}$.
-                };
-                \node (a) [activityRuns, below left of=3, xshift=-3cm] {
-                    Accepted \\
-                    $j = i$
-                };
-                \node (r) [startstop, below right of=3, xshift=3cm] {
-                    Rejected \\
-                    $i = j$
-                };
-                \draw[<-] (3) to [out=180,in=90] (a);
-                \draw[<-] (3) to [out=0,in=90] (r);
-                \node (4) [activityStarts, below of=3, yshift=-1cm] {
-                    Number of states satisfied?
-                };
-                \node (yes) [below of=4] {
-                    Yes
-                };
-                \node (no) [above left of=4, xshift=-5cm] {
-                    No
-                };
-                \draw[->] (4) to [out=180, in=-90] (no);
-                \draw[->] (no) to [out=90, in=180] (2);
-                \node (5) [activityStarts, below of=yes] {
-                    End.
-                };
-                \draw[->] (1) -- (2);
-                \draw[->] (2) -- (3);
-                \draw[->] (3) -- (4);
-                \draw[->] (4) -- (yes);
-                \draw[->] (yes) -- (5);
-            \end{tikzpicture}
-            \caption{Flow chart of the Metropolis algorithm.}
-        \end{figure}
+\subsection{Recurrence Relation\label{sub:445}}
+    Following directly from \cite{HelgakerTaylorGauss}, we proceed with finding
+    a similar recurrence relation for the derivatives. We define a function
+    containing the integral which needs to be solved numerically
+        \begin{equation}
+            \begin{aligned}
+                \zeta_n(x) &\equiv \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+                u^2}} \me^{-u^2x} \md u \\
+                \prd{x}[\zeta_n] &= -\zeta_{n+1}
+            \end{aligned}
+            \label{eq:zetaDef}
+        \end{equation}
+    The Coulomb potential integral is then, in terms of $\zeta_n(x)$
+        \begin{equation}
+            \twoDI = \sqrt{\frac{\pi}{\alpha}} \zeta_0\left(\alpha
+            R^2_{AB}\right)
+        \end{equation}
+    and the first derivative with respect to $A_x$ is
+        \begin{align}
+            \prd{A_x}[\twoDI] &= \sqrt{\frac{\pi}{\alpha}} \prd{A_x}
+            \zeta_0\left(\alpha R^2_{AB}\right) \nonumber \\
+            &= -2\sqrt{\alpha\pi}X_{AB}\zeta_1\left(\alpha R^2_{AB}\right)
+        \end{align}
+    With this we define an auxiliary function
+        \begin{equation}
+            \begin{aligned}
+                \xi^n_{tu} &=\prdp{A_x}{t}\prdp{A_y}{u} \xi^n_{00} \\
+                \xi^n_{00} &= (-2)^n\alpha^{n-\frac{1}{2}} \zeta_n\left(\alpha
+                R^2_{AB}\right)
+            \end{aligned}
+            \label{eq:auxiliary2d1}
+        \end{equation}
+    and take a look at the incrementation of $t$
+        \begin{align}
+            \xi^n_{t+1,u} &= \prdp{A_x}{t}\prdp{A_y}{u} \prd{A_x}[\xi^n_{00}]
+            \nonumber \\
+            &= \prdp{A_x}{t}X_{AB}\xi^{n+1}_{0u}
+            \label{eq:Rtincr}
+        \end{align}
+    Using the commutator between
+    $\prtl^t_{A_x}$\footnote{$\prtl^t_x=\prd{x}[][t]$}
+        \begin{align}
+            \prd{A_x}[][t] X_{AB} &= \left[\prd{A_x}[][t], X_{AB}\right] +
+            X_{AB}\prd{A_x}[][t] \nonumber \\
+            &= t\prd{A_x}[][t-1] + X_{AB}\prd{A_x}[][t]
+        \end{align}
+    the final form of \Arf{eq:Rtincr} is\footnote{The incrementation of $u$ is
+    derived in the exact same manner as with $t$.}
+        \begin{equation}
+            \begin{aligned}
+                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u}
+            \end{aligned}
+        \end{equation}
+    With this all Hermite integrals of order $t+u\leq N$ can be calculated from
+    $\zeta$ of order $n\leq N$, the only difference being $X_{AB}$ and
+    $Y_{AB}$. The Coulomb interaction integral
+    (\Arf{eq:coulombInteractionSimpleFinal}) follows this exact recurrence, but
+    with a different proportionality factor $\alpha\beta/(\alpha+\beta)$. We
+    will write it out for the sake of clarity
+        \begin{equation}
+            \begin{aligned}
+                \prd{A_x}[I'_{\text{2D}}] &= -\frac{2\alpha\beta}{\alpha+\beta}
+                X_{AB}\zeta_1\left(\frac{\alpha\beta}{\alpha+\beta}R^2_{AB}\right)
+                \\
+                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
+            \end{aligned}
+            \label{eq:recurrInteraction}
+        \end{equation}
+    Notice that the only difference between the obtained recurrence relations
+    and the ones obtained by Helgaker\cite{HelgakerGauss} is in
+    \Arf{eq:auxiliary2d1} and \Arf{eq:recurrInteraction}. Other than this the
+    incrementation of $\zeta_n$ gives the exact same $X_{AB}$(and similar for
+    the other directions) as with the incomplete gamma function.
 
-    \subsection{Diffusion Theory and the PDF\label{susec:diffTHpdf}}
-        The motivation for the use of diffusion theory is described very well
-        in the Masters thesis of Jørgen Høgberget\cite{jorgenThesis}. The
-        essential results were a Green's function propagator arising from the
-        \txtit{short time approximation} and the observation of interest here
-        which has to do with the statistics describing the expectation value,
-        it states that \txtit{any} distribution may be applied in calculation,
-        however if we take a close look at the local energy(\Arf{eq:ELdef}) we
-        see that for all distributions the local energy is not defined at the
-        zeros of $\psiT$.  This means that an arbitrary PDF does not guarantee
-        generation of points which makes $\psi_T=0$. This can be overcome by
-        introducing the square of the wave function to be defined as the
-        distribution function as given in \Arf{eq:PDFdef}. This basically means
-        that when using Quantum Monte-Carlo methods, the incorporation of the
-        fact that when an energy is more undefined(meaning $\psi_T\rarr 0$ the
-        less probable that point is actually means the generation of states in
-        which $\psi_T$ is removed. The next chapter will derive the method that
-        includes this observation into play, the so-called \txtit{importance
-        sampling}.
+\subsection{Coulomb Distribution Integral}
+    With the derived expressions for the Coulomb potential integral the full
+    two-body distribution can be treated. The expression with the
+    simplification in \Arf{eq:centerDerGauss} gives
+        \begin{align}
+            \Braket{ij|\frac{1}{r_{12}}|kl} &= \infint\infint
+            \Omega_{ik}(\blds{\alpha},\blds{\gamma},\blds{r_1},
+            \blds{A},\blds{C}) \frac{1}{\abs{\blds{r_1} - \blds{r_2}}}
+            \Omega_{jl}(\blds{\beta},\blds{\delta},\blds{r_2},
+            \blds{B},\blds{D}) \md\blds{r_1} \md\blds{r_2} \nonumber \\
+            &= \suml{pq}{i+k,j+l} E^{ik}_pE^{jl}_q \infint\infint
+            \frac{g_{p}(\alpha+\gamma,\blds{r_1},\blds{P})
+            g_{q}(\beta+\delta,\blds{r_2},\blds{Q})}{\abs{\blds{r_1} -
+            \blds{r_2}}} \md\blds{r_1} \md\blds{r_2}\nonumber \\
+            &= \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
+            E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
+            \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
+            \delta},\blds{R_{S_1S_2}}\right)
+            \label{eq:coulomb_dist_integral_stype}
+        \end{align}
+    Where we have used the multi-index\footnote{Essentially just expanding an
+    index in each dimension, for instance $i=(i_x,i_y,i_z)$ with corresponding
+    $p=(p_x, p_y, p_z)$ with each index inside the tuple running to each
+    respective index, meaning for instance $p_x=0$ to $i_x$ and so on.}
+    notation for $p$, $q$, $i$, $k$, $j$, and $l$ \Arf{eq:Enotation}
+    and used \Arf{eq:coulombInteractionSimpleFinal} to arrive at the final
+    step. An additional simplification due to the fact that $\zeta_n$ is only
+    dependant on the relative distance of the centers is also used, for the
+    x-coordinate it is stated as
+        \begin{equation}
+            \prdp{P_x}{p_x}\prdp{Q_x}{q_x} = (-1)^{p_x+q_x} \prdp{P_x}{p_x+q_x}
+        \end{equation}
+    and the same for the other directions. The factor $a$ is
+        \begin{equation}
+            a \equiv \left\{\begin{aligned}
+                \frac{\pi^{\frac{3}{2}}}
+                {\sqrt{(\alpha+\gamma)(\beta+\delta)}},\indent \text{2D} \\
+                \frac{\pi^{\frac{5}{2}}}
+                {(\alpha+\gamma)(\beta+\delta)},\indent \text{3D} \\
+            \end{aligned}\right.
+        \end{equation}
 
-    \subsection{Importance Sampling\label{susec:impSamp}}
-        Using the selection probability mentioned in \Arf{susec:MHAlg}, the
-        Metropolis-Hastings algorithm is called an \txtit{Importance sampling}
-        because it essentially makes the sampling more concentrated around
-        areas where the PDF has large values. \\
+\section{Double-Well Functions\label{sec:dwfunc}}
+    This section will explain the building of a basis for the
+    \txtit{double-well potential}. We will expand them in a linear combination
+    of harmonicoscillator functions and find the coefficients of this expansion
+    by solving the arising eigenvalue-problem. Let us first express the
+    potential
+        \begin{equation}
+            \UDW(r) = \VHO(r) + \VDW_n(r)
+            \label{eq:UDW}
+        \end{equation}
+    A double well potential is essentially just a perturbation of the usual
+    Harmonicoscillator potential(which is a single-well). The $\VDW_n$ part is
+    assumed to a polynomial of degree $n$. This means that the integral over
+    such a potential can be calculated using \Arf{eq:potIntegral}.
 
-        Because of the intrinsic statistical property of the wave function
-        Quantum Mechanics can be modelled as a diffusion process, or more
-        specifically, an \txtit{Isotropic Diffusion Process} which is
-        essentially just a random walk model. Such a process is described by
-        the Langevin equation with the corresponding Fokker-Planck equation
-        describing the motion of the walkers(particles). See \cite{numstoch,
-        compphysThijssen, vmc} for details. The full derivations presented here
-        follows closely the descriptions in \cite{compphysThijssen, vmc}. Let
-        us start off with the Langevin equation
-            \begin{equation}
-                \langevin
-                \label{eq:langevin}
-            \end{equation}
-        and apply Euler's method and obtain the new positions
-            \begin{equation}
-                \rnew = \rold + D\Fold\Delta t + \xi
-                \label{eq:rnewdef}
-            \end{equation}
-        with the $r$'s being the new and old positions in the Markov chain
-        respectively and $\Fold=F(\rold)$. The quantity $D$ is a diffusion
-        therm equal to $1/2$ due to the kinetic energy(remind of natural units)
-        and $\xi$ is a Gaussian distributed random number with $0$ mean and
-        $\sqrt{\Delta t}$ variance.
+\subsection{The Eigenvalue problem}
+    The mentioned eigenvalue problem comes from the basis expansion of the
+    spacial part and from the trick of projecting with a single function from
+    left. We will explain briefly. First let us express the expansion,
+        \begin{equation}
+            \ket{\psiDW_p} = \sumll{l}C_{lp}\ket{\psiHO_l}
+        \end{equation}
+    and then project from left the bra $\bra{\psiHO_k}$ in the
+    inner-product space of $h^{\text{DW}}$
+        \begin{equation}
+            \Braket{\psiHO_k|\hDW|\psiDW_p} =
+            \sumll{l}C_{pl}\Braket{\psiHO_k|\hDW|\psiHO_l} =
+            \sumll{l}C_{pl}\varepsilon^{\text{DW}}_l
+        \end{equation}
+    This gives us an eigenvalue equation
+        \begin{equation}
+            \blds{H}\blds{C} = \blds{\varepsilon^{\text{DW}}}\blds{C}
+        \end{equation}
+    with
+        \begin{equation}
+            H_{ij} = \Braket{\psiHO_i|h^{\text{DW}}|\psiHO_j}
+        \end{equation}
+    Using \Arf{eq:UDW} we can write $H_{ij}$ as
+        \begin{equation}
+            H_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
+            \Braket{\psiHO_i|\VDW_n|\psiHO_j}
+            \label{eq:Heigdef}
+        \end{equation}
+    by using the solution to Schrödinger's equation for the harmonic oscillator
+    system. \\
 
-        As mentioned a particle is described by the Fokker-Planck equation
-            \begin{equation}
-                \FokkerPlanck
-                \label{eq:FokkerPlanckDef}
-            \end{equation}
-        With $P$ being the PDF(in current case the selection probability) and
-        $F$ being the drift therm. In order to achieve convergence, that is a
-        stationary probability density, we need the left hand side to be zero
-        in \Arf{eq:FokkerPlanckDef} giving the following equation
-            \begin{equation}
-                \prd{x_i}[P][2] = P\prd{x_i}[\mb{F_i}] + \mb{F_i}\prd{x_i}[P]
-            \end{equation}
-        with the drift-therm being on the form $\mb{F}=g(x)\prtl P/\prtl x$ we
-        finally have that
-            \begin{equation}
-                \mb{F} = \frac{2}{\psi_T}\nabla \psi_T
-                \label{eq:qForceDef}
-            \end{equation}
-        This is the so-called \txtit{Quantum Force} which pushes the walkers
-        towards regions where the wave function is large. \\
-        The missing part now is to model the selection probability in
-        \Arf{eq:metropolisAcceptance}. Inserting the quantum force into the
-        Focker-Planck equation(\Arf{eq:FokkerPlanckDef} the following diffusion
-        equation appears
-            \begin{equation}
-                \prd{t}[P] = -D\nabla^2 P
-                \label{eq:diffeqFP}
-            \end{equation}
-        Applying the \txtit{Fourier Transform} to spatial coordinate $r$ in
-        \Arf{eq:diffeqFP}, the equation is transformed to
-            \begin{equation}
-                \prd{t}[P(\blds{s},t)] = -Ds^2 P(\blds{s},t)
-            \end{equation}
-        which has solution
-            \begin{equation}
-                P(\blds{s},\Delta t) = P(\blds{s},0)\me^{Ds^2\Delta t}
-                \label{eq:Punfin}
-            \end{equation}
-        Now we need to find the constant $P(\blds{s},0)$, and as is apparent
-        with $t=0$, we will make use of an initial condition. The initial
-        positions are spread out from origin, that is $D\Delta t\blds{F}_j$. We
-        can express this with a \txtit{Dirac-delta function}\cite{GriffQuan,
-        boasMath} giving
-            \begin{equation}
-                P(s,0) = \delta\left(\blds{r}_i - D\Delta t\blds{F}_j\right)
-            \end{equation}
-        Inserting this into \Arf{eq:Punfin} and making the inverse Fourier
-        transform yields the following Green's function as solution
-            \begin{equation}
-                P\left(a, b, \Delta t\right) = \frac{1}{\sqrt{4\pi D\Delta t}}
-                \exp(-\frac{\left(\blds{r}_a - \blds{r}_b - D\Delta t
-                \blds{F}_b\right)^2}{4D\Delta t})
-            \end{equation}
-        This expression is precisely the selection probability $T$, Notice also
-        that the indices $a$ and $b$ label a state transition $a\rarr b$ and not
-        particle indices. The full transition probability needs to be summed
-        over for all particles since we only solved the Focker-Planck equation
-        for $1$ particle(since the other solutions are found in the exact same
-        manner). For clarity the full selection probability ratio is
-            \begin{equation}
-                \frac{T(b,a,\Delta t)}{T(a,b,\Delta t)} = \sum_i
-                \exp(-\frac{\left(\blds{r}^{(b)}_i - \blds{r}^{(a)}_i - D\Delta
-                t \blds{F}^{(a)}_i\right)^2}{4D\Delta t}
-                +\frac{\left(\blds{r}^{(a)}_i - \blds{r}^{(b)}_i - D\Delta t
-                \blds{F}^{(b)}_i\right)^2}{4D\Delta t})
-            \end{equation}
+    We are now in a position to build a basis for the double-well system by
+    reusing all the results and expressions concerning the single-well system.
+    The only difference is the extra integral over $\VDW_n$ where $n$ would be
+    larger than $2$(as is the case with the harmonic oscillator potential). \\
 
-    \subsection{The Trial Wavefunction: One-Body}
-        The trial wave function is generally an arbitrary choice specific for
-        the problem at hand, however it is in most cases favorable to expand
-        the wave function in the eigenbasis (eigenstates) of the Hamiltonian
-        since they form a complete set. This can be expressed as
-            \begin{equation}
-                \psiT = \sum_k C_i\psi_k(\mb{R};\mb{\alpha})
-            \end{equation}
-        where the $\psi_i$'s are the eigenstates of the Hamiltonian. The
-        coefficients can be found by any method preferable and is the usual
-        procedure is to use a set of basis functions and then minimize to find
-        the coefficients $\{C\}_{k=1}^L$. We use the Hartree-Fock method to
-        minimize in this thesis. The trial wavefunction is also generally
-        expressed as a \txtit{Slater determinant} for the fermionic case and a
-        general product for bosonic systems\cite{GriffQuan, NeOr, FeWa, DiVNe}
-        We will explain the fermionic case shortly since it is the main focus
-        here and since the bosonic wavefunction is simple to express. The
-        Slater is expressed as
-            \begin{equation}
-                \phiT = \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)
-            \end{equation}
-        where the \txtit{Slater matrix} $\blds{\Phi}$ has elements
-            \begin{equation}
-                \Phi_{ij} = \phi_{n_j}(\blds{r}_i;\blds{\alpha})
-            \end{equation}
-        such that each row is evaluated for particle $i$ and each column is for
-        a quantum number $n_j$ dependant on the basis used. The $\xi(s)$ is the
-        spin-dependant part. Notice also that we switched the labeling from
-        $\Psi_T$ to $\Phi_T$. This is to make a distinction between
-        \txtit{one-body} and \txtit{correlation} terms. The latter will be
-        introduced later in \Arf{susec:TWFJastrow}. In this case the
-        \txtit{single-particle} functions $\phi_j(r)$ are expanded in some
-        basis(i.e Hartree-Fock).
+    For clarity let us also write out the expression for the resulting
+    Hartree-Fock basis to be used with the Variational Monte-Carlo method.
+        \begin{equation}
+            \psi^{\text{HF}}_p = \sumll{kl} C^{\text{HF}}_{pk}C_{kl}\psiHO_l
+        \end{equation}
 
-    \subsection{The Trial Wavefunction: Splitting the Slater Determinant}
-        An important part of the trial-wavefunction presented here is that the
-        one-body term is \txtit{independent} of spin, that is, the Hamiltonian
-        is not explicitly dependant on the spin degrees of freedom. For the
-        case of a Hamiltonian with an inherent spin part The following
-        splitting of the Slater determinant is not valid! In that case the
-        expectation value(presented in the variational principal in
-        \Arf{eq:varPrinc}) would be a product of the expectation value over the
-        spin-independent part of the Hamiltonian and the expectation value over
-        the remaining spin-dependant parts\cite{spinDep}. The results presented
-        here is however for systems of spin-independent systems, and in those
-        cases the spin-part is essentially just another label which can be
-        integrated out(similar to the procedure with the restricted
-        Hartree-Fock method). For the splitting with a \txtit{spin-dependent}
-        Hamiltonian see \cite{splitDet} and \cite{basicMB}. \\
-        
-        The procedure is simply to arrange the basis functions in such a way
-        that we have $N/2$ single-particle functions in spin-up and the same
-        basis functions for spin-down. This means that the Slater is
-            \begin{equation}
-                \frac{1}{N!} \begin{pmatrix}
-                    \phi_1(\blds{r}_1)\xi_{\urw} & \dots &
-                    \phi_{N/2}(\blds{r}_1)\xi_{\urw} &
-                    \phi_1(\blds{r}_1)\xi_{\drw} & \dots &
-                    \phi_{N/2}(\blds{r}_1)\xi_{\drw} \\
-                    \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
-                    \phi_1(\blds{r}_N)\xi_{\urw} & \dots &
-                    \phi_{N/2}(\blds{r}_N)\xi_{\urw} &
-                    \phi_1(\blds{r}_N)\xi_{\drw} & \dots &
-                    \phi_{N/2}(\blds{r}_N)\xi_{\drw} \\
-                \end{pmatrix}
-            \end{equation}
-        This restructuring of the single-particle states implies that
-            \begin{equation}
-                \det(\blds{\Phi}) \propto \det(\blds{\Phi_{\urw}})
-                \det(\blds{\Phi_{\drw}})
-            \end{equation}
-        where we have defined
-            \begin{equation}
-                \begin{aligned}
-                    \blds{\Phi_{\urw}} &= \begin{pmatrix}
-                        \phi_1(\blds{r}_1) & \dots & \phi_{N/2}(\blds{r}_1) \\
-                        \vdots & \ddots & \vdots \\
-                        \phi_1(\blds{r}_{N/2}) & \dots &
-                        \phi_{N/2}(\blds{r}_{N/2})
-                    \end{pmatrix} \\
-                    \blds{\Phi_{\drw}} &= \begin{pmatrix}
-                        \phi_1(\blds{r}_{N/2+1}) & \dots &
-                        \phi_{N/2}(\blds{r}_{N/2+1}) \\
-                        \vdots & \ddots & \vdots \\
-                        \phi_1(\blds{r}_{N}) & \dots & \phi_{N}(\blds{r}_{N})
-                    \end{pmatrix}
-                \end{aligned}
-            \end{equation}
-        Which in this sense means to put the first $N/2$ particles in spin-up
-        configuration and the remaining in spin-down and use the same
-        single-particle functions.  On a technical note, this rewriting is an
-        approximation. However it can be shown(again see \cite{splitDet}) that
-        the expectation value is still the same.\\
-        The one-body term is now rewritten to
-            \begin{equation}
-                \det(\blds{\Phi}) = \det(\blds{\Phi_{\urw}})
-                \det(\blds{\Phi_{\drw}})
-                \label{eq:slatersplitdef}
-            \end{equation}
+    The procedure of diagonalizing $H_{ij}$ also gives an additional set of
+    energies we can use. The full form of the integral-elements involved in
+    Hartree-Fock is thus
+        \begin{equation}
+            \begin{aligned}
+                \Braket{\psiDW_p|\psiDW_q} &= \delta_{pq}
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p|h^{\text{DW}}|\psiDW_q} &=
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p\psiDW_q|\frac{1}{r_{12}}|\psiDW_r\psiDW_s} &=
+                \suml{tuvw}{ijkl} C_{tp}C_{uq}C_{vr}C_{ws}
+                \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
+            \end{aligned}
+        \end{equation}
+    Where the two-body elements over the harmonic oscillator functions can be
+    calculated by expansion in s-type Gaussian constituents and then using
+    \Arf{eq:coulomb_dist_integral_stype}. \\
 
-    \subsection{The Trial Wavefunction: Jastrow Factor\label{susec:TWFJastrow}}
-        As mentioned, we model the wavefunction as a product of the one-body
-        Slater and a correlation part known as a \txtit{Jastrow factor}. The
-        Jastrow can have many forms, but is build to exert some key features.
-        It should\cite{jastrow}. 
-        \begin{itemize}
-            \item Be dependent on the inter-particle distances.
-            \item Approach unity at large distances.
-            \item Vanish when particles are close to one another.
-        \end{itemize}
-        In this thesis we explore two forms, the popular
-        \txtit{Pad\'e-function} and a more resent one build with a specific
-        neural network known as a \txtit{Boltzmann Machine}.
+    With this eigenvalue problem in mind, one might ask why go through the
+    trouble? The reason lies in the form of the double-well potential. Since it
+    is a simple shift of the single-well(harmonic oscillator) it is reasonable
+    to assume that the energies(the eigenvalues $\veps^{\text{DW}}$) are only
+    shifted slightly off from the single-well energies. It is then also
+    reasonable to believe that a basis set expansion in the single-well
+    functions(harmonic oscillator functions) give a nice basis for building the
+    double-well basis.
 
-    \subsubsection{Cusp Condition\label{sususec:cusp_condition}}
-        The derivations for the cusp conditions is described well in the master
-        thesis of Lars Eivind Lervåg\cite{larsEivindThesis}. We will here
-        present the result of his for both two and three dimensions. Assuming
-        the Jastrow factor $J$ has the form
-            \begin{equation}
-                J = \prod_{i<j} \me^{f\left(r_{ij}\right)}
-            \end{equation}
-        and considering the local energy as two particles $i$ and $j$ approach,
-        the final results were the following conditions
-            \begin{equation} 
-                    \begin{aligned}
-                        \prd{r_{ij}}[f] \Bigg|_{r_{ij}=0} &=
-                        \frac{1}{D-1},&\indent& \text{anti-parallel spin} \\
-                        \prd{r_{ij}}[f] \Bigg|_{r_{ij}=0} &=
-                        \frac{1}{D+1},&\indent& \text{parallel spin}
-                    \end{aligned}
-            \end{equation}
-        which are known as the cusp conditions.
-    
-    \subsubsection{Pad\'e Function\label{sususec:TWFPadeJastrow}} 
-    A popular form is the \txtit{Pad\'e-Jastrow} function. It is defined
-    as\cite{basicMB, MCAbInitoChem}
-            \begin{equation}
-                J_{\text{Pad\'e}} =
-                \exp\left(\sum\limits_{i<j}\frac{\sum\limits_la^{(l)}_{ij}
-                r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right)
-            \end{equation}
-        where the $\beta_l$'s are variational parameters. This function follows
-        the key features mentioned for a correlation factor and the
-        restrictions
-            \begin{equation}
-                a^{\text{2D}}_{ij} = \left\{\begin{aligned}
-                        \frac{1}{3},&\indent& &\text{parallel spin} \\
-                        1,&\indent& &\text{anti-parallel spin} \\
-                    \end{aligned}\right.
-            \end{equation}
-            \begin{equation}
-                a^{\text{3D}}_{ij} = \left\{\begin{aligned}
-                        \frac{1}{4},&\indent& &\text{parallel spin} \\
-                        \frac{1}{2},&\indent& &\text{anti-parallel spin} \\
-                    \end{aligned}\right.
-            \end{equation}
-        on the factor $a$ along with the fact that $a^{(l)}_{kj}=0$ for $l>1$,
-        means we may relabel $a^{(l)}_{ij}\rarr a_{ij}$ and $\beta_l\rarr
-        \beta$ and reduce the Pad\'e-Jastrow factor to
-            \begin{equation}
-                J_{\text{Pad\'e}} = \exp\left(\sum\limits_{i<j}\frac{a_{ij}
-                r_{ij}}{1 + \beta r_{ij}}\right)
-            \end{equation}
-        For expressions concerning the gradient and Laplacian, see
-        \Arf{appendix:B}.
+\subsection{Choosing the Basis Functions}
+    In order to actually solve the eigenvalue equation we use \text{Python} and
+    the \text{NumPy} package, however we still need to choose the $\psiHO$'s
+    first. This will be experimented with and we will choose enough to reach to
+    \txtit{Hartree-Fock limit}. The choice will also follow the
+    Harmonicoscillator levels in terms of degeneracy(see \Arf{subfig:3Dspin} and
+    \Arf{subfig:2Dspin}). This means for instance that if we choose to only use $1$
+    spacial function we only need the ground-state function, but there is no
+    reason to believe that the electron-configuration would prefer any two(or
+    $3$ in 3D) of the functions in the second level over one another. This
+    means that we choose the basisfunctions according to the \txtit{magic
+    numbers} of the Harmonicoscillator system basis.
 
-    \subsubsection{Simple Exponential}
-        >> REF THIS << With the desirable features for a correlation function
-        in mind, one of the simplest forms for a correlation factor is a scaled
-        exponential evaluated with the inter-particle distance, this
-        is\footnote{The $a$'s can also be variational parameters.}
-            \begin{equation}
-                J = \exp(\sumll{i<j} a_{ij} r_{ij})
-            \end{equation}
-        The $a$ would be defined the same as with the Pade\'e function. In
-        itself this function is fairly useless as it doesn't model correlations
-        very well for different systems or even the same system with different
-        parameters. However we will present a new type of function in the next
-        section which does not give raise to any cusp conditions, but has a
-        more flexible form and may in connection with this simple exponential
-        give us all the necessary properties desired in a correlation function.
+\subsection{Degeneracy}
+    When we tackled the single-well problem the energy-levels were degenerate
+    and followed the magic numbers. For the double-well only the degeneracy due
+    to spin is present. This means that we can(still with two-spin fermions)
+    run the simulations with $N=2,4,6,\dots$ instead of the original
+    $N=2,6,12,20,\dots$ in two dimensions and $N=2,8,20,30\dots$ in three.
 
-    \subsubsection{The Trial Wavefunction: NQS Wavefunction
-    \label{sususec:NQSJastrow}}
-        A more resent and completely different approach is to model the
-        wavefunction with a \txtit{neural network} as presented by Carleo and
-        Troyer\cite{CarleoANN}. The approach used here is based on the
-        \txtit{Restricted Boltzmann Machine} as described by
-        Hinton\cite{RBMpractical}. The form is
-            \begin{equation}
-                J_{\text{NQS}} = \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
-                \blds{a}_i\right)^2}{2\sigma^2})\prod\limits^{M}_j \left(1 +
-                \exp(b_j + \suml{i=1}{N}\suml{d=1}{D}
-                \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2})\right)
-                \label{eq:nqsdef}
-            \end{equation}
-        The derivatives of this are given in \Arf{appendix:B}.
+\section{Summary\label{sec:basis_summary}}
+    This chapter tackled the one- and two-body integrals over s-type Gaussian
+    functions in two dimensions by using the results and approach of Trygve
+    Helgaker. We will here rewrite the expressions found and write out the full
+    expression for integrals over harmonic oscillator functions. \\
 
-    \subsection{Connect the Jastrows}
-        In the previous section we presented four functions that can be used to
-        model correlations in quantum systems, however they all had some
-        limitations as well as advantageous properties. The question then
-        remains, can we create a function which exhibits all the nice
-        properties mentioned and none of the limitations? The answer is a bit
-        ambivalent. We don't really know for sure, but a good start is to
-        multiply the functions having the cusp conditions in order (Pad\'e and
-        exponential) with the NQS wavefunction and use this product as the new
-        jastrow. The motivations for this is simple, we want the cusp
-        conditions introduced by the old popular functions, but also want a
-        more flexible type of function which can take care of other(possible)
-        correlations in the system. How well this actually performed is
-        presented in >> REF RESULTS WHEN YOU HAVE SOME (GO GET THEM!) <<. We
-        will write out the exact form for clarity.
-            \begin{equation}
-                J = \exp(\sum\limits_{i<j}a_{ij} r_{ij})
-                \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
-                \blds{a}_i\right)^2}{2\sigma^2})\prod\limits^{M}_j \left(1 +
-                \exp(b_j + \suml{i=1}{N}\suml{d=1}{D}
-                \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2})\right)
-            \end{equation}
-            \begin{equation}
-                J = \exp\left(\sum\limits_{i<j}\frac{a_{ij} r_{ij}}{1 + \beta
-                r_{ij}}\right) \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
-                \blds{a}_i\right)^2}{2\sigma^2})\prod\limits^{M}_j \left(1 +
-                \exp(b_j + \suml{i=1}{N}\suml{d=1}{D}
-                \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2})\right)
-            \end{equation}
-        It might not be completely clear as to why this function still makes it
-        so that the total wavefunction satisfies the cusp conditions. The
-        reason lies in the derivation of the conditions, the procedure in which
-        the conditions presented in \Arf{sususec:cusp_condition} were found the
-        only consideration was within the terms involving $r_{ij}$ in the local
-        energy, all other terms were canceled out or were otherwise
-        non-divergent meaning the product between the jastrow would yield the
-        same conditions.
+    Firstly the integrals over Hermite-Gaussians (monomials multiplied by
+    exponential). The Hermite-Gaussian was expressed as 
+        \begin{equation}
+            g_n(\blds{\alpha};\blds{r},\blds{A}) = \prod_d
+            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
+            \label{eq:HGsumdef}
+        \end{equation}
+    An expansion of these in terms of Hermite-polynomials was then made to
+    arrive at an overlap distribution, with the Gaussian product rule for the
+    product of two Hermite-Gaussians, with a recursive relation for the
+    expansion coefficients
+        \begin{equation}
+            \begin{aligned}
+                \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) &=
+                \sum\limits^{i+j}_{t=0}
+                E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P}) \\
+                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{00}_0 &= K_{AB} \\
+            \end{aligned}
+            \label{overlapdistdefsum}
+        \end{equation}
+    The overlap integral was then found to be
+        \begin{equation}
+            \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) |
+            g_j(\blds{\beta};\blds{r},\blds{B})} = \sumE{p}{i}{j}
+            \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
+            \label{eq:overlapintdefsum}
+        \end{equation}
+    The integral over a potential $x^k_d$ was found with the binomial expansion
+    to be
+        \begin{equation}
+            \begin{aligned}
+                \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) | x^k_d |
+                g_j(\blds{\beta};\blds{r},\blds{B})} =&
+                \suml{p=\text{even}}{i+j} E^{i+j}_p
+                \left(\frac{\Gamma\left(\frac{p+1}{2}\right)}
+                {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \bigtimes \\
+                &\underset{\text{even}}{\sum\limits_{l=0}^k} {k\choose l}
+                \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
+                \Gamma\left(\frac{l+1}{2}\right)
+            \end{aligned}
+        \end{equation}
+    and the integral with the Laplacian was
+        \begin{equation}
+            \begin{aligned}
+                \Bra{g_i(\blds{\alpha};\blds{r},\blds{A})} &\nabla^2
+                \Ket{g_j(\blds{\beta};\blds{r},\blds{B})} = \\
+                &\sum_d\prod_{d'\neq d}
+                \Braket{g_{i_{d'}}(\alpha_{d'};x_{d'},A_{d'})
+                |\sigma_{d'}(S_d(\beta;x_d-B_d))|g_{j_{d'}}(\beta_{d'};x_{d'},B_{d'})}
+            \end{aligned}
+            \label{eq:lapintdefsum}
+        \end{equation}
+    with
+        \begin{equation}
+            \begin{aligned}
+                S_d(\alpha;x_d-A_d) &\equiv
+                \left(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
+                2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} +
+                i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\right) \\
+                \sigma_d(S_d) &\equiv \left\{\begin{matrix}
+                                            1,&\indent d' \neq d \\
+                                            S_d,&\indent d' = d
+                                            \end{matrix}
+                                        \right.
+            \end{aligned}
+        \end{equation}
+    Finally the integral over the Coulomb interactions was calculated using a
+    recursive relation for the one-dimensional integral it was defined by. The
+    expressions are
+        \begin{equation}
+            \Braket{g^{\blds{\alpha}}_{iA}g^{\blds{\beta}}_{jB} |
+            \frac{1}{r_{12}} | g^{\blds{\delta}}_{kC}g^{\blds{\gamma}}_{lD}} =
+            \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
+            E^{ik}_pE^{jl}_q (\scalebox{1.0}[1.0]{-}1)^{q} \xi_{p+q}\left(\frac{(\alpha +
+            \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
+            \delta},\blds{R_{S_1S_2}}\right)
+            \label{eq:coulombdistintdefsum}
+        \end{equation}
+    with
+        \begin{equation}
+            a \equiv \left\{\begin{aligned}
+                \frac{\pi^{\frac{3}{2}}}
+                {\sqrt{(\alpha+\gamma)(\beta+\delta)}},\indent \text{2D} \\
+                \frac{\pi^{\frac{5}{2}}}
+                {(\alpha+\gamma)(\beta+\delta)},\indent \text{3D} \\
+            \end{aligned}\right.
+        \end{equation}
+    And the recursive relation in two dimensions(left) and three dimensions
+    (right)
+        \begin{equation}
+            \begin{aligned}
+                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right) \\
+                \zeta_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+                u^2}} \me^{-u^2x} \md u
+            \end{aligned} \indent\indent\indent 
+            \begin{aligned}
+                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} + X_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} + Y_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} + Y_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{000} &= \left(-2\alpha\beta\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
+                \\
+                \zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md u
+            \end{aligned}
+        \end{equation}
+
+    We also give a reminder again that these expressions are only valid for
+    \txtit{isotropic} Gaussian functions, Gaussians whose scaling factor(i.e
+    $\alpha$) is the same in all dimensions. For the non-isotropic case the see
+    \cite{nonIsoGauss}. \\
+
+    And as promised, here are the full expressions for the integral elements with
+    harmonic oscillator functions using \Arf{eq:coulombdistintdefsum} and the
+    orthogonality of the harmonic oscillator functions
+        \begin{equation}
+            \Braket{\psiHO_i|\psiHO_j} = N_i \delta_{ij}
+            \label{eq:HOoverlap}
+        \end{equation}
+        \begin{equation}
+            \Braket{\psiHO_i|h^{\text{HO}}|\psiHO_j} = N_i
+            \varepsilon^{\text{HO}}_i\delta_{ij}
+        \end{equation}
+        \begin{equation}
+            \Braket{\psiHO_i\psiHO_j|\frac{1}{r_{12}}|\psiHO_k\psiHO_l} =
+            N_{ijkl}\frac{a}{\sqrt{2\omega}}  \sum^{ijkl}_{tuvw}
+            H^{ijkl}_{tuvw} \suml{pq}{t+v,u+w} E^{tv}_pE^{uw}_q
+            (-1)^q\xi_{p+q}\left(\frac{\omega}{2}, \blds{0}\right)
+        \end{equation}
+        \begin{equation}
+            a \equiv \left\{\begin{aligned}
+                \frac{\pi^{\frac{3}{2}}} {\sqrt{\omega}},\indent \text{2D} \\
+                \frac{\pi^{\frac{5}{2}}} {\omega},\indent \text{3D} \\
+            \end{aligned}\right.
+        \end{equation}
+    with the notations
+        \begin{equation}
+            \begin{aligned}
+                N_{ijkl} &= X_i X_j X_k X_l \\
+                \suml{tuvw}{ijkl} &=
+                \suml{p}{t}\suml{q}{u}\suml{r}{v}\suml{s}{w} \\
+                \suml{pq}{t+v,u+w} &= \suml{p}{t+v}\suml{q}{u+w} \\
+                H^{ijkl}_{tuvw} &= H_{i,t} H_{j,u} H_{k,v} H_{l,w} \\
+                E^{tv}_p &= E_{p,t+v}
+            \end{aligned}
+        \end{equation}
+    And using the multi-index notation for the dimensions in $p$ and $q$
+    indices. The $H$ are the Hermite coefficients.
+
+\section{Further Work}
+    This concludes this chapter on basis functions. We have found an expression
+    for the integral elements involving Hermite-Gaussians and used these to
+    express the integral over harmonic oscillator functions which in turn gave
+    an expression for the integrals over double-well functions as they were
+    just expanded in harmonic oscillator functions. The next chapter will
+    present optimizations methods used in the variational method and the
+    implementations of these integrals are presented in \Arf{chapter:6}. \\
+
+    As a note for further work the expressions found here are for isotropic
+    gaussians only. For certain systems, like the one presented in
+    article\cite{nonIsoGauss}, more flexibility in the Gaussian functions can
+    be desired, such that finding expression for the integrals of Gaussian
+    functions with higher order monomial factors and extending the existing
+    code to calculate those can be of desire.

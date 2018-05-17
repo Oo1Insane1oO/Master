@@ -1,78 +1,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 5 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Numerical Optimization \label{chapter:5}}
-    Numerical optimizations, the one field that can be applied to virtually
-    anything. All the big problems in the world, from cancer research to
-    financial modeling, from finding variational energies to modeling large
-    scale atomic systems. You can be pretty sure that any field of research one
-    can name has some scheme which can be reformulated into a problem in which
-    numerical optimization methods can be applied. As such, the field of
-    numerical optimization has not been viewed more useful than now -especially
-    with the computing power at hand and machine learning having become quite
-    of a popular. 
-
-    In the Variational Monte Carlo method in \Arf{sec:QMC} the essential point
-    was to vary a set of \txtit{variational parameters} in order to reach an
-    eigenbasis which gives the ground-state energy of the Hamiltonian in
-    question. There are many ways one could approach this. One way could be to
-    wildly guess random parameters and hope for the best, obviously this is a
-    poor approach. The more sound approach would be to optimize(minimization in
-    the VMC case) the wavefunction using methods from (as the title suggests)
-    \txtit{numerical optimization}. The methods used in this thesis was the
-    \txtit{Conjugate Gradient method}, a version of the \txtit{Adaptive
-    Stochastic Gradient Descent}, the well known \txtit{BFGS} method and a more
-    resent \txtit{Stochastic-Adaptive-BFGS} and also \txtit{Simulated
-    Annealing}. The explaining of the approaches for numerical optimization is
-    only made briefly. For a better mathematical explanation see the various
-    references in the text.
-
-\section{The Optimization Problem \label{sec:the_optimization_problem}}
-    We will explain the general approach for minimizing a multi-variate
-    function and set the terminology in this section. \\
-
-    The problem in question is the following. Given a continuously
-    differentiable function $f:\mathbb{R}^n\rarr\mathbb{R}$, for what set of
-    parameters $\{x\}^{n}_{k=1}$ is 
-        \begin{equation}
-            \nabla_{x} f = \blds{0}
-            \label{eq:mincondition}
-        \end{equation}
-    fulfilled\footnote{$\nabla_{x}=\sum\limits_k\blds{e}_k\prd{x_k}$ with
-    $\blds{e}_k\in\mathbb{R}^n$ a unit vector along direction $k$.}. This means
-    we seek a point $\blds{x}_m$ in real space were the variation of the value
-    of $f$ is zero. In reality the condition in \Arf{eq:mincondition} is only
-    approximate, that is we terminate the search for a minimum if we reached a
-    point where the absolute value of $f$ is within a threshold
-    $\epsilon$
-        \begin{equation}
-            \abs{\nabla_{x} f} \leq \epsilon
-            \label{eq:minconditionapprox}
-        \end{equation}
-    One might at this point have the question, wouldn't the condition presented
-    in \Arf{eq:minconditionapprox}(and \Arf{eq:mincondition} be valid for a
-    maximum as well? The answer is yes, it would. The simple fix to this is to
-    define the \txtit{search direction}, more precisely the sign of the search
-    direction. The next section explains this in better detail.
-
-\section{Gradient Descent\label{sec:gradient_descent}}
-    We defined the optimization problem and defined a simple condition for the
-    extremal and mentioned a search direction in the previous section. A search
-    direction in our context is a direction $\blds{p}\in\mathbb{R}^n$ which
-    points towards $\blds{x}_m$. To find $\blds{p}$ we use the well known
-    \txtit{second derivative test} to determine the curvature of $f$. This,
-    mentioned qualitatively, means that the gradient of $f$ at any point
-    $\blds{x}_i$ points towards an extremal and that the negative
-    gradient(negative sign) points towards the minimum and the positive
-    gradient points towards the maximum. This observation gives a simple rule
-    for finding $\blds{x}_m$. Start out with blindly guessing a point
-    $\blds{x}_0$ and keep updating the parameters according to the following
-    recursive rule
-        \begin{equation}
-            \blds{x}_n = \blds{x_{n-1}} - \gamma\nabla_{x} f
-            \label{eq:gdupdate}
-        \end{equation}
-    and terminate the search when \Arf{eq:minconditionapprox} is
-    fulfilled\footnote{Change the negative sign in front of the gradient if a
-    maximum is desired.} \cite{numOptNocWrig}. Here is an algorithmic view
+\chapter{Implementation \label{chapter:5}}
+    With almost every expression given in \Arf{chapter:3} being some kind of
+    sum it is not hard to imagine that solving them by hand would be quite the
+    challenge and most like\footnote{Read definitely.} impossible, but with the
+    modern computer at our disposal they can be tackled numerically. However in
+    order to get the data from the numerical simulations the actual
+    implementation, the raw code, has to be made, tested, verified and run. \\
+    This chapter will explain the code used in the thesis in detail. The code
+    itself i given in >> REF GITHUB REPO <<. General information of the usage
+    of packages are given in appendix >> REF APPENDIX << while the structure
+    and workflow of the code is given here. We will first present a
+    workflow-chart of the two main code-bases used, namely the Hartree-Fock
+    implementation and the Variational Monte-Carlo implmentation.
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[
@@ -93,397 +32,890 @@
                 node distance=1.5cm, 
                 every node/.style={fill=white, font=\sffamily},
                 align=center]
-            \node (start) [activityStarts] {
-                Initialize $\blds{x}_0$ and find
-                $\nabla_{x}f({\blds{x}_0})$ \\
-                Set $\gamma$ and $n=1$.
+            \node (main) [activityStarts] {Main};
+            \node (make) [activityRuns, right of=main, xshift=3.5cm] {
+               run make with flag \\
+               make BASIS=SYSTEM
             };
-            \node (update) [activityRuns, below of=start] {
-                Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma
-                \nabla_{x} f\left(\blds{x}_n\right)$
+            \node (compilation) [activityRuns, right of=make, xshift=3cm] {
+                Compilation
             };
-            \draw[->] (start) -- (update);
-            \node (conv) [startstop, below of=update, yshift=-0.5cm] {
-                Check if \Arf{eq:minconditionapprox} holds \\
-                Increment index $n {\footnotesize\mathrel{+}=} 1$
+            \node (chooseBasis) [process, above of=compilation] {
+                Choose system flag
             };
-            \draw[->] (update) -- (conv);
-            \node (no) [above left of=conv, xshift=-3.0cm] {
-                $\abs{\nabla_{x} f} > \epsilon$
+            \node (HO) [process, left of=chooseBasis, xshift=-3.5cm] {
+                HARMONICOSCILLATOR
             };
-            \draw[->] (conv) to [out=180, in=-90] (no);
-            \draw[->] (no) to [out=90, in=180] (update);
-            \node (yes) [below of=conv] {
-                $\abs{\nabla_{x} f} \leq \epsilon$
+            \node (DW) [process, above of=chooseBasis] {
+               DOUBLEWELL 
             };
-            \draw[->] (conv) -- (yes);
-            \node (end) [activityStarts, below of=yes] {
-                Output $\blds{x}_m=\blds{x}_n$
+            \draw[-] (HO) -- (chooseBasis);
+            \draw[-] (DW) -- (chooseBasis);
+            \node (arr) [right of=main, xshift=0.3cm] {
+                $\Longleftarrow$
             };
-            \draw[->] (yes) -- (end);
+            \node (initIntegral) [activityStarts, below of=main] {
+                Read YAML file \\ 
+                Initialize Integral Object 
+                \\ Iterate};
+            \node (integralcode) [processcode, right of=initIntegral, xshift=6cm] {
+                \lstinline[language=C++, style=ccstyle]{Integral$^*$ HFS = new Integral(D, L, N);} \\
+                \lstinline[language=C++, style=ccstyle]{string message = HFS$\rarr$initializeParameters(...);}};
+            \node (intcodeexplan) [process, below of=integralcode] {
+                \hltexttt{Integral} is one of
+            };
+            \node (harmonic) [process, below left of=intcodeexplan, xshift=-1cm] {
+                \hltexttt{HarmonicOscillator}
+            };
+            \node (doublewell) [process, below right of=intcodeexplan, xshift=1cm] {
+                \hltexttt{DoubleWell}
+            };
+            \node (iteratecode) [startstop, below of=initIntegral, yshift=-2cm] {
+                Calculate integral elements
+            };
+            \node (assemble) [startstopcode, right of=iteratecode, xshift=6cm] {
+                \lstinline[language=C++, style=ccstyle]{assemble();}
+            };
+            \node (onebody) [startstop, below of=assemble] {
+                Calculate $\Braket{p|h|q}$ (only for root)
+            };
+            \node (obspec) [process, left of=onebody, xshift=-6cm] {
+                Using function \hltextttf{oneBodyElement} \\
+                in \hltexttt{Integral}
+            };
+            \node (twobody) [startstop, below of=onebody] {
+                Calculate $\Braket{pq|h|rs}$ (in parallel)
+            };
+            \node (tbspec) [process, left of=twobody, xshift=-6cm] {
+                Using function \hltextttf{coulombElement} \\
+                in \hltexttt{Integral}
+            };
+            \node (hfalgo) [process, below of=twobody, yshift=-1cm] {
+                Run Hartree-Fock Algorithm
+            };
+            \node (hfloopstart) [startstop, left of=hfalgo, xshift=-6cm] {
+                while $i<\text{maxiteration}$ \\
+                    Set Fock-Matrix with \Arf{eq:FockRestrictedDef} \\
+                    Solve eigenvalue \Arf{eq:eigvalrestr} \\
+                    Set density matrix with \Arf{eq:densitymatrixdef} \\
+                    Break if converged
+            };
+            \node (finish) [activityStarts, below of=hfalgo] {
+                Output $E_0$ \\
+                free HFS object \\
+                Finalize MPI
+            };
+            \draw[-] (compilation) -- (chooseBasis);
+            \draw[<-] (make) -- (compilation);
+            \draw[->] (main) -- (initIntegral);
+            \draw[<-] (initIntegral) -- (integralcode);
+            \draw[-] (integralcode) -- (intcodeexplan);
+            \draw[-] (intcodeexplan) -- (harmonic);
+            \draw[-] (intcodeexplan) -- (doublewell);
+            \draw[->] (initIntegral) -- (iteratecode);
+            \draw[<-] (onebody) -- (obspec);
+            \draw[<-] (twobody) -- (tbspec);
+            \draw[->] (iteratecode) -- (assemble);
+            \draw[->] (assemble) -- (onebody);
+            \draw[->] (onebody) -- (twobody);
+            \draw[->] (twobody) -- (hfalgo);
+            \draw[<-] (hfalgo) -- (hfloopstart);
+            \draw[->] (hfalgo) -- (finish);
         \end{tikzpicture}
-        \caption{Gradient Descent algorithm.}
+        \caption{Flow chart of Hartree-Fock implementation.}
     \end{figure}
-    
-    This method of finding the minimum is known as the method of
-    \txtit{Gradient Descent} and is the simplest method for finding a minimum.
-    The problem however is stability, the termination condition is firstly not
-    optimal and the step-size $\gamma$ is a constant which can give allot of
-    oscillations around minimum as the algorithm might get close to the minimum
-    and then \txtit{over-shoot} and go past the minimum point, turn
-    around(because the sign changes) and over-shoot again and then keep going.
-    Many(seriously many) methods have been devised to account for these
-    problems and other. We will contain ourselves with the methods mentioned in
-    the introduction of this chapter.
 
-\section{Adaptive Stochastic Gradient
-Descent\label{sec:adaptive_stochastic_gradient_descent}}
-    Along with the limitations of the method of gradient descent, the
-    \txtit{Adaptive Stochastic Gradient Descent} tries to account for those,
-    but also takes into account the variance introduced by the stochastic
-    nature of the probability distribution. As such many variations of the
-    method have been proven to be popular among problems in which the function
-    to be minimized is an expectation value. The method used in this thesis is
-    the one described in \cite{ASGD}. We will give a summary of the method
-    here, for a more detailed outline and description see \cite{ASGD}. \\
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
+                    startstop/.style = {base, fill=Maroon!30, drop shadow},
+                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily},
+                align=center]
+            \node (compile) [activityRuns, above of =main, yshift=6cm] {
+                Compilation};
+            \node (system) [process, right of=compile, xshift=2.5cm] {
+                Choose SYSTEM flag};
+            \node (systems) [process, below of=system] {
+                HARMONICOSCILLATOR \\
+                HARTREEFOCK \\
+                DOUBLEWELL};
+            \node (jastrow) [process, left of=compile, xshift=-2.5cm] {
+                Choose JASTROW flag};
+            \node (jastrows) [process, below of=jastrow] {
+                PADEJASTROW \\
+                RBMJASTROW \\
+                EXPNQS};
+            \node (make) [activityRuns, below of=compile, yshift=-2.0cm] {
+                run make with flags \\
+                WAVEFUNCTION=SYSTEM \\
+                JASTROW=JASTROW
+            };
+            \node (test) [process, left of=make, xshift=-3.5cm] {
+                optional flag \\
+                TESTS=ON/OFF
+            };
+            \node (debug) [process, right of=make, xshift=3.5cm] {
+                optional flag \\
+                DEBUG=ON/OFF
+            };
+            \draw[<-] (make) -- (test);
+            \draw[<-] (make) -- (debug);
+            \node (arr) [below of=make, yshift=-0.3cm] {
+                $\Big\Downarrow$
+            };
+            \draw[->] (compile) -- (make);
+            \draw[-] (systems) -- (system);
+            \draw[<-] (compile) -- (system);
+            \draw[-] (jastrows) -- (jastrow);
+            \draw[<-] (compile) -- (jastrow);
+            \node (main) [activityStarts, yshift=-1cm] {
+                Main
+            };
+            \node (init) [activityStarts, below of=main] {
+                Create wavefunction object \\
+                Create sampler object
+            };
+            \draw[->] (main) -- (init);
+            \node (yaml) [activityStarts, above of=main] {
+                Read YAML file.
+            };
+            \draw[->] (yaml) -- (main);
+            \node (wavefunction) [processcode, below left of=init, xshift=-2.0cm, yshift=-0.7cm] {
+                \lstinline[language=C++, style=ccstyle]{T$^*$ wf = new T(D, N, P);} \\
+                \lstinline[language=C++, style=ccstyle]{wf$\rarr$initializeParameters(...);} \\
+                \lstinline[language=C++, style=ccstyle]{wf$\rarr$initializeMatrices();}
+            };
+            \draw[<-] (init) -- (wavefunction);
+            \node (SJ) [process, above left of=main, xshift=-2cm, yshift=1.5cm] {
+                \hltexttt{SlaterJastrow} \\
+                \hltexttt{Slater}
+            };
+            \node (emptywf) [left of=SJ, xshift=-1.85cm, inner sep=0pt, outer sep=0pt] {
+            };
+            \node (Twf) [process, below of=emptywf, xshift=0.01cm] {
+                \hltexttt{T}
+            };
+            \draw[-] (Twf) -- (wavefunction);
+            \draw[-] (SJ) -- (emptywf);
+            \draw[-] (emptywf) -- (Twf);
+            \node (IB) [process, above right of=main, xshift=2cm, yshift=1.5cm] {
+                \hltexttt{ImportanceSampling} \\
+                \hltexttt{BruteForce}
+            };
+            \node (sampler) [processcode, below right of=init, xshift=2.5cm, yshift=-0.5cm] {
+                \lstinline[language=C++, style=ccstyle]{T$^*$ vmc = new T(wf, $\Delta t$, P, M);}
+            };
+            \node (emptyib) [right of=IB, xshift=1.0cm, inner sep=0pt, outer sep=0pt] {
+            };
+            \node (Tib) [process, below of=emptyib] {
+                \hltexttt{T}
+            };
+            \draw[->] (sampler) -- (init);
+            \draw[-] (Tib) -- (sampler);
+            \draw[-] (IB) -- (emptyib);
+            \draw[-] (emptyib) -- (Tib);
+            \node (choiceSSJ) [process, below of=SJ] {Choose one
+            };
+            \node (choiceIB) [process, below of=IB] {Choose one
+            };
+            \draw[<-] (main) -- (choiceSSJ);
+            \draw[<-] (main) -- (choiceIB);
+            \draw[<-] (choiceSSJ) -- (SJ);
+            \draw[<-] (choiceIB) -- (IB);
+            \node (minimize) [activityStarts, below of=init, yshift=-5.0cm] {
+                Find optimal set of parameters.
+            };
+            \draw[->] (init) -- (minimize);
+            \node (emptyminleft) [right of=minimize, inner sep=0pt, outer sep=0pt, xshift=3.5cm] {
+            };
+            \draw[-] (minimize) -- (emptyminleft);
+            \node (initparam) [process, above of=emptyminleft, yshift=-0.35cm] {
+                Find initial parameters.
+            };
+            \draw[-] (emptyminleft) -- (initparam);
+            \node (gaussinit) [process, above left of=initparam, xshift=-1.5cm, yshift=0.3cm] {
+                Gaussian random if \\
+                NQS parameters.
+            };
+            \node (uniinit) [process, above right of=initparam, xshift=0.6cm, yshift=0.3cm] {
+                Uniform random for \\
+                other parameters.
+            };
+            \node (minimizer) [processcode, above left of=minimize, xshift=-3.0cm, yshift=0.5cm] {
+                \lstinline[language=C++, style=ccstyle]{Minimizer<T>$^*$ m = new Minimizer<T>} \\
+                \lstinline[language=C++, style=ccstyle]{                (vmc, S, I, eps, M);} \\
+                \lstinline[language=C++, style=ccstyle]{m$\rarr$minimize();}
+            };
+            \node (emptymini) [left of=wavefunction, inner sep=0pt, outer sep=-0.51pt, xshift=-1.796cm] {
+            };
+            \draw[-] (emptymini) -- (Twf);
+            \draw[-] (minimizer) -- (emptymini);
+            \draw[-] (minimizer) -- (minimize);
+            \draw[-] (initparam) -- (gaussinit);
+            \draw[-] (initparam) -- (uniinit);
+            \node (minimizerexpl) [processcode, below of=minimizer, yshift=-1.5cm, xshift=-1.0cm] {
+                S: Method \\
+                \hspace{0.2cm} - SA-BFGS \\
+                \hspace{0.2cm} - BFGS (MTLS) \\
+                \hspace{0.2cm} - ASGD \\
+                \hspace{0.2cm} - SD \\
+                \hspace{0.2cm} - CG (MTLS)
+            };
+            \draw[-] (minimizerexpl) -- (minimizer);
+            \node (finalsample) [activityStarts, below of=minimize] {
+                Run final sampling with \\
+                optimal parameters.
+            };
+            \node (vmcsample) [processcode, right of=finalsample, xshift=4cm] {
+                \lstinline[language=C++, style=ccstyle]{vmc$\rarr$sampler()};
+            };
+            \draw[->] (minimize) -- (finalsample);
+            \draw[-] (vmcsample) -- (finalsample);
+            \node (end) [activityStarts, below of=finalsample, yshift=-1cm] {
+                Output $E_0$ \\
+                free Wavefunction object (wf) \\
+                free Sampler object (vmc) \\
+                free Minimizer object (m)
+            };
+            \draw[->] (finalsample) -- (end);
+        \end{tikzpicture}
+        \caption{Flow chart of Variational Monte-Carlo implementation.}
+    \end{figure}
 
-    Like the gradient descent method the adaptive stochastic gradient descent
-    method updates the parameters in the same manner as in \Arf{eq:gdupdate},
-    the difference however is that the step $\gamma$ is changed for each
-    iteration in accordance to the following
+\section{Cartesian Basis}
+    In \Arf{chapter:4} we mentioned the use of basis functions the different
+    Many-Body methods. These can be pre-built using nifty intuition. One such
+    observation is in the way harmonic oscillator functions station themselves
+    on energy-levels(in the full-shell case). The following image\footnote{As
+    the old idiom goes; "A picture is worth a thousand words"} describes this
+    for the first few levels
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}[b!]{0.45\textwidth}
+                \centering
+                \begin{tikzpicture}[scale=0.45]
+                    \draw (-1,0) -- (1,0);
+                    \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-0.5,-0.5) -- (-0.5,0.5);
+                    \draw[blue, <-] (0.5,-0.5) -- (0.5,0.5);
+                    \node[text width=2.2cm, align=center] at (0,-1) {\footnotesize{$(0,0)$}};
+                    \draw (-2.5,2) -- (-0.5,2);
+                    \node at (-2.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-1.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-2.0,1.5) -- (-2.0,2.5);
+                    \draw[blue, <-] (-1.0,1.5) -- (-1.0,2.5);
+                    \node[text width=2.2cm, align=center] at (-1.5,1) {\footnotesize{$(1,0)$}};
+                    \draw (0.5,2) -- (2.5,2);
+                    \node at (1.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (2.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, <-] (1.0,1.5) -- (1.0,2.5);
+                    \draw[blue, ->] (2.0,1.5) -- (2.0,2.5);
+                    \node[text width=2.2cm, align=center] at (1.5,1) {\footnotesize{$(0,1)$}};
+                    \draw (-4.5,4) -- (-2.5,4);
+                    \node at (-4.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-3.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-4.0,3.5) -- (-4.0,4.5);
+                    \draw[blue, <-] (-3.0,3.5) -- (-3.0,4.5);
+                    \node[text width=2.2cm, align=center] at (-3.5,3) {\footnotesize{$(2,0)$}};
+                    \draw (-1,4) -- (1,4);
+                    \node at (-0.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (0.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-0.5,3.5) -- (-0.5,4.5);
+                    \draw[blue, <-] (0.5,3.5) -- (0.5,4.5);
+                    \node[text width=2.2cm, align=center] at (0,3) {\footnotesize{$(1,1)$}};
+                    \draw (4.5,4) -- (2.5,4);
+                    \node at (4.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (3.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (4.0,3.5) -- (4.0,4.5);
+                    \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
+                    \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
+                \end{tikzpicture}
+                \caption{Two-dimensional case with $(n_x,n_y)$}
+                \label{subfig:2Dspin}
+            \end{subfigure}
+            \begin{subfigure}[b!]{0.45\textwidth}
+                \centering
+                \begin{tikzpicture}[scale=0.45]
+                    \draw (-1,0) -- (1,0);
+                    \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-0.5,-0.5) -- (-0.5,0.5);
+                    \draw[blue, <-] (0.5,-0.5) -- (0.5,0.5);
+                    \node[text width=3.5cm, align=center] at (0,-1) {\footnotesize{$(0,0,0)$}};
+                    \draw (-4.5,2) -- (-2.5,2);
+                    \node at (-4.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-3.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-4.0,1.5) -- (-4.0,2.5);
+                    \draw[blue, <-] (-3.0,1.5) -- (-3.0,2.5);
+                    \node[text width=2.2cm, align=center] at (-3.5,1) {\footnotesize{$(1,0,0)$}};
+                    \draw (-1,2) -- (1,2);
+                    \node at (-0.5,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (0.5,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-0.5,1.5) -- (-0.5,2.5);
+                    \draw[blue, <-] (0.5,1.5) -- (0.5,2.5);
+                    \node[text width=2.2cm, align=center] at (0,1) {\footnotesize{$(0,1,0)$}};
+                    \draw (2.5,2) -- (4.5,2);
+                    \node at (3.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (4.0,2) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, <-] (3.0,1.5) -- (3.0,2.5);
+                    \draw[blue, ->] (4.0,1.5) -- (4.0,2.5);
+                    \node[text width=2.2cm, align=center] at (3.5,1) {\footnotesize{$(0,0,1)$}};
+                    \draw (-6.5,4) -- (-4.5,4);
+                    \node at (-6.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-5.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-6.0,3.5) -- (-6.0,4.5);
+                    \draw[blue, <-] (-5.0,3.5) -- (-5.0,4.5);
+                    \node[text width=2.2cm, align=center] at (-5.5,3) {\footnotesize{$(2,0,0)$}};
+                    \draw (-3.0,4) -- (-1.0,4);
+                    \node at (-2.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (-1.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (-2.5,3.5) -- (-2.5,4.5);
+                    \draw[blue, <-] (-1.5,3.5) -- (-1.5,4.5);
+                    \node[text width=2.2cm, align=center] at (-2.0,3) {\footnotesize{$(1,1,0)$}};
+                    \draw (3.0,4) -- (1.0,4);
+                    \node at (2.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (1.5,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (2.5,3.5) -- (2.5,4.5);
+                    \draw[blue, <-] (1.5,3.5) -- (1.5,4.5);
+                    \node[text width=2.2cm, align=center] at (2.0,3) {\footnotesize{$(0,1,1)$}};
+                    \draw (6.5,4) -- (4.5,4);
+                    \node at (6.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \node at (5.0,4) [draw,circle,fill=red,scale=0.6] {};
+                    \draw[blue, ->] (6.0,3.5) -- (6.0,4.5);
+                    \draw[blue, <-] (5.0,3.5) -- (5.0,4.5);
+                    \node[text width=2.2cm, align=center] at (5.5,3) {\footnotesize{$(0,0,2)$}};
+                \end{tikzpicture}
+                \caption{Three-dimensional case with $(n_x,n_y,n_z)$}
+                \label{subfig:3Dspin}
+            \end{subfigure}
+            \caption{Harmonic Oscillator Levels}
+            \justify
+        \end{figure}
+    This specific arrangement of basis-functions is implemented in class
+    \hltexttt{Cartesian} and is used in both the Hartree-Fock and VMC
+    implementations. It essentially builds a matrix of states with the rows
+    being the specific state and the columns containing the quantum numbers(in
+    cartesian), the spin-value(as an integer), magic number and energy(in
+    natural units proportional to the oscillator frequency). The essential form
+    is
         \begin{equation}
             \begin{aligned}
-                \gamma_{n+1} &= \frac{a}{t_{n+1} + A} \\
-                t_{n+1} &= \text{max}(t_n + g(X_n), 0) \\
-                X_n &= - \nabla f_n \cdot \nabla f_{n+1} \\
-                g(x) &= g_{\text{min}} + \frac{g_{\text{max}} -
-                g_{\text{min}}}{1 - \frac{g_{\text{max}}}{g_{\text{min}}}
-                \me^{-\frac{x}{\omega}}}
+                \begin{pmatrix}
+                    n_x & n_y & s & m_s & E & M
+                \end{pmatrix}
+                \indent
+                \begin{pmatrix}
+                    n_x & n_y & n_z & s & m_s & E & M
+                \end{pmatrix}
             \end{aligned}
         \end{equation}
-    The whole idea of the method is that the form of $g$ and the accumulative
-    combination of gradient estimations for each step the total error would
-    tend quickly to zero, meaning the central element(namely the gradient) in
-    the minimization is well behaving. \\
+    with the $n$'s being the principal numbers, $s$ the spin value $m_s$ the
+    spin projection(up or down in our case), $E$ the energy and $M$ the magic
+    number. The \hltexttt{Cartesian} class builds the states with alternating
+    spin (the spacial parts are doubled with spin), but also has a function for
+    restructuring by setting the states with spin down in acending order first
+    and the same states with spin up after.
 
-    The main concern with the method is the convergence, although the error in
-    the gradient estimations tend towards zero, the step-sizes themselves will
-    also be quite small after some iterations. For this reason we use the
-    adaptive method with a quasi-Newton method. This means that we start with a
-    random guess at the parameters and keep iterating with the quasi-Newton
-    method until the norm of the gradient is below some threshold, at which the
-    adaptive method is applied from that point and onward till convergence is
-    reached.
+\section{Hartree-Fock}
+    The Hartree-Fock method described in \Arf{sec:HFtheory} is implemented in
+    >> REF GITHUB <<. Only the restricted case is implemented and is present as
+    the class \hltexttt{HartreeFockSolver}. The matrix-elements(integrals) are
+    implemented in \hltexttt{HermiteIntegrals} class. This class also uses an
+    auto-generated header for the Hermite-coefficients, see
+    \Arf{sec:auto_generation} below. The \hltexttt{HartreeFockSolver} is
+    implemented in a general way such that an abstract class for the integral
+    elements is all that is needed. The \hltexttt{HartreeFockSolver} can then
+    be inherited and used.  An example of how to create a solver object with
+    the Double-Well system called HFS with number of dimensions $D$, number of
+    basis functions $L$ and number of particles $N$.
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            DoubleWell$^*$ HFS = new DoubleWell(D, L, N);
+            string message = HFS->initializeParameters(...);
+        \end{lstlisting}
+    With the $\dots$ meaning one initializes it with in however manner the
+    function was made. The initialization function must also return a message
+    determined by the success of the initialization. If it succeeds it return
+    an empty message while if not it returns a pre-defined message. \\ 
+    Here is a simple example code-snippet which initializes and runs the
+    Hartree-Fock algorithm
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            DoubleWell$^*$ HFS = new DoubleWell(D, L, N);
 
-\section{Newtons-Method and Quasi-Newton
-Methods\label{sec:newtons-method_and_quasi-newton_methods}}
-    We will here explain briefly \txtit{Newton's method} and
-    \txtit{Quasi-Newton} methods as the ideas presented will be used in the
-    next section. \\
+            string message = HFS->initializeParameters(...);
+            if (message.compare("")) {
+                if (myRank == 0) {
+                    std::cout << message << std::endl;
+                } // end if
+                delete HFS;
+                finalize();
+            } // end if
 
-    Newton's method\cite{linalgDavid}(or Newton-Raphson method) is originally a
-    method for finding the zeros of a function. The rule states that given a
-    real-valued function $f:\mathbb{R}\rarr\mathbb{R}$ and an initial guess
-    $x\in\mathbb{R}$ for the zero-point, recursively find better
-    approximations for the zero by
+            double E = HFS->iterate(M, 1e-8, true);
+        \end{lstlisting}
+    The \hltextttf{iterate} function takes in $M$ as the maximum number of
+    iterations, the convergence tolerance (when to break the iteration) and a
+    boolean for showing progress or not. It calculates the integral-elements
+    and runs the Hartree-Fock algorithm and returns the estimation of the
+    ground-state energy.
+
+\subsection{Parallelization of Two-Body Matrix}
+    The most time-consuming part of the Hartree-Fock procedure is the
+    calculation of the two-body matrix-elements giving the interaction terms.
+    This is parallelized in the \hltextttf{assemble} function in
+    \hltexttt{HartreeFockSolver}. The basic premise is to represent the $N^4$
+    elements $\Braket{pq|r^{-1}|rs}$ as a one-dimensional array with the mapping
         \begin{equation}
-            x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+            (p,q,r,s) \rarr p + N(q + N(r + Ns))
         \end{equation}
-    This method would then within a number iterations find the zero that is
-    closest to $x_0$.
+    that is the element $(p,q,r,s)$ is stored in position $(p + N(q + N(r +
+    Ns))$ in the one-dimensional array. The symmetry $(p,q,r,s)=(q,p,r,s)$
+    reduces the number of elements down to $N(N+1)/2$. A $N(N+1)/2\times 2$
+    matrix then created with elements
+        \begin{equation}
+            \text{pqMap}_{pq} = (p,q)
+        \end{equation}
+    This is essentially just a matrix with each row being a tuple with $p$ and
+    $q$ value. \\
+    The rows are then distributed evenly among $P$ processes according to
+        \begin{equation}
+            \text{rows} = \left\{\begin{aligned}
+                \left\lceil\frac{\frac{N}{2}(N+1)}{P}\right\rceil &\indent&
+                &\text{rank} < \left(\frac{N}{2}(N+1)\mod P\right) \\
+                \left\lfloor\frac{\frac{N}{2}(N+1)}{P}\right\rfloor
+                &\indent& &\text{else}
+                \end{aligned}\right.
+            \label{eq:divideeven}
+        \end{equation}
+    The problem now however is that processes of higher and higher ranks my end
+    up with calculating more since larger indices involve computationally more
+    heavy functions to be evaluated. We can account for this by weighting the
+    number of rows each process gets by the product\footnote{The product is
+    used since the loops are nested and run up to the given quantum number.} of
+    the principal quantum numbers for the state which the indices represent,
+    that is
+        \begin{equation}
+            S_i = \suml{j=0}{P_i} \prod_d (n_{j_d}+1)
+            \label{eq:Sdefpar}
+        \end{equation}
+    The sum with index $j$ runs over the sub-chunk for process $i$ where the
+    size of each chunk is defined by \Arf{eq:divideeven}.  The algorithm is as
+    follows
+        \begin{algorithm}[H]
+            \caption{Even Weighting}\label{alg:parasumweight}
+            \begin{algorithmic}[H]
+                \State Make an array sizes of size $P$ with the number of
+                elements for each process.
+                \State Make an array displ of size $P$ with the displacement
+                (index).
+                \State Make array $S$ of size $P$ with elements as sepcified in
+                \Arf{eq:Sdefpar}.
+                \State Set elements of sizes array to zero.
+                \State $O = $ $\text{Floor}(\text{Mean}(S))$
+                \State $p = 0$ \Comment{Index for process}
+                \State $j_S = 0$ \Comment{Total sum for each $p$}
+                \State $k = 0$ \Comment{Index for displacement in sizes array}
+                \State $V_{\text{max}} = O + 3n^2_{\text{max}}$
+                \Comment{$n_{\text{max}}$ is the largest $n$-quantum number in
+                the system.}
+                \For{$l=0$ to $l<\frac{N(N+1)}{2}$} \Comment{Iterate over rows in pqMap}
+                    \State $j_S$ = $j_S + \prod\limits_d (n^{(l)}_{p_d}+1)
+                    (n^{(l)}_{q_d}+1)$
+                    \State $k += 1$
+                    \If{$j_S \geq V_{\text{max}}$} \Comment{Make sure not to overshoot}
+                        \State sizes$[p] = k-1$ \Comment{Discard the last element}
+                        \State $l = l - 1$ \Comment{Re-evaluate for next $p$}
+                        \State $k=0$
+                        \State $j_S=0$
+                        \State $p += 1$
+                    \ElsIf{$j_S>O$} \Comment{Chunk for process $p$ is good.}
+                        \State $\text{sizes}[p]$ = k \Comment{update sizes}
+                        \State $k=0$
+                        \State $j_S=0$
+                        \State $p += 1$
+                    \ElsIf{$l=\frac{N(N+1)}{2}-1$ and $j_S \leq O$}
+                    \Comment{Throw remaining rows at last}
+                        \State sizes$[p] = k$
+                    \EndIf
+                \EndFor
+            \end{algorithmic}
+        \end{algorithm}
+    Each process then gets its respective chunk of \hltextttf{pqMap} array such
+    that the each process calculates its own chunk according to the size set.
+    Each process then calculates the two-body elements with the $(p,q)$
+    elements received.  Each sub-chunk is then sent to root process and
+    concatenated to a large one-dimensional array and the actual two-body
+    matrix of size $N^4$ is assembled and antisymmetrized. The Hartree-Fock
+    algorithm is then run only on one process.
 
-    For the optimization problem the condition for a point to be an extremal is
-    \Arf{eq:mincondition} meaning, again, that one needs to find the zero of
-    the derivative. Newton's method in this case would be
-        \begin{equation}
-            x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)},\indent n\geq 0
-        \end{equation}
-    Of course in the real world one might work with multi-variate function, not
-    to worry as Newton's method for optimization problems in the multi-variate
-    case with $f:\mathbb{R}^n\rarr\mathbb{R}$ (still real-valued) is
-        \begin{equation}
-            \blds{x}_{n+1} = \blds{x}_n -
-            \abs{\blds{H}f(\blds{x}_n)}^{-1}\dot\nabla f(\blds{x}_n),\indent
-            n\geq 0
-        \end{equation}
-    where $\blds{H}$ is the Hessian matrix. One might also introduce a
-    step-length multiplied to the Hessian part in order to induce
-    conditions\cite{numOptNocWrig} which ensure some stability of the method.
-    \\
+\subsection{Tabulation of Two-Body Matrix}
+    The \hltexttt{HartreeFockSolver} class uses an input file for the two-body
+    matrix if given and calculates  and writes one out if not given. As of now
+    this is done in a brute-force fashion, that is the entire matrix, including
+    all zero-values, are written to file. This entire structure can be improved
+    upon by introducing a \txtit{Sparse-Matrix} structure, which is a matrix in
+    which only the non-zero elements are stored and a displacement array for
+    the given indices of the non-zero elements is created. This would decrease
+    the every-increasing memory usage and reduce the calculation time as
+    look-up time in the array. \\
+    The most promising road for implementing a Sparse structure is to use the
+    SparseMatrix module in Eigen since the entire code-base already builds
+    heavily upon Eigen from before.
 
-    Newton's method, in most cases, converges faster(less iterations) towards
-    the minimum than gradient descent making it favorable, however the full
-    Hessian has to be known. This matrix(or its inverse) is in many cases too
-    expensive to compute or difficult to express in closed-form. In these cases
-    the class of methods knows as Quasi-Newton methods can be utilized. \\
+\section{Variational Monte Carlo}
+    The Variational Monte-Carlo implementation is mainly in three classes,
+    namely \hltexttt{VMC}, \hltexttt{BruteForce} and
+    \hltexttt{ImportanceSampling}. The structure is set with
+    \hltexttt{BruteForce} and \hltexttt{ImportanceSampling} both inheriting
+    from \hltexttt{VMC}. This structure essentially gives room for splitting
+    specific parts of the Brute-Force algorithm from the Metropolis-Hastings
+    algorithm, but still using the same code for minimization. We will explain
+    the minimization parts in the next section. \\ 
+    The main input which \hltexttt{VMC} needs is a wavefunction. An abstract
+    class-template is implemented and can be generated using a python script,
+    also given in the same GitHub repository >>REF GITHUB <<. The template is
+    built in such a way that one only needs to fill in specific analytic
+    expressions for the gradient, Laplacian and gradient for the variational
+    parameters. The latter part is optional. \\ 
+    The wavefunction itself is built using the \hltexttt{Slater} or
+    \hltexttt{SlaterJastrow} class. However, in order to use the
+    \hltexttt{SlaterJastrow} one has to specify which Jastrow function to use
+    at compile time. A simple example illustrates this better
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            SlaterJastrow$^*$ wf = new SlaterJastrow(dim, numParticles, parameters);
+            wf->initializeParameters(omega);
+            wf->initializeMatrices();
 
-    Quasi-Newton methods give an estimate of the inverse Hessian by using the
-    first derivatives. Introduce the Taylor approximation of $f$ around an
-    iteration point $\blds{x}_n$
-        \begin{equation}
-            f(\blds{x}_k + \blds{s}) \approx f(\blds{x}_k) + \left(\nabla
-            f(\blds{x}_k)\right)^T\blds{s} + \frac{1}{2}\blds{s}^T \blds{H}
-            \blds{s}
-        \end{equation}
-    differentiate with respect to the change $\blds{s}$
-        \begin{equation}
-            \nabla_s f(\blds{x}_k + \blds{s}) \approx \nabla f(\blds{x}_k) +
-            \blds{H}\blds{s}
-            \label{eq:secantEquationNewton}
-        \end{equation}
-    and introduce the condition in \Arf{eq:mincondition} and set this
-    gradient to zero to find the change $\blds{s}$
-        \begin{equation}
-            \blds{s} = -\blds{H}^{-1} \nabla f(\blds{x}_k)
-        \end{equation}
-    Another way to determine this particular form for $\blds{s}$ is to say that
-    the approximation to the Hessian must satisfy the \txtit{secant equation}
-    which is \Arf{eq:secantEquationNewton}. The updating rule for $\blds{x}_n$
-    is then given by
-        \begin{equation}
-            \blds{x}_{n+1} = \blds{x}_n - \gamma_k\blds{H}^{-1}_n\nabla
-            f(\blds{x}_n)
-        \end{equation}
-    where $\gamma_k$ is again introduced to give some stability conditions. The
-    important part of this equation is the index on the inverse Hessian. This
-    is essentially just a relabeling at the change $\blds{s}$ is technically
-    applied for each iterate $\blds{x}_n$. Note also that $\blds{s}$ takes the
-    role of the search direction in this case. The algorithm is then to make an
-    initial guess on the Hessian(usually just the identity matrix) and then use
-    a type of updating formula that finds a new approximation for the Hessian
-    at each step $n$. There are a number of these updating formulas, just to
-    mention some we have DFP, SR1, McCormick, Broyden, BFGS and more. The one
-    we will mention in more detail is the BFGS method, but a main formula that
-    shows up in all of the updating methods is the \txtit{Sherman-Morrison
-    formula} for the inverse. This basically means that the need for
-    calculation of the inverse matrix is completely removed. \\
+            ImportanceSampling<SlaterJastrow>$^*$ vmc = new
+                    ImportanceSampling<SlaterJastrow>(wf, stepmc, parameters,
+                                                 maxIterations, rank, numProcs);
 
-    With the mentioned expression we can devise an algorithm similar to
-    Newton's method for finding the minimum $\blds{x}_m$. Starting with an
-    initial guess for the inverse Hessian $\blds{H}^{-1}_0$ and minimum
-    $\blds{x}_0$ with the condition that $\blds{H}^{-1}_0$ is positive-definite
-    (identity matrix is a nice start if nothing else is known) proceed with
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[
-                >={Latex[width=2mm,length=2mm]},
-                    base/.style = {rectangle, rounded corners, draw=black,
-                                minimum width=2cm, minimum height=0.5cm, text
-                                centered, font=\sffamily},
-                    basecode/.style = {rectangle, rounded corners, draw=black,
-                                minimum width=2cm, minimum height=0.5cm, text
-                                centered, font=\sffamily, align=left},
-                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
-                    startstop/.style = {base, fill=Maroon!25, drop shadow},
-                    startstopcode/.style = {basecode, fill=Maroon!25, drop shadow},
-                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
-                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-                scale=0.8, 
-                node distance=1.5cm, 
-                every node/.style={fill=white, font=\sffamily},
-                align=center]
-            \node (start) [activityStarts] {
-                Initialize $\blds{x}_0$ and find $\nabla f({\blds{x}_0})$ \\
-                Set $\blds{H}^{-1}_0$ and $n=1$.
-            };
-            \node (LS) [process, below of=start] {
-                Perform \txtit{linesearch} giving $\gamma_n$.
-            };
-            \node (update) [activityRuns, below of=LS] {
-                Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma_n
-                \blds{H}^{-1}_{n-1}\nabla f\left(\blds{x}_{n-1}\right)$
-            };
-            \draw[->] (start) -- (LS);
-            \draw[->] (LS) -- (update);
-            \node (conv) [startstop, below of=update, yshift=-0.5cm] {
-                Check if \Arf{eq:minconditionapprox} holds
-            };
-            \draw[->] (update) -- (conv);
-            \node (no) [below left of=conv, xshift=-4.0cm, yshift=-0.3cm] {
-                $\abs{\nabla_{x} f} > \epsilon$
-            };
-            \node (hupdate) [process, above of=no, xshift=-2.0cm, yshift=0.5cm] {
-                Use $\nabla f(\blds{x}_n)$ and $f(\blds{x}_{n-1})$ in an \\
-                updating formula of choice to find $\blds{H}^{-1}_n$ \\
-                Increment index $n {\footnotesize\mathrel{+}=} 1$
-            };
-            \draw[->] (conv) to [out=180, in=0] (no);
-            \draw[->] (no) to [out=90, in=-90] (hupdate);
-            \draw[->] (hupdate) to [out=90, in=180] (LS);
-            \node (yes) [below of=conv] {
-                $\abs{\nabla_{x} f} \leq \epsilon$
-            };
-            \draw[->] (conv) -- (yes);
-            \node (end) [activityStarts, below of=yes] {
-                Output $\blds{x}_m=\blds{x}_n$
-            };
-            \draw[->] (yes) -- (end);
-        \end{tikzpicture}
-        \caption{Quasi-Newton algorithm.\label{fig:QNalgflow}}
-    \end{figure}
+            double E = vmc->sampler();
 
-\section{BFGS Method\label{sec:BFGS}}
-    In the previous section(also mentioned in \Arf{fig:QNalgflow}) we gave an
-    outline for Newton's method and the class known as Quasi-Newton methods.
-    The latter used an approximation for the inverse of the Hessian matrix,
-    which was updated at each step in the algorithm. For the sake of brevity
-    only conditions employed to arrive at the expression for the updating
-    formula and the formula itself is given here, for more see \cite{BFGSB,
-    BFGSF, BFGSG, BFGSS, numOptNocWrig}. The conditions enforced is
+            delete vmc;
+            delete wf;
+        \end{lstlisting}
+    The first chunk initializes the SlaterJastrow class with the pre-specified
+    system which needs to be given at compile time as a flag i.e
+    WAVEFUNCTION=HARMONICOSCILLATOR. The second part sets the sampling to use
+    Metropolis-Hastings algortithm. The parameters variable must be an
+    Eigen\cite{eigenweb} vector or array and contain the variational
+    parameters. The representation of each element in this vector(or
+    array) is specific to each system. For a more detailed explanation see >>
+    REF GITHUB <<. \\
+    This is just an example of how to build a simple run, however we have also
+    built a run file which uses YAML\cite{yaml}. The basic template is as
+    follows
+        \begin{lstlisting}[language=yaml]
+            omega: 1.0
+            numparticles: 6
+            maxitermc: 100000
+            stepmc: 0.01
+            parameters: [0.99, 0.47] #optional
+            numparameters: 2
+            jastrow: true #optional
+            importance: true #optional
+        \end{lstlisting}
+    This is a template used for the \hltexttt{HarmonicOscillator} with the
+    Pad\'e-function as Jastrow factor. If the NQS-function is used an
+    additional parameter 'numhiddenbias' giving the number of hidden biases
+    used, is needed. Again, for more detail see >> REF GITHUB << \\ 
+    This form of input makes it fairly simple to actually run the code for
+    different systems with ease. One needs to compile with the specific flag
+    for the system(wavefunction and Jastrow) and then supply an YAML input file
+    at runtime.
+
+\subsection{Slater Optimizations}
+    In the Metropolis sampling we need access to the ratio of two determinants,
+    namely the Slater wavefunction at the current state and the one at previous
+    state. These are quite expensive to calculate\footnote{Actual complexity of
+    a determinant is $n\times n$, with $n$ being the size of the Slater
+    matrix.}. This can be overcome by using the fact that moving only
+    \txtit{one} particle at each iteration also constitutes to a
+    state-transition. Following \cite{vmc} and given row $i$ as the index for
+    the row that is changed, the following expressions are valid
+        \begin{equation}
+            \begin{aligned}
+                \frac{\Psi}{\Psi'} &= \sum_j \psi_{ij} \psi_{ji}'^{-1} \\
+                \frac{\nabla_i \Psi}{\Psi} &= \sum_j \psi_{ij} \nabla_i
+                \psi_{ji}^{-1} \\
+                \frac{\nabla^2_i \Psi}{\Psi} &= \sum_j \psi_{ij} \nabla^2_i
+                \psi_{ji}^{-1} \\
+            \end{aligned}
+        \end{equation}
+    with $\Psi'$ being the wavefunction at previous state. One might ask now,
+    but isn't this just worse? We have gone from needing two determinants to
+    needing two inverses!? Fret not, the Sherman-Morrison\cite{shermorInv}
+    formula for updating an inverse matrix if only one row has changed in the
+    original matrix comes to the rescue. The elements of the inverse can by
+    this be expressed as(with $i$ being the row that changed)
+        \begin{equation}
+            \psi^{-1}_{kj} = \left\{\begin{aligned}
+                \psi'^{-1}_{kj} - \frac{\Psi}{\Psi'}\psi'^{-1}_{ki}
+                \suml{l=1}{N}\psi_{il}\psi'^{-1}_{lj}, \indent j \neq i\\
+                \frac{\Psi}{\Psi'}\psi'^{-1}_{ki}\psi'^{-1}_{ki}
+                \suml{l=1}{N}\psi'_{il}\psi'^{-1}_{lj}, \indent j = i
+            \end{aligned}\right.
+        \end{equation}
+    This means that the inverses and the determinant ratios can be calculated
+    fully once before the sampling and then updated using the above formulas.
+    This procedure is implemented in the \hltexttt{Slater} class.
+
+\subsection{Jastrow Optimizations}
+    The Jastrow factors presented in \Arf{susec:TWFJastrow},
+    \Arf{sususec:TWFPadeJastrow} and \Arf{sususec:NQSJastrow} also give rise to
+    optimizations in the case of moving only one particle at a time. In
+    particular, the Pad\'e function and the simple exponential can both be
+    represented by a matrix of size $N\times D$ like this
+        \begin{equation}
+            \blds{J} = 
+                \begin{pmatrix}
+                    \blds{J}(\blds{r}_1) \dots \blds{J}(\blds{r}_N)
+                \end{pmatrix}
+        \end{equation}
+    Moving one particle at a time means only one column in $\blds{J}$ is
+    changed meaning only that column needs to be updated. Additionally, the
+    $\blds{J}$ matrix doesn't actually need to be present in the code since we
+    are only interested in ratios $J/J'$. If only one index $i$ changes we have
+        \begin{align}
+            \frac{J}{J'} &= \exp(\sumll{i<j} \left(f_{ij} - f'_{ij}\right))
+            \nonumber \\
+            &= \exp(\sumll{i\neq j} f_{ij})
+        \end{align}
+    Notice that $i$ is fixed in the last step. \\
+    The gradient of $J$ can be represented as an $N\times N\times D$ matrix
+        \begin{equation}
+            \nabla \blds{J} = 
+                \begin{pmatrix}
+                    0 & \nabla \blds{J}(\blds{r}_{1,2}) & \dots & \nabla
+                    \blds{J}(\blds{r}_{1,N-1}) \\
+                    \nabla \blds{J}(\blds{r}_{2,1}) & 0 & \dots & \nabla
+                    \blds{J}(\blds{r}_{2,N-1} \\
+                    \vdots & \vdots & \ddots & \vdots \\
+                    \nabla \blds{J}(\blds{r}_{N,1}) & \dots & \dots & 0 
+                \end{pmatrix}
+        \end{equation}
+    When only one particle is moved at a time only one row and column changes
+    in this matrix. In addition the matrix is symmetric with the expect a
+    negative sign,
+        \begin{equation}
+            \nabla \blds{J}(\blds{r}_{ij}) = -\nabla\blds{J}(\blds{r}_{ji})
+        \end{equation}
+    Both of these optimizations are implemented in the \hltexttt{PadeJastrow}
+    and \hltexttt{ExpNQS} classes. \\ 
+
+    For the NQS-Jastrow we notice that the sum in the exponential involving the
+    weights can be represented as a matrix $\blds{W}$ of size $N\times H$ with
+    $H$ being the number of hidden biases with elements
+        \begin{equation}
+            W_{i,j} = \sumll{d}\frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}
+        \end{equation}
+    and the entire exponential with the hidden biases is represented as a
+    vector $\blds{B}$ of size $H$ with elements
+        \begin{equation}
+            B_j = \exp(b_j + \sumll{i} W_{i,j})
+        \end{equation}
+    So for each iteration only one row in $\blds{W}$ is updated and then the
+    entire $\blds{B}$ vector is recalculated and reused. \\ The part involving
+    only the visible biases can be optimized in the same manner as with the
+    Pad\'e function and simple exponential, meaning one only needs to
+    calculate
+        \begin{equation}
+            \frac{J_a}{J'_a} = \exp(\frac{\left(r_i -
+            a_i\right)^2}{\sigma^2})
+        \end{equation}
+    Again with $i$ being the index of the moved particle. These optimizations
+    are implemented in the \hltexttt{RBMJastrow} class.
+
+\subsection{Optimization For Tabulation\label{susec:optTab}}
+    The \hltexttt{Slater} class checks on compile time the specific
+    wavefunction class for the functions 
         \begin{itemize}
-            \item Secant condition: $\blds{H}_{n+1} \blds{s}_n = \nabla
-                f(\blds{x}_{n+1}) - \nabla f(\blds{x}_n)$
-            \item Strong curvature: $\blds{s}^T_k\cdot (f(\blds{x}_{n+1}) -
-                \nabla f(\blds{x}_n)) > 0$
+            \item {\makebox[5cm]{\hltextttf{set}:\hfill} Called during
+                initialization (before each sampling)}
+            \item {\makebox[5cm]{\hltextttf{reSetAll}:\hfill} Sets all matrices
+                to zero (used in testing)}
+            \item {\makebox[5cm]{\hltextttf{initializeMatrices}:\hfill}
+                Allocate memory}
+            \item {\makebox[5cm]{\hltextttf{update}:\hfill} Update positions
+                and wavefunction}
+            \item {\makebox[5cm]{\hltextttf{reset}:\hfill} Revert to previous
+                positions and wavefunction}
+            \item {\makebox[5cm]{\hltextttf{resetGradient}:\hfill} Revert to
+                previous gradient}
+            \item {\makebox[5cm]{\hltextttf{acceptState}:\hfill} Update
+                previous positions and wavefunction to current}
+            \item {\makebox[5cm]{\hltextttf{acceptGradient}:\hfill} Update
+                previous gradient to current one}
         \end{itemize}
-    and the resulting formula states with $\blds{y}_k = f(\blds{x}_{n+1}) -
-    \nabla f(\blds{x}_n)$
-        \begin{equation}
-            \blds{H}_{n+1} = \blds{H}_n +
-            \frac{\blds{y}_n\blds{y}^T_n}{\blds{y}^T_n \blds{s}_n} -
-            \frac{\blds{H}_n\blds{s}_n\blds{s}^T_n\blds{H}_n}
-            {\blds{s}^T_n\blds{H}_k\blds{s}_n}
-            \label{eq:BFGSdef}
-        \end{equation}
-    With the Sherman-Morrison formula\cite{shermorInv} the inverse is updated
-    with
-        \begin{equation}
-            \blds{H}^{-1}_{n+1} = \blds{H}^{-1}_n +
-            \frac{\left(\blds{s}^T_n\blds{y}_n +
-            \blds{y}^T_n\blds{H}^{-1}_n\blds{y}_n\right)
-            \left(\blds{s}_n\blds{s}^T_n\right)}
-            {\left(\blds{s}^T_n\blds{y}_n\right)^2} -
-            \frac{\blds{H}^{-1}_n\blds{y}_n\blds{s}^T_n +
-            \blds{s}_n\blds{y}^T_n\blds{H}^{-1}_n}{\blds{s}^T_n\blds{y}_n}
-            \label{eq:shermanmorrisondef}
-        \end{equation}
+    If these functions are implemented in the
+    wavefunction class they will be called in by the \hltexttt{VMC} class
+    during the Metropolis sampling. The whole purpose for this is so that
+    calculations can be tabulated and then only the parts which are changed be
+    updated. Detailed explanation of what the functions can, and need to, do is
+    given in the GitHub repository.
 
-\section{Linesearch methods\label{sec:linesearch_methods}}
-    In the optimization methods described in
-    \Arf{sec:newtons-method_and_quasi-newton_methods} there was one important
-    part neglected, namely how to find the step-length $\gamma_n$ introduced in
-    the updating formula. As it is, one can choose it in any manner desired,
-    however a class of one-dimensional minimization methods knows as
-    \txtit{lineasearch methods} are often used to get an (usually rough)
-    estimate for the step length at each iteration in the optimization. These
-    methods all have some conditions for stability and convergence as an innate
-    property, meaning the validity of the step length is better\footnote{It's
-    actually present...}. Some popular linesearch methods are backtracking
-    linesearch, Hager-Zhang method, Strong Wolfe conditions and the
-    More-Thuente linesearch method. The one used here is the latter.  For an
-    exact derivation and explanation of linesearch methods in general see
-    \cite{numOptNocWrig}. See also the fantastic article by Jorge J.  Mor{\'e}
-    and David J. Thuente\cite{moreThuenteArticle}. \\
-    The basic idea of linesearch methods is to solve a one-dimensional problem
-    of minimizing
+\subsection{Tabulating Hermite Polynomials}
+    In the \hltexttt{HarmonicOscillator} and \hltexttt{HartreeFock} classes
+    used by \hltexttt{VMC} we calculate the Hermite polynomials
         \begin{equation}
-            \phi(\alpha) = f(\alpha \blds{p}_k + \blds{x}_k)
+            \begin{aligned}
+                H_n(\sqrt{\omega}r) = \prod_d
+                H_{n_d}\left(\sqrt{\omega}x_d\right) \\
+                H_n(\sqrt{\omega}r) = \prod_d
+                H_{n_d-1}\left(\sqrt{\omega}x_d\right) \\
+                H_n(\sqrt{\omega}r) = \prod_d
+                H_{n_d-2}\left(\sqrt{\omega}x_d\right)
+            \end{aligned}
         \end{equation}
-    with $f:\mathbb{R}^n\rarr\mathbb{R}$ and $\blds{p}_k$ is a search direction
-    as described with the quasi-Newton methods and $\blds{x}_k$ is the current
-    iterate(point) in the minimization. Notice also that
+    for $n=0,\dots L$ where $L$ is the number of basis functions in the
+    Hartree-Fock basis for \hltexttt{HartreeFock} and highest order of
+    single-particle function for \hltexttt{HarmonicOscillator}. These are
+    tabulated in a matrix of size $N\times D\times L$ with $N$ being the number
+    of particles and $D$. The mapping goes by
         \begin{equation}
-            \prd{\alpha}[\phi] = \blds{p}_k \cdot \nabla f(\alpha \blds{p}_k +
-            \blds{x}_k)
+            \blds{H}_{ijk} = H_{n^{(d)}_j}\left(\sqrt{\omega}x^{(d)}_i\right)
         \end{equation}
-    by the chain-rule and the gradient on the right hand side is over the
-    parameters $\blds{x}_k$. One usually perform this linesearch loosely since
-    the search direction is not necessarily directly pointing towards the
-    minimum, meaning we only search for a step length that gives a
-    \txtit{sufficient decrease} in the function value $f$. The basic procedure
-    is then to use one of these linesearch methods to find $\gamma_n$ at each
-    iteration in the minimization and then use the step-length outputted by the
-    linesearch algorithm to update the parameters.
+    For each iteration in the Metropolis sampling, if we only move one particle
+    at a time, only one row changes in $\blds{H}_{ijk}$. This update is
+    reflected in the functions mentioned in \Arf{susec:optTab}.
+    \hltextttf{initializeMatrices} firstly allocates space for two matrices
+    which represent the current and old versions of $\blds{H}_{ijk}$, the
+    \hltextttf{set} function set calculates $\blds{H}_{ijk}$ using the
+    auto-generated header explained in \Arf{sec:auto_generation},
+    \hltextttf{update} then updates the row which has changed and then
+    \hltextttf{acceptState} or \hltextttf{reset} is called depending on the
+    Metropolis-Test.
 
-\section{Stochastic-Adaptive-BFGS\label{sec:stochastic_adaptive_bfgs}}
-    In \Arf{sec:BFGS} we mentioned the popular BFGS method for updating the
-    Hessian matrix and its inverse. A more resent method which uses that method
-    with the stochastic nature of a functional expectation value is a method
-    called SABFGS\cite{SABFGS} described by Zhou C., Gao W. and Goldfarb D.
-    This method uses the BFGS update for the Hessian, but uses an adaptive step
-    instead of the deterministic linesearch for the step-size. \\ 
-    There one problem however, the method itself is only valid for
-    \txtit{self-concordant} functions. The energy-functional is by-far not
-    within this criteria. This problem can be accounted for by using the
-    Wolfe-conditions. That is to check that the step-size satisfies the
-    Wolfe-conditions at each iteration before actually making an update. The
-    algorithm presented takes this into account aswell.
-        \begin{algorithm}[H]
-            \caption{SA-BFGS\label{alg:sabfgs}}
-            \begin{algorithmic}[H]
-                \State Input: $\blds{x}_0$, $\blds{H}_0$, $\blds{G}_0$, $\beta
-                < 1$
-                \For{$k=0$ to $M_{\text{max}}$}
-                    \State $\blds{g}_k = \nabla F_k(\blds{x}_k)$
-                    \Comment{Gradient in current step}
-                    \State $\blds{d}_k = -\blds{H}_k\blds{g}_k$ \Comment{Search
-                    direction}
-                    \State $\delta_k =
-                    \sqrt{\blds{d}^T_k\blds{G}_k(\blds{x}_k)\blds{d}_k}$
-                    \State $\alpha_k =
-                    \frac{\blds{g}^T_k\blds{H}_k\blds{g}_k}{\delta^2_k}$
-                    \State $t_k = \frac{\alpha_k}{1 + \alpha_k\delta_k}$
-                    \Comment{Step size}
-                    \State $\blds{g}_{k+1} = \nabla F_k(\blds{x}_k +
-                    t_k\blds{d}_k)$ \Comment{Propose new set of parameters}
-                    \If{$\blds{g}^T_{k+1}\blds{d}_k <
-                    \beta\blds{g}^T_k\blds{d}_k$} \Comment{Wolfe-Conditions}
-                    \State Set $\blds{d}_k = -\blds{g}_k$
-                    \State Recompute $\delta_k$, $\alpha_k$ and $t_k$
-                    \State Set $\blds{H}_{k+1} = \blds{H}_{k}$ and
-                    $\blds{G}_{k+1} = \blds{G}_{k}$
-                    \Else
-                    \State Set $\blds{H}_{k+1}$ with BFGS inverse update
-                    \Comment{\Arf{eq:shermanmorrisondef}}
-                    \State Set $\blds{G}_{k+1}$ with BFGS update
-                    \Comment{\Arf{eq:BFGSdef}}
-                    \EndIf
-                    \State $\blds{x}_{k+1} = \blds{x}_k + t_k\blds{d}_k$
-                    \Comment{Update parameters}
-                \EndFor
-            \end{algorithmic}
-        \end{algorithm}
+\section{Minimization}
+    The central part of the Variational Monte-Carlo method is the actual
+    \txtit{variation} of parameters. This is, as explained in \Arf{chapter:3},
+    a minimization problem. We will in this chapter explain the implementation
+    of the methods presented in \Arf{chapter:5} and also show some examples of
+    how to use \hltexttt{Minimizer} class, in which the mentioned methods are
+    implemented. \\
+    The main class for minimizations is the \hltexttt{Minimizer} and is built
+    as a \txtit{friend class}. This is a \CC declaration\footnote{A \CC
+    declaration is a phrase which goes in front of variables, functions and
+    other objects and is a pure compiler specific rule.} which goes into the
+    header of the class who is to befriended (in our case \hltexttt{VMC}) with
+    the class who is to be the friend (\hltexttt{Minimizer}). In this way
+    \hltexttt{Minimizer} has full access to all the variables and functions
+    defined inside \hltexttt{VMC} even if said variables and functions are
+    declared as \txtit{private}\footnote{On an equal note, this is really not a
+    good idea in general}. The reason for this choice is just to split the
+    whole minimization part of the variational method from the actual sampling.
+    \\
+    The means to to make a \hltexttt{Minimizer} object is to initialize it as
+        \begin{lstlisting}[language=C++, style=ccstyle]
+            Minimizer<T>$^*$ m = new Minimizer<T>(vmc, "method", numIterations, eps);
+            m$\rarr$minimize();
+        \end{lstlisting}
+    where \hltexttt{T} is a sampler type (either \hltexttt{BruteForce} or
+    \hltexttt{ImportanceSampling}) and \hltextttf{vmc} is the object with said
+    type initializes. The \hltextttf{minimize} function is the function which
+    actually does the minimization and follows the procedure given in
+    \Arf{fig:minimizeProc}.
+        \begin{figure}[H]
+            \centering
+            \begin{tikzpicture}[
+                    >={Latex[width=2mm,length=2mm]},
+                        base/.style = {rectangle, rounded corners, draw=black,
+                                    minimum width=2cm, minimum height=0.5cm, text
+                                    centered, font=\sffamily},
+                        basecode/.style = {rectangle, rounded corners, draw=black,
+                                    minimum width=2cm, minimum height=0.5cm, text
+                                    centered, font=\sffamily, align=left},
+                        activityStarts/.style = {base, fill=blue!30, drop shadow},
+                        startstop/.style = {base, fill=red!30, drop shadow},
+                        activityRuns/.style = {base, fill=green!30, drop shadow},
+                        process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                        processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                    scale=0.8, 
+                    node distance=1.5cm, 
+                    every node/.style={fill=white, font=\sffamily},
+                    align=center]
+                \node (setup) [activityStarts] {
+                    Setup \\
+                    Initialize vectors for derivatives \\
+                    Run \hltexttt{Sampler} \\
+                    Save energy given by Sampler
+                };
+                \node (loop) [startstop, below of=setup, yshift=-0.3cm] {
+                    Start loop for $m=0$ to $\text{numIterations}$
+                };
+                \draw[->] (setup) -- (loop);
+                \node (updater) [startstop, below of=loop] {
+                    call \hltextttf{updater}
+                };
+                \node (convergence) [process, below left of=updater, xshift=-0.5cm, yshift=-0.3cm] {
+                    Check for \\
+                    convergence.
+                };
+                \node (exhaustion) [process, below right of=updater, xshift=1.1cm, yshift=-0.3cm] {
+                    Switch to input \\
+                    method if exhausted
+                };
+                \draw[-] (exhaustion) -- (updater);
+                \draw[-] (convergence) -- (updater);
+                \draw[->] (loop) -- (updater);
+                \node (callFunc) [startstop, below of=updater, yshift=-2cm] {
+                    Save current energy and \\
+                    derivatives and \\
+                    execute given method
+                };
+                \node (finish) [activityRuns, below of=callFunc] {
+                    End
+                };
+                \draw[->] (updater) -- (callFunc);
+                \draw[->] (loop) to [out=0,in=0] (finish);
+                \draw[->] (callFunc) to [out=180,in=180] (loop);
+            \end{tikzpicture}
+            \caption{Flow chart of procedure done by \hltextttf{minimize}
+            function.\label{fig:minimizeProc}}
+        \end{figure}
+    The energy after the last cycle (or after threshold is met) is the energy
+    currently saved within the \hltexttt{VMC} object.
 
-\section{Simulated Annealing\label{sec:simulated_annealing}}
-    A huge problem with the mentioned methods is the fact that they only
-    converge towards a \txtit{local minimum} which is not necessarily the
-    \txtit{global minimum} which of desire. Many methods already exists to
-    account for this, the one used in this thesis and to be described in this
-    section is the method known as \txtit{simulated annealing}. Simulated
-    annealing follows a simple algorithm, namely
-        \begin{algorithm}[H]
-            \caption{Simulated Annealing\label{alg:simulated_annealing}}
-            \begin{algorithmic}[H]
-                \State Initialize a solution $s=s_0$. \Comment{I.e a set of
-                parameters $\{\alpha\}_{k=1}^N$}
-                \For{$j=1$ to $M_{\text{max}}$}
-                    \State Set temperature $T$ with specific function for
-                    $\frac{j}{M_{\text{max}}}$
-                    \State Pick a new state $s_{\text{new}}$ within some
-                    neighbour of $s$
-                    \If{$P(f(s), f(s_{\text{new}}), T) \geq \xi$} 
-                    \Comment{$\xi$ uniformly distributed random in $[0,1]$.}
-                        \State $s = s_{\text{new}}$
-                    \EndIf
-                \EndFor
-            \end{algorithmic}
-        \end{algorithm}
-    The idea is to start with searching a large part of the solution space,
-    since a high temperature increases the search-range, and hope that as $j$
-    reaches $M_{\text{max}}$ the probability function $P$ is such that the
-    solution is trapped within the down-hill of the global minimum. \\ 
-    The specific form of $P, T$ and how to choose a neighbour is specific from
-    problem to problem however an effective and simple way to define these is
-    by using the Metropolis-algorithm with
-        \begin{equation}
-            P = \exp(-\frac{f({\text{new}) - f(s)}}{T})
-        \end{equation}
-    define the temperature as
-        \begin{equation}
-            T_j = \frac{j}{M_{\text{max}}}
-        \end{equation}
-    and choose new neighbours within some min/max range from the current $s$.
-    >> REF THIS <<. \\
-    After the annealing is done a Quasi-Newton method is used and then the
-    adaptive method is used to converge to the minimum.
+\section{Auto-Generation\label{sec:auto_generation}}
+\subsection{Hermites}
+    The analytic expressions involved in the quantum-dot systems are dependent
+    on Hermite polynomials and their coefficients. These are calculated
+    symbolically using the recurrence relation for Hermites with the SymPy
+    package in python. These expressions are then written to \CC code and
+    written to a \CC-header file. The script can be found in
+    \url{https://github.com/Oo1Insane1oO/Hermite}. The generated header file is
+    then included in the integral class in \hltexttt{HartreeFockSolver} and in
+    the wavefunction classes(namely \hltexttt{HartreeFock} and
+    \hltexttt{HarmonicOscillator}) in \hltexttt{VMC}.
+
+\subsection{Double-Well Basis}
+    The basis built by the procedure described in \Arf{sec:dwfunc} is done in
+    python using the eigenvalue solver in the SciPy package. The script itself
+    can be found in \url{https://github.com/Oo1Insane1oO/doubleWellFit}, but is
+    also included in the Hartree-Fock repository. \\
+    The script itself basically just builds(calculates the elements of) the $H$
+    matrix from \Arf{eq:Heigdef} and then finding its eigenvalues and
+    eigenvectors which are then written to a \CC header file as a class with a
+    static function to get coefficients and eigenvalues. This file is then
+    included in the \hltexttt{DoubleWell} integral class as a base class of
+    inheritance.
+
+\section{Verification\label{sec:verification}}
+    In order to be confident in the results presented for the double-well
+    potential we, along with unit-tests, benchmarked our results with the
+    harmonic oscillator potential. These are given in >> REF (AND MAKE) TABLE
+    <<

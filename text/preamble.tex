@@ -47,7 +47,7 @@
 % \usepackage[]{hyperref}
 % \usepackage{courier}
 % \usepackage{charter}
-\usepackage[bitstream-charter]{mathdesign}
+\usepackage[utopia]{mathdesign}
 \usepackage{listings}
 \usepackage[pdftex]{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
@@ -59,6 +59,7 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{caption}
+\usepackage{titlesec}
 \usepackage{algpseudocode}
 \usepackage{algorithm}
 \usepackage{scrextend}
@@ -107,10 +108,12 @@
 \cfoot{\thepage}
 % \rfoot{}
 
-%renew title numbering
+%renew title numbering and number chapters, sections and subsections
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
 \renewcommand{\thechapter}{\arabic{chapter}}
 \renewcommand{\thesection}{\thechapter.\arabic{section}}
-\renewcommand{\thesubsection}{\thechapter.\thesection.\arabic{subsection}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
 
 %title settings
 \renewcommand{\headrulewidth}{0pt}
