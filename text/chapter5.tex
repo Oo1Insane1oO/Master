@@ -304,9 +304,9 @@
     for the first few levels
         \begin{figure}[H]
             \centering
-            \begin{subfigure}[b!]{0.45\textwidth}
+            \begin{subfigure}[b!]{0.48\textwidth}
                 \centering
-                \begin{tikzpicture}[scale=0.45]
+                \begin{tikzpicture}[scale=0.52]
                     \draw (-1,0) -- (1,0);
                     \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
                     \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
@@ -344,12 +344,12 @@
                     \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
                     \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
                 \end{tikzpicture}
-                \caption{Two-dimensional case with $(n_x,n_y)$}
+                \caption{2D with $(n_x,n_y)$}
                 \label{subfig:2Dspin}
             \end{subfigure}
-            \begin{subfigure}[b!]{0.45\textwidth}
+            \begin{subfigure}[b!]{0.48\textwidth}
                 \centering
-                \begin{tikzpicture}[scale=0.45]
+                \begin{tikzpicture}[scale=0.52]
                     \draw (-1,0) -- (1,0);
                     \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
                     \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
@@ -399,7 +399,7 @@
                     \draw[blue, <-] (5.0,3.5) -- (5.0,4.5);
                     \node[text width=2.2cm, align=center] at (5.5,3) {\footnotesize{$(0,0,2)$}};
                 \end{tikzpicture}
-                \caption{Three-dimensional case with $(n_x,n_y,n_z)$}
+                \caption{3D with $(n_x,n_y,n_z)$}
                 \label{subfig:3Dspin}
             \end{subfigure}
             \caption{Harmonic Oscillator Levels}
@@ -425,8 +425,11 @@
         \end{equation}
     with the $n$'s being the principal numbers, $s$ the spin value $m_s$ the
     spin projection(up or down in our case), $E$ the energy and $M$ the magic
-    number. The \hltexttt{Cartesian} class builds the states with alternating
-    spin (the spacial parts are doubled with spin), but also has a function for
+    number. All the numbers above are integers, meaning the actual energy $E$
+    need to be converted if the actual energy of the state is desired, the same
+    is applied to the spin projection(which is to multiply by $1/2$). The
+    \hltexttt{Cartesian} class builds the states with alternating spin (the
+    spacial parts are doubled with spin), but also has a function for
     restructuring by setting the states with spin down in acending order first
     and the same states with spin up after.
 
@@ -446,9 +449,9 @@
             DoubleWell$^*$ HFS = new DoubleWell(D, L, N);
             string message = HFS->initializeParameters(...);
         \end{lstlisting}
-    With the $\dots$ meaning one initializes it with in however manner the
+    With the $(\dots)$ meaning one initializes it with however manner the
     function was made. The initialization function must also return a message
-    determined by the success of the initialization. If it succeeds it return
+    determined by the success of the initialization. If it succeeds it returns
     an empty message while if not it returns a pre-defined message. \\ 
     Here is a simple example code-snippet which initializes and runs the
     Hartree-Fock algorithm
@@ -459,10 +462,10 @@
             if (message.compare("")) {
                 if (myRank == 0) {
                     std::cout << message << std::endl;
-                } // end if
+                }
                 delete HFS;
                 finalize();
-            } // end if
+            }
 
             double E = HFS->iterate(M, 1e-8, true);
         \end{lstlisting}
@@ -477,14 +480,36 @@
     calculation of the two-body matrix-elements giving the interaction terms.
     This is parallelized in the \hltextttf{assemble} function in
     \hltexttt{HartreeFockSolver}. The basic premise is to represent the $N^4$
-    elements $\Braket{pq|r^{-1}|rs}$ as a one-dimensional array with the mapping
+    elements in $\Braket{pq|r^{-1}|rs}$ as a one-dimensional array with the
+    mapping
         \begin{equation}
             (p,q,r,s) \rarr p + N(q + N(r + Ns))
         \end{equation}
     that is the element $(p,q,r,s)$ is stored in position $(p + N(q + N(r +
-    Ns))$ in the one-dimensional array. The symmetry $(p,q,r,s)=(q,p,r,s)$
-    reduces the number of elements down to $N(N+1)/2$. A $N(N+1)/2\times 2$
-    matrix then created with elements
+    Ns))$ in the one-dimensional array. The symmetry 
+        \begin{equation}
+            (p,q,r,s)=(q,p,r,s)
+        \end{equation}
+    reduces the number of elements down to $N(N+1)/2$. Notice also that the
+    number of $(r,s)$ elements each process needs to calculate is also this
+    same size meaning the total size is actually
+        \begin{equation}
+            \text{totalsize} = \frac{N^2(N+1)^2}{4}
+        \end{equation}
+    and all the symmetries imply that the following elements are the same
+        \begin{equation}
+            \begin{aligned}
+                (p,q,r,s) \\
+                (r,q,p,s) \\
+                (r,s,p,q) \\
+                (p,s,r,q) \\
+                (q,p,s,r) \\
+                (s,p,q,r) \\
+                (s,r,q,p) \\
+                (q,r,s,p)
+            \end{aligned}
+        \end{equation}
+    A matrix pqMap of size $N(N+1)/2\times 2$ is then created with elements
         \begin{equation}
             \text{pqMap}_{pq} = (p,q)
         \end{equation}
@@ -492,7 +517,7 @@
     $q$ value. \\
     The rows are then distributed evenly among $P$ processes according to
         \begin{equation}
-            \text{rows} = \left\{\begin{aligned}
+            \text{rows}_{p} = \left\{\begin{aligned}
                 \left\lceil\frac{\frac{N}{2}(N+1)}{P}\right\rceil &\indent&
                 &\text{rank} < \left(\frac{N}{2}(N+1)\mod P\right) \\
                 \left\lfloor\frac{\frac{N}{2}(N+1)}{P}\right\rfloor
@@ -556,10 +581,12 @@
     Each process then gets its respective chunk of \hltextttf{pqMap} array such
     that the each process calculates its own chunk according to the size set.
     Each process then calculates the two-body elements with the $(p,q)$
-    elements received.  Each sub-chunk is then sent to root process and
-    concatenated to a large one-dimensional array and the actual two-body
-    matrix of size $N^4$ is assembled and antisymmetrized. The Hartree-Fock
-    algorithm is then run only on one process.
+    elements received. The total size for each process also needs to take the
+    $(r,s)$ elements into account as they are also of size $N(N+1)/2$. Each
+    sub-chunk is then sent to root process and concatenated to a large
+    one-dimensional array and the actual two-body matrix of size $N^4$ is
+    assembled and antisymmetrized. The Hartree-Fock algorithm is then run only
+    on one process.
 
 \subsection{Tabulation of Two-Body Matrix}
     The \hltexttt{HartreeFockSolver} class uses an input file for the two-body
@@ -917,5 +944,7 @@
 \section{Verification\label{sec:verification}}
     In order to be confident in the results presented for the double-well
     potential we, along with unit-tests, benchmarked our results with the
-    harmonic oscillator potential. These are given in >> REF (AND MAKE) TABLE
-    <<
+    harmonic oscillator potential. The test are set-up with the
+    \pp{UnitTest}\cite{UnitTest++} and one only needs to pass a flag $TESTS=ON$
+    at compile time to enable them. The benchmarks with harmonic oscillator
+    potential is given in >> REF (AND MAKE) TABLE <<

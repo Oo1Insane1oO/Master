@@ -26,7 +26,7 @@
     The task at hand is to solve the many-body system described by
     \txtit{Schrödinger's} equation
         \begin{equation}
-            H\ket{\Psi_i} = E_i\ket{\Psi_i}
+            \mathcal{H}\ket{\Psi_i} = E_i\ket{\Psi_i}
             \label{eq:SE}
         \end{equation}
     for some state $\ket{\Psi_i}$ with energy $E_i$. Usually the desired state
@@ -38,7 +38,7 @@
     $\{\blds{r}_i\}^{N-1}_{i=0}$ and $A$ nuclei with positions
     $\{\blds{R}_k\}^{A-1}_{k=0}$. The Hamiltonian $H$ is then
         \begin{equation}
-            H = - \frac{1}{2} \sum\limits_i \nabla^2_i + \sum_{i<j}
+            \mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i + \sum_{i<j}
             f\left(\blds{r}_j, \blds{r}_j\right) - \frac{1}{2} \sum_k
             \frac{\nabla^2_k}{M_k} + \sum_{k<l}
             g\left(\blds{R}_k,\blds{R}_l\right) +
@@ -60,17 +60,18 @@
     factor\cite{linalgDavid}.}. The approximation we end up with is the
     so-called \txtit{Born-Oppenheimer approximation} and the Hamiltonian is now
         \begin{equation}
-            H = H_0 + H_I
+            \mathcal{H} = \mathcal{H}_0 + \mathcal{H}_I
         \end{equation}
     where we have split the Hamiltonian in a \txtit{one-body} part and a
     \txtit{two-body} or \txtit{interaction} parts defined as
         \begin{equation}
-            H_0 \equiv - \frac{1}{2} \sum\limits_i \nabla^2_i +
+            \mathcal{H}_0 \equiv - \frac{1}{2} \sum\limits_i \nabla^2_i +
             V\left(\blds{R},\blds{r}\right)
         \end{equation}
     and
         \begin{equation}
-            H_I \equiv \sum_{i<j} f\left(\blds{r}_i, \blds{r}_j\right)
+            \mathcal{H}_I \equiv \sum_{i<j} f\left(\blds{r}_i,
+            \blds{r}_j\right)
         \end{equation}
 
 \section{Slater Determinant and Permanent}
@@ -99,7 +100,7 @@
     is not symmetric nor antisymmetric. However we can transform it with an
     operator
         \begin{equation}
-            \mathcal{B} \equiv \frac{1}{N!}\sum_P\sigma_bP
+            \mathcal{B} \equiv \frac{1}{N!}\sum_P\sigma_b\mathcal{P}
         \end{equation}
     where $\sigma_b$ is defined as 
         \begin{equation}
@@ -109,7 +110,7 @@
                     (-1)^p \indent &\text{$b$ represents fermionic system}
                 \end{cases}
         \end{equation}
-    $P$ is a permutation operator that switches the labels on particles
+    $\mathcal{P}$ is a permutation operator that switches the labels on particles
     \footnote{$P_{ij}\Psi_(\blds{r}_1,\dots,\blds{r}_i,\dots,\blds{r}_j,\dot,\blds{r}_N)
     = \Psi_(\blds{r}_1,\dots,\blds{r}_j,\dots,\blds{r}_i,\dot,\blds{r}_N)$
     \cite{compphysThijssen}.} and $p$ is the parity of permutations. The
@@ -117,8 +118,9 @@
         \begin{itemize}
             \item Applying $\mathcal{B}$ to itself doesn't change the operator
                 meaning $\mathcal{B}^2 = \mathcal{B}$.
-            \item The Hamiltonian $H$ and $\mathcal{B}$ \txtit{commute}, that
-                is $\left[\mathcal{B},H\right] = \left[H,\mathcal{B}\right]$.
+            \item The Hamiltonian $\mathcal{H}$ and $\mathcal{B}$
+                \txtit{commute}, that is $\left[\mathcal{B},\mathcal{H}\right]
+                = \left[\mathcal{H},\mathcal{B}\right]$.
             \item $\mathcal{B}$ is \txtit{unitary}, which means
                 $\mathcal{B}^{\dagger}\mathcal{B}=\mathcal{I}$.
         \end{itemize}
@@ -131,14 +133,15 @@
     The antisymmetric case of $\mathcal{B}$ results in a \txtit{Slater
     determinant} 
         \begin{equation}
-            \Psi^{\text{AS}}_T = \frac{1}{\sqrt{N!}}\sum_{P}(-1)^pP\prod_i\psi_i
+            \Psi^{\text{AS}}_T =
+            \frac{1}{\sqrt{N!}}\sum_{P}(-1)^p\mathcal{P}_P\prod_i\psi_i
         \end{equation}
     while the symmetric case gives the so-called \txtit{permanent}\footnote{The
     permanent is basically just a determinant with all the negative signs
     replaced by positive ones.}.
         \begin{equation}
             \Psi^{\text{S}}_T =
-            \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum_{P}P\prod_i\psi_i
+            \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum_{P}\mathcal{P}_P\prod_i\psi_i
         \end{equation}
     Notice that the coordinated ${\blds{r}}_{i=0}^{N}$ is a bit of a sloppy
     notation as it also implicitly includes the spin orbitals. The extra factor
@@ -152,11 +155,12 @@
     \txtit{ansatz} or guess on the true ground-state wavefunction. This is
     quite useful due to the \txtit{variational principle}. \\
     The Variational principle states that for any normalized function $\Psi$ in
-    Hilbert Space >> REF HILBERT << with a Hermitian operator $H$ the minimum
-    eigenvalue $E_0$ for $H$ has an upper-bound given by the expectation value
-    of $H$ in the function $\Psi$. That is
+    Hilbert Space\cite{GriffQuan} with a Hermitian operator $\mathcal{H}$ the
+    minimum eigenvalue $E_0$ for $\blds{H}$ has an upper-bound given by the
+    expectation value of $\mathcal{H}$ in the function $\Psi$. That is
         \begin{equation}
-            E_0 \leq \ecp{H} = \bra{\Psi}H\ket{\Psi} = \int \Psi^{*}H\Psi \md r
+            E_0 \leq \ecp{\mathcal{H}} =
+            \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} 
             \label{eq:varPrinc}
         \end{equation}
     See \cite{GriffQuan} for proof and more.
@@ -170,7 +174,7 @@
     \Arf{eq:psiOpB} and \Arf{eq:varPrinc}. This gives us
         \begin{equation}
             E\left[\Psi\right] =
-            N!\bra{\Psi_{\text{H}}}H\mathcal{B}\ket{\Psi_{\text{H}}}
+            N!\bra{\Psi_{\text{H}}}\mathcal{H}\mathcal{B}\ket{\Psi_{\text{H}}}
         \end{equation}
     where the hermitian and unitary property of $\mathcal{B}$ as well as the
     fact that $\mathcal{B}$ and $H$ commute have been used. This energy
@@ -192,11 +196,12 @@
                 \md r
             \end{aligned}
         \end{equation}
-    yields in
+    yields in\footnote{Notice also that $f_{12}$ is to imply integrals over two
+    labels $r_1$ and $r_2$.}
         \begin{equation}
             E\left[\Psi\right] = \bra{p}H_0\ket{p} +
-            \frac{1}{2}\sum_{p,q}\left[\bra{pq}f_{pq}\ket{pq} \pm
-            \bra{pq}f_{pq}\ket{qp}\right]
+            \frac{1}{2}\sum_{p,q}\left[\bra{pq}f_{12}\ket{pq} \pm
+            \bra{pq}f_{12}\ket{qp}\right]
             \label{eq:ch3Efunc}
         \end{equation}
     The first part is written with the assumption that the single-particle wave
@@ -218,10 +223,11 @@
     obtain an estimate for the energy in this state. \\
     The main idea is to represent the system as a \txtit{closed-shell} system
     and then variationally optimize the Slater determinant
-    \cite{HelgakerMolElcTheory}. This approach is not generally feasable as the
-    size of the system increases, however for a closed-shell system in the
+    \cite{HelgakerMolElcTheory} and then iteratively solve the arising
+    non-linear eigenvalue problem. This approach is not generally feasable as
+    the size of the system increases, however for a closed-shell system in the
     quantum dot case it should be enough to build a basis, which is the goal
-    here. \\
+    here.
     For more details around the motivation and usages of the Hartree-Fock
     method see\cite{HelgakerMolElcTheory}. \\
     
@@ -770,8 +776,8 @@
         which has to do with the statistics describing the expectation value,
         it states that \txtit{any} distribution may be applied in calculation,
         however if we take a close look at the local energy(\Arf{eq:ELdef}) we
-        see that for all distributions the local energy is not defined at the
-        zeros of $\psiT$.  This means that an arbitrary PDF does not guarantee
+        see that the local energy is not defined at the zeros of $\psiT$ for
+        all distributions.  This means that an arbitrary PDF does not guarantee
         generation of points which makes $\psi_T=0$. This can be overcome by
         introducing the square of the wave function to be defined as the
         distribution function as given in \Arf{eq:PDFdef}. This basically means
@@ -1115,3 +1121,97 @@
         energy, all other terms were canceled out or were otherwise
         non-divergent meaning the product between the jastrow would yield the
         same conditions.
+
+\section{Density Matrices}
+    The Slater wavefunction presented throughout this chapter is quite
+    complicated and the solution-space for the Schrödinger equation with said
+    Slater is too large to extract any useful physical properties directly.
+    Luckily we have one part of the physical system we may extract from a
+    variational calculation, the so-called \txtit{one-body density}. From
+    quantum mechanics the one-body density for a normalized wavefunction is
+    defined as
+        \begin{equation}
+            \Lambda(\blds{r},\blds{r}') = N\int
+            \psi^{*}(\blds{r},\blds{r}_2,\dots,\blds{r}_N)
+            \psi(\blds{r}',\blds{r}_2,\dots,\blds{r}_N)\md\blds{r}_2,\dots,\md\blds{r}_N
+        \end{equation}
+    which is just to integrate the wavefunction over all spacial coordinates
+    except $\blds{r}$ and $\blds{r}'$. The question now is what exactly does
+    this mean, what information does this integral give us? The one-body density
+    tells us that the element
+        \begin{equation}
+            N\int
+            \psi^{*}(\blds{r})\psi(\blds{r})\md\blds{r}_2,\dots,\md\blds{r}_N =
+            N\times P\left(\text{Finding a particle within volume } \md\blds{r}
+            \text{around point } \blds{r}\right)
+        \end{equation}
+    with $P$ denoting a probability. This might not give any tingles first-hand
+    when it comes to extraction of physical properties of the system, however
+    one has to keep in mind that the actual \txtit{configuration} of particles
+    within the spacial solution-grid gives a direct insight into the actual
+    physics of the system. A good example of this is the distribution
+        \begin{equation}
+            N\int \psi^{*}(\blds{r}_1)\psi(\blds{r}_1)\md\blds{r}_{12} = 0
+        \end{equation}
+    This integral is a \txtit{two-body density} and essentially what we have
+    asked ourselves now is, what is the probability of finding two particles in
+    the same exact state? The answer is apparently \txtit{zero} and we see that
+    the all-time famous Pauli-exclusion principle practically appears straight
+    out of the density definition. \\
+    With this result as motivation in mind, it is not unreasonable to question
+    if density-matrices might possess more information about the physical
+    nature of the system in question. \\
+    Before we tackle the procedure of calculating the densities with the
+    Metropolis algorithm, let us express the full $N$-body density. The
+    expressions are directly copied from this insightful article by Per-Olov
+    L\"owdin\cite{onebodydens}. Density matrix of order $p$ is defined to be
+        \begin{equation}
+            \Lambda^{(p)}\left(\blds{r}'_1,\dots,\blds{r}'_p|\blds{r}_1,\dots,\blds{r}_p\right)
+            = {N\choose p} \int \psi^{*}(1',2',\dots,p',\dots,N)
+            \psi(1,2,\dots,p,\dots,N) \md\blds{r}_{12}',\dots,\md\blds{r}_{p}'
+        \end{equation}
+    The integrals are over all permutations of $\blds{r}_{12}'$. \\
+    In order to actually find this density with the Metropolis algorithm we
+    need to rewrite it in the same manner as with the local energy, which is to
+    introduce $\abs{\psi}^2$. For the fermionic case this rewriting gives us
+    the following matrix elements
+        \begin{equation}
+            \Lambda_{ij} = N\int\phi^{*}_i(\blds{r}_1)\phi_j(\blds{r}')
+            \frac{\psi(\blds{r}',\blds{r}_2,\dots,\blds{r}_N)}{\psi(\blds{r}_1,\dots,\blds{r}_N)}
+            \abs{\psi(\blds{r}_1,\dots,\blds{r}_N)}^2
+            \md\blds{r}'\md\blds{r}_1\dots\md\blds{r}_N
+        \end{equation}
+    where $\phi$ are the single-particle basis functions within the Slater
+    $\psi$. \\
+    The elements of the $\blds{\Lambda}$ matrix can then be calculated by
+    simple counting. The basic premise is to essentially create a histogram of
+    particle counts with the bins being various radial distances up to some
+    cutoff $r_{\text{max}}$. Then at every Metropolis step (after the test) we
+    increment each value in the bins array with the number of particles
+    currently within each respective bin. The array is then normalized by the
+    usual total sum (sum of all values in the bins array), but also the radial
+    distance to the power $D$ to the right-most edge of each bin. The reason
+    for this additional normalization is to account for the radial
+    contributions to the configurations, a larger radial distance means the
+    sparsity of the particle-density increases. We are however only interested
+    in the non-dimensional count within each vicinity meaning we need to divide
+    away the dimensional volume element of each bin. The element for a bin $n$
+    is found to be\footnote{Constant proportional factors are dropped due to
+    them being canceled in the histogram normalization(division of the sum of
+    whole bin array).}
+        \begin{align}
+            V^{(D)}_n &= r^D_{n+1} - r^D_n \nonumber \\
+            &= (r_n+\Delta r)^D - r^D_n
+        \end{align}
+    In order to keep this stable we also notice that if the number of bins is
+    satisfyingly large higher orders of $\Delta r$ vanish and only the terms
+    with linear factors of $\Delta r$ give a significant contribution. Notice
+    also that the highest order $r^D_n$ gets canceled out. All this together
+    gives
+        \begin{equation}
+            V^{(D)}_n = Dr_n^{D-1}\Delta r
+        \end{equation}
+    The factor $D$ in front can be dropped as the histogram normalization
+    cancels it anyways. \\
+    The resulting one-body densities are presented visually in >> REF THESE
+    FIGURES (GO GET EM!) <<

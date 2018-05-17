@@ -113,13 +113,15 @@
 \setcounter{tocdepth}{2}
 \renewcommand{\thechapter}{\arabic{chapter}}
 \renewcommand{\thesection}{\thechapter.\arabic{section}}
-\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsection}{\thesection.\arabic{section}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{section}}
 
 %title settings
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\chapterautorefname}{chapter}
 \renewcommand{\sectionautorefname}{section}
 \renewcommand{\subsectionautorefname}{section}
+\renewcommand{\subsubsectionautorefname}{section}
 \renewcommand{\equationautorefname}{equation}
 \renewcommand{\figureautorefname}{figure}
 \renewcommand{\tableautorefname}{table}
