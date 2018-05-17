@@ -338,6 +338,7 @@
             \begin{equation}
                 E\left[\Psi\right] = \sum_i\Braket{\psi_i | \veps_i -
                 \frac{1}{2}\left(\mathcal{J} \pm \mathcal{K}\right) | \psi_i}
+                \label{eq:energyJKHF}
             \end{equation}
         In the derivation of the Hartree-Fock equations we only worked with
         spin-orbital functions $\{\psi\}$. However it is much more convenient
@@ -346,7 +347,7 @@
         two different approaches give the so-called \txtit{restricted
         Hartree-Fock} and \txtit{unrestricted Hartree-Fock} methods.
 
-    \section{Restricted Hartree-Fock and Roothan-Equations}
+    \section{Restricted Hartree-Fock and Roothan-Hall-Equations}
         The restricted spin-orbitals are paired as\footnote{This is specialised
         for a two-spin system. For a system with more spin-states one needs to
         either choose different spacial-orbitals or add more such orbitals
@@ -354,6 +355,7 @@
             \begin{equation}
                 \{\psi_{2l-1}, \psi_{2l}\} =
                 \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}
+                \label{eq:spinpairingHF}
             \end{equation}
         with $\alpha(s)$ and $\beta(s)$ being different spin-states (up and
         down). This pairing of spin-states with same and same spacial-orbitals
@@ -405,13 +407,172 @@
         Hartree-Fock equations (\Arf{eq:HFequations}) are then for the
         restricted case written as
             \begin{equation}
-                F\blds{C}_i = \blds{\veps}S\blds{C}_i
+                \blds{F}\blds{C}_i = \blds{\veps}S\blds{C}_i
                 \label{eq:eigvalrestr}
             \end{equation}
         with $S$ being the overlap matrix with elements
             \begin{equation}
                 S_{pq} \equiv \Braket{p | q}
             \end{equation}
+        This concludes the essential parts of the derivations of the
+        Hartree-Fock equations. We also present the unrestricted case in
+        \Arf{sec:UHFPNE} below. 
+    
+\section{Unrestricted Hartree-Fock and Poople-Nesbet-Equations\label{sec:UHFPNE}}
+    In the spirit of completion we also write out the equations for the
+    unrestricted case. The equations are in this case called the
+    \txtit{Poople-Nesbet equations}. The derivations are exactly the same as
+    for the restricted case, but without the spin-pairing in
+    \Arf{eq:spinpairingHF}. We get two equations, one for the spin-up states
+    and one for the spin-down\cite{compphysThijssen}. The equations
+    are\footnote{These are just two Roothan-Hall equations.}
+        \begin{equation}
+            \begin{aligned}
+                \blds{F}^{+}\blds{C}^{+} &=
+                \blds{\veps}^{\+}\blds{S}\blds{C}^{+} \\
+                \blds{F}^{-}\blds{C}^{-} &=
+                \blds{\veps}^{-}\blds{S}\blds{C}^{-}
+            \end{aligned}
+        \end{equation}
+    The elements of the Fock-matrices for spin-up and spin-down are
+        \begin{equation}
+            F^{\pm}_{pq} = h_{pq} + \sumll{k_{\pm}}\sumll{rs}
+            C^{\pm\dagger}_{rk_{\pm}} C^{\pm\dagger}_{sk_{\pm}} \left[D_{prqs}
+            - D_{prsq}\right] + \sumll{k_{\mp}}\sumll{rs}
+            C^{\mp\dagger}_{rk_{\mp}} C^{\mp\dagger}_{sk_{\mp}} D_{prqs}
+            \label{eq:UHFFockdef}
+        \end{equation}
+    The Hartree-Fock algorithm thus involves two eigenvalue problems at each
+    iteration. Notice also that the summation index $k_{\pm}$ runs over the
+    spin-up or spin-down states respectively and the $r$ and $s$ runs over all
+    the spacial basis functions.
+
+\section{Convergence and Mixing}
+    The Hartree-Fock equations themselves are what we call a system of
+    non-linear equations meaning that they need to be solved
+    iteratively\footnote{and pray for convergence...}. A simple brute-force way
+    of setting a convergence threshold is to say
+        \begin{equation}
+            \abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
+            \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \text{threshold}
+            \label{eq:HFconvthresh}
+        \end{equation}
+    The factors determining the achievement that is correct convergence to a
+    ground-state is the basis set of choice, but even with a good set the
+    notorious divergence can occur.  There are two methods in particular which
+    are made to account for this. The first one is a simple
+    \txtit{mixing}\cite{compphysThijssen} of the current density matrix and the
+    one obtained at previous iteration
+        \begin{equation}
+            \blds{\rho}_{\text{new}} = \alpha\blds{\rho}_{\text{new}} + (1 -
+            \alpha)\blds{\rho}_{\text{old}},\indent 0<\alpha\leq 1
+            \label{eq:mixing}
+        \end{equation}
+    This method stems from the observation that for some systems the
+    Hartree-Fock energies start to oscillate and the above mixing seems to be
+    quite efficient at reducing the oscillations. \\
+    The more popular approach however is the DIIS procedure, also known as
+    Pulay mixing\cite{PULAY,PULAY2}. \\
+    We use the simple mixing in this thesis.
+
+    Here is also a figure describing the algorithm.
+        \begin{figure}[H]
+            \centering
+            \begin{tikzpicture}[
+                    >={Latex[width=2mm,length=2mm]},
+                        base/.style = {rectangle, rounded corners, draw=black,
+                                    minimum width=2cm, minimum height=0.5cm, text
+                                    centered, font=\sffamily},
+                        basecode/.style = {rectangle, rounded corners, draw=black,
+                                    minimum width=2cm, minimum height=0.5cm, text
+                                    centered, font=\sffamily, align=left},
+                        activityStarts/.style = {base, fill=blue!30, drop shadow},
+                        startstop/.style = {base, fill=red!30, drop shadow},
+                        activityRuns/.style = {base, fill=green!30, drop shadow},
+                        process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                        processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                    scale=0.8, 
+                    node distance=1.5cm, 
+                    every node/.style={fill=white, font=\sffamily},
+                    align=center]
+                \node (pre) [activityStarts] {
+                    Pre-build two-body matrix $D_{pqrs}$ \\
+                    Pre-build one-body matrix $h_{pq}$ \\
+                    Pre-build overlap matrix $S_{pq}$ \\
+                    Initialize $\blds{C}$
+                };
+                \node (Fock) [activityRuns, below of=pre, yshift=-1.0cm] {
+                    Set Fock-matrix $\blds{F}$
+                };
+                \node (RHF) [process, above right of=Fock, xshift=3.0cm, yshift=-0.3cm] {
+                    Use \Arf{eq:FockRestrictedDef} if RHF
+                };
+                \node (UHF) [process, below right of=Fock, xshift=3.0cm, yshift=0.1cm] {
+                    Use \Arf{eq:UHFFockdef} if UHF
+                };
+                \draw[-] (Fock) to [out=15, in=180] (RHF);
+                \draw[-] (Fock) to [out=-15, in=180] (UHF);
+                \draw[->] (pre) -- (Fock);
+                \node (eigcomp) [activityRuns, below of=Fock, yshift=-1.0cm] {
+                    Solve generalized \\ 
+                    eigenvalue problem. \\
+                    $\blds{F}\blds{C} = \blds{\veps}S\blds{C}$
+                };
+                \draw[->] (Fock) -- (eigcomp);
+                \node (density) [activityRuns, below of=eigcomp] {
+                   Set density matrix $\blds{\rho}$.
+                };
+                \draw[->] (eigcomp) -- (density);
+                \node (densityeq) [process, right of=density, xshift=2.5cm] {
+                    \Arf{eq:densitymatrixdef}
+                };
+                \draw[-] (density) -- (densityeq);
+                \node (mix) [activityRuns, below of=density] {
+                    Perform mixing of $\blds{\rho}$.
+                };
+                \draw[->] (density) -- (mix);
+                \node (mixeq) [process, right of=mix, xshift=2.5cm] {
+                    \Arf{eq:mixing}
+                };
+                \draw[-] (mix) -- (mixeq);
+                \node (conv) [startstop, below of=mix] {
+                    Check convergence.
+                };
+                \node (conveq) [process, right of=conv, xshift=2.5cm] {
+                    \Arf{eq:HFconvthresh}
+                };
+                \draw[->] (mix) -- (conv);
+                \draw[-] (conv) -- (conveq);
+                \node (no) [above left of=conv, xshift=-4.0cm] {
+                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
+                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} \geq \epsilon$
+                };
+                \draw[->] (conv) to [out=180,in=-90] (no);
+                \node (keepOld) [process, above of=no, yshift=1.5cm, xshift=-0.5cm] {
+                    Save energy eigenvalues and \\
+                    density matrix(mixed). \\
+                    $\blds{\varepsilon}^{\text{HF}}_{\text{old}} =
+                    \blds{\varepsilon}^{\text{HF}}_{\text{new}}$ \\
+                    $\blds{\rho}_{\text{old}} = \blds{\rho}_{\text{new}}$
+                };
+                \draw[->] (no) to [out=90,in=-90] (keepOld);
+                \draw[->] (keepOld) to [out=90,in=180] (Fock);
+                \node (yes) [below of=conv] {
+                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
+                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \epsilon$
+                };
+                \draw[->] (conv) -- (yes);
+                \node (end) [activityStarts, below of=yes] {
+                    Output energy
+                };
+                \node (endeq) [process, right of=end, xshift=3.0cm] {
+                    \Arf{eq:energyJKHF, eq:ch3Efunc}
+                };
+                \draw[->] (yes) -- (end);
+                \draw[-] (end) -- (endeq);
+            \end{tikzpicture}
+            \caption{Hartree-Fock Algorithm.}
+        \end{figure}
 
 \section{Quantum Monte Carlo\label{sec:QMC}}
     Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
@@ -550,7 +711,6 @@
                                     centered, font=\sffamily, align=left},
                         activityStarts/.style = {base, fill=blue!30, drop shadow},
                         startstop/.style = {base, fill=red!30, drop shadow},
-                        startstopcode/.style = {basecode, fill=red!30, drop shadow},
                         activityRuns/.style = {base, fill=green!30, drop shadow},
                         process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
                         processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
