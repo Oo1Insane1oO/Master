@@ -33,30 +33,37 @@ for wk in sorted(infoDict.keys()):
 with open(wfile, "w") as ofile:
     nCount = len(Nval)
     ofile.write("\\begin{table}[H]\n    \\centering")
-    ofile.write("   \\caption{Results}\n    \label{label}")
-    ofile.write("   \\begin{tabular}{"+"".join("l" for i in range(nCount + 2))+"}\n")
-    ofile.write("\\multicolumn{1}{c}{w} & L & N & " + "".join([str(n) + "& " for n in Nval]) + "\\\\\n")
+    ofile.write("   \\caption{Results}\n    \label{label}\n\\scriptsize\n")
+    ofile.write("   \\begin{tabular}{"+"cc|"+"".join(["c" for i in range(2,nCount + 2)])+"}\n")
+    ofile.write("\\toprule\\hline\\multicolumn{2}{l|}{} & \\multicolumn{%i}{c}{$N$} \\\\ \\hline\n" % nCount)
+    ofile.write("\\multicolumn{1}{c}{$w$} & $L$ " + "".join([" & $" + str(n) + "$" for n in Nval]) + "\\\\\n")
     for wkey in sorted(infoDict.keys()):
         for lk, Lkey in enumerate(sorted(infoDict[wkey].keys())):
             for i,n in enumerate(Nval):
                 if (lk==0) and (i==0):
-                    ofile.write("\\multirow{%i}{*}{%.3f} & " % (Lmax, float(wkey)))
+                    ofile.write("\\hline\\multicolumn{1}{l|}{\\multirow{%i}{*}{$%.2f$}} & $%i$ & " % (Lmax, float(wkey), Lkey))
                 # end if
-                if lk!=0 and i==0:
+                if (i==0) and (lk!=0):
                     try:
-                        ofile.write("%i & %f & " % (Lkey, infoDict[wkey][Lkey][n]))
+                        ofile.write("\\multicolumn{1}{l|}{} & $%i$ & $%.6f$ & " % (Lkey, infoDict[wkey][Lkey][n]))
                     except:
-                        ofile.write("%i & %s & " % (Lkey, infoDict[wkey][Lkey][n]))
+                        ofile.write("\\multicolumn{1}{l|}{} & $%i$ & $%s$ & " % (Lkey, infoDict[wkey][Lkey][n]))
+                    # end trye
+                elif i==(nCount-1):
+                    try:
+                        ofile.write("$%.6f$" % infoDict[wkey][Lkey][n])
+                    except:
+                        ofile.write("$%s$" % infoDict[wkey][Lkey][n])
+                else :
+                    try:
+                        ofile.write("$%.6f$ & " % infoDict[wkey][Lkey][n])
+                    except:
+                        ofile.write("$%s$ & " % infoDict[wkey][Lkey][n])
                     # end trye
                 # end if
-                try:
-                    ofile.write("%f & " % infoDict[wkey][Lkey][n])
-                except:
-                    ofile.write("%s & " % infoDict[wkey][Lkey][n])
-                # end trye
             # end forn
             ofile.write(" \\\\\n")
         # end forenum lk, Lkey
     # end forwkey
-    ofile.write("\\end{tabular}\n\\end{table}")
+    ofile.write("\\hline\\bottomrule\\end{tabular}\n\\end{table}")
 # end withopen ofile
