@@ -1,10 +1,8 @@
 \begin{table}[H]
-    \centering   \caption{Results}
-    \label{label}
-\scriptsize
+    \centering\scriptsize
    \begin{tabular}{cc|ccccccc}
 \toprule\hline\multicolumn{2}{l|}{} & \multicolumn{7}{c}{$N$} \\ \hline
-\multicolumn{1}{c}{$w$} & $L$  & $2$ & $6$ & $12$ & $20$ & $30$ & $42$ & $56$\\
+\multicolumn{1}{c}{$\omega$} & $L$  & $2$ & $6$ & $12$ & $20$ & $30$ & $42$ & $56$\\
 \hline\multicolumn{1}{l|}{\multirow{14}{*}{$0.10$}} & $1$ & $0.596333$ & $-$ & $-$ & $-$ & $-$ & $-$ & $-$ \\
 \multicolumn{1}{l|}{} & $3$ & $0.709635$ & $4.864244$ & $-$ & $-$ & $-$ & $-$ & $-$ \\
 \multicolumn{1}{l|}{} & $6$ & $0.526903$ & $4.435740$ & $17.272337$ & $-$ & $-$ & $-$ & $-$ \\
@@ -62,4 +60,6 @@
 \multicolumn{1}{l|}{} & $91$ & $3.161908$ & $20.719215$ & $66.911323$ & $158.004757$ & $311.869364$ & $548.688114$ & $892.082464$ \\
 \multicolumn{1}{l|}{} & $105$ & $3.161908$ & $20.719215$ & $66.911322$ & $158.004317$ & $311.863887$ & $547.907493$ & $889.765463$ \\
 \hline\bottomrule\end{tabular}
+\input{text/tab61cap.txt}
+    \label{tab:HOHF}
 \end{table}

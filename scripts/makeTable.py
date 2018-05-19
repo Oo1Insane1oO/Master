@@ -8,7 +8,9 @@ import yaml
 
 path = sys.argv[1]
 wfile = sys.argv[2]
-    
+capfname = sys.argv[3]
+label = sys.argv[4]
+
 infoDict = {}
 for fname in os.listdir(path):
     with open(path + "/" + fname, 'r') as inputFile:
@@ -32,11 +34,10 @@ for wk in sorted(infoDict.keys()):
 
 with open(wfile, "w") as ofile:
     nCount = len(Nval)
-    ofile.write("\\begin{table}[H]\n    \\centering")
-    ofile.write("   \\caption{Results}\n    \label{label}\n\\scriptsize\n")
+    ofile.write("\\begin{table}[H]\n    \\centering\scriptsize\n")
     ofile.write("   \\begin{tabular}{"+"cc|"+"".join(["c" for i in range(2,nCount + 2)])+"}\n")
     ofile.write("\\toprule\\hline\\multicolumn{2}{l|}{} & \\multicolumn{%i}{c}{$N$} \\\\ \\hline\n" % nCount)
-    ofile.write("\\multicolumn{1}{c}{$w$} & $L$ " + "".join([" & $" + str(n) + "$" for n in Nval]) + "\\\\\n")
+    ofile.write("\\multicolumn{1}{c}{$\\omega$} & $L$ " + "".join([" & $" + str(n) + "$" for n in Nval]) + "\\\\\n")
     for wkey in sorted(infoDict.keys()):
         for lk, Lkey in enumerate(sorted(infoDict[wkey].keys())):
             for i,n in enumerate(Nval):
@@ -65,5 +66,5 @@ with open(wfile, "w") as ofile:
             ofile.write(" \\\\\n")
         # end forenum lk, Lkey
     # end forwkey
-    ofile.write("\\hline\\bottomrule\\end{tabular}\n\\end{table}")
+    ofile.write("\\hline\\bottomrule\\end{tabular}\n\\input{%s}\n    \label{tab:%s}\n\\end{table}" % (capfname, label))
 # end withopen ofile
