@@ -1,6 +1,8 @@
 import sys
 import os
+import operator
 
+import pandas as pd
 import numpy as np
 import yaml
 
@@ -14,12 +16,13 @@ for fname in os.listdir(path):
         del tmpDict["coeffs"]
         infoDict.setdefault(tmpDict["omega"],
                 {}).setdefault(tmpDict["numbasis"],
-                        {}).setdefault(tmpDict["numparticles"], tmpDict["E0"])
+                        {}).setdefault(tmpDict["numparticles"], float(tmpDict["E0"]))
     # withopen inputFile
 # end for fname
 
-Nval = sorted(infoDict[next(iter(infoDict))][1].keys())
-print Nval
+Nval = sorted(set(reduce(operator.add, [l.keys() for l in
+    infoDict[next(iter(infoDict))].values()])))
+Lmax = len(infoDict[next(iter(infoDict))].keys())
 
 for wk in sorted(infoDict.keys()):
     for Lk in sorted(infoDict[wk].keys()):
@@ -27,15 +30,25 @@ for wk in sorted(infoDict.keys()):
             if nval not in infoDict[wk][Lk]:
                 infoDict[wk][Lk][nval] = "-"
 
-print infoDict[0.1][6][20]
-
-# with open(wfile, "w") as ofile:
-#     nCount = infoDict[next(iter(infoDict))].count()
-#     oFile.write("\\begin{table}[H]\n    \\centering")
-#     oFile.write("   \\caption{Results}\n    \label{label}")
-#     oFile.write("   \\begin{tabular}{"+"".join("l" for i in range(nCount) + 2))+"}\n"
-#     for wkey in sorted(infoDict.keys()):
-#         oFile.write("\\multirow{%i}{*}{}\n" % nCount)
-#         for Nkey in sorted(infoDict[wkey].keys()):
-#             for Lkey in sorted(infoDict[wkey][Nkey].keys()):
-#                 oFile.write(str(infoDict[wkey][Nkey][Lkey]) + " & ")
+with open(wfile, "w") as ofile:
+    nCount = len(Nval)
+    ofile.write("\\begin{table}[H]\n    \\centering")
+    ofile.write("   \\caption{Results}\n    \label{label}")
+    ofile.write("   \\begin{tabular}{"+"".join("l" for i in range(nCount + 2))+"}\n")
+    for wkey in sorted(infoDict.keys()):
+        ofile.write("\\multicolumn{1}{r}{w} & L & N & " + "".join([str(n) + "& " for n in Nval]) + "\\\\\n")
+        for lk, Lkey in enumerate(sorted(infoDict[wkey].keys())):
+            for i,n in enumerate(Nval):
+                if (lk==0) and (i==0):
+                    ofile.write("\\multirow{%i}{*}{%.3f} & " % (Lmax, float(wkey)))
+                # end if
+                try:
+                    ofile.write("%f & " % infoDict[wkey][Lkey][n])
+                except:
+                    ofile.write("%s & " % infoDict[wkey][Lkey][n])
+                # end trye
+            # end forn
+            ofile.write(" \\\\\n")
+        # end forenum lk, Lkey
+    # end forwkey
+# end withopen ofile
