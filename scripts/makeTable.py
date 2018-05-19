@@ -35,12 +35,19 @@ with open(wfile, "w") as ofile:
     ofile.write("\\begin{table}[H]\n    \\centering")
     ofile.write("   \\caption{Results}\n    \label{label}")
     ofile.write("   \\begin{tabular}{"+"".join("l" for i in range(nCount + 2))+"}\n")
+    ofile.write("\\multicolumn{1}{c}{w} & L & N & " + "".join([str(n) + "& " for n in Nval]) + "\\\\\n")
     for wkey in sorted(infoDict.keys()):
-        ofile.write("\\multicolumn{1}{r}{w} & L & N & " + "".join([str(n) + "& " for n in Nval]) + "\\\\\n")
         for lk, Lkey in enumerate(sorted(infoDict[wkey].keys())):
             for i,n in enumerate(Nval):
                 if (lk==0) and (i==0):
                     ofile.write("\\multirow{%i}{*}{%.3f} & " % (Lmax, float(wkey)))
+                # end if
+                if lk!=0 and i==0:
+                    try:
+                        ofile.write("%i & %f & " % (Lkey, infoDict[wkey][Lkey][n]))
+                    except:
+                        ofile.write("%i & %s & " % (Lkey, infoDict[wkey][Lkey][n]))
+                    # end trye
                 # end if
                 try:
                     ofile.write("%f & " % infoDict[wkey][Lkey][n])
@@ -51,4 +58,5 @@ with open(wfile, "w") as ofile:
             ofile.write(" \\\\\n")
         # end forenum lk, Lkey
     # end forwkey
+    ofile.write("\\end{tabular}\n\\end{table}")
 # end withopen ofile
