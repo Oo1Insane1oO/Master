@@ -946,5 +946,49 @@
     potential we, along with unit-tests, benchmarked our results with the
     harmonic oscillator potential. The test are set-up with the
     \pp{UnitTest}\cite{UnitTest++} and one only needs to pass a flag $TESTS=ON$
-    at compile time to enable them. The benchmarks with harmonic oscillator
-    potential is given in >> REF (AND MAKE) TABLE <<
+    at compile time to enable them.
+
+\subsection{Hartree-Fock}
+    The first of the test for the Hartree-Fock method was to see if it
+    reproduced the exact energies in the case of no interaction(neglect
+    Coulomb-term in Hamiltonian). These tests are given in tests directory in
+    the GitHub repository.
+    
+    The benchmarks using the Hartree-Fock method with harmonic oscillator
+    potential is given in \Arf{tab:HOHF}. These results are directly compared
+    with the master's thesis \cite{lohnethesis} and article
+    \cite{hfrefarticle}.
+    
+    For the double-well system the only benchmark was the result from master's
+    thesis of Høgberget\cite{jorgenThesis} with $2$ particles. However it is
+    expected that the energies lie somewhere between the single-well results
+    and the non-interaction case due to the potential itself being a
+    perturbation of the single-well system. The results are given in >> REF(AND MAKE) TABLE <<
+
+\subsection{Variational Monte-Carlo}
+    The first tests here were also to find the exact energies, which are also
+    given as tests in a similar fashion as with the Hartree-Fock. The second
+    benchmark was to check if the energies were comparable with the results of
+    \cite{jorgenThesis} using basis functions of form
+        \begin{equation}
+            \phi_j(\blds{r}) =
+            \psi^{\text{HO}}_{n_j}\left(\sqrt{\alpha\omega}r\right) 
+        \end{equation}
+    with the Pad\'e function given in \Arf{eq:padereduceddef}.
+
+    For the real deal with the Hartree-Fock basis we checked that the VMC
+    method could reproduce the Hartree-Fock energies when no Jastrow factor was
+    used, that is only a single-particle Slater-determinant \txtit{with no
+    variational parameters} as the wavefunction ansatz
+        \begin{equation}
+            \phi^{\text{HF}}_{ij} = \sum_l C_{jl}
+            \psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)
+        \end{equation}
+    These results are also implemented as a bunch of tests.
+
+    For the benchmarks, we compared our energies again with the thesis of
+    Høgberget\cite{jorgenThesis}. The results are given in >> REF (AND MAKE) TABLE <<
+
+    For the double-well system we only used a Hartree-Fock basis and checked
+    that the Hartree-Fock energies were reproduced (in case with no Jastrow).
+    The only benchmark was again the system with two particles.

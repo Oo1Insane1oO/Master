@@ -16,6 +16,16 @@
     This is usually to such degree that a poor choice of basis renders the
     method in question less useful or even completely unavailing.
 
+    The poor choice of basis sentiment is most definitely true for both the
+    Hartree-Fock and the variational monte-carlo methods, and great care has to
+    be taken when introducing such choices. For the variational method, the
+    basis is taken directly from the Hartree-Fock method meaning most of the
+    physical properties. In which case all except electron-electron
+    correlations\footnote{Technically also nucleon-electron correlation as
+    well, but quantum-dot systems do not have any atomic cores present.} are
+    modeled quite well. For the basis in Hartree-Fock the choice needs to be in
+    correspondence with the system of interest.
+
     We will in this chapter mention some popular basis-sets used in atomic
     physics and deepen into a particular set of functions called
     \txtit{Gaussian Type orbitals} and use them with the well known

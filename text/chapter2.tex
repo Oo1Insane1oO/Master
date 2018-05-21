@@ -13,14 +13,25 @@
     science laboratory as physical experiments since the former is far less
     expensive\footnote{Economically}. The challenge thus became to tackle the
     ever-increasing computational cost of actually solving Schrödingers
-    equation for a many-body system. Many methods have been devised and we will
-    in this chapter take forth the theory regarding the basics of identical
-    particles and \txtit{many-body quantum mechanics}. The reader is referred
-    to \cite{GriffQuan} for an introductory text on quantum mechanics(for
-    single particles) and also the so-called \txtit{Dirac-notation} used
-    throughout the entire chapter. We will address methods regarding
-    computational quantum mechanics and further deepen into Hartree-Fock
-    methods and Variational Monte Carlo method. 
+    equation for a many-body system.
+
+    Many methods have been devised and the basis in quantum chemistry is the
+    \txtit{Hartree-Fock method} while it being a good first approximation, it
+    is known to be poor at modeling correlations and is only useful for
+    building a basis set to be used in other methods like
+    \txtit{coupled-cluster} or \txtit{configuration interaction}. The quantum
+    mechanical properties as a whole is also approximated with the
+    \txtit{Born-Oppenheimer approximation} and individual electrons are not
+    assigned to a single atomic core, but rather spread out across the
+    molecule.
+
+    We will in this chapter take forth the theory regarding the basics of
+    identical particles and \txtit{many-body quantum mechanics}. The reader is
+    referred to \cite{GriffQuan} for an introductory text on quantum
+    mechanics(for single particles) and also the so-called
+    \txtit{Dirac-notation} used throughout the entire chapter. We will address
+    methods regarding computational quantum mechanics and further deepen into
+    Hartree-Fock methods and Variational Monte Carlo method. 
 
 \section{The Hamiltonian and the Born-Oppenheimer Approximation\label{sec:3.1}}
     The task at hand is to solve the many-body system described by
@@ -1048,6 +1059,7 @@
             \begin{equation}
                 J_{\text{Pad\'e}} = \exp\left(\sum\limits_{i<j}\frac{a_{ij}
                 r_{ij}}{1 + \beta r_{ij}}\right)
+                \label{eq:padereduceddef}
             \end{equation}
         For expressions concerning the gradient and Laplacian, see
         \Arf{appendix:B}.
@@ -1145,7 +1157,7 @@
             N\times P\left(\text{Finding a particle within volume } \md\blds{r}
             \text{around point } \blds{r}\right)
         \end{equation}
-    with $P$ denoting a probability. This might not give any tingles first-hand
+    with $P$ denoting a probability. This might not give any tingles at first
     when it comes to extraction of physical properties of the system, however
     one has to keep in mind that the actual \txtit{configuration} of particles
     within the spacial solution-grid gives a direct insight into the actual

@@ -126,15 +126,46 @@
     \end{figure}
     
     This method of finding the minimum is known as the method of
-    \txtit{Gradient Descent} and is the simplest method for finding a minimum.
-    The problem however is stability, the termination condition is firstly not
-    optimal and the step-size $\gamma$ is a constant which can give allot of
-    oscillations around minimum as the algorithm might get close to the minimum
-    and then \txtit{over-shoot} and go past the minimum point, turn
-    around(because the sign changes) and over-shoot again and then keep going.
-    Many(seriously many) methods have been devised to account for these
-    problems and other. We will contain ourselves with the methods mentioned in
-    the introduction of this chapter.
+    \txtit{Gradient Descent} and its power lies in its simplicity. The problem
+    however is stability, the termination condition is firstly not optimal and
+    the step-size $\gamma$ is a constant which can give allot of oscillations
+    around minimum as the algorithm might get close to the minimum and then
+    \txtit{over-shoot} and go past the minimum point, turn around(because the
+    sign changes) and over-shoot again and then keep going.  Many(seriously
+    many) methods have been devised to account for these problems and other. We
+    will contain ourselves with the methods mentioned in the introduction of
+    this chapter.
+
+    As an illustration of the method here are a couple of figures of the method
+    applied to two test-functions. One simple sphere-function and the
+    Rosenbrock function. Here are two figures of the functions
+        \onefigure{Sphere Function}{text/figs/sphere.pdf}{Illustration of
+        sphere function}{fig:sf}
+        \onefigure{Rosenbrock Function}{text/figs/rosenbrock.pdf}{Illustration
+        of Rosenbrock function}{fig:sf}
+%         \twofigure{text/figs/sphere.pdf}{Illustration of sphere
+%         function}{subfig:sf}{text/figs/rosenbrock.pdf}{Illustration of
+%         Rosenbrock function}{subfig:sf}{Test-Functions}
+    As for the convergence we give a table with number of iterations.
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{ccccc} \hline\hline
+                $\blds{x}_0$ & $\gamma$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
+                $(5,5)$ & $0.9$ & $20$ & $(-0.072,-0.072)$ & $0.010$ \\
+                $(5,5)$ & $0.9$ & $50$ & $(-8.920\times10^{-5},-8.920\times10^{-5})$ & $1.591\times10^{-8}$ \\
+                $(5,5)$ & $0.9$ & $100$ & $(-1.273\times10^{-9},-1.273\times10^{-9})$ & $3.242\times10^{-18}$ \\
+                $(5,5)$ & $0.5$ & $20$ & $(0.0,0.0)$ & $0.0$ \\
+                $(5,5)$ & $0.5$ & $50$ & $(0.0,0.0)$ & $0.0$ \\
+                $(5,5)$ & $0.5$ & $100$ & $(0.0,0.0)$ & $0.0$ \\
+                $(5,5)$ & $0.1$ & $20$ & $(0.072,0.072)$ & $0.010$ \\
+                $(5,5)$ & $0.1$ & $50$ & $(8.920\times10^{-5},8.920\times10^{-5})$ & $1.591\times10^{-8}$ \\
+                $(5,5)$ & $0.1$ & $100$ & $(1.273\times10^{-9},1.273\times10^{-9})$ & $3.242\times10^{-18}$
+            \end{tabular}
+%             \begin{tabular}{ccccc} \hline\hline
+%                 $\blds{x}_0$ & $\gamma$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$
+%             \end{tabular}
+            \caption{Table showing convergence of the gradient descent scheme.}
+        \end{table}
 
 \section{Adaptive Stochastic Gradient
 Descent\label{sec:adaptive_stochastic_gradient_descent}}
