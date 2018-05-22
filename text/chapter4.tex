@@ -148,17 +148,23 @@
         \end{equation}
     Here are two figures of the functions
         \onefigure{Sphere Function}{text/figs/sphere.pdf}{Illustration of
-        sphere function with minimum at $\blds{x}_m=(0,0)$ with value
-        $f(\blds{x}_m)=0$.}{fig:sf}
+        sphere function\cite{simulationlib} with minimum at $\blds{x}_m=(0,0)$
+        with value $f(\blds{x}_m)=0$.}{fig:sf}
         \onefigure{Rosenbrock Function}{text/figs/rosenbrock.pdf}{Illustration
-        of Rosenbrock function with minimum at $\blds{x}_m=(1,1)$ with value
-        $f(\blds{x}_m)=0$.}{fig:rb}
+        of Rosenbrock function\cite{simulationlib} with minimum at
+        $\blds{x}_m=(1,1)$ with value $f(\blds{x}_m)=0$.}{fig:rb}
 %         \twofigure{text/figs/sphere.pdf}{Illustration of sphere
 %         function}{subfig:sf}{text/figs/rosenbrock.pdf}{Illustration of
 %         Rosenbrock function}{subfig:sf}{Test-Functions}
     As for the convergence we give a table with number of iterations.
         \begin{table}[H]
             \centering
+            \caption{Table showing convergence of the gradient descent method
+            with the spherical function. $\blds{x}_0$ is the initial starting
+            point, $\gamma$ is the step-size, $\blds{x}_m$ is the minimum after
+            the given iterations and $f(\blds{x}_m)$ is the function value at
+            said minimum point.}
+            \label{tab:sphericalconv}
             \begin{tabular}{ccccc} \hline\hline
                 $\blds{x}_0$ & $\gamma$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
                 $(5,5)$ & $0.9$ & $20$ & $(-0.072,-0.072)$ & $0.010$ \\
@@ -169,17 +175,17 @@
                 $(5,5)$ & $0.5$ & $100$ & $(0.0,0.0)$ & $0.0$ \\
                 $(5,5)$ & $0.1$ & $20$ & $(0.072,0.072)$ & $0.010$ \\
                 $(5,5)$ & $0.1$ & $50$ & $(8.920\times10^{-5},8.920\times10^{-5})$ & $1.591\times10^{-8}$ \\
-                $(5,5)$ & $0.1$ & $100$ & $(1.273\times10^{-9},1.273\times10^{-9})$ & $3.242\times10^{-18}$
+                $(5,5)$ & $0.1$ & $100$ & $(1.273\times10^{-9},1.273\times10^{-9})$ & $3.242\times10^{-18}$ \\ \hline\hline
             \end{tabular}
-            \caption{Table showing convergence of the gradient descent method
-            with the spherical function. $\blds{x}_0$ is the initial starting
-            point, $\gamma$ is the step-size, $\blds{x}_m$ is the minimum after
-            the given iterations and $f(\blds{x}_m)$ is the function value at
-            said minimum point.}
-            \label{tab:sphericalconv}
         \end{table}
         \begin{table}[H]
             \centering
+            \caption{Table showing convergence of the gradient descent method
+            with the Rosenbrock function. $\blds{x}_0$ is the initial starting
+            point, $\gamma$ is the step-size, $\blds{x}_m$ is the minimum after
+            the given iterations and $f(\blds{x}_m)$ is the function value at
+            said minimum point.}
+            \label{tab:rosenbrockconv}
             \begin{tabular}{ccccc} \hline\hline
                 $\blds{x}_0$ & $\gamma$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
                 $(0,0.5)$ & $0.001$ & $100$ & $(0.181,0.030)$ & $0.034$ \\
@@ -189,14 +195,8 @@
                 $(0,0.5)$ & $0.0001$ & $100$ & $(0.027,0.068)$ & $1.399$ \\
                 $(0,0.5)$ & $0.0001$ & $500$ & $(0.105,0.009)$ & $0.801$ \\
                 $(0,0.5)$ & $0.0001$ & $1000$ & $(0.184,0.031)$ & $0.666$ \\
-                $(0,0.5)$ & $0.0001$ & $100000$ & $(0.994,0.989)$ & $3.131\times10^{-5}$
+                $(0,0.5)$ & $0.0001$ & $100000$ & $(0.994,0.989)$ & $3.131\times10^{-5}$ \\ \hline\hline
             \end{tabular}
-            \caption{Table showing convergence of the gradient descent method
-            with the Rosenbrock function. $\blds{x}_0$ is the initial starting
-            point, $\gamma$ is the step-size, $\blds{x}_m$ is the minimum after
-            the given iterations and $f(\blds{x}_m)$ is the function value at
-            said minimum point.}
-            \label{tab:rosenbrockconv}
         \end{table}
     From \Arf{tab:sphericalconv,tab:rosenbrockconv} it is apparent that with
     the gradient descent method the step-size is o creat importance. With the
@@ -403,6 +403,12 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     table of convergence is as follows
         \begin{table}[H]
             \centering
+            \caption{Table showing convergence of a Quasi-Newton method with
+            BFGS method with the spherical function. $\blds{x}_0$ is the
+            initial starting point, $\blds{x}_m$ is the minimum after the given
+            iterations and $f(\blds{x}_m)$ is the function value at said
+            minimum point.}
+            \label{tab:sphericalconvBFGS}
             \begin{tabular}{cccc} \hline\hline
                 $\blds{x}_0$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
                 $(1,1)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
@@ -412,17 +418,17 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
                 $(10,10)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
                 $(10,10)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\
                 $(100,100)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
-                $(100,100)$ & $2$ & $(0.000,0.000)$ & $0.000$
+                $(100,100)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\ \hline\hline
             \end{tabular}
-            \caption{Table showing convergence of a Quasi-Newton method with
-            BFGS method with the spherical function. $\blds{x}_0$ is the
-            initial starting point, $\blds{x}_m$ is the minimum after the given
-            iterations and $f(\blds{x}_m)$ is the function value at said
-            minimum point.}
-            \label{tab:sphericalconvBFGS}
         \end{table}
         \begin{table}[H]
             \centering
+            \caption{Table showing convergence of a Quasi-Newton method with
+            BFGS method with the Rosenbrock function. $\blds{x}_0$ is the
+            initial starting point, $\blds{x}_m$ is the minimum after the given
+            iterations and $f(\blds{x}_m)$ is the function value at said
+            minimum point.}
+            \label{tab:rosenbrockconvBFGS}
             \begin{tabular}{ccccc} \hline\hline
                 $\blds{x}_0$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
                 $(-0.5,2.0)$ & $1$ & $(-0.706,0.708)$ & $7.280$ \\
@@ -432,14 +438,8 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
                 $(5.5,-10.0)$ & $1$ & $(-0.996,0.091)$ & $85.214$ \\
                 $(5.5,-10.0)$ & $2$ & $(-0.908,1.087)$ & $10.549$ \\
                 $(5.5,-10.0)$ & $10$ & $(0.027,0.012)$ & $0.9613$ \\
-                $(5.5,-10.0)$ & $30$ & $(1.000,1,000)$ & $0.000$
+                $(5.5,-10.0)$ & $30$ & $(1.000,1,000)$ & $0.000$ \\ \hline\hline
             \end{tabular}
-            \caption{Table showing convergence of a Quasi-Newton method with
-            BFGS method with the Rosenbrock function. $\blds{x}_0$ is the
-            initial starting point, $\blds{x}_m$ is the minimum after the given
-            iterations and $f(\blds{x}_m)$ is the function value at said
-            minimum point.}
-            \label{tab:rosenbrockconvBFGS}
         \end{table}
     Comparing \Arf{tab:sphericalconvBFGS, tab:rosenbrockconvBFGS} with
     \Arf{tab:sphericalconv, tab:sphericalconvBFGS} we can see that the BFGS
@@ -621,5 +621,8 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     local minima. Two such functions are the \txtit{Ackley function} and the
     \txtit{Rastrigin function}, figures are shown below
         \onefigure{Ackley Function}{text/figs/ackley.pdf}{Illustration of
-        sphere function with minimum at $\blds{x}_m=(0,0)$ with value
-        $f(\blds{x}_m)=0$.}{fig:sf}
+        Ackley function\cite{simulationlib} with global minimum at
+        $\blds{x}_m=(0,0)$ with value $f(\blds{x}_m)=0$.}{fig:ack}
+        \onefigure{Rastrigin Function}{text/figs/rastrigin.pdf}{Illustration of
+        Rastrigin function\cite{simulationlib} with global minimum at
+        $\blds{x}_m=(0,0)$ with value $f(\blds{x}_m)=0$.}{fig:rastr}

@@ -32,7 +32,7 @@ currentlight=Viewport;
 surface graf = surface(simulatedS, (-10,-10), (10,10),nu=100,nv=100,Spline);
 draw(graf, mean(palette(graf.map(zpart),Wheel())),black, light=currentlight);
 
-axes3("$x$","$y$","$f(x,y)$",min=(-10,-10,0),max=(10,10,1200000),arrow=Arrow3(),fontsize(20));
+axes3("$x$","$y$","$f(x,y)$",min=(-10,-10,0),max=(12,10,1200000),arrow=Arrow3(),fontsize(20));
 
 // triple simulatedR(pair ij){
 //     real i = ij.x;
