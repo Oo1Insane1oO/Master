@@ -137,12 +137,22 @@
     this chapter.
 
     As an illustration of the method here are a couple of figures of the method
-    applied to two test-functions. One simple sphere-function and the
-    Rosenbrock function. Here are two figures of the functions
+    applied to two test-functions. One simple sphere-function
+        \begin{equation}
+            f(\blds{x}) = \suml{d=1}{D} x^2_d
+        \end{equation}
+    and the Rosenbrock function
+        \begin{equation}
+            f(\blds{x}) = \suml{d=1}{D-1} 100\left(x_{d+1} - x^2_d\right)^2 +
+            \left(x_d - 1\right)^2.
+        \end{equation}
+    Here are two figures of the functions
         \onefigure{Sphere Function}{text/figs/sphere.pdf}{Illustration of
-        sphere function}{fig:sf}
+        sphere function with minimum at $\blds{x}_m=(0,0)$ with value
+        $f(\blds{x}_m)=0$.}{fig:sf}
         \onefigure{Rosenbrock Function}{text/figs/rosenbrock.pdf}{Illustration
-        of Rosenbrock function}{fig:sf}
+        of Rosenbrock function with minimum at $\blds{x}_m=(1,1)$ with value
+        $f(\blds{x}_m)=0$.}{fig:rb}
 %         \twofigure{text/figs/sphere.pdf}{Illustration of sphere
 %         function}{subfig:sf}{text/figs/rosenbrock.pdf}{Illustration of
 %         Rosenbrock function}{subfig:sf}{Test-Functions}
@@ -161,11 +171,45 @@
                 $(5,5)$ & $0.1$ & $50$ & $(8.920\times10^{-5},8.920\times10^{-5})$ & $1.591\times10^{-8}$ \\
                 $(5,5)$ & $0.1$ & $100$ & $(1.273\times10^{-9},1.273\times10^{-9})$ & $3.242\times10^{-18}$
             \end{tabular}
-%             \begin{tabular}{ccccc} \hline\hline
-%                 $\blds{x}_0$ & $\gamma$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$
-%             \end{tabular}
-            \caption{Table showing convergence of the gradient descent scheme.}
+            \caption{Table showing convergence of the gradient descent method
+            with the spherical function. $\blds{x}_0$ is the initial starting
+            point, $\gamma$ is the step-size, $\blds{x}_m$ is the minimum after
+            the given iterations and $f(\blds{x}_m)$ is the function value at
+            said minimum point.}
+            \label{tab:sphericalconv}
         \end{table}
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{ccccc} \hline\hline
+                $\blds{x}_0$ & $\gamma$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
+                $(0,0.5)$ & $0.001$ & $100$ & $(0.181,0.030)$ & $0.034$ \\
+                $(0,0.5)$ & $0.001$ & $500$ & $(0.512,0.258)$ & $0.327$ \\
+                $(0,0.5)$ & $0.001$ & $1000$ & $(0.675,0.454)$ & $0.106$ \\
+                $(0,0.5)$ & $0.001$ & $100000$ & $(1.000,1.000) $ & $0.0$ \\
+                $(0,0.5)$ & $0.0001$ & $100$ & $(0.027,0.068)$ & $1.399$ \\
+                $(0,0.5)$ & $0.0001$ & $500$ & $(0.105,0.009)$ & $0.801$ \\
+                $(0,0.5)$ & $0.0001$ & $1000$ & $(0.184,0.031)$ & $0.666$ \\
+                $(0,0.5)$ & $0.0001$ & $100000$ & $(0.994,0.989)$ & $3.131\times10^{-5}$
+            \end{tabular}
+            \caption{Table showing convergence of the gradient descent method
+            with the Rosenbrock function. $\blds{x}_0$ is the initial starting
+            point, $\gamma$ is the step-size, $\blds{x}_m$ is the minimum after
+            the given iterations and $f(\blds{x}_m)$ is the function value at
+            said minimum point.}
+            \label{tab:rosenbrockconv}
+        \end{table}
+    From \Arf{tab:sphericalconv,tab:rosenbrockconv} it is apparent that with
+    the gradient descent method the step-size is o creat importance. With the
+    spherical function one needs a sweet-spot value to reach the minimum while
+    for the more complex Rosenbrock function the number of iterations needed is
+    very high and with a lower step-size the minimum was actually not even
+    reached with $100000$ iterations. In conclusion, the gradient descent
+    method is great for its simplicity, but it does not incorporate the
+    curvature of the function when minimizing meaning the choice for the
+    step-size and greatly determines the outcome of the minimization, and for
+    functions where the minimium lies in a fairly flat valley, as with the
+    Rosenbrock function, the computational cost increases since the number of
+    iterations needed for convergence is high.
 
 \section{Adaptive Stochastic Gradient
 Descent\label{sec:adaptive_stochastic_gradient_descent}}
@@ -353,6 +397,62 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \end{tikzpicture}
         \caption{Quasi-Newton algorithm.\label{fig:QNalgflow}}
     \end{figure}
+    To illustrate the power of the method we again apply it to the sphere
+    function and the Rosenbrock function using the BFGS scheme as the updating
+    method and the Mor\'e-Thuente linesearch method to find the step-size. The
+    table of convergence is as follows
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{cccc} \hline\hline
+                $\blds{x}_0$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
+                $(1,1)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
+                $(-1,2)$ & $1$ & $(0.447,-0.894)$ & $1.000$ \\
+                $(1,1)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\
+                $(-1,2)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\
+                $(10,10)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
+                $(10,10)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\
+                $(100,100)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
+                $(100,100)$ & $2$ & $(0.000,0.000)$ & $0.000$
+            \end{tabular}
+            \caption{Table showing convergence of a Quasi-Newton method with
+            BFGS method with the spherical function. $\blds{x}_0$ is the
+            initial starting point, $\blds{x}_m$ is the minimum after the given
+            iterations and $f(\blds{x}_m)$ is the function value at said
+            minimum point.}
+            \label{tab:sphericalconvBFGS}
+        \end{table}
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{ccccc} \hline\hline
+                $\blds{x}_0$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
+                $(-0.5,2.0)$ & $1$ & $(-0.706,0.708)$ & $7.280$ \\
+                $(-0.5,2.0)$ & $2$ & $(-0.780,0.649)$ & $3.342$ \\
+                $(-0.5,2.0)$ & $10$ & $(0.238,0.051)$ & $0.584$ \\
+                $(-0.5,2.0)$ & $30$ & $(1.000,1,000)$ & $0.000$ \\
+                $(5.5,-10.0)$ & $1$ & $(-0.996,0.091)$ & $85.214$ \\
+                $(5.5,-10.0)$ & $2$ & $(-0.908,1.087)$ & $10.549$ \\
+                $(5.5,-10.0)$ & $10$ & $(0.027,0.012)$ & $0.9613$ \\
+                $(5.5,-10.0)$ & $30$ & $(1.000,1,000)$ & $0.000$
+            \end{tabular}
+            \caption{Table showing convergence of a Quasi-Newton method with
+            BFGS method with the Rosenbrock function. $\blds{x}_0$ is the
+            initial starting point, $\blds{x}_m$ is the minimum after the given
+            iterations and $f(\blds{x}_m)$ is the function value at said
+            minimum point.}
+            \label{tab:rosenbrockconvBFGS}
+        \end{table}
+    Comparing \Arf{tab:sphericalconvBFGS, tab:rosenbrockconvBFGS} with
+    \Arf{tab:sphericalconv, tab:sphericalconvBFGS} we can see that the BFGS
+    scheme outperforms the gradient descent method by an outrageous amount with
+    the number of iterations in mind. However one still has to keep in mind
+    that each iterations of the BFGS method is far more computationally
+    extensive meaning the gradient descent method can be more favorable in the
+    case where the function to be minimized is expensive to compute. 
+
+    For our case, the latter sentiment is true. The expectation value to the
+    energy still has a large complexity, however with the optimizations
+    mentioned in \Arf{susec:slateropt, susec:jastopt} the time it takes to
+    calculate the expectation value is not too large.
 
 \section{BFGS Method\label{sec:BFGS}}
     In the previous section(also mentioned in \Arf{fig:QNalgflow}) we gave an

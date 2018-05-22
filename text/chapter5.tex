@@ -665,7 +665,7 @@
     for the system(wavefunction and Jastrow) and then supply an YAML input file
     at runtime.
 
-\subsection{Slater Optimizations}
+\subsection{Slater Optimizations\label{susec:slateropt}}
     In the Metropolis sampling we need access to the ratio of two determinants,
     namely the Slater wavefunction at the current state and the one at previous
     state. These are quite expensive to calculate\footnote{Actual complexity of
@@ -685,10 +685,10 @@
         \end{equation}
     with $\Psi'$ being the wavefunction at previous state. One might ask now,
     but isn't this just worse? We have gone from needing two determinants to
-    needing two inverses!? Fret not, the Sherman-Morrison\cite{shermorInv}
-    formula for updating an inverse matrix if only one row has changed in the
-    original matrix comes to the rescue. The elements of the inverse can by
-    this be expressed as(with $i$ being the row that changed)
+    needing two inverses!? Fret not, the Sherman-Morrison
+    formula\cite{shermorInv} for updating an inverse matrix if only one row has
+    changed in the original matrix comes to the rescue. The elements of the
+    inverse can by this be expressed as(with $i$ being the row that changed)
         \begin{equation}
             \psi^{-1}_{kj} = \left\{\begin{aligned}
                 \psi'^{-1}_{kj} - \frac{\Psi}{\Psi'}\psi'^{-1}_{ki}
@@ -701,7 +701,7 @@
     fully once before the sampling and then updated using the above formulas.
     This procedure is implemented in the \hltexttt{Slater} class.
 
-\subsection{Jastrow Optimizations}
+\subsection{Jastrow Optimizations\label{susec:jastopt}}
     The Jastrow factors presented in \Arf{susec:TWFJastrow},
     \Arf{sususec:TWFPadeJastrow} and \Arf{sususec:NQSJastrow} also give rise to
     optimizations in the case of moving only one particle at a time. In
@@ -730,7 +730,7 @@
                     0 & \nabla \blds{J}(\blds{r}_{1,2}) & \dots & \nabla
                     \blds{J}(\blds{r}_{1,N-1}) \\
                     \nabla \blds{J}(\blds{r}_{2,1}) & 0 & \dots & \nabla
-                    \blds{J}(\blds{r}_{2,N-1} \\
+                    \blds{J}(\blds{r}_{2,N-1}) \\
                     \vdots & \vdots & \ddots & \vdots \\
                     \nabla \blds{J}(\blds{r}_{N,1}) & \dots & \dots & 0 
                 \end{pmatrix}
