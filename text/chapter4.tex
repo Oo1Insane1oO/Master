@@ -593,8 +593,8 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
                     $\frac{j}{M_{\text{max}}}$
                     \State Pick a new state $s_{\text{new}}$ within some
                     neighbour of $s$
-                    \If{$P(f(s), f(s_{\text{new}}), T) \geq \xi$} 
-                    \Comment{$\xi$ uniformly distributed random in $[0,1]$.}
+                    \If{$P(f(s), f(s_{\text{new}}), T) \geq \xi$}
+                    \Comment{Metropolis-Test.}
                         \State $s = s_{\text{new}}$
                     \EndIf
                 \EndFor
@@ -614,7 +614,12 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \begin{equation}
             T_j = \frac{j}{M_{\text{max}}}
         \end{equation}
-    and choose new neighbours within some min/max range from the current $s$.
-    >> REF THIS <<. \\
-    After the annealing is done a Quasi-Newton method is used and then the
-    adaptive method is used to converge to the minimum.
+    and choose new neighbours within some min/max range from the current
+    $s$\cite{simaneal}.  After the annealing is done a Quasi-Newton method is
+    used and then the adaptive method is used to converge to the minimum. In
+    order to test this scheme we apply it to more complex functions with many
+    local minima. Two such functions are the \txtit{Ackley function} and the
+    \txtit{Rastrigin function}, figures are shown below
+        \onefigure{Ackley Function}{text/figs/ackley.pdf}{Illustration of
+        sphere function with minimum at $\blds{x}_m=(0,0)$ with value
+        $f(\blds{x}_m)=0$.}{fig:sf}
