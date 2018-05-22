@@ -30,6 +30,6 @@ triple simulatedS(pair ij){
 
 currentlight=Viewport;
 surface graf = surface(simulatedS, (-40,-40), (40,40),nu=100,nv=100,Spline);
-draw(graf, mean(palette(graf.map(zpart),Wheel())),black, light=currentlight);
+draw(graf, mean(palette(graf.map(zpart),cmyk(Wheel()))),black, light=currentlight);
 
 axes3("$x$","$y$","$f(x,y)$",min=(-40,-40,0),max=(40,40,30),arrow=Arrow3(),fontsize(20));

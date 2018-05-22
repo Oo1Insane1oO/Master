@@ -148,14 +148,11 @@
         \end{equation}
     Here are two figures of the functions
         \onefigure{Sphere Function}{text/figs/sphere.pdf}{Illustration of
-        sphere function\cite{simulationlib} with minimum at $\blds{x}_m=(0,0)$
+        sphere function\cite{simulationlib} with minimum $\blds{x}_m=(0,0)$
         with value $f(\blds{x}_m)=0$.}{fig:sf}
         \onefigure{Rosenbrock Function}{text/figs/rosenbrock.pdf}{Illustration
-        of Rosenbrock function\cite{simulationlib} with minimum at
+        of Rosenbrock function\cite{simulationlib} with minimum
         $\blds{x}_m=(1,1)$ with value $f(\blds{x}_m)=0$.}{fig:rb}
-%         \twofigure{text/figs/sphere.pdf}{Illustration of sphere
-%         function}{subfig:sf}{text/figs/rosenbrock.pdf}{Illustration of
-%         Rosenbrock function}{subfig:sf}{Test-Functions}
     As for the convergence we give a table with number of iterations.
         \begin{table}[H]
             \centering
@@ -443,16 +440,18 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \end{table}
     Comparing \Arf{tab:sphericalconvBFGS, tab:rosenbrockconvBFGS} with
     \Arf{tab:sphericalconv, tab:sphericalconvBFGS} we can see that the BFGS
-    scheme outperforms the gradient descent method by an outrageous amount with
-    the number of iterations in mind. However one still has to keep in mind
-    that each iterations of the BFGS method is far more computationally
-    extensive meaning the gradient descent method can be more favorable in the
-    case where the function to be minimized is expensive to compute. 
+    scheme outperforms the gradient descent method by a stupendous and almost
+    comical amount with the number of iterations in mind. However one still has
+    to keep in mind that each iterations of the BFGS method is far more
+    computationally extensive meaning the gradient descent method can be more
+    favorable in the case where the function to be minimized is expensive to
+    compute. 
 
     For our case, the latter sentiment is true. The expectation value to the
     energy still has a large complexity, however with the optimizations
     mentioned in \Arf{susec:slateropt, susec:jastopt} the time it takes to
-    calculate the expectation value is not too large.
+    calculate the expectation value is not too large and the BFGS scheme can
+    still be used.
 
 \section{BFGS Method\label{sec:BFGS}}
     In the previous section(also mentioned in \Arf{fig:QNalgflow}) we gave an
@@ -608,21 +607,93 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     problem to problem however an effective and simple way to define these is
     by using the Metropolis-algorithm with
         \begin{equation}
-            P = \exp(-\frac{f({\text{new}) - f(s)}}{T})
+            P = \exp(-\frac{f(s_{\text{new}}) - f(s)}{T}),
         \end{equation}
     define the temperature as
         \begin{equation}
-            T_j = \frac{j}{M_{\text{max}}}
+            T_j = \frac{T_{\text{max}}}{j},
         \end{equation}
-    and choose new neighbours within some min/max range from the current
-    $s$\cite{simaneal}.  After the annealing is done a Quasi-Newton method is
-    used and then the adaptive method is used to converge to the minimum. In
-    order to test this scheme we apply it to more complex functions with many
-    local minima. Two such functions are the \txtit{Ackley function} and the
-    \txtit{Rastrigin function}, figures are shown below
+    with $T_{\text{max}}$ being the initial temperature, and choose new
+    neighbours within some min/max range from the current $s$\cite{simaneal}.
+    After the annealing is done a Quasi-Newton method is used and then the
+    adaptive method is used to converge to the minimum. In order to test this
+    scheme we apply it to more complex functions with many local minima. Two
+    such functions are the \txtit{Ackley function}\cite{simulationlib} defined
+    as
+        \begin{equation}
+            f(\blds{x}) = -a\exp(-b\sqrt{\frac{1}{D}\suml{d=1}{D}x^2_d}) -
+            \exp(-\frac{1}{D}\suml{d=1}{D}\text{cos}(cx_d)) + a + \exp(1)
+        \end{equation}
+    and the \txtit{Rastrigin function}\cite{simulationlib}
+        \begin{equation}
+            f(\blds{x}) = 10D + \suml{d=1}{D}\left(x^2_d - 10\text{cos}(2\pi
+            x_i)\right)
+        \end{equation}
+    with $D$ being the number of parameters and $a$, $b$ and $c$ being
+    parameters to be tweaked. Figures are shown below
         \onefigure{Ackley Function}{text/figs/ackley.pdf}{Illustration of
-        Ackley function\cite{simulationlib} with global minimum at
-        $\blds{x}_m=(0,0)$ with value $f(\blds{x}_m)=0$.}{fig:ack}
+        Ackley function\cite{simulationlib} with global minimum
+        $\blds{x}_m=(0,0)$ of value $f(\blds{x}_m)=0$.}{fig:ack}
         \onefigure{Rastrigin Function}{text/figs/rastrigin.pdf}{Illustration of
-        Rastrigin function\cite{simulationlib} with global minimum at
-        $\blds{x}_m=(0,0)$ with value $f(\blds{x}_m)=0$.}{fig:rastr}
+        Rastrigin function\cite{simulationlib} with global minimum
+        $\blds{x}_m=(0,0)$ of value $f(\blds{x}_m)=0$.}{fig:rastr}
+    As for convergence, we again employ the same procedure as with the
+    spherical and Rosenbrock functions as previously, but with the Ackelyn and
+    Rastrigin functions and present the tables here.
+        \begin{table}[H]
+            \centering
+            \caption{Table showing convergence of the simulated annealing
+            method with the Ackelyn function. $\blds{x}_0$ is the initial
+            starting point, $T_{\text{max}}$ is the initial temperature,
+            $\blds{x}_m$ is the minimum after the given iterations and
+            $f(\blds{x}_m)$ is the function value at said minimum point. The
+            neighbouring function used is a simple gaussian applied to all
+            parameters with mean being the current value of the parameter and
+            variance $1.0$.}
+            \label{tab:ackelynconv}
+            \begin{tabular}{ccccc} \hline\hline
+                $\blds{x}_0$ & $T_{\text{max}}$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
+                $(-10.0,0.40)$ & $100.0$ & $100$ & $(0.130,0.096)$ & $1.046$ \\
+                $(-10.0,0.40)$ & $100.0$ & $1000$ & $(0.007,-0.026)$ & $0.097$ \\
+                $(-10.0,0.40)$ & $100.0$ & $10000$ & $(0.002,-0.004)$ & $0.011$ \\
+                $(-10.0,0.40)$ & $100.0$ & $100000$ & $(-0.003,-0.003)$ & $0.013$ \\
+                $(-0.01,0.01)$ & $100.0$ & $100$ & $(-0.101,0.036)$ & $0.584$ \\
+                $(-0.01,0.01)$ & $100.0$ & $1000$ & $(-0.012,-0.006)$ & $0.044$ \\
+                $(-0.01,0.01)$ & $100.0$ & $10000$ & $(-0.004,0.001)$ & $0.013$ \\
+                $(-0.01,0.01)$ & $100.0$ & $100000$ & $(-0.001,-0.001)$ & $0.003$ \\ \hline\hline
+            \end{tabular}
+        \end{table}
+        \begin{table}[H]
+            \centering
+            \caption{Table showing convergence of the simulated annealing
+            method with the Rastrigin function. $\blds{x}_0$ is the initial
+            starting point, $T_{\text{max}}$ is the initial temperature,
+            $\blds{x}_m$ is the minimum after the given iterations and
+            $f(\blds{x}_m)$ is the function value at said minimum point. The
+            neighbouring function used is a simple gaussian applied to all
+            parameters with mean being the current value of the parameter and
+            variance $1.0$.}
+            \label{tab:rastriginconv}
+            \begin{tabular}{ccccc} \hline\hline
+                $\blds{x}_0$ & $T_{\text{max}}$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \\
+                $(-5.0,1.0)$ & $100.0$ & $100$ & $(-0.988,0.967)$ & $2.152$ \\
+                $(-5.0,1.0)$ & $100.0$ & $1000$ & $(0.045,-0.038)$ & $0.684$ \\
+                $(-5.0,1.0)$ & $100.0$ & $10000$ & $(0.007,-0.002)$ & $0.009$ \\
+                $(-5.0,1.0)$ & $100.0$ & $100000$ & $(0.001,-0.002)$ & $0.001$ \\
+                $(-0.01,0.001)$ & $100.0$ & $100$ & $(-0.873,0.016)$ & $3.844$ \\
+                $(-0.01,0.001)$ & $100.0$ & $1000$ & $(-0.011,-0.010)$ & $0.043$ \\
+                $(-0.01,0.001)$ & $100.0$ & $10000$ & $(0.001,0.010)$ & $0.021$ \\
+                $(-0.01,0.001)$ & $100.0$ & $100000$ & $(-0.002,-0.002)$ & $0.001$ \\ \hline\hline
+            \end{tabular}
+        \end{table} 
+        We can see from \Arf{tab:ackelynconv, tab:rastriginconv} that the
+        simulated annealing method does get close to the actual minimum,
+        however a great number of iterations is needed and even as we reach
+        $10^5$ iterations the method still doesn't converge towards the
+        minimum. This seems quite dissappointing, but one has to remember that
+        the method is to be used as a way to reach an area were deterministic
+        methods such as gradient descent method or the BFGS scheme is
+        guaranteed to converge towards the minimum. As long as we control the
+        temperature properly such a point can be found with simulated
+        annealing.
+    
