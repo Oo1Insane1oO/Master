@@ -394,6 +394,7 @@
         in some known orthonormal basis $\{\chi\}^L_{i=1}$
             \begin{equation}
                 \phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})
+                \label{eq:HFexpansiondephi}
             \end{equation}
         and introduce the \txtit{Fock-matrix} $F$(associated with the
         Fock-operator) with elements
@@ -464,7 +465,7 @@
     spin-up or spin-down states respectively and the $r$ and $s$ runs over all
     the spacial basis functions.
 
-\section{Convergence and Mixing}
+\section{Convergence, Mixing and the Hartree-Fock Limit}
     The Hartree-Fock equations themselves are what we call a system of
     non-linear equations meaning that they need to be solved
     iteratively\footnote{and pray for convergence...}. A simple brute-force way
@@ -491,7 +492,6 @@
     The more popular approach however is the DIIS procedure, also known as
     Pulay mixing\cite{PULAY,PULAY2}. \\
     We use the simple mixing in this thesis.
-
     Here is also a figure describing the algorithm.
         \begin{figure}[H]
             \centering
@@ -591,6 +591,26 @@
             \caption{Hartree-Fock Algorithm.}
         \end{figure}
 
+\subsection{Hartree-Fock Limit}
+    From the form of the Hartree-Fock equations and the basis expansion used at
+    the beginning, we see that adding more basis functions gives a better
+    estimate for the ground-state energy. However from \Arf{chapter:6} we can
+    see that the convergence seems to reach a limit (since the energies with
+    the variational method is lower). This limit is known as the
+    \txtit{Hartree-Fock limit}\cite{HFlimit} and is the lowest possible energy
+    that can be obtained with a single-determinant wavefunction. At this limit
+    we have the following names for the different quantities involved
+        \begin{itemize}
+            \item Hartree-Fock energy:\indent\indent Obtained energy
+            \item Hartree-Fock orbitals:\indent\indent Basisfunction, \Arf{eq:HFexpansiondephi}
+            \item Hartree-Fock wavefunction:\indent\indent Slater determinant of the orbitals 
+        \end{itemize}
+    This particular limit is of interest because when it is reached we can be
+    confident that the obtained basis from the Hartree-Fock iteration is the
+    best possible one and further desirable optimizations requires different
+    methods like coupled-cluster or variational Monte-Carlo as mentioned.
+
+
 \section{Quantum Monte Carlo\label{sec:QMC}}
     Quantum Monte Carlo, or QMC is a method for solving Schrödinger's equation
     by a statistical approach using so-called \txtit{Markov Chain} simulations
@@ -606,8 +626,8 @@
     method.
 
     The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
-    equations stated assume atomic units ($\hbar=m_e=e=4\pi\veps_0$) >> REF
-    HERE ATOMIC UNITS <<.
+    equations stated assume \txtit{atomic units}\cite{atomicunits}
+    ($\hbar=m_e=e=4\pi\veps_0$), see \Arf{appendix:Aatomic}.
 
     \subsection{The Variational Principle and Expectation Value of Energy}
         Given a Hamiltonian $\Ham$ and a trial wave function $\psiT$, the

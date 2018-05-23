@@ -1,6 +1,33 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{\label{appendix:A}}
+\chapter{Theory\label{appendix:A}}
+
+\section{Atomic Unit\label{appendix:Aatomic}}
+    The units used in the calculations are known as atomic units. The premise
+    is to write the natural length unit in terms of the \txtit{Bohr
+    radius}\cite{GriffQuan} 
+        \begin{equation}
+            a_0 = \frac{4\pi\epsilon_0\hbar^2}{m_ee^2} = 0.529\text{\AA},
+        \end{equation}
+    giving the energy unit known as a \txtit{Hartree} and has the value
+        \begin{equation}
+            E_{\text{Hartree}} = m_e\left(\frac{4\pi\epsilon_0}{\hbar
+            e}\right)^2 = 27.211 \text{eV},
+        \end{equation}
+    and the electronmass $m_e$, elementary charge $e$, reduced Plancks constant
+    $\hbar$ and free-space permittivity $\epsilon_0$ are all equal to unity,
+        \begin{equation}
+            m_e = e = \hbar = 4\pi\epsilon_0 = 1.
+        \end{equation}
+    The kinetic operator can then be rewritten to
+        \begin{equation}
+            K = - \frac{1}{2} \sumll{i} \nabla^2_i,
+        \end{equation}
+    and the Coulomb interaction is simply
+        \begin{equation}
+            V_{\text{I}} \sumll{i<j} \frac{1}{r_{ij}},
+        \end{equation}
+    with $r_{ij}$ also rescaled in terms of the Bohr radius.
 
 \section{Lagrange Multiplier Method\label{sec:lagrange_multipliers}}
     See \cite{calcVar,calcVarSpring}. The optimization method of Lagrange
