@@ -37,6 +37,7 @@ for wk in sorted(infoDict.keys()):
 with open(wfile, "w") as ofile:
     nCount = len(Nval)
     ofile.write("\\begin{table}[H]\n    \\centering\scriptsize\n")
+    ofile.write("\\input{"+capfname+"}\n    \\label{tab:"+label+"}\n")
     ofile.write("\\scalebox{" + xsize + "}[" + ysize + "]{%\n")
     ofile.write("   \\begin{tabular}{"+"cc|"+"".join(["c" for i in range(2,nCount + 2)])+"}\n")
     ofile.write("\\toprule\\hline\\multicolumn{2}{l|}{} & \\multicolumn{%i}{c}{$N$} \\\\ \\hline\n" % nCount)
@@ -69,5 +70,5 @@ with open(wfile, "w") as ofile:
             ofile.write(" \\\\\n")
         # end forenum lk, Lkey
     # end forwkey
-    ofile.write("\\hline\\bottomrule\\end{tabular}%\n}\n\\input{"+capfname+"}\n    \label{tab:"+label+"}\n\\end{table}")
+    ofile.write("\\hline\\bottomrule\\end{tabular}%\n}\n\\end{table}")
 # end withopen ofile

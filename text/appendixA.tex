@@ -106,24 +106,23 @@
         \cite{compphysThijssen,basicMB}.
 
 \section{Multi-Index Notation\label{sec:multiIndexNotation}}
-    >> REF THIS <<
     This section will give a brief overlook of a notation which compresses
     indices running in similar fashion, the so-called \txtit{multi-index
-    notation}. We will make use of this to reduce indices in each dimension
-    down to one. \\
-    The rules are states as, given a n-tuple $(x_1,\dots x_n)$ over any field
+    notation}\cite{multiindex}. We will make use of this to reduce indices in
+    each dimension down to one. \\
+    The rules are stated as, given a n-tuple $(x_1,\dots x_n)$ over any field
     $\mathbb{F}$ (real, complex, etc.), a multi index is defined to be 
         \begin{equation}
-            i=(n_1,\dots i_n)\in \mathbb{Z}^n_+
+            i=(i_1,\dots i_n)\in \mathbb{Z}^n_+
         \end{equation}
     with expansions
         \begin{equation}
             \begin{aligned}
-                \abs{i} &= i_1 + \dots + i_n \\
+                \abs{i} &= \abs{i_1} + \dots + \abs{i_n} \\
                 i! &= i_1! \dots i_n! \\
                 x^i &= x^{i_1}_1 \dots x^{i_n}_n \in \mathbb{F}[x] \\
                 i \pm j &= (i_1 \pm j_1,\dots, i_n+j_n) \in \mathbb{Z}
             \end{aligned}
         \end{equation}
     In essence the notation just wraps the notion of element-wise operations
-    into one index variable.
+    into one single index variable.

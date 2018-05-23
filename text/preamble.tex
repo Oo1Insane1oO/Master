@@ -2,7 +2,7 @@
 \linespread{1.25}
 \usepackage[utf8]{inputenc}
 % \usepackage[T1]{fontenc}
-\usepackage{microtype}
+\usepackage[final=true]{microtype}
 \usepackage[style=numeric-comp, 
             backend=biber,
             url=false,
@@ -42,6 +42,10 @@
 \usepackage{hyperref}
 
 \usetikzlibrary{arrows.meta, shadows}
+
+\setlength{\emergencystretch}{1cm}
+
+\AtBeginEnvironment{verbatim}{\microtypesetup{activate=false}}
 
 \overfullrule=2cm
 \usepackage{calc,soul}

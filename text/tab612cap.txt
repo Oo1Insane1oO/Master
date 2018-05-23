@@ -1,1 +1,1 @@
-\caption{RHF with the 3D HO-system. $L$ is the number of spacial orbitals used and $N$ is the number of particles. The "$-$" indicates that the system cannot be run with such few basis functions.}
+\caption{\scriptsize RHF with the 3D HO-system. $L$ is the number of spacial orbitals used and $N$ is the number of particles. The "$-$" indicates that the system cannot be run with such few basis functions.}
