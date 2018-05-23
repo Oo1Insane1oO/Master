@@ -1,5 +1,7 @@
 \begin{table}[H]
     \centering\scriptsize
+    \input{text/tab612cap.txt}
+    \label{tab:HOHF}
 \scalebox{1.0}[0.88]{%
    \begin{tabular}{cc|cccc}
 \toprule\hline\multicolumn{2}{l|}{} & \multicolumn{4}{c}{$N$} \\ \hline
@@ -38,6 +40,4 @@
 \multicolumn{1}{l|}{} & $120$ & $3.771574$ & $32.924628$ & $143.684577$ & $446.315149$ \\
 \hline\bottomrule\end{tabular}%
 }
-\input{text/tab612cap.txt}
-    \label{tab:HOHF}
 \end{table}
