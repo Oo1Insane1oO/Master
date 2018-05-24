@@ -2,7 +2,6 @@ import sys
 import os
 import operator
 
-import pandas as pd
 import numpy as np
 import yaml
 
