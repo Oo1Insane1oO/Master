@@ -1,6 +1,6 @@
 \begin{table}[H]
     \centering\scriptsize
-    \input{text/tab612cap.txt}
+\input{text/tab612cap.txt}
     \label{tab:HOHF3D}
 \scalebox{1.0}[0.88]{%
    \begin{tabular}{cc|cccc}

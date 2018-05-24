@@ -17,12 +17,16 @@ infoDict = {}
 for fname in os.listdir(path):
     with open(path + "/" + fname, 'r') as inputFile:
         tmpDict = yaml.load(inputFile, Loader=yaml.CLoader)
+        if tmpDict["I"] > 400:
+            print tmpDict["I"], fname
         del tmpDict["coeffs"]
         infoDict.setdefault(tmpDict["omega"],
                 {}).setdefault(tmpDict["numbasis"],
                         {}).setdefault(tmpDict["numparticles"], float(tmpDict["E0"]))
     # withopen inputFile
 # end for fname
+
+exit(1)
 
 Nval = sorted(set(reduce(operator.add, [l.keys() for l in
     infoDict[next(iter(infoDict))].values()])))
