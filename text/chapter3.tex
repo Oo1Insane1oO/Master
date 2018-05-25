@@ -737,6 +737,7 @@
     left. We will explain briefly. First let us express the expansion,
         \begin{equation}
             \ket{\psiDW_p} = \sumll{l}C_{lp}\ket{\psiHO_l}
+            \label{eq:dwexpansiondef}
         \end{equation}
     and then project from left the bra $\bra{\psiHO_k}$ in the
     inner-product space of $h^{\text{DW}}$
@@ -765,7 +766,7 @@
     We are now in a position to build a basis for the double-well system by
     reusing all the results and expressions concerning the single-well system.
     The only difference is the extra integral over $\VDW_n$ where $n$ would be
-    larger than $2$(as is the case with the harmonic oscillator potential). \\
+    larger than $2$.
 
     For clarity let us also write out the expression for the resulting
     Hartree-Fock basis to be used with the Variational Monte-Carlo method.
@@ -812,6 +813,15 @@
     $3$ in 3D) of the functions in the second level over one another. This
     means that we choose the basisfunctions according to the \txtit{magic
     numbers} of the Harmonicoscillator system basis.
+
+    For the actual Hartree-Fock calcualtion it is worthwhile to mentioned that
+    the expansion sum in \Arf{eq:dwexpansiondef} has to be truncated. The hope
+    is that as we add more and more HO-functions to the eigenvalue problem(with
+    the magic-number in mind), \Arf{eq:Heigdef}, the eignvalues will converge.
+    We would then let the index $l$ run up to the number of eigenvalues that
+    have sufficiently converged.  For an illustration of the eigenvalues for
+    $R=2.0$ and $\omega=1.0$ in two dimensions see \Arf{tab:eig2D}. See also
+    \Arf{sec:dwbimp} for more on the specific implementation.
 
 \subsection{Degeneracy}
     When we tackled the single-well problem the energy-levels were degenerate
@@ -991,7 +1001,7 @@
     an expression for the integrals over double-well functions as they were
     just expanded in harmonic oscillator functions. The next chapter will
     present optimizations methods used in the variational method and the
-    implementations of these integrals are presented in \Arf{chapter:6}. \\
+    implementations of these integrals are presented in \Arf{chapter:6}.
 
     As a note for further work the expressions found here are for isotropic
     gaussians only. For certain systems, like the one presented in
@@ -999,3 +1009,9 @@
     be desired, such that finding expression for the integrals of Gaussian
     functions with higher order monomial factors and extending the existing
     code to calculate those can be of desire.
+
+    Experimentation with different centered gaussians for the double-well case
+    can be interesting since it is not unreasonable to believe that functions
+    centered on the nodes of the double-well might be a better model for the
+    system. In which case the number of basis functions needed might be reduced
+    and the computational strain would more relaxing.

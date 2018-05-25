@@ -26,22 +26,27 @@ with open(filename, "w") as ofile:
     ofile.write("\\begin{table}[H]\n    \\centering\\footnotesize\n")
     ofile.write("\\input{"+capfname+"}\n    \\label{tab:"+label+"}\n")
     ofile.write("\\scalebox{" + xsize + "}[" + ysize + "]{%\n")
-    ofile.write("   \\begin{tabular}{"+"".join(["c" for i in range(len(keysSorted))])+"}\n")
+    ofile.write("   \\begin{tabular}{"+"".join(["c" for i in range(len(keysSorted)+1)])+"}\n")
+    ofile.write("\\toprule\\hline \\\\\n")
     ofile.write("L") 
     for k in keysSorted:
-        ofile.write(" & %i" % k)
+        ofile.write(" & %i" % int(k/2))
     ofile.write("\\\\\n")
-    for i,value in enumerate(valuesSorted):
-        for j,v in enumerate(value):
+    for i in range(len(valuesSorted[-1])):
+        for j in range(len(keysSorted)):
             if i==0 and j==0:
-                ofile.write("\\multirow{%i}{*}{}" % len(keysSorted))
+                ofile.write("\\multirow{%i}{*}{} %i" % (len(valuesSorted[-1]),i+1))
             # end if
             try:
-                ofile.write(" & %.5f" % v)
+                ofile.write(" & %.5f" % valuesSorted[j][i])
             except:
-                ofile.write(" & %s" % v)
+                ofile.write(" & %s" % valuesSorted[j][i])
         # end forjv
-        ofile.write("\\\\\n")
+        if i==(len(valuesSorted[-1])-1):
+            ofile.write("\\\\\n")
+        else:
+            ofile.write("\\\\\n %i" % (i+2))
+        # end ifelse
     # end forivalue
     ofile.write("\\hline\\bottomrule\\end{tabular}%\n}\n\\end{table}")
 # end withopen
