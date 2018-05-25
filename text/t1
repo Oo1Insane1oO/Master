@@ -2,9 +2,10 @@
     \centering\scriptsize
     \input{text/tab61cap.txt}
     \label{tab:HOHF}
-\scalebox{1.0}[0.88]{%
-   \begin{tabular}{cc|ccccccc}
-\toprule\hline\multicolumn{2}{l|}{} & \multicolumn{7}{c}{$N$} \\ \hline
+    \setlength{\tabcolsep}{9.4pt}
+    \renewcommand*{\arraystretch}{0.92}
+   \begin{tabular}{cc"ccccccc}
+\toprule\hline\multicolumn{2}{l"}{} & \multicolumn{7}{c}{$N$} \\ \hline
 \multicolumn{1}{c}{$\omega$} & $L$  & $2$ & $6$ & $12$ & $20$ & $30$ & $42$ & $56$\\
 \hline\multicolumn{1}{l|}{\multirow{15}{*}{$0.10$}} & $1$ & $0.596333$ & $-$ & $-$ & $-$ & $-$ & $-$ & $-$ \\
 \multicolumn{1}{l|}{} & $3$ & $0.709635$ & $4.864244$ & $-$ & $-$ & $-$ & $-$ & $-$ \\
@@ -66,6 +67,5 @@
 \multicolumn{1}{l|}{} & $91$ & $3.161908$ & $20.719215$ & $66.911323$ & $158.004757$ & $311.869364$ & $548.688114$ & $892.082465$ \\
 \multicolumn{1}{l|}{} & $105$ & $3.161908$ & $20.719215$ & $66.911322$ & $158.004317$ & $311.863887$ & $547.907494$ & $889.765470$ \\
 \multicolumn{1}{l|}{} & $120$ & $3.161908$ & $20.719215$ & $66.911321$ & $158.004315$ & $311.860399$ & $547.801022$ & $887.301998$ \\
-\hline\bottomrule\end{tabular}%
-}
+\hline\bottomrule\end{tabular}
 \end{table}

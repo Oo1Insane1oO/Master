@@ -843,7 +843,7 @@
     \hltexttt{Minimizer} has full access to all the variables and functions
     defined inside \hltexttt{VMC} even if said variables and functions are
     declared as \txtit{private}\footnote{On an equal note, this is really not a
-    good idea in general}. The reason for this choice is just to split the
+    good idea in general.}. The reason for this choice is just to split the
     whole minimization part of the variational method from the actual sampling.
     \\
     The means to to make a \hltexttt{Minimizer} object is to initialize it as
@@ -943,10 +943,11 @@
 
 \section{Verification\label{sec:verification}}
     In order to be confident in the results presented for the double-well
-    potential we, along with unit-tests, benchmarked our results with the
-    harmonic oscillator potential. The test are set-up with the
-    \pp{UnitTest}\cite{UnitTest++} and one only needs to pass a flag $TESTS=ON$
-    at compile time to enable them.
+    potential we, along with \txtit{unit-tests}, benchmarked our results with
+    the harmonic oscillator potential. The tests are set-up with the
+    \pp{UnitTest}\cite{UnitTest++} library and one only needs to pass a flag
+    $TESTS=ON$ at compile time to enable them. The benchmark results are given
+    in \Arf{tab:HOHF, tab:HOHF3D} >> REF MROE AS YOU GET THEM! <<.
 
 \subsection{Hartree-Fock}
     The first of the test for the Hartree-Fock method was to see if it

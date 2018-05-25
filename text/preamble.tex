@@ -91,6 +91,14 @@
 \let\oldcite\cite
 \renewcommand*\cite[1]{{\footnotesize\oldcite{#1}}}
 
+\makeatletter
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1.1pt\hskip\tabcolsep}}
+\makeatother
+
+\makeatletter
+\newcolumntype{'}{@{\hskip\tabcolsep\vrule width 1.3pt\hskip\tabcolsep}}
+\makeatother
+
 % color courier
 \definecolor{filecolor}{RGB}{180,43,190}
 \definecolor{funccolor}{RGB}{150,83,210}

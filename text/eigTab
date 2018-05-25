@@ -1,9 +1,9 @@
-\begin{table}[H]
-    \centering\footnotesize
-\input{text/eigTabcap.txt}
-    \label{tab:eig2D}
-\scalebox{0.655}[0.445]{%
-   \begin{tabular}{cccccccccccccccc}
+\begin{center}
+    \tiny
+    \setlength{\tabcolsep}{1.0pt}
+   \begin{longtable}{cccccccccccccccc}
+    \caption{Eigenvalues for double-well functions in 2D with $R=2.0$ and
+        $\omega=1.0$\label{tab:eig2D}} \\
 \toprule\hline \\
 L & 1 & 3 & 6 & 10 & 15 & 21 & 28 & 36 & 45 & 55 & 66 & 78 & 91 & 105 & 120\\
 \multirow{120}{*}{} 1 & 0.93581 & 0.93581 & 0.81130 & 0.81130 & 0.80989 & 0.80989 & 0.80959 & 0.80959 & 0.80954 & 0.80954 & 0.80951 & 0.80951 & 0.80950 & 0.80950 & 0.80949\\
@@ -126,6 +126,6 @@ L & 1 & 3 & 6 & 10 & 15 & 21 & 28 & 36 & 45 & 55 & 66 & 78 & 91 & 105 & 120\\
  118 & - & - & - & - & - & - & - & - & - & - & - & - & - & - & 14.21404\\
  119 & - & - & - & - & - & - & - & - & - & - & - & - & - & - & 14.37162\\
  120 & - & - & - & - & - & - & - & - & - & - & - & - & - & - & 14.93581\\
-\hline\bottomrule\end{tabular}%
-}
-\end{table}
+\hline\bottomrule
+\end{longtable}
+\end{center}

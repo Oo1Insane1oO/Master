@@ -2,9 +2,9 @@
     \centering\scriptsize
 \input{text/tab612cap.txt}
     \label{tab:HOHF3D}
-\scalebox{1.0}[0.88]{%
-   \begin{tabular}{cc|cccc}
-\toprule\hline\multicolumn{2}{l|}{} & \multicolumn{4}{c}{$N$} \\ \hline
+    \setlength{\tabcolsep}{24.55pt}
+   \begin{tabular}{cc'cccc}
+\toprule\hline\multicolumn{2}{l'}{} & \multicolumn{4}{c}{$N$} \\ \hline
 \multicolumn{1}{c}{$\omega$} & $L$  & $2$ & $8$ & $20$ & $40$\\
 \hline\multicolumn{1}{l|}{\multirow{8}{*}{$0.10$}} & $1$ & $0.552355$ & $-$ & $-$ & $-$ \\
 \multicolumn{1}{l|}{} & $4$ & $0.706087$ & $7.035821$ & $-$ & $-$ \\
@@ -38,6 +38,5 @@
 \multicolumn{1}{l|}{} & $56$ & $3.771606$ & $32.925002$ & $144.518526$ & $458.308755$ \\
 \multicolumn{1}{l|}{} & $84$ & $3.771574$ & $32.924935$ & $143.704615$ & $452.880282$ \\
 \multicolumn{1}{l|}{} & $120$ & $3.771574$ & $32.924628$ & $143.684577$ & $446.315149$ \\
-\hline\bottomrule\end{tabular}%
-}
+\hline\bottomrule\end{tabular}
 \end{table}

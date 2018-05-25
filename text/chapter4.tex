@@ -156,6 +156,7 @@
     As for the convergence we give a table with number of iterations.
         \begin{table}[H]
             \centering
+            \setlength{\tabcolsep}{18.6pt}
             \caption{Table showing convergence of the gradient descent method
             with the spherical function. $\blds{x}_0$ is the initial starting
             point, $\gamma$ is the step-size, $\blds{x}_m$ is the minimum after
@@ -177,6 +178,7 @@
         \end{table}
         \begin{table}[H]
             \centering
+            \setlength{\tabcolsep}{24.5pt}
             \caption{Table showing convergence of the gradient descent method
             with the Rosenbrock function. $\blds{x}_0$ is the initial starting
             point, $\gamma$ is the step-size, $\blds{x}_m$ is the minimum after
@@ -400,6 +402,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     table of convergence is as follows
         \begin{table}[H]
             \centering
+            \setlength{\tabcolsep}{34.6pt}
             \caption{Table showing convergence of a Quasi-Newton method with
             BFGS method with the spherical function. $\blds{x}_0$ is the
             initial starting point, $\blds{x}_m$ is the minimum after the given
@@ -420,6 +423,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \end{table}
         \begin{table}[H]
             \centering
+            \setlength{\tabcolsep}{34.3pt}
             \caption{Table showing convergence of a Quasi-Newton method with
             BFGS method with the Rosenbrock function. $\blds{x}_0$ is the
             initial starting point, $\blds{x}_m$ is the minimum after the given
@@ -642,7 +646,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     Rastrigin functions and present the tables here.
         \begin{table}[H]
             \centering
-            \footnotesize
+            \setlength{\tabcolsep}{23.6pt}
             \caption{Table showing convergence of the simulated annealing
             method with the Ackelyn function. $\blds{x}_0$ is the initial
             starting point, $T_{\text{max}}$ is the initial temperature,
@@ -674,7 +678,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \end{table}
         \begin{table}[H]
             \centering
-            \footnotesize
+            \setlength{\tabcolsep}{23.0pt}
             \caption{Table showing convergence of the simulated annealing
             method with the Rastrigin function. $\blds{x}_0$ is the initial
             starting point, $T_{\text{max}}$ is the initial temperature,
@@ -703,7 +707,8 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
                 $(-0.01,0.001)$ & $50.0$ & $10^4$ & $(0.002,0.004)$ & $0.004$ \\
                 $(-0.01,0.001)$ & $50.0$ & $10^5$ & $(-0.001,-0.003)$ & $0.001$ \\ \hline\hline
             \end{tabular}
-        \end{table} 
+        \end{table}
+
         We can see from \Arf{tab:ackelynconv, tab:rastriginconv} that the
         simulated annealing method does get close to the actual minimum,
         however a great number of iterations is needed and even as we reach
