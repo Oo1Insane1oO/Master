@@ -9,25 +9,86 @@
     the last century and has become a staple tool in scientific work ever
     since. Within all big breakthroughs in science in the modern days, some
     kind of computer simulations were made, a numerical experiment was made
-    prior to the actual physical experiments. The reason for this? As problems
-    get larger in scale, the possible closed-form solution with the good-old
-    pen-and-paper approach dwindles. The only possibility is then to resort to
-    numerical solutions and the modern computer, although a beast to be tamed,
-    is the best candidate tool.
+    prior to the actual physical experiments. The reason for this lies in the
+    heart of quantum mechanics, the \txtit{Schrödinger equation}. The time
+    dependent version if this equation is
+        \begin{equation}
+            i\hbar \frac{\prtl}{\prtl t} \Psi\left(\blds{r},t\right) =
+            \mathcal{H}\Psi\left(\blds{r},t\right),
+        \end{equation}
+    with initial conditions which can be \txtit{stationary states}. These are
+    then solved by the \txtit{time-independent Schrödinger equation}
+        \begin{equation}
+            \mathcal{H}\Psi\left(\blds{r}\right) = E\Psi\left(\blds{r}\right)
+        \end{equation}
+    Analytical solutions to this equation does exist. However in the case the
+    number of particles increases, meaning the number of parameters within
+    $\blds{r}$ increases, analytical solutions become hard or even impossible
+    to find and the good-old pen-and-paper approach dwindles in usefulness.
+    The only possibility is then to resort to numerical solutions and the
+    modern computer, although a beast to be tamed, is the best candidate tool.
 
-    Some of the earliest simulations made were indeed in the field of quantum
-    many-body physics, the (in)famous Manhattan Project and ever since then the
-    field of many-body quantum theory and quantum chemistry has grown rapidly
-    and given promising results in relation to reality. It has been used to
-    simulate atoms, bond-energies of atomic systems, studies of condensed
-    matter physics and many more. 
-    
-    In this thesis we go into detail on the popular Hartree-Fock method and the
-    Variational Monte-Carlo method with the quantum-dot single- and double-well
-    potentials as primary systems of study with this chapter being a brief
-    introduction to the structure and goals of the thesis.
+\section{Many-Body Methods}
+    In order to tackle the numerical problem that is solving the many-body
+    Schrödinger equation, some of these are the first-order methods
+    Hartree-Fock theory and Density Functional Theory, hierarchical methods
+    such as Configuration Interaction and Coupled Cluster theory and
+    statistical methods Variational Monte-Carlo and Diffusion Monte-Carlo. 
+
+    In case with Hartree-Fock and Density Functional Theory, the accuracy is
+    not desirably high, however they are efficient and are most useful as
+    inputs to the more accurate hierarchical methods\footnote{They are
+    hierarchical in the sense that increasingly accurate approximations can
+    systematically constructed.} or the variational method.
+
+    For the configuration interaction methods one either truncates the defined
+    hierarchical structure\footnote{In which case it is actually known as
+    Configurations Interaction.} or uses all contributions in which case the
+    method is known as Full Configuration-Interaction. These methods suffer
+    from \txtit{exponential scaling} and are therefore much heavier in
+    computational strain than the less accurate methods mentioned. The
+    truncated version however is not size-consistent.  The truncated
+    Coupled-Cluster method does not have any size-inconsistencies and achieves
+    polynomial scaling making the Coupled-Cluster method a standard method for
+    when high accuracy is in question. 
+
+    The statistical methods mentioned employes a different approach by
+    utilizing the statistical nature of the wavefunction in Schrödingers
+    equation and modeling the entire problem as a stochastic diffusion process.
+    Although the accuracy is on par with the hierarchical methods, the
+    strenuous effort involved in the minimization within the variational method
+    can utterly destroy ones spirit.
+
+    Another great property which statistical methods makes available without
+    much effort are the beasts known as \txtit{density-matrices} or $N$-body
+    densities. These can give some insight into desirable physics of the
+    system. It is also worth to mention that the variational method is in many
+    approaches an input to the more accurate diffusion method since the latter
+    requires a good initial starting-point.
+
+    A certain system which techniques from many-body quantum theory can be used
+    is with the \txtit{artificial atoms} known as \txtit{quantum dots}.
+    Quantum dots were first proposed in the 50's and has ever since played a
+    big part in some big breakthroughs in science and technology. They are
+    essentially really small semiconductor particles and they have played a
+    central role in nanotechnology because of their nice electrical and optical
+    properties. They tend to exist in solid state meaning they can be more
+    easily cooled. The result is that experiments have been conducted with
+    lasers, LEDS, the new generation of transistors in the modern computer and
+    as the ultimate goal; to use quantum dots in logic gates in \txtit{quantum
+    computers}. With this quantum-dots have become a popular and interesting
+    quantum system to study and a possible route of tackling the problem is
+    with a computational approach. The quantity of interest in the calculations
+    is the \txtit{ground-state energy} which the lowest possible eigenvalue of
+    the Hamiltonian.
 
 \section{Structure and Goals\label{sec:structure_and_goals}}
+    In this thesis we go into detail on the popular Hartree-Fock method and the
+    Variational Monte-Carlo method with the \txtit{artificial atoms} known as
+    quantum-dots by using single- and double-well potentials as primary systems
+    of study with this chapter being a brief introduction to the structure and
+    goals of the thesis.
+
     The main goal(at least at some point into the semester) was to make a
     code-base for large-scale quantum many-body calculations from scratch. Of
     course there exists many such code-bases and competing with those in terms

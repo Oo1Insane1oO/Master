@@ -1,8 +1,8 @@
 \begin{table}[H]
-    \centering\scriptsize
+    \centering
 \input{text/tab612cap.txt}
     \label{tab:HOHF3D}
-    \setlength{\tabcolsep}{24.55pt}
+    \setlength{\tabcolsep}{19.55pt}
    \begin{tabular}{cc'cccc}
 \toprule\hline\multicolumn{2}{l'}{} & \multicolumn{4}{c}{$N$} \\ \hline
 \multicolumn{1}{c}{$\omega$} & $L$  & $2$ & $8$ & $20$ & $40$\\

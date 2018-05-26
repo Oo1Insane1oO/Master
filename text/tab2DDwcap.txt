@@ -1,0 +1,1 @@
+\caption{Energies for the 2D double-well system with $R=2.0$ and $120$ spacial HO-functions.}

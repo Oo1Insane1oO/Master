@@ -24,23 +24,18 @@
     We tried anything from 
 
 \section{Hartree-Fock}
+\subsection{Harmonic Oscillator}
     \input{text/t1}
     \input{text/t3D}
 
-\section{Double-Well Basis\label{sec:dwbimp}}
-    The resulting eigenvalues from the procedure described in \Arf{sec:dwfunc}
-    is used to determine the number of basis-functions needed, given the number
-    of particles. The values themselves are presented in \Arf{tab:eig2D} in
-    \Arf{appendix:C}. In order to actually make any use of the basis we need
-    too, as mentioned, figure out how many coefficients to use in the sum over
-    $l$ in \Arf{eq:dwexpansiondef}\footnote{Since stuff ain't infinite in the
-    real world.}. It is reasonable to truncate at the point were the
-    eigenvalues have converged, as an example we show \Arf{tab:eig2D} for the
-    case with two-dimensional case with separtaion $R=2.0$ and $\omega=1.0$. We
-    see from the last column(with $120$ basis functions that the energies are
-    convergent too two decimals at level $56$ such that the sum over $l$ would
-    in this case run up to $56$ meaning the number of columns in the
-    coefficient matrix is truncated at this number.
+\subsection{Double-Well\label{sec:dwbimp}}
+    For the double-well we used the larges basis-set from the Hartre-Fock
+    calculations, which was $120$ spacial functions. Meaning the sum over $l$
+    in \Arf{eq:dwexpansiondef} runs up to $120$ while the number of
+    basisfunctions used is choosen just as usual. Keep in mind that the
+    degeneration is lifted in the double-well system. The resulting energies
+    for $N=2,4,6,8,12$ are given in 
+    \input{text/t2DDW}
 
 \section{VMC}
     Here are the results for the quantum-dot simulations with the variational

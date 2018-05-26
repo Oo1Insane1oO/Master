@@ -16,16 +16,12 @@ infoDict = {}
 for fname in os.listdir(path):
     with open(path + "/" + fname, 'r') as inputFile:
         tmpDict = yaml.load(inputFile, Loader=yaml.CLoader)
-        if tmpDict["I"] > 400:
-            print tmpDict["I"], fname
         del tmpDict["coeffs"]
         infoDict.setdefault(tmpDict["omega"],
                 {}).setdefault(tmpDict["numbasis"],
                         {}).setdefault(tmpDict["numparticles"], float(tmpDict["E0"]))
     # withopen inputFile
 # end for fname
-
-exit(1)
 
 Nval = sorted(set(reduce(operator.add, [l.keys() for l in
     infoDict[next(iter(infoDict))].values()])))
@@ -41,8 +37,8 @@ with open(wfile, "w") as ofile:
     nCount = len(Nval)
     ofile.write("\\begin{table}[H]\n    \\centering\scriptsize\n")
     ofile.write("\\input{"+capfname+"}\n    \\label{tab:"+label+"}\n")
-    ofile.write("\\renewcommand*{\\arraystretch}{%spt}" % xsize)
-    ofile.write("\\setlength{\t\abcolsep}{%spt}" % ysize)
+    ofile.write("\\renewcommand*{\\arraystretch}{%s}" % xsize)
+    ofile.write("\\setlength{\\tabcolsep}{%spt}" % ysize)
     ofile.write("   \\begin{tabular}{"+"cc|"+"".join(["c" for i in range(2,nCount + 2)])+"}\n")
     ofile.write("\\toprule\\hline\\multicolumn{2}{l|}{} & \\multicolumn{%i}{c}{$N$} \\\\ \\hline\n" % nCount)
     ofile.write("\\multicolumn{1}{c}{$\\omega$} & $L$ " + "".join([" & $" + str(n) + "$" for n in Nval]) + "\\\\\n")
