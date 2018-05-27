@@ -15,19 +15,20 @@ defaultpen(fontsize(12pt));
 //real myopacity=0.5;//0.801
 
 currentprojection=orthographic(
-camera=(29.9188827918847,40.8061785268848,122.692819387471),
-up=(-0.00985489907315786,-0.0229469731319799,0.54291491651671),
-target=(-1.06581410364015e-14,7.105427357601e-15,5.6843418860808e-14),
+camera=(48.810341055688,43.9661776199271,53.7180381411687),
+up=(-0.00686758918190323,-0.0115083893675135,0.0937968070248958),
+target=(-7.105427357601e-15,1.4210854715202e-14,4.2632564145606e-14),
 zoom=0.822702474791882);
 
 triple simulatedS(pair ij){
     real i = ij.x;
     real j = ij.y;
-    return (i, j, 0.5*(i*i + j*j));
+    return (i, j, 0.5*(i*i + j*j - 2*2*abs(i) + 2*2));
 }
 
 currentlight=Viewport;
-surface graf = surface(simulatedS, (-10,-10), (10,10),nu=100,nv=100,Spline);
+int s = 5;
+surface graf = surface(simulatedS, (-s,-s), (s,s),nu=100,nv=100,Spline);
 draw(graf, mean(palette(graf.map(zpart),cmyk(Rainbow()))),black, light=currentlight);
 
-axes3("$x$","$y$","$f(x,y)$",min=(-10,-10,0),max=(10,10,100),arrow=Arrow3(),fontsize(20));
+axes3("$x$","$y$","$f(x,y)$",min=(-s,-s,0),max=(s,s,15),arrow=Arrow3(),fontsize(20));

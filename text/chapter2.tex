@@ -7,7 +7,8 @@
 
     The reader is referred to \cite{GriffQuan} for an introductory text on
     quantum mechanics(for single particles) and also the so-called
-    \txtit{Dirac-notation} used throughout the entire chapter.
+    \txtit{Dirac-notation} used throughout the entire chapter. We also write
+    all equations with atomic units, see \Arf{appendix:Aatomic} for detail.
 
     The material presented is based on lecture notes\cite{basicMB, vmc} written
     by Morten Hjort-Jensen for the course FYS4411/9411.
@@ -72,6 +73,7 @@
     existing atomic Hamiltonian is the reason for why quantum-dots are called
     artificial atoms. 
 
+\subsubsection{Confinement Potential}
     The idea is to first take the \txtit{parabolic-dot} which is to use the
     classical Hamiltonian of a charged electron in an electromagnetic
     field\cite{claselcwiley}
@@ -85,21 +87,37 @@
     a constant factor in the inter-particle interaction term which can in
     effect be ignored in the calculations. 
     
-    With again thesis of Merlot and Ming in mind with
-    article by Simen Kvaal\cite{kvaaldots} one model for the
-    \txtit{confinement} potential is the Harmonic Oscillator potential
+    With again thesis of Merlot and Ming in mind with article by Simen
+    Kvaal\cite{kvaaldots} one model for the \txtit{confinement} potential is
+    the Harmonic Oscillator potential(see \Arf{subfig:HO1D, subfig:HO2D})
         \begin{equation}
             V(\blds{R},\blds{r}) = \frac{1}{2}mr^2.
         \end{equation}
-    A third approach is to use a \txtit{double-dot} which is basically just a
-    shifted harmonic oscillator\cite{ddotnuc,yangthesis}. For simplicity we
+    \twofigure{text/figs/HO1Dplot.pdf}{One-dimensional harmonic
+    oscillator}{HO1D}{text/figs/HO2Dplot.pdf}{Two-dimensional harmonic
+    oscillator}{HO2D}{Visualization of the harmonic oscillator potential.}
+    A third approach is to use a \txtit{double-dot} which is basically just two
+    displaced harmonic oscillator \cite{ddotnuc,yangthesis}. For simplicity we
     shift it in $x$-direction giving the same form used in
     theses\cite{yangthesis, merlotthesis, jorgenThesis} and article by Nielsen,
-    Young, Muller and Carroll\cite{nonIsoGauss}
+    Young, Muller and Carroll\cite{nonIsoGauss}(see \Arf{subfig:DW1D, subfig:DW2D}
         \begin{equation}
-            V(\blds{R},\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - 2R\abs{x} +
-            R^2\right)
+            V(\blds{R},\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - \delta
+            R\abs{x} + R^2\right)
         \end{equation}
+    \twofigure{text/figs/DW1Dplot.pdf}{One-dimensional
+    double-well}{DW1D}{text/figs/DW2Dplot.pdf}{Two-dimensional
+    double-well}{DW2D}{Visualization of the double-well potential.}
+
+\subsubsection{Inter-particle Interaction Potential}
+    For the inter-particle interaction potential $\mathcal{H}_I$ many
+    approaches exists. For pure bosonic systems for instance a so-called
+    \txtit{hard-sphere potential} has been studied\cite{jastrow}. For fermionic
+    systems however the most popular one is the Coulomb repulsion
+        \begin{equation}
+            f(\blds{r}_i,\blds{r_j}) = \frac{1}{\abs{\blds{r}_i - \blds{r}_j}},
+        \end{equation}
+    which is the one used here.
 
 \section{Slater Determinant and Permanent}
     Throughout \Arf{sec:3.1} we only referred to the wavefunction $\Psi$ as a
@@ -856,10 +874,10 @@
                 };
                 \draw[<-] (3) to [out=180,in=90] (a);
                 \draw[<-] (3) to [out=0,in=90] (r);
-                \node (4) [activityStarts, below of=3, yshift=-1cm] {
+                \node (4) [activityStarts, below of=3, yshift=-0.5cm] {
                     Number of states satisfied?
                 };
-                \node (yes) [below of=4] {
+                \node (yes) [below of=4, yshift=0.5cm] {
                     Yes
                 };
                 \node (no) [above left of=4, xshift=-5cm] {
@@ -867,7 +885,7 @@
                 };
                 \draw[->] (4) to [out=180, in=-90] (no);
                 \draw[->] (no) to [out=90, in=180] (2);
-                \node (5) [activityStarts, below of=yes] {
+                \node (5) [activityStarts, below of=yes, yshift=0.3cm] {
                     End.
                 };
                 \draw[->] (1) -- (2);
