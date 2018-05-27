@@ -1,9 +1,9 @@
-\begin{table}[H]
-    \centering\footnotesize
-\input{text/eigTab3Dcap.txt}
-    \label{tab:eig3D}
-\scalebox{0.655}[0.445]{%
-   \begin{tabular}{ccccccccc}
+\begin{center}
+    \tiny
+    \setlength{\tabcolsep}{12.75pt}
+   \begin{longtable}{ccccccccc}
+    \caption{Eigenvalues for double-well functions in 3D with $R=2.0$ and
+        $\omega=1.0$\label{tab:eig2D}} \\
 \toprule\hline \\
 L & 1 & 4 & 10 & 20 & 35 & 56 & 84 & 120\\
 \multirow{120}{*}{} 1 & 1.43581 & 1.43581 & 1.31130 & 1.31130 & 1.30989 & 1.30989 & 1.30959 & 1.30959\\
@@ -126,6 +126,6 @@ L & 1 & 4 & 10 & 20 & 35 & 56 & 84 & 120\\
  118 & - & - & - & - & - & - & - & 8.43581\\
  119 & - & - & - & - & - & - & - & 8.43581\\
  120 & - & - & - & - & - & - & - & 8.43581\\
-\hline\bottomrule\end{tabular}%
-}
-\end{table}
+\hline\bottomrule
+\end{longtable}
+\end{center}
