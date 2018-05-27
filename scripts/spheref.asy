@@ -12,9 +12,9 @@ usepackage("mathdesign");
 defaultpen(fontsize(12pt));
 
 currentprojection=orthographic(
-camera=(28.4375097581347,23.0913041164081,288.569509302791),
-up=(-0.0260191809381273,-0.0151050308523034,1.07458626845793),
-target=(-7.105427357601e-15,1.06581410364015e-14,1.13686837721616e-13),
+camera=(21.7324540905668,22.3692824738985,344.511658986183),
+up=(-0.0276081370086271,-0.022891363838785,1.0134040851965),
+target=(-7.105427357601e-15,3.5527136788005e-15,2.27373675443232e-13),
 zoom=0.822702474791882);
 
 //currentlight=Headlamp;
@@ -28,6 +28,7 @@ triple simulatedS(pair ij){
 
 currentlight=Viewport;
 surface graf = surface(simulatedS, (-10,-10), (10,10),nu=100,nv=100,Spline);
-draw(graf, mean(palette(graf.map(zpart),cmyk(Rainbow()))),black, light=currentlight);
+// draw(graf, mean(palette(graf.map(zpart),cmyk(Rainbow()))),black, light=currentlight);
+draw(graf, mean(palette(graf.map(zpart),cmyk(Gradient(palecyan, heavycyan, orange, red)))),black, light=currentlight);
 
 axes3("$x$","$y$","$f(x,y)$",min=(-10,-10,0),max=(10,10,100),arrow=Arrow3(),fontsize(20));

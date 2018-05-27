@@ -841,9 +841,16 @@
 \subsection{Degeneracy}
     When we tackled the single-well problem the energy-levels were degenerate
     and followed the magic numbers. For the double-well only the degeneracy due
-    to spin is present. This means that we can(still with two-spin fermions)
-    run the simulations with $N=2,4,6,\dots$ instead of the original
-    $N=2,6,12,20,\dots$ in two dimensions and $N=2,8,20,30\dots$ in three.
+    to spin is present in two-dimensions. This is due to the breaking of
+    symmetry by the displacement. For the three-dimensional case a similar
+    break occurs, but since the displacement is only in the $x$-direction the
+    two-dimensional harmonic oscillator symmetry is still present for the $y$-
+    and $z$-directions. This means that the states which are directly dependant
+    on the $n_x$ quantum number have lower energy(since the double-well has
+    lower energy than the harmonic oscillator) and we have new levels. \\ Since
+    we are limiting ourselves to full-shell systems, this degeneracy has to be
+    respected in the calculations. More details are given in \Arf{chapter:5}.
+    
 
 \section{Summary\label{sec:basis_summary}}
     This chapter tackled the one- and two-body integrals over s-type Gaussian
