@@ -50,7 +50,7 @@
     for the Lagrangian. This then yields the $N+1$ Lagrange-equations
         \begin{align}
             \sum^N_{i=1} \frac{\prtl\mathcal{L}}{\prtl x_i} +
-            \frac{\prtl\mathcal{L}}{\prtl \lambda} = 0
+            \frac{\prtl\mathcal{L}}{\prtl \lambda} = 0.
             \label{eq:lagrangeEQ}
         \end{align}
     to be solved for $x_1,\dots,x_N$ and $\lambda$.
@@ -59,10 +59,10 @@
         Introducing the so-called permutation operator $P$ which interchanges
         the labels of particles meaning we can define
             \begin{equation}
-                A \equiv \frac{1}{N!}\sum_p(-1)^pP
+                A \equiv \frac{1}{N!}\sum_p(-1)^pP,
             \end{equation}
         the so-called \txtit{antisymmetrization} operator. This operator has
-        the following traits
+        the following traits:
             \begin{itemize}
                 \item The Hamiltonian $H$ and $A$ commute since the Hamiltonian
                     is invariant under permutation.
@@ -71,21 +71,21 @@
             \end{itemize}
         We can now express our Slater $\Psi_T$ in terms of $A$ as
             \begin{equation}
-                \Psi_T = \sqrt{N!}A\prod_{i,j}\psi_{ij}
+                \Psi_T = \sqrt{N!}A\prod_{i,j}\psi_{ij},
             \end{equation}
         where $\psi_{ij}=\psi_j(\blds{r}_i)$ is element $i,j$ of the Slater
         matrix (the matrix associated with the Slater determinant $\Psi_T$).
 
         The interaction part of $H$ is then
             \begin{equation}
-                \dinner{\Psi_T}{H_I} = N!\prod_{i,j}\dinner{\psi_{ij}}{AH_IA}
+                \dinner{\Psi_T}{H_I} = N!\prod_{i,j}\dinner{\psi_{ij}}{AH_IA}.
             \end{equation}
         The interaction $H_I$ and $A$ commute since $A$ commutes with $H$
         giving
             \begin{align}
                 AH_IA\ket{\psi_{ij}} &= \frac{1}{N!^2}\sum_{i<j}\sum_{p}
                 (-1)^{2p}\fij P\ket{\psi_{ij}} \\
-                &= \frac{1}{N!^2}\sum_{i<j}\fij(1-P_{ij})\ket{\psi_{ij}}
+                &= \frac{1}{N!^2}\sum_{i<j}\fij(1-P_{ij})\ket{\psi_{ij}}.
             \end{align}
         The factor $1-P_{ij}$ comes from the fact that contributions with
         $i\neq j$ vanishes due to orthogonality when $P$ is applied. The final
@@ -93,14 +93,14 @@
             \begin{equation}
                 \dinner{\Psi_T}{H_I} =
                 \sum_{i<j}\prod_{k,l}\left[\dinner{\psi_{kl}}{\fij} -
-                \bra{\psi_{kl}}\fij\ket{\psi_{lk}}\right]
+                \bra{\psi_{kl}}\fij\ket{\psi_{lk}}\right].
             \end{equation}
         Writing out the product and realizing the double summation over pairs
         of states we end up with
             \begin{equation}
                 \dinner{\Psi_T}{H_I} = \frac{1}{2}
                 \sum_{i,j}\left[\dinner{\psi_{ij}\psi_{ji}}{\fij} -
-                \bra{\psi_{ij}\psi_{ji}}\fij\ket{\psi_{ji}\psi_{ij}}\right]
+                \bra{\psi_{ij}\psi_{ji}}\fij\ket{\psi_{ji}\psi_{ij}}\right].
             \end{equation}
         More comprehensive details and derivations are given in
         \cite{compphysThijssen,basicMB}.
@@ -113,9 +113,9 @@
     The rules are stated as, given a n-tuple $(x_1,\dots x_n)$ over any field
     $\mathbb{F}$ (real, complex, etc.), a multi index is defined to be 
         \begin{equation}
-            i=(i_1,\dots i_n)\in \mathbb{Z}^n_+
+            i=(i_1,\dots i_n)\in \mathbb{Z}^n_+.
         \end{equation}
-    with expansions
+    with expansions;
         \begin{equation}
             \begin{aligned}
                 \abs{i} &= \abs{i_1} + \dots + \abs{i_n} \\

@@ -483,10 +483,10 @@
     elements in $\Braket{pq|r^{-1}|rs}$ as a one-dimensional array with the
     mapping
         \begin{equation}
-            (p,q,r,s) \rarr p + N(q + N(r + Ns))
+            (p,q,r,s) \rarr p + N(q + N(r + Ns)).
         \end{equation}
-    that is the element $(p,q,r,s)$ is stored in position $(p + N(q + N(r +
-    Ns))$ in the one-dimensional array. The symmetry 
+    Which is to say that the element $(p,q,r,s)$ is stored in position $(p +
+    N(q + N(r + Ns))$ in the one-dimensional array. The symmetry 
         \begin{equation}
             (p,q,r,s)=(q,p,r,s)
         \end{equation}
@@ -494,9 +494,9 @@
     number of $(r,s)$ elements each process needs to calculate is also this
     same size meaning the total size is actually
         \begin{equation}
-            \text{totalsize} = \frac{N^2(N+1)^2}{4}
+            \text{totalsize} = \frac{N^2(N+1)^2}{4}.
         \end{equation}
-    and all the symmetries imply that the following elements are the same
+    All the symmetries imply that the following elements are the same
         \begin{equation}
             \begin{aligned}
                 (p,q,r,s) \\
@@ -511,11 +511,12 @@
         \end{equation}
     A matrix pqMap of size $N(N+1)/2\times 2$ is then created with elements
         \begin{equation}
-            \text{pqMap}_{pq} = (p,q)
+            \text{pqMap}_{pq} = (p,q).
         \end{equation}
     This is essentially just a matrix with each row being a tuple with $p$ and
     $q$ value. \\
     The rows are then distributed evenly among $P$ processes according to
+    \Arf{eq:divideeven}.
         \begin{equation}
             \text{rows}_{p} = \left\{\begin{aligned}
                 \left\lceil\frac{\frac{N}{2}(N+1)}{P}\right\rceil &\indent&
@@ -533,12 +534,12 @@
     the principal quantum numbers for the state which the indices represent,
     that is
         \begin{equation}
-            S_i = \suml{j=0}{P_i} \prod_d (n_{j_d}+1)
+            S_i = \suml{j=0}{P_i} \prod_d (n_{j_d}+1).
             \label{eq:Sdefpar}
         \end{equation}
     The sum with index $j$ runs over the sub-chunk for process $i$ where the
-    size of each chunk is defined by \Arf{eq:divideeven}.  The algorithm is as
-    follows
+    size of each chunk is defined by \Arf{eq:divideeven}.  The algorithm is
+    given in \Arf{alg:parasumweight}.
         \begin{algorithm}[H]
             \caption{Even Weighting}\label{alg:parasumweight}
             \begin{algorithmic}[H]
@@ -710,7 +711,7 @@
         \begin{equation}
             \blds{J} = 
                 \begin{pmatrix}
-                    \blds{J}(\blds{r}_1) \dots \blds{J}(\blds{r}_N)
+                    \blds{J}(\blds{r}_1) \dots \blds{J}(\blds{r}_N).
                 \end{pmatrix}
         \end{equation}
     Moving one particle at a time means only one column in $\blds{J}$ is
@@ -720,7 +721,7 @@
         \begin{align}
             \frac{J}{J'} &= \exp(\sumll{i<j} \left(f_{ij} - f'_{ij}\right))
             \nonumber \\
-            &= \exp(\sumll{i\neq j} f_{ij})
+            &= \exp(\sumll{i\neq j} f_{ij}).
         \end{align}
     Notice that $i$ is fixed in the last step. \\
     The gradient of $J$ can be represented as an $N\times N\times D$ matrix
@@ -739,7 +740,7 @@
     in this matrix. In addition the matrix is symmetric with the expect a
     negative sign,
         \begin{equation}
-            \nabla \blds{J}(\blds{r}_{ij}) = -\nabla\blds{J}(\blds{r}_{ji})
+            \nabla \blds{J}(\blds{r}_{ij}) = -\nabla\blds{J}(\blds{r}_{ji}).
         \end{equation}
     Both of these optimizations are implemented in the \hltexttt{PadeJastrow}
     and \hltexttt{ExpNQS} classes. \\ 
@@ -748,21 +749,21 @@
     weights can be represented as a matrix $\blds{W}$ of size $N\times H$ with
     $H$ being the number of hidden biases with elements
         \begin{equation}
-            W_{i,j} = \sumll{d}\frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}
+            W_{i,j} = \sumll{d}\frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}.
         \end{equation}
-    and the entire exponential with the hidden biases is represented as a
-    vector $\blds{B}$ of size $H$ with elements
+    The entire exponential with the hidden biases is represented as a vector
+    $\blds{B}$ of size $H$ with elements
         \begin{equation}
-            B_j = \exp(b_j + \sumll{i} W_{i,j})
+            B_j = \exp(b_j + \sumll{i} W_{i,j}).
         \end{equation}
     So for each iteration only one row in $\blds{W}$ is updated and then the
-    entire $\blds{B}$ vector is recalculated and reused. \\ The part involving
-    only the visible biases can be optimized in the same manner as with the
-    Pad\'e function and simple exponential, meaning one only needs to
-    calculate
+    entire $\blds{B}$ vector is recalculated and reused. \\ 
+    The part involving only the visible biases can be optimized in the same
+    manner as with the Pad\'e function and simple exponential, meaning one only
+    needs to calculate
         \begin{equation}
             \frac{J_a}{J'_a} = \exp(\frac{\left(r_i -
-            a_i\right)^2}{\sigma^2})
+            a_i\right)^2}{\sigma^2}).
         \end{equation}
     Again with $i$ being the index of the moved particle. These optimizations
     are implemented in the \hltexttt{RBMJastrow} class.
@@ -814,7 +815,7 @@
     tabulated in a matrix of size $N\times D\times L$ with $N$ being the number
     of particles and $D$. The mapping goes by
         \begin{equation}
-            \blds{H}_{ijk} = H_{n^{(d)}_j}\left(\sqrt{\omega}x^{(d)}_i\right)
+            \blds{H}_{ijk} = H_{n^{(d)}_j}\left(\sqrt{\omega}x^{(d)}_i\right).
         \end{equation}
     For each iteration in the Metropolis sampling, if we only move one particle
     at a time, only one row changes in $\blds{H}_{ijk}$. This update is
@@ -973,17 +974,17 @@
     \cite{jorgenThesis} using basis functions of form
         \begin{equation}
             \phi_j(\blds{r}) =
-            \psi^{\text{HO}}_{n_j}\left(\sqrt{\alpha\omega}r\right) 
+            \psi^{\text{HO}}_{n_j}\left(\sqrt{\alpha\omega}r\right),
         \end{equation}
     with the Pad\'e function given in \Arf{eq:padereduceddef}.
 
     For the real deal with the Hartree-Fock basis we checked that the VMC
     method could reproduce the Hartree-Fock energies when no Jastrow factor was
     used, that is only a single-particle Slater-determinant \txtit{with no
-    variational parameters} as the wavefunction ansatz
+    variational parameters} as the wavefunction ansatz. The expression is
         \begin{equation}
             \phi^{\text{HF}}_{ij} = \sum_l C_{jl}
-            \psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)
+            \psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right).
         \end{equation}
     These results are also implemented as a bunch of tests.
 

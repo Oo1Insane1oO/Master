@@ -39,7 +39,7 @@
     the double-well system is also explained detail.
 
 \section{Hermite Functions}
-    Hermite functions are functions of the following form
+    Hermite functions are functions 
         \begin{equation}
             \phi^a_n(\blds{r}) \equiv \prod_d N_d
             H_{n_d}(\sqrt{a}x_d)\exp(-\frac{a}{2}x^2_d)
@@ -65,11 +65,11 @@
     \txtit{Hermite-Gaussians}. See \Arf{sec:hermiteGaussFunc}.
 
 \section{Gaussian Type Orbitals}
-    \txtit{Gaussian Type Orbitals} or GTO's are functions of the following
+    \txtit{Gaussian Type Orbitals} or GTO's are functions of form
     form\cite{HelgakerMolElcTheory}
         \begin{equation}
             G_n(\blds{\alpha};\blds{r},\blds{A}) \equiv \prod_d (x_d-A_d)^{n_d}
-            \me^{-\alpha_d (x_d-A_d)^2}
+            \me^{-\alpha_d (x_d-A_d)^2}.
             \label{eq:GTOdef1d}
         \end{equation}
     We call $\alpha$ for the scaling parameter and $i$ for the order of the
@@ -101,14 +101,15 @@
     Hermite polynomials.} defined as
         \begin{equation}
             g_n(\blds{\alpha};\blds{r},\blds{A}) = \prod_d
-            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
+            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}.
         \end{equation}
-    meaning
+    This means also that
         \begin{equation}
             G_n(\blds{\alpha;\blds{r},\blds{A}}) = \prod_d
-            (2\alpha_d)^{-n_d}\prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
+            (2\alpha_d)^{-n_d}\prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}.
         \end{equation}
-    Some properties of the one-dimensional Hermite-Gaussians are as follows
+    Some properties of the one-dimensional Hermite-Gaussians are given in
+    \Arf{eq:hermiteGaussProp}.
         \begin{equation}
             \begin{aligned}
                 \prd{A_x}[g_t] &= g_{t+1} \\
@@ -136,26 +137,26 @@
 \section{Integral Elements}
     In the Hartree-Fock scheme described in \Arf{chapter:3} we need to
     calculate the integrals which define the different matrix elements. The
-    integrals to be found are of the following form
+    integrals to be found are
         \begin{equation}
             \begin{aligned}
                 \Braket{i|j} &= \infint g_i(\alpha_i;r,A)g_j(\alpha_j;r,B) \md
-                \blds{r} \\
+                \blds{r}, \\
                 \Braket{i|x^k_d|j} &= \infint g_i(\alpha_i;r,A) r^k
-                g_j(\alpha_j;r,B) \md \blds{r} \\
+                g_j(\alpha_j;r,B) \md \blds{r}, \\
                 \Braket{i|\nabla^2|j} &= \infint g_i(\alpha_i;r,A)\nabla^2
-                g_j(\alpha_j;r,B) \md \blds{r} \\
+                g_j(\alpha_j;r,B) \md \blds{r}, \\
                 \Braket{ij|\frac{1}{r}|kl} &= \infint\infint
                 g_i(\alpha_i;r_1,A)g_j(\alpha_j;r_2,B) \frac{1}{r_{12}}
                 g_k(\alpha_k;r_1,C)g_l(\alpha_l;r_2,D) \md \blds{r}_1 \md
-                \blds{r}_2\\
+                \blds{r}_2.
             \end{aligned}
         \end{equation}
     where $\md\blds{r}$ means integration over all dimensions and with the
     $g$'s being the usual \txtit{Hermite-Gaussians} defined as
         \begin{equation}
             g_n(\alpha;\blds{r},\blds{A}) = \prod_d (x_d-A_d)^{n_d}
-            \me^{-\alpha (x_d-A_d)^2}
+            \me^{-\alpha (x_d-A_d)^2}.
             \label{eq:hermiteGauss2}
         \end{equation}
     We will in this chapter limit ourselves to work with isotropic Gaussians
@@ -170,12 +171,11 @@
 
     Before we throw ourselves out into the integrals, let us first express the
     Hermite-Gaussians in a more convenient way(again see
-    \cite{HelgakerTaylorGauss} and \cite{HelgakerGauss}. The Gaussians can be
-    expressed as
+    \cite{HelgakerTaylorGauss} and \cite{HelgakerGauss}) such as
         \begin{equation}
             g_n(\alpha;\blds{r},\blds{A}) = \prod_d  \prdp{A_{x_d}}{n_d}
             \me^{-\alpha (x_d-A_d)^2} = \prod_d \prdp{A_{x_d}}{n_d}
-            g_0(\alpha;\blds{r},\blds{A})
+            g_0(\alpha;\blds{r},\blds{A}).
             \label{eq:centerDerGauss}
         \end{equation}
     Since the derivatives are with respect to the center variables we may pull
@@ -187,24 +187,24 @@
     We also introduce the \txtit{Gaussian product rule}\footnote{Still in the
     isotropic case.} which basically states that the product of two Gaussian
     functions is just a third Gaussian centered between the center of the two.
-    The expressions give
+    The expressions are
         \begin{equation}
             g_0(\alpha;\blds{r},\blds{A})g_0(\beta;\blds{r},\blds{B}) =
-            K_{AB}\exp(-(\alpha+\beta)\blds{r}^2_s)
+            K_{AB}\exp(-(\alpha+\beta)\blds{r}^2_s),
             \label{eq:gaussianProductRule}
         \end{equation}
-    where
+    with
         \begin{equation}
             \begin{aligned}
-                K_{AB} &\equiv \exp(-\frac{\alpha\beta}{\alpha+\beta}R^2_{AB})
+                K_{AB} &\equiv \exp(-\frac{\alpha\beta}{\alpha+\beta}R^2_{AB}),
                 \\
-                R_{AB} &= \abs{\blds{A} - \blds{B}} \\
-                \blds{r_s} &= \blds{r} - \blds{P} \\
+                R_{AB} &= \abs{\blds{A} - \blds{B}}, \\
+                \blds{r_s} &= \blds{r} - \blds{P}, \\
                 \blds{P} &= \frac{\alpha\blds{A} +
-                \beta\blds{B}}{\alpha + \beta}
+                \beta\blds{B}}{\alpha + \beta}.
             \end{aligned}
         \end{equation}
-    the vector $\blds{r}_S$ is just somewhere between $\blds{A}$ and
+    The vector $\blds{r}_S$ is just somewhere between $\blds{A}$ and
     $\blds{B}$(We will see that $r_S$ disappears when the integration is done).
     The Gaussian product rule greatly simplifies the integral over two Gaussian
     functions since we can just pull $K_{AB}$ out of the integration since it
@@ -212,31 +212,31 @@
 
 \subsection{Overlap Distribution}
     An \txtit{overlap distribution} is defined as the product between two
-    Hermite-Gaussian functions, that is
+    Hermite-Gaussian functions,
         \begin{equation}
             \Omega_{ij} = \prod_d g_{i_d}(x_d,\alpha,A_d)g_{j_d}(x_d,\beta,B_d)
             =
-            K_{A_dB_d}x_A^{i_d}x_B^{j_d}\me^{-(\alpha+\beta)x^2_P}
+            K_{A_dB_d}x_A^{i_d}x_B^{j_d}\me^{-(\alpha+\beta)x^2_P},
         \end{equation}
-    with the Gaussian product rule, which is just another Gaussian function
-    centered in $P$, but with the extra \txtit{monomial} factors in
-    $\blds{r}-\blds{A}$ and $\blds{r}-\blds{B}$. These factors are troublesome
-    when integrating. With the motivation that Hermite-Gaussians make life
-    simpler, we expand the overlap distribution in a Hermite-Gaussian basis.
-    Following T. Helgaker\cite{HelgakerTaylorGauss} and working in one
-    dimension(since Hermite-Gaussians can be split in each respective
-    dimension) we have\footnote{The indices $i$ and $j$ are now in 1
-    dimension!}
+    with the Gaussian product rule. This is just another Gaussian function
+    centered in $P$, but with the extra monomial factors in $\blds{r}-\blds{A}$
+    and $\blds{r}-\blds{B}$. These factors are troublesome when integrating,
+    but with the motivation that Hermite-Gaussians make life simpler, we expand
+    the overlap distribution in a Hermite-Gaussian basis. Following T.
+    Helgaker\cite{HelgakerTaylorGauss} and working in one dimension(since
+    Hermite-Gaussians can be split in each respective dimension) we
+    have\footnote{The indices $i$ and $j$ are now in 1 dimension!}
         \begin{equation}
             \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) =
-            \sum\limits^{i+j}_{t=0} E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P})
+            \sum\limits^{i+j}_{t=0} E^{ij}_tg_t(\alpha,\beta,\blds{r},\blds{P}).
             \label{eq:omegaDef}
         \end{equation}
-    Again, we stress that the indices in \Arf{eq:omegaDef} and the calculations
+    We stress again that the indices in \Arf{eq:omegaDef} and the calculations
     further are in 1 dimension. Explicit expressions for the coefficients
     $E^{ij}_t$ are difficult to derive, however a set of recurrence relations
     are possible to find using the properties of the Hermite-Gaussian
-    functions. Consider firstly the incremented distribution
+    functions. Consider firstly the incremented distribution in
+    \Arf{eq:omegaIncr}.
         \begin{align}
             \Omega_{i+1,j} &= \sum^{i+1+j}_{t=0} E^{i+1,j}_tg_t \nonumber \\
             &= \left(x_P -
@@ -252,17 +252,17 @@
             \label{eq:omegaIncr}
         \end{align}
     Using the properties listed in \Arf{eq:hermiteGaussProp} (mainly the
-    recurrence) and the expansion \Arf{eq:omegaDef}. The incrementation of $j$
-    follows the exact same derivation. The starting coefficient is thus
+    recurrence) and the expansion in \Arf{eq:omegaDef}. The incrementation of
+    $j$ follows the exact same derivation and starting coefficient is
         \begin{equation}
-            E^{00}_0 = K_{AB}
+            E^{00}_0 = K_{AB}.
         \end{equation}
     This is found by inserting in $i=j=0$ into \Arf{eq:omegaIncr}, realizing
     the exponental is the same for all $i$ and $j$ and using the orthogonality
     between the Hermite-Gaussians\footnote{Another way of expressing this
     statement is to say that each index $t$ in the sum corresponds to an
     equation for $E^{ij}_t$.}. The recurrent coupled relations for the
-    $E$'s are
+    $E$'s given in \Arf{eq:coupledreccoeff}.
         \begin{equation}
             \begin{aligned}
                 E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
@@ -272,16 +272,17 @@
                 \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
                 (t+1)E^{ij}_{t+1}
             \end{aligned}
+            \label{eq:coupledreccoeff}
         \end{equation}
     The overlap distribution can with this be expanded in Hermite-Gaussian
     functions.
 
     As mentioned, the whole point of using Hermite-Gaussian functions is
     because of the inherent definition with the derivative with respect to the
-    centering(remember s-types). This means that for attaining the final
-    expression we must in the end differentiate the expansion coefficients. We
-    state here the coefficients differentiated with respect to the difference
-    variable $Q_x=A_x-B_x$
+    center-point. This means that for attaining the final expression we must in
+    the end differentiate the expansion coefficients. We will state in
+    \Arf{eq:coeffdiffdef} the coefficients differentiated with respect to the
+    difference variable $Q_x=A_x-B_x$ 
         \begin{equation}
             \begin{aligned}
                 E^{00;n+1}_0 &=
@@ -295,16 +296,16 @@
                 nE^{ij;n-1}_t\right) + (t+1)E^{ij;n}_{t+1} \\
                 E^{ij;n}_t &\equiv \frac{\prtl^n E^{ij}_t}{\prtl Q^n_x}
             \end{aligned}
+            \label{eq:coeffdiffdef}
         \end{equation}
-    Notice that these expressions are just the same relations as for the
-    coefficients, but with an extra factor in the middle.
 
 \subsection{Overlap Integral\label{susec:overlapIntegral}}
-    With The simplification to s-types and the product rule, the integration
-    may begin. Starting with the overlap $\Braket{i|j}$ and using
+    With the simplification to s-types and the product rule, the integration
+    may begin. Starting with the overlap integral and using
     \Arf{eq:omegaDef}\footnote{Also using the following integral $\infint
     \me^{-\lambda x^2} = \sqrt{\frac{\pi}{\lambda}},\indent \lambda>0$. See
-    \cite{handbookmath}.}
+    \cite{handbookmath}.}, the results are presented in \Arf{eq:stypeOverlap}
+    below.
         \begin{align}
             \Braket{i|j} &= \infint
             \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
@@ -318,25 +319,25 @@
             {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
             \label{eq:stypeOverlap}
         \end{align}
-    The power $d$ comes from splitting the integral into the $d$ dimensions.
-    Also using the \txtit{multi-index
-    notation}(\Arf{sec:multiIndexNotation})\footnote{The power $d$ also means
-    that with the multi-index notation the entire expression in the paranthesis
-    are to be calculated for each dimension in $p$ and then multiplied
-    together.} and expanding
+    The power $d$ in \Arf{eq:stypeOverlap} comes from splitting the integral
+    into the $d$ dimensions. We are also using the \txtit{multi-index
+    notation}\footnote{The power $d$ also means that with the multi-index
+    notation the entire expression in the paranthesis are to be calculated for
+    each dimension in $p$ and then multiplied
+    together.}(\Arf{sec:multiIndexNotation}) and expanding
         \begin{equation}
             E^{ab}_{n} = \prod_d E^{a_db_d}_{n_d}
             \label{eq:Enotation}
         \end{equation}
-    Such that the coefficients are all just products over coefficients in each
+    such that the coefficients are all just products over coefficients in each
     dimension. A substitution in each dimension(i.e $u=x-P_x$) is also used.
     Notice in addition that the scaling factors $\alpha$ and $\beta$ are
     specific for each $p$ because of the overlap expansion.
 
 \subsection{Potential Integral}
     The second integral with the $x^k_d$ part shows up in the external
-    potential part of the Hamiltonian and again with the Gaussian product rule
-    the expression gives
+    potential part of the Hamiltonian and the expression is(again with the
+    Gaussian product rule) given in \Arf{eq:potIntegral}.
         \begin{align}
             \Braket{i|x^k_d|j} &= \infint x^{k}_d
             \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
@@ -373,7 +374,8 @@
     The third integral with the Laplacian operator arises in the kinetic part
     of the Hamiltonian. This integral can be expressed in terms of
     \Arf{eq:stypeOverlap}, the overlap integral, however the Laplacian applied
-    to a Hermite-Gaussian has to be calculated first
+    to a Hermite-Gaussian has to be calculated first. This is done in
+    \Arf{eq:laphermcalc}
         \begin{align}
             \nabla^2 g_i(\alpha;\blds{r},\blds{A}) &= \sum_d \prd{x_d}[][2]
             \left(\prod_{d'} \left(x - A_{d'}\right)^{i_{d'}}_{d'} \exp(-\alpha
@@ -391,6 +393,7 @@
             2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} \nonumber \\
             &\hspace{2.0cm}+
             i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg)
+            \label{eq:laphermcalc}
         \end{align}
     Now for the integral we have
         \begin{align}
@@ -398,7 +401,7 @@
             g_i(\alpha;\blds{r},\blds{A})\nabla^2g_j(\beta;\blds{r},\blds{B}) 
             \md\blds{r} \nonumber \\
             &= \sum_d\prod_{d'\neq d}
-            \Braket{i_{d'}|\sigma_{d'}(S_d(\beta;x-B_d))|j_{d'}}
+            \Braket{i_{d'}|\sigma_{d'}(S_d(\beta;x-B_d))|j_{d'}},
             \label{eq:laplacianIntegral}
         \end{align}
     with
@@ -421,14 +424,13 @@
     $\frac{g_i}{x}=g_{i-1}$.}.
 
 \subsection{Coulomb Potential Integral}
-    Lastly, the troublesome\footnote{Damn inverse term prevents dimensional
-    decomposition.} Coulomb integral needs to be calculated. Due to the $1/r$
-    term we cannot split the integral in each respective dimension as
+    Lastly, the troublesome Coulomb integral needs to be calculated. Due to the
+    $1/r$ term we cannot split the integral in each respective dimension as
     previously. Before we approach the full Coulomb integral, lets calculate a
     simpler integral over a so-called \txtit{Coulomb Potential distribution}
         \begin{equation}
             \infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
-            \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r}
+            \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r}.
         \end{equation}
     The calculation of this integral will be beneficial for the calculation of
     the Coulomb integral as we can reuse most of the tricks used. With
@@ -436,7 +438,7 @@
     rewrite the inverse term with
         \begin{equation}
             \infint \me^{r^2_B t^2} \md t = \frac{\sqrt{\pi}}{r_B} \Rarr
-            \frac{1}{r_B} = \frac{1}{\sqrt{\pi}} \infint \me^{r^2_Bt^2} \md t
+            \frac{1}{r_B} = \frac{1}{\sqrt{\pi}} \infint \me^{r^2_Bt^2} \md t.
             \label{eq:onelectronTrick1}
         \end{equation}
     The Coulomb potential integral is thus, with
@@ -452,14 +454,14 @@
             \me^{-(\alpha+t^2)r^2_S} \md\blds{r} \md t \nonumber \\
             &= \frac{1}{\sqrt{\pi}} \infint \left(\frac{\pi}{\alpha +
             t^2}\right)^{\frac{d}{2}} \me^{-\frac{\alpha t^2}{\alpha +
-            t^2}\left(\blds{A} - \blds{B}\right)^2} \md t
+            t^2}\left(\blds{A} - \blds{B}\right)^2} \md t.
             \label{eq:coulombPotentialIntegral}
         \end{align}
     The integral over $t$ has to be addressed separately for two- and three
     dimensions. For the three-dimensional case the reader is referred to
     \cite{HelgakerTaylorGauss}. Here we will derive a closed-form form
-    expression for the two-dimensional case. First let us use the following
-    substitution
+    expression for the two-dimensional case. First let us use the substitution
+    presented in \Arf{eq:uSubs1}.
         \begin{equation}
             \begin{aligned}
                 u &= \frac{t}{\sqrt{\alpha+t^2}} \\
@@ -481,20 +483,20 @@
             &= \frac{\sqrt{\alpha + t^2}}{\alpha} \md u \nonumber \\
             &= \frac{t}{\alpha u} \md u \nonumber \\
             &= \frac{1}{\alpha u} u\sqrt{\frac{\alpha}{1-u^2}} \md u \nonumber \\
-            &= \frac{1}{\sqrt{\alpha}}\sqrt{\frac{1}{1-u^2}} \md u
+            &= \frac{1}{\sqrt{\alpha}}\sqrt{\frac{1}{1-u^2}} \md u,
         \end{align}
     giving
         \begin{align}
             I_{\text{2D}} = \sqrt{\frac{\pi}{\alpha}}\int\limits^1_{-1}
             \frac{1}{\sqrt{1-u^2}} \me^{-\alpha u^2\abs{\blds{A} - \blds{B}}^2}
-            \md u
+            \md u.
             \label{eq:oneElectron2D}
         \end{align}
-    and for the three-dimensional case we have a simpler form(easily seen with
-    the same substitution)
+    For the three-dimensional case we have a simpler form(easily seen with the
+    same substitution)
         \begin{align}
             I_{\text{3D}} = \pi\int\limits^1_{-1} \me^{-\alpha u^2\abs{\blds{A}
-            - \blds{B}}^2} \md u
+            - \blds{B}}^2} \md u.
             \label{eq:oneElectron3D}
         \end{align}
     These integrals must be solved numerically using \txtit{Chebyshev-Gauss
@@ -516,7 +518,7 @@
         \begin{equation}
             I' = \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
             \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
-            \blds{r}}} \md\blds{r} \md\blds{r'}
+            \blds{r}}} \md\blds{r} \md\blds{r'}.
             \label{eq:coulombInteractionSimple}
         \end{equation}
     This is an interaction between two distributions. Firstly, notice that we
@@ -529,7 +531,7 @@
             \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
             \blds{r}}} \md\blds{r} \md\blds{r'} \nonumber \\
             &= \infint I_D(\alpha;\abs{\blds{r}-\blds{A}}) \me^{-\beta(\blds{r}
-            - \blds{B})^2} \md\blds{r}
+            - \blds{B})^2} \md\blds{r}.
             \label{eq:Cintr1}
         \end{align}
     Inserting in the definition for $u$(the substitution in \Arf{eq:uSubs1})
@@ -541,9 +543,9 @@
             \me^{-\alpha u^2(\blds{r}-\blds{A})^2} \me^{-\beta(\blds{r} -
             \blds{B})^2} = \me^{-(\alpha u^2 + \beta)\blds{r_S}^2}
             \me^{-\frac{\alpha u^2\beta}{\alpha u^2 + \beta}
-            (\blds{A}-\blds{B})^2}
+            (\blds{A}-\blds{B})^2}.
         \end{equation}
-    Inserting this into \Arf{eq:Cintr1} with
+    Inserting this into \Arf{eq:Cintr1} with \Arf{eq:upsilonDef1}
         \begin{equation}
             \upsilon \equiv \left\{
                 \begin{matrix}
@@ -551,6 +553,7 @@
                     \text{2D} \\
                     \pi,&\indent \text{3D}
                 \end{matrix}\right.
+            \label{eq:upsilonDef1}
         \end{equation}
     we have
         \begin{align}
@@ -559,9 +562,10 @@
             \beta} (\blds{A}-\blds{B})^2} \md\blds{r}\md u \nonumber \\
             &= \int\limits^1_{-1} \upsilon \left(\frac{\pi}{\alpha u^2 +
             \beta}\right)^{\frac{d}{2}} \me^{-\frac{\alpha u^2\beta}{\alpha u^2
-            + \beta}(\blds{A}-\blds{B})^2} \md u
+            + \beta}(\blds{A}-\blds{B})^2} \md u.
         \end{align}
-    Specializing to the two-dimensional case and substituting
+    Specializing to the two-dimensional case and using the substitution in
+    \Arf{eq:sub2def},
         \begin{equation}
             \begin{aligned}
                 v &= u\sqrt{\frac{\alpha+\beta}{\alpha u^2 + \beta}} \\
@@ -571,8 +575,9 @@
                 v(-1) &= -1 \\
                 v(1) &= 1
             \end{aligned}
+            \label{eq:sub2def}
         \end{equation}
-    The integrand is
+    the integrand is
         \begin{align}
             \frac{1}{\sqrt{1 - u^2}} \frac{1}{\alpha u^2 + \beta} \md u &=
             \frac{1}{\sqrt{1-u^2}} \frac{1}{\alpha u^2 + \beta} \frac{(\alpha
@@ -582,15 +587,15 @@
             v^2}{(\alpha+\beta)(1-v^2)}}\frac{1}{\beta
             v}v\sqrt{\frac{\beta}{\alpha+\beta-\alpha v^2}} \md v \nonumber \\
             &= \frac{1}{\sqrt{\beta(\alpha+\beta)}} \frac{1}{\sqrt{1 - v^2}}
-            \md v
+            \md v.
         \end{align}
-    we have
+    Meaning we finally have
         \begin{equation}
             I'_{\text{2D}} =
             \frac{\pi^{\frac{3}{2}}}{\sqrt{\alpha\beta(\alpha+\beta)}}
             \int\limits^{1}_{-1} \frac{1}{\sqrt{1 - v^2}}
             \me^{-\frac{\alpha\beta}{(\alpha + \beta)}v^2(\blds{A}-\blds{B})^2}
-            \md v
+            \md v.
             \label{eq:coulombInteractionSimpleFinal}
         \end{equation}
     This expression will be of great use when calculating the final full
@@ -601,16 +606,17 @@
 \subsection{Recurrence Relation\label{sub:445}}
     Following directly from \cite{HelgakerTaylorGauss}, we proceed with finding
     a similar recurrence relation for the derivatives. We define a function
-    containing the integral which needs to be solved numerically
+    containing the integral which needs to be solved numerically, namely 
         \begin{equation}
-            \begin{aligned}
-                \zeta_n(x) &\equiv \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
-                u^2}} \me^{-u^2x} \md u \\
-                \prd{x}[\zeta_n] &= -\zeta_{n+1}
-            \end{aligned}
+            \zeta_n(x) \equiv \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+            u^2}} \me^{-u^2x} \md u.
             \label{eq:zetaDef}
         \end{equation}
-    The Coulomb potential integral is then, in terms of $\zeta_n(x)$
+    This function also has the great relation
+        \begin{equation}
+            \prd{x}[\zeta_n] = -\zeta_{n+1}.
+        \end{equation}
+    The Coulomb potential integral is then, in terms of $\zeta_n(x)$ as
         \begin{equation}
             \twoDI = \sqrt{\frac{\pi}{\alpha}} \zeta_0\left(\alpha
             R^2_{AB}\right)
@@ -619,9 +625,9 @@
         \begin{align}
             \prd{A_x}[\twoDI] &= \sqrt{\frac{\pi}{\alpha}} \prd{A_x}
             \zeta_0\left(\alpha R^2_{AB}\right) \nonumber \\
-            &= -2\sqrt{\alpha\pi}X_{AB}\zeta_1\left(\alpha R^2_{AB}\right)
+            &= -2\sqrt{\alpha\pi}X_{AB}\zeta_1\left(\alpha R^2_{AB}\right).
         \end{align}
-    With this we define an auxiliary function
+    With this we define an auxiliary function given in \Arf{eq:auxiliary2d1}
         \begin{equation}
             \begin{aligned}
                 \xi^n_{tu} &=\prdp{A_x}{t}\prdp{A_y}{u} \xi^n_{00} \\
@@ -634,7 +640,7 @@
         \begin{align}
             \xi^n_{t+1,u} &= \prdp{A_x}{t}\prdp{A_y}{u} \prd{A_x}[\xi^n_{00}]
             \nonumber \\
-            &= \prdp{A_x}{t}X_{AB}\xi^{n+1}_{0u}
+            &= \prdp{A_x}{t}X_{AB}\xi^{n+1}_{0u}.
             \label{eq:Rtincr}
         \end{align}
     Using the commutator between
@@ -642,22 +648,24 @@
         \begin{align}
             \prd{A_x}[][t] X_{AB} &= \left[\prd{A_x}[][t], X_{AB}\right] +
             X_{AB}\prd{A_x}[][t] \nonumber \\
-            &= t\prd{A_x}[][t-1] + X_{AB}\prd{A_x}[][t]
+            &= t\prd{A_x}[][t-1] + X_{AB}\prd{A_x}[][t],
         \end{align}
     the final form of \Arf{eq:Rtincr} is\footnote{The incrementation of $u$ is
-    derived in the exact same manner as with $t$.}
+    derived in the exact same manner as with $t$.} given in
+    \Arf{eq:incfinalfinal}.
         \begin{equation}
             \begin{aligned}
                 \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
                 \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u}
             \end{aligned}
+            \label{eq:incfinalfinal}
         \end{equation}
     With this all Hermite integrals of order $t+u\leq N$ can be calculated from
     $\zeta$ of order $n\leq N$, the only difference being $X_{AB}$ and
     $Y_{AB}$. The Coulomb interaction integral
     (\Arf{eq:coulombInteractionSimpleFinal}) follows this exact recurrence, but
     with a different proportionality factor $\alpha\beta/(\alpha+\beta)$. We
-    will write it out for the sake of clarity
+    will write it out in \Arf{eq:recurrInteraction} for the sake of clarity.
         \begin{equation}
             \begin{aligned}
                 \prd{A_x}[I'_{\text{2D}}] &= -\frac{2\alpha\beta}{\alpha+\beta}
@@ -672,7 +680,8 @@
     and the ones obtained by Helgaker\cite{HelgakerGauss} is in
     \Arf{eq:auxiliary2d1} and \Arf{eq:recurrInteraction}. Other than this the
     incrementation of $\zeta_n$ gives the exact same $X_{AB}$(and similar for
-    the other directions) as with the incomplete gamma function.
+    the other directions) as with the\footnote{Misnomered} incomplete gamma
+    function.
 
 \subsection{Coulomb Distribution Integral}
     With the derived expressions for the Coulomb potential integral the full
@@ -691,7 +700,7 @@
             &= \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
             E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
             \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
-            \delta},\blds{R_{S_1S_2}}\right)
+            \delta},\blds{R_{S_1S_2}}\right).
             \label{eq:coulomb_dist_integral_stype}
         \end{align}
     Where we have used the multi-index\footnote{Essentially just expanding an
@@ -706,7 +715,8 @@
         \begin{equation}
             \prdp{P_x}{p_x}\prdp{Q_x}{q_x} = (-1)^{p_x+q_x} \prdp{P_x}{p_x+q_x}
         \end{equation}
-    and the same for the other directions. The factor $a$ is
+    and the same for the other directions. The factor $a$ is given in
+    \Arf{eq:defaaaaa}.
         \begin{equation}
             a \equiv \left\{\begin{aligned}
                 \frac{\pi^{\frac{3}{2}}}
@@ -714,6 +724,7 @@
                 \frac{\pi^{\frac{5}{2}}}
                 {(\alpha+\gamma)(\beta+\delta)},\indent \text{3D} \\
             \end{aligned}\right.
+            \label{eq:defaaaaa}
         \end{equation}
 
 \section{Double-Well Functions\label{sec:dwfunc}}
@@ -723,7 +734,7 @@
     by solving the arising eigenvalue-problem. Let us first express the
     potential
         \begin{equation}
-            \UDW(r) = \VHO(r) + \VDW_n(r)
+            \UDW(r) = \VHO(r) + \VDW_n(r).
             \label{eq:UDW}
         \end{equation}
     A double well potential is essentially just a perturbation of the usual
@@ -734,7 +745,7 @@
 \subsection{The Eigenvalue problem}
     The mentioned eigenvalue problem comes from the basis expansion of the
     spacial part and from the trick of projecting with a single function from
-    left. We will explain briefly. First let us express the expansion,
+    left. We will explain briefly. Firstly let us write out the expansion
         \begin{equation}
             \ket{\psiDW_p} = \sumll{l}C_{lp}\ket{\psiHO_l}
             \label{eq:dwexpansiondef}
@@ -744,7 +755,7 @@
         \begin{equation}
             \Braket{\psiHO_k|\hDW|\psiDW_p} =
             \sumll{l}C_{pl}\Braket{\psiHO_k|\hDW|\psiHO_l} =
-            \sumll{l}C_{pl}\varepsilon^{\text{DW}}_l
+            \sumll{l}C_{pl}\varepsilon^{\text{DW}}_l.
         \end{equation}
     This gives us an eigenvalue equation
         \begin{equation}
@@ -752,16 +763,16 @@
         \end{equation}
     with
         \begin{equation}
-            H_{ij} = \Braket{\psiHO_i|h^{\text{DW}}|\psiHO_j}
+            H_{ij} = \Braket{\psiHO_i|h^{\text{DW}}|\psiHO_j}.
         \end{equation}
     Using \Arf{eq:UDW} we can write $H_{ij}$ as
         \begin{equation}
             H_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
-            \Braket{\psiHO_i|\VDW_n|\psiHO_j}
+            \Braket{\psiHO_i|\VDW_n|\psiHO_j},
             \label{eq:Heigdef}
         \end{equation}
     by using the solution to Schrödinger's equation for the harmonic oscillator
-    system. \\
+    system.
 
     We are now in a position to build a basis for the double-well system by
     reusing all the results and expressions concerning the single-well system.
@@ -769,14 +780,15 @@
     larger than $2$.
 
     For clarity let us also write out the expression for the resulting
-    Hartree-Fock basis to be used with the Variational Monte-Carlo method.
+    Hartree-Fock basis to be used with the Variational Monte-Carlo method. The
+    expression is simply
         \begin{equation}
-            \psi^{\text{HF}}_p = \sumll{kl} C^{\text{HF}}_{pk}C_{kl}\psiHO_l
+            \psi^{\text{HF}}_p = \sumll{kl} C^{\text{HF}}_{pk}C_{kl}\psiHO_l.
         \end{equation}
 
     The procedure of diagonalizing $H_{ij}$ also gives an additional set of
     energies we can use. The full form of the integral-elements involved in
-    Hartree-Fock is thus
+    Hartree-Fock are written in \Arf{eq:fullfinalsumary}.
         \begin{equation}
             \begin{aligned}
                 \Braket{\psiDW_p|\psiDW_q} &= \delta_{pq}
@@ -787,10 +799,11 @@
                 \suml{tuvw}{ijkl} C_{tp}C_{uq}C_{vr}C_{ws}
                 \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
             \end{aligned}
+            \label{eq:fullfinalsumary}
         \end{equation}
-    Where the two-body elements over the harmonic oscillator functions can be
+    The two-body elements over the harmonic oscillator functions can be
     calculated by expansion in s-type Gaussian constituents and then using
-    \Arf{eq:coulomb_dist_integral_stype}. \\
+    \Arf{eq:coulomb_dist_integral_stype}.
 
     With this eigenvalue problem in mind, one might ask why go through the
     trouble? The reason lies in the form of the double-well potential. Since it
@@ -798,8 +811,8 @@
     to assume that the energies(the eigenvalues $\veps^{\text{DW}}$) are only
     shifted slightly off from the single-well energies. It is then also
     reasonable to believe that a basis set expansion in the single-well
-    functions(harmonic oscillator functions) give a nice basis for building the
-    double-well basis.
+    functions(harmonic oscillator functions) give a nice set of basis-functions
+    for building the double-well basis.
 
 \subsection{Choosing the Basis Functions}
     In order to actually solve the eigenvalue equation we use \text{Python} and
@@ -811,17 +824,19 @@
     spacial function we only need the ground-state function, but there is no
     reason to believe that the electron-configuration would prefer any two(or
     $3$ in 3D) of the functions in the second level over one another. This
-    means that we choose the basisfunctions according to the \txtit{magic
-    numbers} of the Harmonicoscillator system basis.
+    means that we choose the basis functions according to the \txtit{magic
+    numbers} of the harmonic oscillator system basis.
 
-    For the actual Hartree-Fock calcualtion it is worthwhile to mentioned that
+    For the actual Hartree-Fock calculations it is worthwhile to mentioned that
     the expansion sum in \Arf{eq:dwexpansiondef} has to be truncated. The hope
     is that as we add more and more HO-functions to the eigenvalue problem(with
     the magic-number in mind), \Arf{eq:Heigdef}, the eignvalues will converge.
-    We would then let the index $l$ run up to the number of eigenvalues that
-    have sufficiently converged.  For an illustration of the eigenvalues for
-    $R=2.0$ and $\omega=1.0$ in two dimensions see \Arf{tab:eig2D}. See also
-    \Arf{sec:dwbimp} for more on the specific implementation.
+    We would then let the index $l$ run up to the number of eigenvalues
+    presented, but truncate the number of columns used at the number of
+    eigenvalues which have sufficiently converged. For an illustration of the
+    eigenvalues for $R=2.0$ and $\omega=1.0$ in two dimensions see
+    \Arf{tab:eig2D}. See also \Arf{sec:dwbimp} for more on the specific
+    implementation.
 
 \subsection{Degeneracy}
     When we tackled the single-well problem the energy-levels were degenerate
@@ -840,13 +855,13 @@
     exponential). The Hermite-Gaussian was expressed as 
         \begin{equation}
             g_n(\blds{\alpha};\blds{r},\blds{A}) = \prod_d
-            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}
+            \prdp{A_d}{n_d} \me^{-\alpha_d(x_d-A_d)^2}.
             \label{eq:HGsumdef}
         \end{equation}
     An expansion of these in terms of Hermite-polynomials was then made to
     arrive at an overlap distribution, with the Gaussian product rule for the
     product of two Hermite-Gaussians, with a recursive relation for the
-    expansion coefficients
+    expansion coefficients, see \Arf{eq:overlapintdefsum} below.
         \begin{equation}
             \begin{aligned}
                 \Omega_{ij}(\alpha,\beta,\blds{r},\blds{A},\blds{B}) &=
@@ -858,7 +873,7 @@
                 E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
                 \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
                 (t+1)E^{ij}_{t+1} \\
-                E^{00}_0 &= K_{AB} \\
+                E^{00}_0 &= K_{AB}
             \end{aligned}
             \label{overlapdistdefsum}
         \end{equation}
@@ -867,7 +882,7 @@
             \Braket{g_i(\blds{\alpha};\blds{r},\blds{A}) |
             g_j(\blds{\beta};\blds{r},\blds{B})} = \sumE{p}{i}{j}
             \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
-            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
+            {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d.
             \label{eq:overlapintdefsum}
         \end{equation}
     The integral over a potential $x^k_d$ was found with the binomial expansion
@@ -881,17 +896,17 @@
                 {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \bigtimes \\
                 &\underset{\text{even}}{\sum\limits_{l=0}^k} {k\choose l}
                 \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
-                \Gamma\left(\frac{l+1}{2}\right)
+                \Gamma\left(\frac{l+1}{2}\right).
             \end{aligned}
         \end{equation}
-    and the integral with the Laplacian was
+    The integral with the Laplacian was
         \begin{equation}
             \begin{aligned}
                 \Bra{g_i(\blds{\alpha};\blds{r},\blds{A})} &\nabla^2
                 \Ket{g_j(\blds{\beta};\blds{r},\blds{B})} = \\
                 &\sum_d\prod_{d'\neq d}
                 \Braket{g_{i_{d'}}(\alpha_{d'};x_{d'},A_{d'})
-                |\sigma_{d'}(S_d(\beta;x_d-B_d))|g_{j_{d'}}(\beta_{d'};x_{d'},B_{d'})}
+                |\sigma_{d'}(S_d(\beta;x_d-B_d))|g_{j_{d'}}(\beta_{d'};x_{d'},B_{d'})},
             \end{aligned}
             \label{eq:lapintdefsum}
         \end{equation}
@@ -918,7 +933,7 @@
             \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
             E^{ik}_pE^{jl}_q (\scalebox{1.0}[1.0]{-}1)^{q} \xi_{p+q}\left(\frac{(\alpha +
             \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
-            \delta},\blds{R_{S_1S_2}}\right)
+            \delta},\blds{R_{S_1S_2}}\right).
             \label{eq:coulombdistintdefsum}
         \end{equation}
     with

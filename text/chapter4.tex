@@ -44,7 +44,7 @@
     point where the absolute value of $f$ is within a threshold
     $\epsilon$
         \begin{equation}
-            \abs{\nabla_{x} f} \leq \epsilon
+            \abs{\nabla_{x} f} \leq \epsilon.
             \label{eq:minconditionapprox}
         \end{equation}
     One might at this point have the question, wouldn't the condition presented
@@ -64,15 +64,16 @@
     gradient(negative sign) points towards the minimum and the positive
     gradient points towards the maximum. This observation gives a simple rule
     for finding $\blds{x}_m$. Start out with blindly guessing a point
-    $\blds{x}_0$ and keep updating the parameters according to the following
-    recursive rule
+    $\blds{x}_0$ and keep updating the parameters according to the recursive
+    rule
         \begin{equation}
             \blds{x}_n = \blds{x_{n-1}} - \gamma\nabla_{x} f
             \label{eq:gdupdate}
         \end{equation}
     and terminate the search when \Arf{eq:minconditionapprox} is
     fulfilled\footnote{Change the negative sign in front of the gradient if a
-    maximum is desired.} \cite{numOptNocWrig}. Here is an algorithmic view
+    maximum is desired.} \cite{numOptNocWrig}. An algorithmic view is seen in
+    \Arf{fig:gda}.
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[
@@ -123,6 +124,7 @@
             \draw[->] (yes) -- (end);
         \end{tikzpicture}
         \caption{Gradient Descent algorithm.}
+        \label{fig:gda}
     \end{figure}
     
     This method of finding the minimum is known as the method of
@@ -137,22 +139,22 @@
     this chapter.
 
     As an illustration of the method here are a couple of figures of the method
-    applied to two test-functions. One simple sphere-function
+    applied to two test-functions(\Arf{fig:sf,fig:rb}). One simple
+    sphere-function
         \begin{equation}
-            f(\blds{x}) = \suml{d=1}{D} x^2_d
+            f(\blds{x}) = \suml{d=1}{D} x^2_d,
         \end{equation}
     and the Rosenbrock function
         \begin{equation}
             f(\blds{x}) = \suml{d=1}{D-1} 100\left(x_{d+1} - x^2_d\right)^2 +
             \left(x_d - 1\right)^2.
         \end{equation}
-    Here are two figures of the functions
-        \onefigure{Sphere Function}{text/figs/sphere.pdf}{Illustration of
-        sphere function\cite{simulationlib} with minimum $\blds{x}_m=(0,0)$
-        with value $f(\blds{x}_m)=0$.}{fig:sf}
-        \onefigure{Rosenbrock Function}{text/figs/rosenbrock.pdf}{Illustration
-        of Rosenbrock function\cite{simulationlib} with minimum
-        $\blds{x}_m=(1,1)$ with value $f(\blds{x}_m)=0$.}{fig:rb}
+    \onefigure{Sphere Function}{text/figs/sphere.pdf}{Illustration of sphere
+    function\cite{simulationlib} with minimum $\blds{x}_m=(0,0)$ with value
+    $f(\blds{x}_m)=0$.}{sf} \onefigure{Rosenbrock
+    Function}{text/figs/rosenbrock.pdf}{Illustration of Rosenbrock
+    function\cite{simulationlib} with minimum $\blds{x}_m=(1,1)$ with value
+    $f(\blds{x}_m)=0$.}{rb}
     As for the convergence we give a table with number of iterations.
         \begin{table}[H]
             \centering
@@ -198,7 +200,7 @@
             \end{tabular}
         \end{table}
     From \Arf{tab:sphericalconv,tab:rosenbrockconv} it is apparent that with
-    the gradient descent method the step-size is o creat importance. With the
+    the gradient descent method the step-size is of great importance. With the
     spherical function one needs a sweet-spot value to reach the minimum while
     for the more complex Rosenbrock function the number of iterations needed is
     very high and with a lower step-size the minimum was actually not even
@@ -224,7 +226,7 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
     Like the gradient descent method the adaptive stochastic gradient descent
     method updates the parameters in the same manner as in \Arf{eq:gdupdate},
     the difference however is that the step $\gamma$ is changed for each
-    iteration in accordance to the following
+    iteration in accordance to expression in \Arf{eq:ASGDDEF}.
         \begin{equation}
             \begin{aligned}
                 \gamma_{n+1} &= \frac{a}{t_{n+1} + A} \\
@@ -234,6 +236,7 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
                 g_{\text{min}}}{1 - \frac{g_{\text{max}}}{g_{\text{min}}}
                 \me^{-\frac{x}{\omega}}}
             \end{aligned}
+            \label{eq:ASGDDEF}
         \end{equation}
     The whole idea of the method is that the form of $g$ and the accumulative
     combination of gradient estimations for each step the total error would
@@ -259,9 +262,9 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     method for finding the zeros of a function. The rule states that given a
     real-valued function $f:\mathbb{R}\rarr\mathbb{R}$ and an initial guess
     $x\in\mathbb{R}$ for the zero-point, recursively find better
-    approximations for the zero by
+    approximations for the zero by setting
         \begin{equation}
-            x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+            x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}.
         \end{equation}
     This method would then within a number iterations find the zero that is
     closest to $x_0$.
@@ -270,7 +273,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     \Arf{eq:mincondition} meaning, again, that one needs to find the zero of
     the derivative. Newton's method in this case would be
         \begin{equation}
-            x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)},\indent n\geq 0
+            x_{n+1} = x_n - \frac{f'(x_n)}{f''(x_n)},\indent n\geq 0.
         \end{equation}
     Of course in the real world one might work with multi-variate function, not
     to worry as Newton's method for optimization problems in the multi-variate
@@ -278,12 +281,11 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \begin{equation}
             \blds{x}_{n+1} = \blds{x}_n -
             \abs{\blds{H}f(\blds{x}_n)}^{-1}\dot\nabla f(\blds{x}_n),\indent
-            n\geq 0
+            n\geq 0,
         \end{equation}
     where $\blds{H}$ is the Hessian matrix. One might also introduce a
     step-length multiplied to the Hessian part in order to induce
     conditions\cite{numOptNocWrig} which ensure some stability of the method.
-    \\
 
     Newton's method, in most cases, converges faster(less iterations) towards
     the minimum than gradient descent making it favorable, however the full
@@ -297,7 +299,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \begin{equation}
             f(\blds{x}_k + \blds{s}) \approx f(\blds{x}_k) + \left(\nabla
             f(\blds{x}_k)\right)^T\blds{s} + \frac{1}{2}\blds{s}^T \blds{H}
-            \blds{s}
+            \blds{s},
         \end{equation}
     differentiate with respect to the change $\blds{s}$
         \begin{equation}
@@ -308,7 +310,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     and introduce the condition in \Arf{eq:mincondition} and set this
     gradient to zero to find the change $\blds{s}$
         \begin{equation}
-            \blds{s} = -\blds{H}^{-1} \nabla f(\blds{x}_k)
+            \blds{s} = -\blds{H}^{-1} \nabla f(\blds{x}_k).
         \end{equation}
     Another way to determine this particular form for $\blds{s}$ is to say that
     the approximation to the Hessian must satisfy the \txtit{secant equation}
@@ -316,27 +318,29 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     is then given by
         \begin{equation}
             \blds{x}_{n+1} = \blds{x}_n - \gamma_k\blds{H}^{-1}_n\nabla
-            f(\blds{x}_n)
+            f(\blds{x}_n).
         \end{equation}
-    where $\gamma_k$ is again introduced to give some stability conditions. The
-    important part of this equation is the index on the inverse Hessian. This
-    is essentially just a relabeling at the change $\blds{s}$ is technically
-    applied for each iterate $\blds{x}_n$. Note also that $\blds{s}$ takes the
-    role of the search direction in this case. The algorithm is then to make an
-    initial guess on the Hessian(usually just the identity matrix) and then use
-    a type of updating formula that finds a new approximation for the Hessian
-    at each step $n$. There are a number of these updating formulas, just to
-    mention some we have DFP, SR1, McCormick, Broyden, BFGS and more. The one
-    we will mention in more detail is the BFGS method, but a main formula that
-    shows up in all of the updating methods is the \txtit{Sherman-Morrison
-    formula} for the inverse. This basically means that the need for
-    calculation of the inverse matrix is completely removed. \\
+    The factor $\gamma_k$ is again introduced to give some stability
+    conditions. The important part of this equation is the index on the inverse
+    Hessian. This is essentially just a relabeling at the change $\blds{s}$ is
+    technically applied for each iterate $\blds{x}_n$. Note also that
+    $\blds{s}$ takes the role of the search direction in this case. The
+    algorithm is then to make an initial guess on the Hessian(usually just the
+    identity matrix) and then use a type of updating formula that finds a new
+    approximation for the Hessian at each step $n$. There are a number of these
+    updating formulas, just to mention some we have DFP, SR1, McCormick,
+    Broyden, BFGS and more. The one we will mention in more detail is the BFGS
+    method, but a main formula that shows up in all of the updating methods is
+    the \txtit{Sherman-Morrison formula} for the inverse. This basically means
+    that the need for calculation of the inverse matrix is completely removed.
+    \\
 
     With the mentioned expression we can devise an algorithm similar to
     Newton's method for finding the minimum $\blds{x}_m$. Starting with an
     initial guess for the inverse Hessian $\blds{H}^{-1}_0$ and minimum
     $\blds{x}_0$ with the condition that $\blds{H}^{-1}_0$ is positive-definite
-    (identity matrix is a nice start if nothing else is known) proceed with
+    (identity matrix is a nice start if nothing else is known) proceed with the
+    algorithm outlined in \Arf{fig:QNalgflow}.
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[
@@ -477,7 +481,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             \blds{H}_{n+1} = \blds{H}_n +
             \frac{\blds{y}_n\blds{y}^T_n}{\blds{y}^T_n \blds{s}_n} -
             \frac{\blds{H}_n\blds{s}_n\blds{s}^T_n\blds{H}_n}
-            {\blds{s}^T_n\blds{H}_k\blds{s}_n}
+            {\blds{s}^T_n\blds{H}_k\blds{s}_n}.
             \label{eq:BFGSdef}
         \end{equation}
     With the Sherman-Morrison formula\cite{shermorInv} the inverse is updated
@@ -489,7 +493,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             \left(\blds{s}_n\blds{s}^T_n\right)}
             {\left(\blds{s}^T_n\blds{y}_n\right)^2} -
             \frac{\blds{H}^{-1}_n\blds{y}_n\blds{s}^T_n +
-            \blds{s}_n\blds{y}^T_n\blds{H}^{-1}_n}{\blds{s}^T_n\blds{y}_n}
+            \blds{s}_n\blds{y}^T_n\blds{H}^{-1}_n}{\blds{s}^T_n\blds{y}_n}.
             \label{eq:shermanmorrisondef}
         \end{equation}
 
@@ -512,7 +516,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     The basic idea of linesearch methods is to solve a one-dimensional problem
     of minimizing
         \begin{equation}
-            \phi(\alpha) = f(\alpha \blds{p}_k + \blds{x}_k)
+            \phi(\alpha) = f(\alpha \blds{p}_k + \blds{x}_k),
         \end{equation}
     with $f:\mathbb{R}^n\rarr\mathbb{R}$ and $\blds{p}_k$ is a search direction
     as described with the quasi-Newton methods and $\blds{x}_k$ is the current
@@ -585,7 +589,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     \txtit{global minimum} which of desire. Many methods already exists to
     account for this, the one used in this thesis and to be described in this
     section is the method known as \txtit{simulated annealing}. Simulated
-    annealing follows a simple algorithm, namely
+    annealing follows a simple algorithm, see \Arf{alg:simulated_annealing}.
         \begin{algorithm}[H]
             \caption{Simulated Annealing\label{alg:simulated_annealing}}
             \begin{algorithmic}[H]
@@ -613,17 +617,17 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \begin{equation}
             P = \exp(-\frac{f(s_{\text{new}}) - f(s)}{T}),
         \end{equation}
-    define the temperature as
+    and define the temperature as
         \begin{equation}
-            T_j = \frac{T_{\text{max}}}{j},
+            T_j = \frac{T_{\text{max}}}{j}.
         \end{equation}
-    with $T_{\text{max}}$ being the initial temperature, and choose new
+    And $T_{\text{max}}$ is the initial temperature. One then chooses new
     neighbours within some min/max range from the current $s$\cite{simaneal}.
-    After the annealing is done a Quasi-Newton method is used and then the
-    adaptive method is used to converge to the minimum. In order to test this
-    scheme we apply it to more complex functions with many local minima. Two
-    such functions are the \txtit{Ackley function}\cite{simulationlib} defined
-    as
+    After the annealing is done a Quasi-Newton method is used and then one of
+    the adaptive methods is used to converge to the minimum. In order to test
+    this scheme we apply it to more complex functions with many local minima.
+    Two such functions are the \txtit{Ackley function}\cite{simulationlib}
+    defined as
         \begin{equation}
             f(\blds{x}) = -a\exp(-b\sqrt{\frac{1}{D}\suml{d=1}{D}x^2_d}) -
             \exp(-\frac{1}{D}\suml{d=1}{D}\text{cos}(cx_d)) + a + \exp(1)
@@ -631,22 +635,23 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     and the \txtit{Rastrigin function}\cite{simulationlib}
         \begin{equation}
             f(\blds{x}) = 10D + \suml{d=1}{D}\left(x^2_d - 10\text{cos}(2\pi
-            x_i)\right)
+            x_i)\right).
         \end{equation}
-    with $D$ being the number of parameters and $a$, $b$ and $c$ being
-    parameters to be tweaked. Figures are shown below
+    Where $D$ is the number of parameters and $a$, $b$ and $c$ being parameters
+    to be tweaked. Figures are shown below in \Arf{fig:ack, fig:rastr}
         \onefigure{Ackley Function}{text/figs/ackley.pdf}{Illustration of
         Ackley function\cite{simulationlib} with global minimum
-        $\blds{x}_m=(0,0)$ of value $f(\blds{x}_m)=0$.}{fig:ack}
+        $\blds{x}_m=(0,0)$ of value $f(\blds{x}_m)=0$.}{ack}
         \onefigure{Rastrigin Function}{text/figs/rastrigin.pdf}{Illustration of
         Rastrigin function\cite{simulationlib} with global minimum
-        $\blds{x}_m=(0,0)$ of value $f(\blds{x}_m)=0$.}{fig:rastr}
+        $\blds{x}_m=(0,0)$ of value $f(\blds{x}_m)=0$.}{rastr}
     As for convergence, we again employ the same procedure as with the
     spherical and Rosenbrock functions as previously, but with the Ackelyn and
     Rastrigin functions and present the tables here.
         \begin{table}[H]
             \centering
             \setlength{\tabcolsep}{23.6pt}
+            \renewcommand*{\arraystretch}{0.72}
             \caption{Table showing convergence of the simulated annealing
             method with the Ackelyn function. $\blds{x}_0$ is the initial
             starting point, $T_{\text{max}}$ is the initial temperature,
@@ -679,6 +684,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \begin{table}[H]
             \centering
             \setlength{\tabcolsep}{23.0pt}
+            \renewcommand*{\arraystretch}{0.72}
             \caption{Table showing convergence of the simulated annealing
             method with the Rastrigin function. $\blds{x}_0$ is the initial
             starting point, $T_{\text{max}}$ is the initial temperature,
