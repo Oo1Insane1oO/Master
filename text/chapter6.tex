@@ -43,4 +43,22 @@
     method both with and without a Hartre-Fock basis. We only used a basis as
     large as the one needed to reach the Hartree-Fock limit\footnote{See
     \Arf{susec:HFL}} or up to the largest one run in case the limit was not
-    reached. The exact numbers are seen in \Arf{tab:HOHF, tab:HOHF3D}.
+    reached. The exact numbers are seen in \Arf{tab:HOHF, tab:HOHF3D}. The
+    first test of the code was to reproduce the results of \cite{jorgenThesis,
+    hfrefarticle} using
+        \begin{equation}
+            \Psi_T = \text{det}(\blds{\Phi})J_{\text{Pad\'e}}
+            \label{eq:benchtrialwave}
+        \end{equation}
+    as the trial wavefunction where
+        \begin{equation}
+            \Phi_{ij} = \prod_d
+            H_{n_{jd}}\left(\sqrt{\alpha\omega}x_{id}\right)\exp(-\frac{\alpha\omega}{2}x^2_{id})
+        \end{equation}
+    and
+        \begin{equation}
+            J_{\text{Pad\'e}} = \exp(\sumll{i<j} \frac{a_{ij}r_{ij}}{1+\beta
+            r_{ij}}).
+        \end{equation}
+    Results are presented in \Arf{tab:HObench2D}
+    \input{text/tableHObench2D}

@@ -3,7 +3,7 @@
     \setlength{\tabcolsep}{12.75pt}
    \begin{longtable}{ccccccccc}
     \caption{Eigenvalues for double-well functions in 3D with $R=2.0$ and
-        $\omega=1.0$\label{tab:eig2D}} \\
+        $\omega=1.0$\label{tab:eig3D}} \\
 \toprule\hline \\
 L & 1 & 4 & 10 & 20 & 35 & 56 & 84 & 120\\
 \multirow{120}{*}{} 1 & 1.43581 & 1.43581 & 1.31130 & 1.31130 & 1.30989 & 1.30989 & 1.30959 & 1.30959\\
