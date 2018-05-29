@@ -1,6 +1,6 @@
 \begin{table}[H]
     \centering
-    \caption{Energies of VMC calculation of two dimensional harmonic oscillator using \protect\Arf{eq:benchtrialwave} as the trial wavefunction. Number of Monte-Carlo samples used is $2^20=1048576$. Refs. F. Pederiva \cite{hfrefarticle}.}
+    \caption{Energies of VMC calculation of two dimensional harmonic oscillator using \protect\Arf{eq:benchtrialwave} as the trial wavefunction. Number of Monte-Carlo samples used is $2^{20}=1048576$. Refs. F. Pederiva \cite{hfrefarticle}.}
     \label{tab:HObench2D}
    \setlength{\tabcolsep}{24.0pt}
    \begin{tabular}{c"cccccc}
