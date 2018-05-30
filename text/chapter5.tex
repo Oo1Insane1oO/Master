@@ -475,6 +475,52 @@
     and runs the Hartree-Fock algorithm and returns the estimation of the
     ground-state energy.
 
+\subsection{Recurrence Relation and Coefficients}
+    The one-dimensional integrals $\xi$(recurrence relation in
+    \Arf{eq:recurrInteraction}) 
+        \begin{equation}
+            \begin{aligned}
+                \prd{A_x}[I'_{\text{2D}}] &= -\frac{2\alpha\beta}{\alpha+\beta}
+                X_{AB}\zeta_1\left(\frac{\alpha\beta}{\alpha+\beta}R^2_{AB}\right)
+                \\
+                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
+            \end{aligned}
+        \end{equation}
+    involved in the two-body elements and the coefficients
+    \Arf{eq:coupledreccoeff}
+        \begin{equation}
+            \begin{aligned}
+                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1}
+            \end{aligned}
+        \end{equation}
+    involved in the overlap-distributions in the Hartree-Fock calculations are
+    calculated using the class \hltexttt{Hexpander}. The coefficients can be
+    calculated and tabulated once with the \hltextttf{setCoefficients}
+    function. It is preferable  to set all the needed coefficients once before
+    calculating the elements\footnote{Such that precious computation hours are
+    not wasted.}. The \hltexttt{Integral} classes all set these in the
+    \hltextttf{initializeParameters} function based on the number of
+    basis-functions used. For recurrence $\xi$ we implemented a modified
+    version of the three-dimensional version by Dragly\cite{draglygithubHF}
+    while the $\zeta$ integrals are calculated using
+    Gauss-Chebyshev-quadrature\cite{gausschebyshev}. These elements can also be
+    tabulated int he same manner as with the coefficients using the function
+    \hltextttf{setAuxiliary2D} and \hltextttf{setAuxiliary3D} respectively for
+    two- and three dimensions.
+
+    Both the coefficients and integral elements can be obtained with the
+    functions \hltextttf{coeff} and \hltextttf{auxiliary2D} and
+    \hltextttf{auxiliary3D}.
+
+    In our setup the \hltexttt{Hexpander} class itself is inherited from the
+    \hltexttt{GaussianIntegrals} class and used within.
+
 \subsection{Parallelization of Two-Body Matrix}
     The most time-consuming part of the Hartree-Fock procedure is the
     calculation of the two-body matrix-elements giving the interaction terms.
