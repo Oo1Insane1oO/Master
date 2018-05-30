@@ -1,0 +1,15 @@
+\begin{table}[H]
+    \centering
+    \caption{VMC with HF basis for HO potential.}
+    \label{tab:HF2DVMCHO}
+   \setlength{\tabcolsep}{27.0pt}
+   \begin{tabular}{c"cccccc}
+\toprule\hline\\ $\omega[\text{a.u}]$ & \multicolumn{4}{c}{$N$} \\ \hline
+ & $2$ & $6$ & $12$ & $20$\\
+0.1 & 0.46552 & 3.70137 & 12.64342 & - \\
+0.28 & 1.04939 & 7.89627 & 26.21301 & 62.93503\\
+0.5 & 1.70130 & 12.02776 & 39.76442 & 95.21976\\
+1 & 3.05625 & 20.45876 & 66.37115 & 157.41119\\
+\hline\bottomrule
+\end{tabular}
+\end{table}
