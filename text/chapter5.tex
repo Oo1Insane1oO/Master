@@ -2,16 +2,17 @@
 \chapter{Implementation \label{chapter:5}}
     With almost every expression given in \Arf{chapter:3} being some kind of
     sum it is not hard to imagine that solving them by hand would be quite the
-    challenge and most like\footnote{Read definitely.} impossible, but with the
-    modern computer at our disposal they can be tackled numerically. However in
-    order to get the data from the numerical simulations the actual
-    implementation, the raw code, has to be made, tested, verified and run. \\
-    This chapter will explain the code used in the thesis in detail. The code
-    itself i given in >> REF GITHUB REPO <<. General information of the usage
+    challenge and most likely\footnote{Read definitely.} impossible, but with
+    the modern computer at our disposal they can be tackled numerically.
+    However in order to get the data from the numerical simulations the actual
+    implementation, the raw code, has to be written, tested, verified and run. \\
+    This chapter will explain the code used in the thesis in detail. The main
+    code base is given in \url{https://github.com/Oo1Insane1oO/HartreeFock} and
+    \url{https://github.com/Oo1Insane1oO/VMC}. General information of the usage
     of packages are given in appendix >> REF APPENDIX << while the structure
     and workflow of the code is given here. We will first present a
     workflow-chart of the two main code-bases used, namely the Hartree-Fock
-    implementation and the Variational Monte-Carlo implmentation.
+    implementation and the Variational Monte-Carlo implementation.
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[
@@ -510,7 +511,7 @@
     version of the three-dimensional version by Dragly\cite{draglygithubHF}
     while the $\zeta$ integrals are calculated using
     Gauss-Chebyshev-quadrature\cite{gausschebyshev}. These elements can also be
-    tabulated int he same manner as with the coefficients using the function
+    tabulated in the same manner as with the coefficients using the function
     \hltextttf{setAuxiliary2D} and \hltextttf{setAuxiliary3D} respectively for
     two- and three dimensions.
 
@@ -712,36 +713,53 @@
     for the system(wavefunction and Jastrow) and then supply an YAML input file
     at runtime.
 
+\subsection{Statistics}
+    Due to the statistical procedure of using a stochastic diffusion process as
+    our model there is an inherent variance introduced int the Metropolis
+    sampling. In order to get a good estimate for this variance we used the
+    method of blocking\cite{blocking}. The implementation is within the class
+    \hltexttt{Resampler} in which we have two methods, one called
+    \hltextttf{blocking} which effectively reduced the block-sizes and saves
+    the variance for each block-size and \hltextttf{autoblocking} which
+    estimates the optimal block-size. The latter is taken from the thesis of
+    Marius Jonsson\cite{marisugithubblock} and rewritten in \CC using the Eigen
+    library.
+
 \subsection{Slater Optimizations\label{susec:slateropt}}
     In the Metropolis sampling we need access to the ratio of two determinants,
     namely the Slater wavefunction at the current state and the one at previous
     state. These are quite expensive to calculate\footnote{Actual complexity of
-    a determinant is $n\times n$, with $n$ being the size of the Slater
+    a determinant is $\mathcal{O}(n\times n)$, with $n$ being the size of the Slater
     matrix.}. This can be overcome by using the fact that moving only
     \txtit{one} particle at each iteration also constitutes to a
     state-transition. Following \cite{vmc} and given row $i$ as the index for
     the row that is changed, the following expressions are valid
         \begin{equation}
             \begin{aligned}
-                \frac{\Psi}{\Psi'} &= \sum_j \psi_{ij} \psi_{ji}'^{-1} \\
+                \frac{\Psi}{\wtld{\Psi}} &= \sum_j \psi_{ij}
+                \wtld{\psi}_{ji}^{-1} \\
                 \frac{\nabla_i \Psi}{\Psi} &= \sum_j \psi_{ij} \nabla_i
                 \psi_{ji}^{-1} \\
                 \frac{\nabla^2_i \Psi}{\Psi} &= \sum_j \psi_{ij} \nabla^2_i
                 \psi_{ji}^{-1} \\
             \end{aligned}
         \end{equation}
-    with $\Psi'$ being the wavefunction at previous state. One might ask now,
+    with $\wtld{\Psi}$ being the wavefunction at previous state. The
+    derivatives all use the wavefunction at current state. One might ask now,
     but isn't this just worse? We have gone from needing two determinants to
-    needing two inverses!? Fret not, the Sherman-Morrison
+    needing two inverses\footnote{!?.}. Fret not, the Sherman-Morrison
     formula\cite{shermorInv} for updating an inverse matrix if only one row has
     changed in the original matrix comes to the rescue. The elements of the
     inverse can by this be expressed as(with $i$ being the row that changed)
         \begin{equation}
             \psi^{-1}_{kj} = \left\{\begin{aligned}
-                \psi'^{-1}_{kj} - \frac{\Psi}{\Psi'}\psi'^{-1}_{ki}
-                \suml{l=1}{N}\psi_{il}\psi'^{-1}_{lj}, \indent j \neq i\\
-                \frac{\Psi}{\Psi'}\psi'^{-1}_{ki}\psi'^{-1}_{ki}
-                \suml{l=1}{N}\psi'_{il}\psi'^{-1}_{lj}, \indent j = i
+                \wtld{\psi}^{-1}_{kj} -
+                \frac{\Psi}{\wtld{\Psi}}\wtld{\psi}^{-1}_{ki}
+                \suml{l=1}{N}\psi_{il}\wtld{\psi}^{-1}_{lj}, \indent j \neq i
+                \\
+                \frac{\Psi}{\wtld{\Psi}}\wtld{\psi}^{-1}_{ki}\wtld{\psi}^{-1}_{ki}
+                \suml{l=1}{N}\wtld{\psi}_{il}\wtld{\psi}^{-1}_{lj}, \indent j =
+                i
             \end{aligned}\right.
         \end{equation}
     This means that the inverses and the determinant ratios can be calculated
@@ -763,9 +781,10 @@
     Moving one particle at a time means only one column in $\blds{J}$ is
     changed meaning only that column needs to be updated. Additionally, the
     $\blds{J}$ matrix doesn't actually need to be present in the code since we
-    are only interested in ratios $J/J'$. If only one index $i$ changes we have
+    are only interested in ratios $J/\wtld{J}$. If only one index $i$ changes
+    we have
         \begin{align}
-            \frac{J}{J'} &= \exp(\sumll{i<j} \left(f_{ij} - f'_{ij}\right))
+            \frac{J}{\wtld{J}} &= \exp(\sumll{i<j} \left(f_{ij} - \wtld{f}_{ij}\right))
             \nonumber \\
             &= \exp(\sumll{i\neq j} f_{ij}).
         \end{align}
@@ -783,8 +802,8 @@
                 \end{pmatrix}
         \end{equation}
     When only one particle is moved at a time only one row and column changes
-    in this matrix. In addition the matrix is symmetric with the expect a
-    negative sign,
+    in this matrix. In addition the matrix is symmetric the exception of a sign
+    flip
         \begin{equation}
             \nabla \blds{J}(\blds{r}_{ij}) = -\nabla\blds{J}(\blds{r}_{ji}).
         \end{equation}
@@ -889,11 +908,26 @@
     the class who is to be the friend (\hltexttt{Minimizer}). In this way
     \hltexttt{Minimizer} has full access to all the variables and functions
     defined inside \hltexttt{VMC} even if said variables and functions are
-    declared as \txtit{private}\footnote{On an equal note, this is really not a
-    good idea in general.}. The reason for this choice is just to split the
-    whole minimization part of the variational method from the actual sampling.
-    \\
-    The means to to make a \hltexttt{Minimizer} object is to initialize it as
+    declared as \txtit{private}\footnote{On an equal note, this is truly not a
+    good idea in general and great care, inner reflection and utmost scepticism
+    must be within the procedural motion of ones thought process before even
+    the idea of running forth with such a choice is grasped. It is up for
+    discussion if mentioned procedures were completed before the calamity that
+    is \hltexttt{Minimizer} was implemented.}. The reason for this choice is
+    just to split the whole minimization part of the variational method from
+    the actual sampling. \\
+    The method are implemented within the following functions
+        \begin{itemize}
+            \item{\makebox[4cm]{\hltextttf{minimizeSD}\hfill} Gradient Descent.}
+            \item{\makebox[4cm]{\hltextttf{minimizeBFGS}\hfill} Quasi-Newton with BFGS and Mor\'e-Thuente linesearch.}
+            \item{\makebox[4cm]{\hltextttf{minimizeCG}\hfill} Quasi-Newton with Polak-Ribi\`ere and Mor\'e-Thuente linesearch.}
+            \item{\makebox[4cm]{\hltextttf{minimizeASGD}\hfill} Stochastic-Adaptive-Gradient-Descent}
+            \item{\makebox[4cm]{\hltextttf{minimizeSABFGS}\hfill} Stochastic-Adaptive method with BFGS.}
+            \item{\makebox[4cm]{\hltextttf{minimizeSIAN}\hfill} Simulated Annealing.}
+        \end{itemize}
+    The specific function is called based on the initial string given to
+    \hltexttt{Minimizer} and the means to to make a \hltexttt{Minimizer} object
+    is to initialize it as
         \begin{lstlisting}[language=C++, style=ccstyle]
             Minimizer<T>$^*$ m = new Minimizer<T>(vmc, "method", numIterations, eps);
             m$\rarr$minimize();
@@ -906,55 +940,61 @@
         \begin{figure}[H]
             \centering
             \begin{tikzpicture}[
-                    >={Latex[width=2mm,length=2mm]},
-                        base/.style = {rectangle, rounded corners, draw=black,
-                                    minimum width=2cm, minimum height=0.5cm, text
-                                    centered, font=\sffamily},
-                        basecode/.style = {rectangle, rounded corners, draw=black,
-                                    minimum width=2cm, minimum height=0.5cm, text
-                                    centered, font=\sffamily, align=left},
-                        activityStarts/.style = {base, fill=blue!30, drop shadow},
-                        startstop/.style = {base, fill=red!30, drop shadow},
-                        activityRuns/.style = {base, fill=green!30, drop shadow},
-                        process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                        processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-                    scale=0.8, 
-                    node distance=1.5cm, 
-                    every node/.style={fill=white, font=\sffamily},
-                    align=center]
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=NavyBlue!30, drop shadow},
+                    startstop/.style = {base, fill=Maroon!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=Maroon!25, drop shadow},
+                    activityRuns/.style = {base, fill=ForestGreen!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily},
+                align=center]
                 \node (setup) [activityStarts] {
                     Setup \\
                     Initialize vectors for derivatives \\
                     Run \hltexttt{Sampler} \\
                     Save energy given by Sampler
                 };
-                \node (loop) [startstop, below of=setup, yshift=-0.3cm] {
+                \node (loop) [startstop, below of=setup, yshift=-0.4cm] {
                     Start loop for $m=0$ to $\text{numIterations}$
                 };
                 \draw[->] (setup) -- (loop);
-                \node (updater) [startstop, below of=loop] {
-                    call \hltextttf{updater}
+                \node (updater) [startstop, below of=loop, yshift=-0.3cm] {
+                    call \hltextttf{updater} \\
+                    Switch to input method \\
+                    if exhausted.
                 };
-                \node (convergence) [process, below left of=updater, xshift=-0.5cm, yshift=-0.3cm] {
-                    Check for \\
-                    convergence.
+                \node (convergence) [activityRuns, below of=updater, yshift=-0.3cm] {
+                    $\abs{\nabla f} \leq \epsilon$
                 };
-                \node (exhaustion) [process, below right of=updater, xshift=1.1cm, yshift=-0.3cm] {
-                    Switch to input \\
-                    method if exhausted
+                \node (false) [below of=convergence] {
+                   False 
                 };
-                \draw[-] (exhaustion) -- (updater);
-                \draw[-] (convergence) -- (updater);
+                \node (true) [right of=convergence, xshift=0.6cm] {
+                   True 
+                };
+                \draw[->] (convergence) -- (true);
+                \draw[->] (convergence) -- (false);
+                \draw[<-] (convergence) -- (updater);
                 \draw[->] (loop) -- (updater);
-                \node (callFunc) [startstop, below of=updater, yshift=-2cm] {
+                \node (callFunc) [startstop, below of=false, yshift=-0.2cm] {
                     Save current energy and \\
                     derivatives and \\
                     execute given method
                 };
-                \node (finish) [activityRuns, below of=callFunc] {
+                \node (finish) [activityRuns, below of=callFunc, yshift=-0.2cm] {
                     End
                 };
-                \draw[->] (updater) -- (callFunc);
+                \draw[->] (true) to [out=0,in=0] (finish);
+                \draw[->] (false) -- (callFunc);
                 \draw[->] (loop) to [out=0,in=0] (finish);
                 \draw[->] (callFunc) to [out=180,in=180] (loop);
             \end{tikzpicture}
@@ -981,12 +1021,17 @@
     python using the eigenvalue solver in the SciPy package. The script itself
     can be found in \url{https://github.com/Oo1Insane1oO/doubleWellFit}, but is
     also included in the Hartree-Fock repository. \\
-    The script itself basically just builds(calculates the elements of) the $H$
-    matrix from \Arf{eq:Heigdef} and then finding its eigenvalues and
-    eigenvectors which are then written to a \CC header file as a class with a
-    static function to get coefficients and eigenvalues. This file is then
-    included in the \hltexttt{DoubleWell} integral class as a base class of
-    inheritance.
+    The script only builds(calculates the elements of) the $H$ matrix 
+        \begin{equation}
+            H_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
+            \Braket{\psiHO_i|\VDW_n|\psiHO_j},
+        \end{equation}
+    from \Arf{eq:Heigdef} and then finds its eigenvalues and eigenvectors.
+    These are then written to a \CC header file\footnote{Hard-coding the smart
+    way} as a class with a static function\footnote{Static means the function
+    does not need an object of the container class to be called.} to get
+    coefficients and eigenvalues. This file is then included in the
+    \hltexttt{DoubleWell} integral class and inherited from.
 
 \section{Verification\label{sec:verification}}
     In order to be confident in the results presented for the double-well

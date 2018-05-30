@@ -604,10 +604,10 @@
                     Pre-build overlap matrix $S_{pq}$ \\
                     Initialize $\blds{C}$
                 };
-                \node (Fock) [activityRuns, below of=pre, yshift=-1.0cm] {
+                \node (Fock) [activityRuns, below of=pre, yshift=-1.2cm] {
                     Set Fock-matrix $\blds{F}$
                 };
-                \node (Fockmix) [activityRuns, below of=Fock, yshift=-0.65cm] {
+                \node (Fockmix) [activityRuns, below of=Fock, yshift=-0.7cm] {
                     Perform mixing of $\blds{F}$ \\
                     (Optional)
                 };
@@ -616,7 +616,7 @@
                 };
                 \draw[->] (Fock) -- (Fockmix);
                 \draw[-] (Fockmix) -- (Fockmixeq);
-                \node (RHF) [process, above right of=Fock, xshift=3.0cm, yshift=-0.3cm] {
+                \node (RHF) [process, above right of=Fock, xshift=3.0cm, yshift=-0.2cm] {
                     Use \Arf{eq:FockRestrictedDef} if RHF
                 };
                 \node (UHF) [process, below right of=Fock, xshift=3.0cm, yshift=0.1cm] {

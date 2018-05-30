@@ -1,6 +1,6 @@
 \begin{table}[H]
     \centering
-    \caption{VMC with HF basis for HO potential.}
+    \caption{Energies of two dimensional harmonic oscillator using basis built with Hartree-Fock. Number of Monte-Carlo samples used is $2^{20} = 1048576$.}
     \label{tab:HF2DVMCHO}
    \setlength{\tabcolsep}{27.0pt}
    \begin{tabular}{c"cccccc}
