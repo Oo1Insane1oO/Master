@@ -1260,8 +1260,45 @@
         the conditions presented in \Arf{sususec:cusp_condition} were found the
         only consideration was within the terms involving $r_{ij}$ in the local
         energy, all other terms were canceled out or were otherwise
-        non-divergent meaning the product between the jastrow would yield the
+        non-divergent meaning the product between the Jastrow would yield the
         same conditions.
+
+\section{Statistics and Blocking}
+    Since we are dealing with physical systems of probabilistic origin, there
+    is an inherent variance which is dependent on the covariance within the
+    calculated expectation values. Calculating these for all the sample values
+    is out of question as it would take too much time to compute, however the
+    error-estimation given by the variance is not really necessary for the
+    sampling itself\footnote{It is a nice indicator for the quality of the
+    sample, but one can get away by calculating the simple variance
+    $\sigma^2[X]=\ecp{X^2} - \ecp{X}^2$.}. This gives us the possibility of
+    estimating the error post-simulation(as long as the individual sample
+    values are stored).
+
+    A nice and quite intuitive method is the resampling method known as
+    \txtit{blocking}. The details are explained with brilliance in the paper
+    \cite{blocking} by Flyvbjerg and Petersen. However the simple idea is to
+    take a set of $M$ samples $\{X\}^M_{k=1}$(from i.e a Monte-Carlo
+    simulation) and then dividing that data-set into $n$ blocks such that we
+    have $M/n$ sub-samples. Denote the mean of block $n$ by $\mu_n$ and then
+    calculate the variance in each block
+        \begin{equation}
+            \Omega^2_n = \frac{1}{n_b}\suml{k=n}{2n} (X_k - \mu_n)^2,
+        \end{equation}
+    which gives a set $\{\Omega^2\}^{M/n}_{i=1}$. The estimate for the total
+    variance of the entire sample is then approximated by
+        \begin{equation}
+            \sigma^2[X] \approx \frac{1}{n} \sum_i (\Omega_i - \nu)^2.
+        \end{equation}
+    Where $\nu$ is the mean of the set $\Omega^2$. \\
+    The observation is then that as we increase the block-size the variance
+    estimate should converge towards the true variance of the system(which
+    includes the covariance). The exact size of the block is undetermined and
+    the simplest approach is to just experiment with the size until convergence
+    is reached. \\
+    However the thesis of Marius Jonsson the block-size is estimated with a
+    neat algorithm which we also use.
+
 
 \section{Density Matrices}
     The Slater wavefunction presented throughout this chapter is quite

@@ -13,15 +13,37 @@
     disposal the \txtit{real challenge} was yet to come...}. \\
     Within the minimization methods presented there are quite the number of
     constant parameters which needed to be set pre-hand. Often one finds these
-    some-what heuristically with a close eye on the function to be minimized.
-    This approach is the one we used in the VMC method, with the most memorable
-    one being the parameters set in the simulated annealing method.
+    some-what manually with a close eye on the function to be minimized. This
+    approach is the one we used in the VMC method, with the most memorable one
+    being the parameters set in the simulated annealing method and the
+    notorious step-size in the Metropolis sampling. All of the results
+    presented for the VMC method were run with importance sampling.
 
 \subsection{Simulated Annealing}
     With the simulated annealing the idea was to use it as a sort of
     "thermalization", that is to run it initially in hope that it finds the
-    valley within the function-mesh in which the global minima lies. \\
-    We tried anything from 
+    valley within the function-mesh in which the global minima lies. \\ 
+    The approach was to run a great number of iterations starting with a
+    temperature of $100$. In order to finish those runs in time they were run
+    in parallel and the parameters that gave the lower energy and lowest where
+    then used as a starting point for the quasi-newton method which was then
+    run with a close eye on the energies and variance\footnote{Coined as the
+    VBS method, VMC-babysitting.}.
+
+\subsection{Variational Monte-Carlo}
+    For the VMC runs the only parameter to be tweaked was the step-size $\Delta
+    t$ which had to be tweaked depending on $\omega$ and the number of
+    particles. The general rule was to increase $\Delta t$ when $\omega$ was
+    lowered, this has to do with the form of the potential, see
+    \Arf{subfig:HO1D}. For $N$, the number of particles, the step had to be
+    slightly increased as $N$ increased, this is due to the repulsion part
+    being stronger with more particles.
+
+\subsubsection{RBM}
+    For the RBM-Jastrow we did not tweak as much manually, but we initialized
+    the parameters with a Gaussian distribution with mean $0$ and variance
+    between $0.01-1.0$ and settled with a value that gave a fairly good
+    acceptance rate and variance in the sampling.
 
 \section{Hartree-Fock}
 \subsection{Harmonic Oscillator}

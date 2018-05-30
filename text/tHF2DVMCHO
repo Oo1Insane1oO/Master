@@ -1,15 +1,15 @@
 \begin{table}[H]
     \centering
-    \caption{Energies of two dimensional harmonic oscillator using basis built with Hartree-Fock. Number of Monte-Carlo samples used is $2^{20} = 1048576$.}
+    \caption{Energies of two dimensional harmonic oscillator using basis built with Hartree-Fock. Number of Monte-Carlo samples used is $2^{20} = 1048576$. The numbers inside the curly brackets indicate the number at which the basis expansion was truncated(the Hartree-Fock limit).}
     \label{tab:HF2DVMCHO}
-   \setlength{\tabcolsep}{27.0pt}
+   \setlength{\tabcolsep}{13.5pt}
    \begin{tabular}{c"cccccc}
 \toprule\hline\\ $\omega[\text{a.u}]$ & \multicolumn{4}{c}{$N$} \\ \hline
  & $2$ & $6$ & $12$ & $20$\\
-0.1 & 0.46552 & 3.70137 & 12.64342 & - \\
-0.28 & 1.04939 & 7.89627 & 26.21301 & 62.93503\\
-0.5 & 1.70130 & 12.02776 & 39.76442 & 95.21976\\
-1 & 3.05625 & 20.45876 & 66.37115 & 157.41119\\
+$0.1$ & $0.46552(5)\{15\}$ & $3.70137(4)\{36\}$ & $12.64342(4)\{91\}$ & - \\
+$0.28$ & $1.04939(4)\{6\}$ & $7.89627(4)\{36\}$ & $26.21301(4)\{66\}$ & $62.93503(5)\{120\}$ \\
+$0.5$ & $1.70130(4)\{6\}$ & $12.02776(4)\{21\}$ & $39.76442(3)\{45\}$ & $95.21976(3)\{91\}$ \\
+$1.0$ & $3.05625(4)\{6\}$ & $20.45876(3)\{36\}$ & $66.37115(3)\{45\}$ & $157.41119(3)\{78\}$ \\
 \hline\bottomrule
 \end{tabular}
 \end{table}
