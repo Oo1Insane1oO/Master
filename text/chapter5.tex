@@ -686,7 +686,7 @@
     The first chunk initializes the SlaterJastrow class with the pre-specified
     system which needs to be given at compile time as a flag i.e
     WAVEFUNCTION=HARMONICOSCILLATOR. The second part sets the sampling to use
-    Metropolis-Hastings algortithm. The parameters variable must be an
+    Metropolis-Hastings algorithm. The parameters variable must be an
     Eigen\cite{eigenweb} vector or array and contain the variational
     parameters. The representation of each element in this vector(or
     array) is specific to each system. For a more detailed explanation see >>
@@ -724,6 +724,16 @@
     estimates the optimal block-size. The latter is taken from the thesis of
     Marius Jonsson\cite{marisugithubblock} and rewritten in \CC using the Eigen
     library.
+
+\subsection{Thermalisation}
+    When running the sampling the initial distribution of positions is not
+    necessarily a good configuration and might corrupt the sample and give an
+    unreasonably high variance. To avoid this we \txtit{thermalize} the system
+    before calculating the local energies and the other local quantities. The
+    procedure is as simple as to run the sampling, but not calculate the
+    local energy or any other quantity until a certain number of iterations has
+    been exhausted. This gives the particles enough movement to find a good
+    configuration from which a nice sample can be obtained.
 
 \subsection{Slater Optimizations\label{susec:slateropt}}
     In the Metropolis sampling we need access to the ratio of two determinants,
