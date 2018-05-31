@@ -19,16 +19,15 @@
     notorious step-size in the Metropolis sampling. All of the results
     presented for the VMC method were run with importance sampling.
 
-\subsection{Simulated Annealing}
-    With the simulated annealing the idea was to use it as a sort of
-    "thermalization", that is to run it initially in hope that it finds the
-    valley within the function-mesh in which the global minima lies. \\ 
-    The approach was to run a great number of iterations starting with a
-    temperature of $100$. In order to finish those runs in time they were run
-    in parallel and the parameters that gave the lower energy and lowest where
-    then used as a starting point for the quasi-newton method which was then
-    run with a close eye on the energies and variance\footnote{Coined as the
-    VBS method, VMC-babysitting.}.
+\subsection{Hartree-Fock}
+    With the Hartree-Fock method the only part tweaked was the number of
+    previous quantities to use in the DIIS procedure. Essentially just changing
+    $M$ in (\Arf{eq:errorDIISdef})
+        \begin{equation}
+            \blds{E} = \suml{m=1}{M} c_m\blds{e}_i.
+        \end{equation}
+    The exact number was changed to get convergence, however somewhere between
+    $M=2$ to $M=8$ gave good results.
 
 \subsection{Variational Monte-Carlo}
     For the VMC runs the only parameter to be tweaked was the step-size $\Delta
@@ -38,6 +37,17 @@
     \Arf{subfig:HO1D}. For $N$, the number of particles, the step had to be
     slightly increased as $N$ increased, this is due to the repulsion part
     being stronger with more particles.
+
+\subsubsection{Simulated Annealing}
+    With the simulated annealing the idea was to use it as a sort of
+    "thermalization", that is to run it initially in hope that it finds the
+    valley within the function-mesh in which the global minima lies. \\ 
+    The approach was to run a great number of iterations starting with a
+    temperature of $100$. In order to finish those runs in time they were run
+    in parallel and the parameters that gave the lower energy and lowest where
+    then used as a starting point for the quasi-newton method which was then
+    run with a close eye on the energies and variance\footnote{Coined as the
+    VBS method, VMC-babysitting.}.
 
 \subsubsection{RBM}
     For the RBM-Jastrow we did not tweak as much manually, but we initialized
@@ -83,11 +93,31 @@
             r_{ij}}).
         \end{equation}
     Results are presented in \Arf{tab:HObench2D}
+
+\subsection{Two-Dimensional Harmonic Oscillator}
     \input{text/tableHObench2D}
 
     \input{text/tHF2DVMCHO}
+
     The energies are consistently higher than with the wavefunction in
     \Arf{eq:benchtrialwave}. This only shows that the single-particle
     wavefunctions constructed from Hartre-Fock are actually not as good of a
-    guess on the trial-wavefunction. We will see that introducing a similar
-    $\alpha$ parameter in the Hartree-Fock basis reduces the energies further.
+    guess on the trial-wavefunction. Introducing a similar $\alpha$ parameter
+    in the Hartree-Fock basis as
+        \begin{equation}
+            \psi^{\text{HF}}_p\left(\sqrt{\alpha\omega}\blds{r}\right) = \sum_l
+            C_{lp} \psi^{\text{HO}}_l \left(\sqrt{\alpha\omega}\blds{r}\right)
+            \label{eq:HFVARWAVE}
+        \end{equation}
+    reduces the energies further. The results are presented in
+    \Arf{tab:HFVAR2DVMCHO}. This is basically taking the constructed basis from
+    the Hartree-Fock simulations and evaluation the function with a variational
+    parameter inspired from the same approach as with the results in
+    \Arf{tab:HObench2D}.
+    
+    \input{text/tHFVAR2DVMCHO}
+
+\subsection{Three-Dimensional Harmonic Oscillator}
+    Here are the same results for the three-dimensional case.
+    \input{text/tableHObench3D}
+    \input{text/tHF3DVMCHO}

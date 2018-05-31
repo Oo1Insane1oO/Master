@@ -4,7 +4,7 @@
     \label{tab:HF2DVMCHO}
    \setlength{\tabcolsep}{13.5pt}
    \begin{tabular}{c"cccccc}
-\toprule\hline\\ $\omega[\text{a.u}]$ & \multicolumn{4}{c}{$N$} \\ \hline
+\toprule\hline $\omega[\text{a.u}]$ & \multicolumn{4}{c}{$N$} \\ \hline
  & $2$ & $6$ & $12$ & $20$\\
 $0.1$ & $0.46552(5)\{15\}$ & $3.70137(4)\{36\}$ & $12.64342(4)\{91\}$ & - \\
 $0.28$ & $1.04939(4)\{6\}$ & $7.89627(4)\{36\}$ & $26.21301(4)\{66\}$ & $62.93503(5)\{120\}$ \\

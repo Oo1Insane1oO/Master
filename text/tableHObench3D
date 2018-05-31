@@ -1,0 +1,14 @@
+\begin{table}[H]
+    \centering
+    \caption{Energies of VMC calculation of three dimensional harmonic oscillator using \protect\Arf{eq:benchtrialwave} as the trial wavefunction. Number of Monte-Carlo samples used is $2^{20}=1048576$.}
+    \label{tab:HObench3D}
+   \setlength{\tabcolsep}{56.0pt}
+   \begin{tabular}{c"cccc}
+\toprule\hline $\omega[\text{a.u}]$ & \multicolumn{2}{c}{$N$} \\ \hline
+ & $2$ & $8$\\
+0.1 & $0.50006(5)$ & $5.80479(4)$ \\
+0.28 & $1.20156(5)$ & $12.48178(4)$ \\
+0.5 & $2.00027(5)$ & $19.33356(4)$ \\
+1.0 & $3.72985(5)$ & $33.30958(4)$ \\
+\hline\bottomrule\end{tabular}
+\end{table}

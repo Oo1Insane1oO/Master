@@ -4,7 +4,7 @@
     \label{tab:HObench2D}
    \setlength{\tabcolsep}{24.0pt}
    \begin{tabular}{c"cccccc}
-\toprule\hline\\ $\omega[\text{a.u}]$ & \multicolumn{4}{c}{$N$} \\ \hline
+\toprule\hline $\omega[\text{a.u}]$ & \multicolumn{4}{c}{$N$} \\ \hline
  & $2$ & $6$ & $12$ & $20$\\
 0.1 & 0.4407(4) & 3.5650(4) & 12.3164(4) & 30.0480(4)\\
 0.28 & 1.0020(4) & 7.6198(4) & 25.5948(3) & 61.8090(3)\\

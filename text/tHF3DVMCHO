@@ -1,0 +1,14 @@
+\begin{table}[H]
+    \centering
+    \caption{Energies of three dimensional harmonic oscillator using basis built with Hartree-Fock. Number of Monte-Carlo samples used is $2^{20} = 1048576$. The numbers inside the curly brackets indicate the number at which the basis expansion was truncated(the Hartree-Fock limit).}
+    \label{tab:HF3DVMCHO}
+   \setlength{\tabcolsep}{50.5pt}
+   \begin{tabular}{c"cccc}
+\toprule\hline $\omega$ & \multicolumn{2}{c}{$N$} \\ \hline
+ & $2$ & $8$\\
+$0.1$ & $0.51122(5)\{70\}$ & $5.87372(4)\{120\}$\\
+$0.28$ & $1.21844(5)\{70\}$ & $12.36177(4)\{168\}$\\
+$0.5$ & $2.02030(4)\{20\}$ & $19.15006(4)\{112\}$\\
+$1.0$ & $3.72918(5)\{20\}$ & $33.58046(4)\{168\}$\\
+\hline\bottomrule\end{tabular}
+\end{table}

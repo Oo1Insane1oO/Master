@@ -30,14 +30,14 @@ with open(tfname, "w") as tfile:
     tfile.write("   \\renewcommand*{\\arraystretch}{%s}\n" % xsize)
     tfile.write("   \\setlength{\\tabcolsep}{%spt}\n" % ysize)
     tfile.write("   \\begin{tabular}{"+"cc"+"".join(["c" for i in range(nCount + 1)])+"}\n")
-    tfile.write("\\toprule\\hline\\\\ $\\omega$ & \\multicolumn{%i}{c}{$N$} \\\\ \\hline\n" % nCount)
+    tfile.write("\\toprule\\hline $\\omega$ & \\multicolumn{%i}{c}{$N$} \\\\ \\hline\n" % nCount)
     for n in sorted(infoDict[1.0].keys()):
         tfile.write(" & " + "$" + str(n) + "$")
     tfile.write("\\\\\n")
     for w in sorted(infoDict.keys()):
-        tfile.write(str(w))
+        tfile.write("$"+str(w)+"$")
         for N in sorted(infoDict[w].keys()):
-            tfile.write(" & %.5f" % infoDict[w][N])
+            tfile.write(" & $%.5f$" % infoDict[w][N])
         tfile.write("\\\\\n")
     tfile.write("\\hline\\bottomrule\\end{tabular}\n\\end{table}")
 # end with open

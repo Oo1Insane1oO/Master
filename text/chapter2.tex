@@ -522,13 +522,14 @@
     Hartree-Fock energies start to oscillate and the above mixing seems to be
     quite efficient at reducing the oscillations.
 
-\subsection{DIIS procedure}
+\subsection{DIIS Procedure}
     The more popular approach to avoid oscillations and achieve(possibly
     faster) convergence is the DIIS procedure, also known as Pulay
     mixing\cite{PULAY,PULAY2}. The idea is to define an \txtit{extrapolated}
     error term dependant on the previous $M$ iterations
         \begin{equation}
             \blds{E} = \suml{m=1}{M} c_m\blds{e}_i.
+            \label{eq:errorDIISdef}
         \end{equation}
     This extrapolated error is then minimized in a least-squares sense under
     the constraint that
