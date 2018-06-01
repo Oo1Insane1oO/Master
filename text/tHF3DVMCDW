@@ -1,0 +1,11 @@
+\begin{table}[H]
+    \centering
+    \caption{Energies for the 3D double-well system with a Hartree-Fock basis and $R=2.0$ using 120 basis function in the eigenvalue problem and the Pad\'e Jastrow as correlation function. The numbers inside the curly braces indicate the number of shells used in the Hartree-Fock. Number of Monte-Carlo samples used was $2^{20}=1048576$.}
+    \label{tab:HF3DVMCDW}
+   \setlength{\tabcolsep}{29.80pt}
+   \begin{tabular}{c"ccccc}
+\toprule\hline $\omega$ & \multicolumn{3}{c}{$N$} \\ \hline
+ & $2$ & $4$ & $8$\\
+$1.0$ & $3.25118(4)\{11\}$ & $9.17489(4)\{17\}$ & $28.49671(4)\{26\}$\\
+\hline\bottomrule\end{tabular}
+\end{table}
