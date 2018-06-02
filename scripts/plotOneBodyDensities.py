@@ -11,7 +11,7 @@ rmax = float(fname[rmaxIdx+1:rmaxIdx+4])
 
 r = np.linspace(0,rmax,600)
 
-plt.plot(r, data, 'o', markersize=0.5, label="$\\omega=1.0$")
+plt.plot(r, data, 'o', markersize=0.5)
 plt.xlabel("$r$", fontsize=15)
 plt.ylabel("$\\Lambda(r)$", fontsize=15)
 plt.legend()

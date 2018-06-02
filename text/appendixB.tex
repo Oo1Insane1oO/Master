@@ -6,7 +6,7 @@
     The gradient of Hermite functions on the form
         \begin{equation}
             \psi_n(r) = \prod_d \psi_{n_d}(x_d) = \prod_d
-            H_{n_d}(\sqrt{\omega}x_d)\me^{-\frac{\omega}{2}x^2_d}
+            H_{n_d}(\sqrt{\omega}x_d)\me^{-\frac{\omega}{2}x^2_d},
         \end{equation}
     is
         \begin{align}
@@ -17,7 +17,7 @@
             \nonumber \\
             &= \psi_n\sqrt{\omega}\sum_d \hat{e}
             \left(2n_d\frac{H_{n_d-1}(\sqrt{\omega}x_d)}
-            {H_{n_d}(\sqrt{\omega}x_d)} - x_d\right)
+            {H_{n_d}(\sqrt{\omega}x_d)} - x_d\right),
         \end{align}
     and the Laplacian follows
         \begin{align}
@@ -26,7 +26,7 @@
             &= \psi_n\omega\sum_d
             \left(\frac{\left(4n_d(n_d-1)H_{n_d-2}(\sqrt{\omega}x_d) -
             \sqrt{\omega}x_dH_{n_d-1}(\sqrt{\omega}x_d)\right)}
-            {H_{n_d}(\sqrt{\omega}x_d)} + \omega x^2_d - 1\right)
+            {H_{n_d}(\sqrt{\omega}x_d)} + \omega x^2_d - 1\right).
         \end{align}
     The derivative with respect to the variational parameter $\alpha$ is
         \begin{align}
@@ -41,14 +41,14 @@
             &= \psi_n(r)\left(\sqrt{\frac{\omega}{\alpha}} \sum_d x_dn_d
             \frac{H_{n_d-1}\left(\sqrt{\alpha\omega}x_d\right)}
             {H_{n_d}\left(\sqrt{\alpha\omega}x_d\right)} -
-            \frac{\omega}{2}r^2\right)
+            \frac{\omega}{2}r^2\right).
         \end{align}
 
 \section{Derivatives of Pad\'e-Jastrow Function}
     Given the Pad\'e-Jastrow function
         \begin{equation}
             J = \exp\left(\sum\limits_{i<j}f_{ij}\right) ,\indent f_{ij} =
-            \frac{a_{ij}r_{ij}}{1 + \beta r_{ij}}
+            \frac{a_{ij}r_{ij}}{1 + \beta r_{ij}}.
         \end{equation}
     The general expression for the gradient and Laplacian with respect to
     particle position $k$ is
@@ -58,7 +58,7 @@
                 \prd{r_{kj}}[f_{kj}] \\
                 \nabla^2_k J &= \frac{\left(\nabla_k J\right)^2}{J} +
                 J\sum_{j\neq k} \left(\prd{r_{kj}}[f_{kj}] \frac{D-1}{r_{kj}} +
-                \prd{r_{kj}}[f_{kj}][2]\right)
+                \prd{r_{kj}}[f_{kj}][2]\right).
             \end{aligned}
         \end{equation}
     Notice that the sum with $j\neq k$ is only a sum over $j$ with $k$ fixed.
@@ -69,7 +69,7 @@
                 r_{kj}\right)^2} \\
                 \prd{r_{kj}}[f_{kj}][2] &= -\frac{2a_{kj}\beta}{\left(1 + \beta
                 r_{kj}\right)^3}
-            \end{aligned}
+            \end{aligned}.
         \end{equation}
     And the derivative with respect to the variational parameter $\beta$
         \begin{equation}
@@ -82,7 +82,7 @@
         \begin{equation}
             J = \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
             \blds{a}_i\right)^2}{2\sigma^2})\prod\limits^{M}_j \left(1 +
-            E_j\right)
+            E_j\right).
         \end{equation}
     The gradient is
         \begin{align}
@@ -96,7 +96,7 @@
             \frac{\nabla^2_k J}{J} &= \nabla^2_k \ln(J) \nonumber \\ &=
             \left(\frac{\nabla_k J}{J}\right)^2- \frac{D}{\sigma^2} +
             \suml{j=1,d=1}{M,D} \frac{w^2_{k+d,j}E_j}{\sigma^4\left(1 +
-            E_j\right)^2}
+            E_j\right)^2},
         \end{align}
     with 
         \begin{equation}
@@ -104,21 +104,21 @@
                 W_j &\equiv \suml{i=1}{N}\suml{d=1}{D}
                 \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2} \\
                 E_j &\equiv \exp(b_j + W_j)
-            \end{aligned}
+            \end{aligned}.
         \end{equation}
     The derivative with respect to the visible bias is
         \begin{equation}
-            \frac{1}{J}\prd{a_l}[J] = \frac{x_l - a_l}{\sigma^2}
+            \frac{1}{J}\prd{a_l}[J] = \frac{x_l - a_l}{\sigma^2},
         \end{equation}
     and the hidden bias
         \begin{align}
             \frac{1}{J}\prd{b_l}[J] &= \prd{b_l}\ln(J) \nonumber \\
-            &= \frac{1}{1 + \frac{1}{E_j}}
+            &= \frac{1}{1 + \frac{1}{E_j}},
         \end{align}
     and the weights
         \begin{align}
             \frac{1}{J}\prd{w_{kl}} &= \prd{w_{kl}}\ln(J) \nonumber \\
-            &= \frac{x_k}{\sigma^2\left(1 + \frac{1}{E_j}\right)}
+            &= \frac{x_k}{\sigma^2\left(1 + \frac{1}{E_j}\right)}.
         \end{align}
     Notice that the indices $k$ and $l$ are here indiscriminate towards the
     dimensional component in relation to $x$. This means that $x_l$ or $x_k$
