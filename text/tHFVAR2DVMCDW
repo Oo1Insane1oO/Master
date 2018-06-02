@@ -1,0 +1,11 @@
+\begin{table}[H]
+    \centering
+    \caption{Energies for the 2D double-well system with a Hartree-Fock basis and $R=2.0$ using $120$ basisfunctions in the eigenvalue problem and an $\alpha$ and Pad\'e-function as correlation. The numbers inside the curly brackets indicat ethe number at which the basis expansion was truncated(the Hartree-Fock limit). Number of Monte-Carlo samples used is $2^{20}=1048576$.}
+    \label{tab:HFVAR2DVMCDW}
+   \setlength{\tabcolsep}{16.25pt}
+   \begin{tabular}{c"cccccc}
+\toprule\hline $\omega$ & \multicolumn{4}{c}{$N$} \\ \hline
+ & $2$ & $4$ & $6$ & $8$\\
+$1.0$ & $2.36618(4)\{10\}$ & $7.90232(4)\{42\}$ & $16.55609(4)\{44\}$ & $27.58524(4)\{50\}$\\
+\hline\bottomrule\end{tabular}
+\end{table}
