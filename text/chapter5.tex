@@ -1049,7 +1049,8 @@
     the harmonic oscillator potential. The tests are set-up with the
     \pp{UnitTest}\cite{UnitTest++} library and one only needs to pass a flag
     $TESTS=ON$ at compile time to enable them. The benchmark results are given
-    in \Arf{tab:HOHF, tab:HOHF3D} >> REF MROE AS YOU GET THEM! <<.
+    in \Arf{tab:HOHF, tab:HOHF3D, tab:HObench2D, tab:HF2DVMCHO,
+    tab:HFVAR2DVMCHO, tab:HObench3D, tab:HF3DVMCHO, tab:HFVAR3DVMCHO}.
 
 \subsection{Hartree-Fock}
     The first of the test for the Hartree-Fock method was to see if it
@@ -1066,7 +1067,9 @@
     thesis of Høgberget\cite{jorgenThesis} with $2$ particles. However it is
     expected that the energies lie somewhere between the single-well results
     and the non-interaction case due to the potential itself being a
-    perturbation of the single-well system. The results are given in >> REF(AND MAKE) TABLE <<
+    perturbation of the single-well system. The results are given in
+    \Arf{tab:HODW2D, tab:HODW3D, tab:HF2DVMCDW, tab:HF3DVMCDW,
+    tab:HFVAR2DVMCDW, tab:HFVAR3DVMCDW}.
 
 \subsection{Variational Monte-Carlo}
     The first tests here were also to find the exact energies, which are also
@@ -1090,7 +1093,7 @@
     These results are also implemented as a bunch of tests.
 
     For the benchmarks, we compared our energies again with the thesis of
-    Høgberget\cite{jorgenThesis}. The results are given in >> REF (AND MAKE) TABLE <<
+    Høgberget\cite{jorgenThesis}.
 
     For the double-well system we only used a Hartree-Fock basis and checked
     that the Hartree-Fock energies were reproduced (in case with no Jastrow).

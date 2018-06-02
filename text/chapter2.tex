@@ -1,27 +1,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Many-Body Quantum Theory\label{chapter:2}}
     We cannot make any implementations without a solid foundation in theory and
-    as such we will in this chapter take forth the theory regarding the basics
-    \txtit{many-body quantum theory} and further deepen into Hartree-Fock
-    method and Variational Monte Carlo method. 
+    as such we will in this chapter reviews the theory regarding basics of
+    \txtit{many-body quantum theory} and further deepen into the Hartree-Fock
+    method and the Variational Monte Carlo method. 
 
     The reader is referred to \cite{GriffQuan} for an introductory text on
     quantum mechanics(for single particles) and also the so-called
     \txtit{Dirac-notation} used throughout the entire chapter. We also write
     all equations with atomic units, see \Arf{appendix:Aatomic} for detail.
 
-    The material presented is based on lecture notes\cite{basicMB, vmc} written
+    The material presented is based on lecture notes \cite{basicMB, vmc} written
     by Morten Hjort-Jensen for the course FYS4411/9411.
 
 \section{The Hamiltonian and the Born-Oppenheimer Approximation\label{sec:3.1}}
-    The task at hand is to solve the many-body system described by
+    The task at hand is a given solve the many-body system described by
     \txtit{Schrödinger's} equation
         \begin{equation}
             \mathcal{H}\ket{\Psi_i} = E_i\ket{\Psi_i},
             \label{eq:SE}
         \end{equation}
-    for some state $\ket{\Psi_i}$ with energy $E_i$. Usually the desired state
-    is the ground-state energy $E_0$ of the system meaning we are primarily
+    for some state $\ket{\Psi_i}$ with energy $E_i$. Usually, the desired state
+    is the ground-state energy $E_0$ of the system, meaning we are primarily
     interested in the \txtit{ground-state} $\ket{\Psi_0}$. \\ With the goal
     determined we can define the system to consist of $N$ identical
     particles\footnote{These are in both atomic physics and in the quantum dot
@@ -43,11 +43,11 @@
     nucleon $k$ and $Z_k$ is the corresponding atomic number.
 
     We assume the nuclei to be much heavier than the identical particles,
-    meaning they move much slower, at which the system can be viewed as
-    electrons moving around the vicinity of stationary nuclei.  This means the
-    kinetic term for the nuclei vanish and the nuclei-nuclei interaction
-    becomes a constant\footnote{Adding a constant to an operator does not alter
-    the eigenvector, only the eigenvalues by the constant
+    meaning they move much slower than the electrons, at which the system can
+    be viewed as electrons moving around the vicinity of stationary nuclei.
+    Meaning the kinetic term for the nuclei vanish and the nuclei-nuclei
+    interaction becomes a constant\footnote{Adding a constant to an operator
+    does not alter the eigenvector, only the eigenvalues by the constant
     factor\cite{linalgDavid}.}. The approximation we end up with is the
     so-called \txtit{Born-Oppenheimer approximation} and the Hamiltonian is now
         \begin{equation}
@@ -76,31 +76,33 @@
 \subsubsection{Confinement Potential}
     The idea is to first take the \txtit{parabolic-dot} which is to use the
     classical Hamiltonian of a charged electron in an electromagnetic
-    field\cite{claselcwiley}
+    field \cite{claselcwiley}
         \begin{equation}
             H = \frac{1}{2m}\left(\blds{p} - e\blds{A}\right)^2 + e\phi,
         \end{equation}
     and add the confinement potential and the inter-particle interaction with
-    the Born-Oppenheimer approximation still in effect. Taking the derivations
-    in thesis of Patrick Merlot\cite{merlotthesis} and Yang Min
-    Wang\cite{yangthesis} the added energy introduced by the magnetic moment is
+    the Born-Oppenheimer approximation still in effect. Using the derivations
+    in the theses of Patrick Merlot \cite{merlotthesis} and Yang Min
+    Wang \cite{yangthesis} the added energy introduced by the magnetic moment is
     a constant factor in the inter-particle interaction term which can in
     effect be ignored in the calculations. 
     
-    With again thesis of Merlot and Ming in mind with article by Simen
-    Kvaal\cite{kvaaldots} one model for the \txtit{confinement} potential is
-    the Harmonic Oscillator potential(see \Arf{subfig:HO1D, subfig:HO2D})
+    Taking our inspiration from the theses of Merlot and Ming and an article by
+    Simen Kvaal\cite{kvaaldots}, one model for the \txtit{confinement}
+    potential is the harmonic oscillator potential, a so-called
+    \txtit{parabolic dot}.(see \Arf{subfig:HO1D, subfig:HO2D})
         \begin{equation}
             V(\blds{R},\blds{r}) = \frac{1}{2}mr^2.
         \end{equation}
     \twofigure{text/figs/HO1Dplot.pdf}{One-dimensional harmonic
     oscillator}{HO1D}{text/figs/HO2Dplot.pdf}{Two-dimensional harmonic
     oscillator}{HO2D}{Visualization of the harmonic oscillator potential.}
-    A third approach is to use a \txtit{double-dot} which is basically just two
-    displaced harmonic oscillator \cite{ddotnuc,yangthesis}. For simplicity we
-    shift it in $x$-direction giving the same form used in
-    theses\cite{yangthesis, merlotthesis, jorgenThesis} and article by Nielsen,
-    Young, Muller and Carroll\cite{nonIsoGauss}(see \Arf{subfig:DW1D, subfig:DW2D}
+
+    A second approach is to use a \txtit{double-dot} which is basically just
+    two displaced harmonic oscillators \cite{ddotnuc,yangthesis}. For
+    simplicity we shift it in $x$-direction giving the same form used in
+    \cite{yangthesis, merlotthesis, jorgenThesis} and \cite{nonIsoGauss}.(see
+    \Arf{subfig:DW1D, subfig:DW2D})
         \begin{equation}
             V(\blds{R},\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - \delta
             R\abs{x} + R^2\right).
@@ -128,20 +130,20 @@
             \Psi_{\text{H}} = \prod_i\psi_i(\blds{r}_i).
         \end{equation}
     With $\{\psi\}_{i=0}^N$ being the orbitals which solve the single-particle
-    Schrödinger equation for $H_0$. The Hartree-product is unfortunately a poor
+    Schrödinger equation for $H_0$. The Hartree product is unfortunately a poor
     choice since it does not solve the $H_I$ part meaning it is not a
-    physically valid solution. This comes from the fact that the
-    Hartree-product does not take into account the fact that the particles in
-    question are \txtit{identical particles}. Since the particles are
+    physically valid solution. This comes from the fact that the product does
+    not take into account the fact that the particles in question are
+    \txtit{identical and indistinguishable particles}. Since the particles are
     identical, switching the labels on the particles shouldn't change the
-    expectation value of some observable. If we run this remark through we
-    end up with the conclusion that the state $\ket{\Psi}$ must be either
-    symmetric or antisymmetric with the symmetric part being the \txtit{bosonic
-    state} and antisymmetric being the \txtit{fermionic state}. The connection
-    between antisymmetric states and fermions is called the \txtit{Pauli
-    exclusion principle}.
+    expectation value of some observable. If we run this remark through we end
+    up with the conclusion that the state $\ket{\Psi}$ must be either symmetric
+    or antisymmetric with the symmetric part being the \txtit{bosonic state}
+    and antisymmetric being the \txtit{fermionic state}. The connection between
+    antisymmetric states and fermions is called the \txtit{Pauli exclusion
+    principle}.
 
-    The problem with the Hartree-product is, with the above sentiment, that it
+    The problem with the Hartree product is, with the above sentiment, that it
     is not symmetric nor antisymmetric. However we can transform it with an
     operator
         \begin{equation}
@@ -165,7 +167,7 @@
                 meaning $\mathcal{B}^2 = \mathcal{B}$.
             \item The Hamiltonian $\mathcal{H}$ and $\mathcal{B}$
                 \txtit{commute}, that is $\left[\mathcal{B},\mathcal{H}\right]
-                = \left[\mathcal{H},\mathcal{B}\right]$.
+                = \left[\mathcal{H},\mathcal{B}\right] = 0$.
             \item $\mathcal{B}$ is \txtit{unitary}, which means
                 $\mathcal{B}^{\dagger}\mathcal{B}=\mathcal{I}$.
         \end{itemize}
@@ -189,8 +191,8 @@
             \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum_{P}\mathcal{P}_P\prod_i\psi_i.
         \end{equation}
    The extra factor in the symmetric case is to preserve the normalization due
-   to number of particles, the $n_i$ factor is determined by the the
-   quantum-number for state $i$.
+   to number of particles, the $n_i$ factor is determined by the quantum number
+   for state $i$.
 
 \section{Variational Principle\label{sec:varPrinc}}
     One important remark is that the Slater determinant and the permanent do
@@ -198,7 +200,7 @@
     \txtit{ansatz} or guess on the true ground-state wavefunction. This is
     quite useful due to the \txtit{variational principle}. \\
     The Variational principle states that for any normalized function $\Psi$ in
-    Hilbert Space\cite{GriffQuan} with a Hermitian operator $\mathcal{H}$ the
+    Hilbert Space \cite{GriffQuan} with a Hermitian operator $\mathcal{H}$ the
     minimum eigenvalue $E_0$ for $\blds{H}$ has an upper-bound given by the
     expectation value of $\mathcal{H}$ in the function $\Psi$. That is
         \begin{equation}
@@ -206,7 +208,7 @@
             \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}. 
             \label{eq:varPrinc}
         \end{equation}
-    See \cite{GriffQuan} for proof and more.
+    See \cite{GriffQuan} for details.
 
     The mentioned ansatz is thereby guaranteed to give energies larger than or
     equal the true ground state energy meaning a minimization method is
@@ -221,9 +223,8 @@
         \end{equation}
     where the hermitian and unitary property of $\mathcal{B}$ as well as the
     fact that $\mathcal{B}$ and $H$ commute have been used. This energy
-    functional(functional in the sense that it is dependant on the wave
-    function). Applying the $\mathcal{B}$ operator to the Hartree-product,
-    pulling the sum out of the integrals and relabeling with the defninitions
+    functional. Applying the $\mathcal{B}$ operator to the Hartree-product,
+    pulling the sum out of the integrals and relabeling with the definitions 
         \begin{equation}
             \begin{aligned}
                 \bra{p}h\ket{q} &\equiv
@@ -261,7 +262,7 @@
     use to derive the Hartree-fock equations in the following section.
 
 \section{Hartree-Fock Theory\label{sec:HFtheory}}
-    Hartree-Fock method is a many-body method for approximating the
+    The Hartree-Fock method is a many-body method for approximating the
     wavefunction of a stationary many-body quantum state and thereby also
     obtain an estimate for the energy in this state. \\
     The main idea is to represent the system as a \txtit{closed-shell} system
@@ -272,27 +273,27 @@
     quantum dot case it should be enough to build a basis, which is the goal
     here.
     For more details around the motivation and usages of the Hartree-Fock
-    method see\cite{HelgakerMolElcTheory}. \\
+    method. See \cite{HelgakerMolElcTheory}. \\
     
-    In this section we will derive the Hartree-Fock equations , following
-    closely the literature by J.M Thjissen\cite{compphysThijssen}. 
+    In this section we will derive the Hartree-Fock equations, following
+    closely literature \cite{compphysThijssen}. 
 
     \subsection{Assumptions}
-        Hartree-Fock method makes the following assumptions of the system
-            \begin{itemize}
-                \item \txtit{The Born-Oppenheimer approximation} holds. 
-                \item All relativistic effects are negligible.
-                \item The wavefunction can be described by a single
-                    \txtit{Slater determinant}.
-                \item The \txtit{Mean Field Approximation} holds.
-            \end{itemize}
-        With these inherent approximations the last one is the most important
-        to take into account as it can cause large deviations from test
-        solutions (analytic solutions, experimental data etc.) since the
-        electron correlations is in reality, for many cases, not negligible.
-        There exists many methods that try to fix this problem, but the
-        \txtit{Variational Monte Carlo} (or VMC) is the method for deeper
-        explorations in this Thesis, see \Arf{sec:QMC} for more details.
+    The Hartree-Fock method makes the following assumptions of the system
+        \begin{itemize}
+            \item \txtit{The Born-Oppenheimer approximation} holds. 
+            \item All relativistic effects are negligible.
+            \item The wavefunction can be described by a single \txtit{Slater
+                determinant}.
+            \item The \txtit{Mean Field Approximation} holds.
+        \end{itemize}
+    With these inherent approximations the last one is the most important to
+    take into account as it can cause large deviations from test solutions
+    (analytic solutions, experimental data etc.) since the electron
+    correlations are in reality, for many cases, not negligible.  There exists
+    many methods that try to fix this problem, but the \txtit{Variational Monte
+    Carlo} (or VMC) is the method for deeper explorations in this Thesis, see
+    \Arf{sec:QMC} for more details.
     
     \subsection{The $\blds{\mathcal{J}}$ and $\blds{\mathcal{K}}$ Operators}
         Before we begin with the Hartree-Fock equations it is desirable to
@@ -300,14 +301,15 @@
         given in \Arf{eq:ch3Efunc}) with two operators $\mathcal{J}$ and
         $\mathcal{K}$ defined as
             \begin{equation}
-                \begin{aligned}
-                    \mathcal{J} &\equiv \sum_k
-                    \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
-                    \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r \\
-                    \mathcal{K} &\equiv \sum_k
-                    \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
-                    \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r \\
-                \end{aligned}
+                \mathcal{J} \equiv \sum_k
+                \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
+                \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r,
+            \end{equation}
+        and
+            \begin{equation}
+                \mathcal{K} \equiv \sum_k
+                \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
+                \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r.
             \end{equation}
         The $\mathcal{J}$ operator just gives the simple interaction-term while
         the $\mathcal{K}$ operator gives the exchange term with the arbitrary
@@ -315,7 +317,7 @@
         rewritten to
             \begin{equation}
                 E\left[\Psi\right] = \sum_i\Braket{\psi_i | h +
-                \frac{1}{2}\left(\mathcal{J} \pm \mathcal{K}\right) | \psi_i}
+                \frac{1}{2}\left(\mathcal{J} \pm \mathcal{K}\right) | \psi_i},
                 \label{eq:JKEfunc}
             \end{equation}
         where the one-body Hamiltonian is split into a sum of single particle
@@ -336,7 +338,7 @@
             \end{equation}
         with $\delta_{ij}$ being the well-known Kronecker-delta. This property
         is essentially a constraint to the minimization problem and the method
-        to be used is the \txtit{Lagrange multiplier method}\cite{linalgDavid},
+        to be used is the \txtit{Lagrange multiplier method} \cite{linalgDavid},
         with the \txtit{Lagrangian}
             \begin{equation}
                 \mathcal{L} = \delta E\left[\Psi\right] -
@@ -392,7 +394,7 @@
         In the derivation of the Hartree-Fock equations we only worked with
         spin-orbital functions $\{\psi\}$. However it is much more convenient
         to rewrite these in terms of spatial orbitals $\{\phi\}$ and integrate
-        the spin-dependant part out. There are two ways of doing this and the
+        the spin-dependent part out. There are two ways of doing this and the
         two different approaches give the so-called \txtit{restricted
         Hartree-Fock} and \txtit{unrestricted Hartree-Fock} methods.
 
@@ -407,11 +409,11 @@
                 \label{eq:spinpairingHF}
             \end{equation}
         with $\alpha(s)$ and $\beta(s)$ being different spin-states (up and
-        down). This pairing of spin-states with same and same spacial-orbitals
-        means we can pull the spin degrees of freedom out from the
-        $\mathcal{J}$ and $\mathcal{K}$ operators, reduce the sum to only run
-        over half the states and multiply the entire sum by $2$. The result is
-        that the restricted energy-functional reads
+        down). This pairing of spin-states with the same and same
+        spin orbitals means we can pull the spin degrees of freedom out from
+        the $\mathcal{J}$ and $\mathcal{K}$ operators, reduce the sum to only
+        run over half the states and multiply the entire sum by $2$. The result
+        is that the restricted energy-functional reads
             \begin{equation}
                 E\left[\Psi\right] = \sum\limits^N_{i=1}\veps_i -
                 \sum\limits^{\frac{N}{2}}_{i=1} \Braket{i | 2\mathcal{J}
@@ -466,16 +468,15 @@
             \end{equation}
         This concludes the essential parts of the derivations of the
         Hartree-Fock equations. We also present the unrestricted case in
-        \Arf{sec:UHFPNE} below. 
+        \Arf{sec:UHFPNE}. 
     
 \section{Unrestricted Hartree-Fock and Poople-Nesbet-Equations\label{sec:UHFPNE}}
-    In the spirit of completion we also write out the equations for the
-    unrestricted case. The equations are in this case called the
-    \txtit{Poople-Nesbet equations}. The derivations are exactly the same as
-    for the restricted case, but without the spin-pairing in
-    \Arf{eq:spinpairingHF}. We get two equations, one for the spin-up states
-    and one for the spin-down\cite{compphysThijssen}. The equations
-    are\footnote{These are just two Roothan-Hall equations.}
+    Here we delve into equations for the unrestricted case. The equations are
+    in this case called the \txtit{Poople-Nesbet equations}. The derivations
+    are exactly the same as for the restricted case, but without the
+    spin-pairing in \Arf{eq:spinpairingHF}. We get two equations, one for the
+    spin-up states and one for the spin-down \cite{compphysThijssen}. The
+    equations are\footnote{These are just two Roothan-Hall equations.}
         \begin{equation}
             \begin{aligned}
                 \blds{F}^{+}\blds{C}^{+} &=
@@ -494,8 +495,8 @@
         \end{equation}
     The Hartree-Fock algorithm thus involves two eigenvalue problems at each
     iteration. Notice also that the summation index $k_{\pm}$ runs over the
-    spin-up or spin-down states respectively and the $r$ and $s$ runs over all
-    the spacial basis functions.
+    spin-up or spin-down states respectively and $r$ and $s$ run over all the
+    spacial basis functions.
 
 \section{Convergence, Mixing and the Hartree-Fock Limit}
     The Hartree-Fock equations themselves are what we call a system of
@@ -504,15 +505,15 @@
     of setting a convergence threshold is to say
         \begin{equation}
             \abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
-            \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \text{threshold}
+            \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \text{threshold}.
             \label{eq:HFconvthresh}
         \end{equation}
-    The factors determining the achievement that is correct convergence to a
+    The factors determining the achievement of correct convergence to a
     ground-state is the basis set of choice, but even with a good set the
-    notorious divergence can occur.  There are two methods in particular which
-    are made to account for this. The first one is a simple
-    \txtit{mixing}\cite{compphysThijssen} of the current density matrix and the
-    one obtained at previous iteration
+    divergence can occur.  There are two methods in particular which are made
+    to account for this. The first one is a simple
+    \txtit{mixing} \cite{compphysThijssen} of the current density matrix and the
+    one obtained at the previous iteration
         \begin{equation}
             \blds{\rho}_{\text{new}} = \alpha\blds{\rho}_{\text{new}} + (1 -
             \alpha)\blds{\rho}_{\text{old}},\indent 0<\alpha\leq 1.
@@ -525,8 +526,8 @@
 \subsection{DIIS Procedure}
     The more popular approach to avoid oscillations and achieve(possibly
     faster) convergence is the DIIS procedure, also known as Pulay
-    mixing\cite{PULAY,PULAY2}. The idea is to define an \txtit{extrapolated}
-    error term dependant on the previous $M$ iterations
+    mixing \cite{PULAY,PULAY2}. The idea is to define an \txtit{extrapolated}
+    error term dependent on the previous $M$ iterations
         \begin{equation}
             \blds{Y} = \suml{m=1}{M} c_m\blds{y}_i.
             \label{eq:errorDIISdef}
@@ -537,7 +538,7 @@
             \suml{m=1}{M} c_m = 1,
         \end{equation}
     with the Lagrange multiplier method. This then ends up with the following
-    $m+1$ system of linear equations to be solver for ${c}^{m}_i$ and the
+    $m+1$ system of linear equations to be solved for ${c}^{m}_i$ and the
     Lagrange multiplier $\lambda$
         \begin{equation}
             \begin{pmatrix}
@@ -545,7 +546,7 @@
                 \vdots & \ddots & \vdots & \vdots \\
                 B_{m1} & \dots & B_{mm} & -1 \\
                 -1 & \dots & -1 & 0
-            \end{pmatrix}
+            \end{pmatrix}.
             \begin{pmatrix}
                 c_1 \\
                 \vdots \\
@@ -560,17 +561,17 @@
                 -1
             \end{pmatrix}
         \end{equation}
-    The elements of matrix $\blds{B}$ is
+    The elements of matrix $\blds{B}$ are
         \begin{equation}
             B_{ij} = \blds{e}_i \cdot \blds{e}_j.
         \end{equation}
     Following directly the calculations of articles \cite{PULAY,PULAY2} by
-    Pulay, P. The error term can be defined by the Fock matrix as
+    Pulay, P, the error term can be defined by the Fock matrix as
         \begin{equation}
             \blds{e}_i = \blds{F}_i\blds{\rho}_i\blds{S} -
             \blds{S}\blds{\rho}_i\blds{F}_i,
         \end{equation}
-    where the density matrix $\blds{\rho}_i$ and Fock-matrix $\blds{F}_i$ is
+    where the density matrix $\blds{\rho}_i$ and Fock-matrix $\blds{F}_i$ are
     calculated without any mixing in the given iteration $i$. The Fock matrix
     is then calculated as usual in every iteration and then the last $m$ error
     terms are used to mix an extrapolated Fock-matrix as
@@ -578,7 +579,7 @@
             \blds{F}_{\text{mix}} = \suml{m=1}{M}c_i\blds{F}_i.
             \label{eq:extrapolF}
         \end{equation}
-    Here is also a figure describing the algorithm.
+    Here is a figure which describes the algorithm.
         \begin{figure}[H]
             \centering
             \begin{tikzpicture}[
@@ -694,7 +695,7 @@
     estimate for the ground-state energy. However from \Arf{chapter:6} we can
     see that the convergence seems to reach a limit (since the energies with
     the variational method is lower). This limit is known as the
-    \txtit{Hartree-Fock limit}\cite{HFlimit} and is the lowest possible energy
+    \txtit{Hartree-Fock limit} \cite{HFlimit} and is the lowest possible energy
     that can be obtained with a single-determinant wavefunction. At this limit
     we have the following names for the different quantities involved
         \begin{itemize}
@@ -705,7 +706,7 @@
     This particular limit is of interest because when it is reached we can be
     confident that the obtained basis from the Hartree-Fock iteration is the
     best possible one and further desirable optimizations requires different
-    methods like coupled-cluster or variational Monte-Carlo as mentioned.
+    methods like Coupled-Cluster or Variational Monte Carlo as mentioned.
 
 
 \section{Quantum Monte Carlo\label{sec:QMC}}
@@ -713,9 +714,9 @@
     by a statistical approach using so-called \txtit{Markov Chain} simulations
     (also called random walk). The nature of the wave function at hand is
     fundamentally a statistical model defined on a large configuration space
-    with small areas of densities. The Monte Carlo method is perfect for
-    solving such a system because of the non-homogeneous distribution of
-    calculation across the space. A standard approach with equal distribution
+    with small areas of non-zero values. The Monte Carlo methods are perfect for
+    solving such a system because of the non-homogeneous distributions of
+    calculation across the space. A standard approach with equal distributions
     of calculation would then be a waste of computation time. 
 
     We will in this chapter address the Metropolis algorithm which is used to
@@ -723,7 +724,7 @@
     method.
 
     The chapter will use \txtit{Dirac Notation} \cite{GriffQuan} and all
-    equations stated assume \txtit{atomic units}\cite{atomicunits}
+    equations stated assume \txtit{atomic units} \cite{atomicunits}
     ($\hbar=m_e=e=4\pi\veps_0$), see \Arf{appendix:Aatomic}.
 
     \subsection{The Variational Principle and Expectation Value of Energy}
@@ -740,8 +741,8 @@
                 E_0 \leq \ecp{\Ham}.
                 \label{eq:ecpEBound}
             \end{equation}
-        Now we can define our PDF as(see \Arf{susec:diffTHpdf} for a more
-        detailed reasoning)
+        Now we can define our probability distribution as(see
+        \Arf{susec:diffTHpdf} for a more detailed reasoning)
             \begin{equation}
                 P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner},
                 \label{eq:PDFdef}
@@ -751,15 +752,14 @@
                 E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\psiT}\Ham\psiT,
                 \label{eq:ELdef}
             \end{equation}
-        the so-called local energy, we can rewrite \Arf{eq:ecpE} to
+        the so-called local energy, we can rewrite \Arf{eq:ecpE} as
             \begin{equation}
                 E[\psiT] = \ecp{E_L}.
             \end{equation}
         The idea now is to find the lowest possible energy by varying a set of
-        parameters $\mb{\alpha}$. This is done by numerical
-        minimization(see \Arf{chapter:5}). We essentially minimize the
-        expectation value of the energy were the expectation value itself is
-        found with the Metropolis algorithm, see \Arf{susec:MHAlg}.
+        parameters $\mb{\alpha}$. This is done by numerical minimization(see
+        \Arf{chapter:5}). We essentially minimize the expectation value of the
+        energy, see \Arf{susec:MHAlg}.
 
         An important property of the local energy is when we differentiate it
         with respect to one of the variational parameters $\{\alpha\}$ within
@@ -779,15 +779,13 @@
                 &= 0
                 \label{eq:expELdelzero}
             \end{align}
-        We have used the fact that $H$ is not dependant on any variational
-        parameter and used the hermitian properties\cite{GriffQuan} of $H$ to
-        justify the movement of $H$ within the integral.  
+        We have used the fact that $H$ is not dependent on any variational
+        parameter and used the hermitian properties \cite{GriffQuan} of $H$.
 
         This neat result presented in \Arf{eq:expELdelzero} will show its
         usefulness in the minimization when derivatives of the expectation
         value come into play since finding the derivative of the local energy
-        would be much more of a hassle.\footnote{The differentiation of the
-        wavefunction is enough to reduce the quality of life on its own!} \\
+        would be much more of a hassle. \\
         And for reference we write
             \begin{equation}
                \prd{\alpha}[\ecp{E}] =
@@ -808,7 +806,7 @@
         where $w(j\rarr i)$ is just a transition from state $j$ to state $i$.
         For the transition chain to reach a desired convergence while
         reversibility is kept, the well known condition for detailed balance
-        must be fulfilled\cite{statmech}. If detailed balance is true, then the
+        must be fulfilled \cite{statmech}. If detailed balance is true, then the
         following relation is true
             \begin{equation}
                 w_i \ufij{T}{i}{j}\ufij{A}{i}{j} = w_j \ufij{T}{j}{i}\ufij{A}{j}{i}
@@ -913,7 +911,7 @@
         generation of points which makes $\psi_T=0$. This can be overcome by
         introducing the square of the wave function to be defined as the
         distribution function as given in \Arf{eq:PDFdef}. This basically means
-        that when using Quantum Monte-Carlo methods, the incorporation of the
+        that when using Quantum Monte Carlo methods, the incorporation of the
         fact that when an energy is more undefined(meaning $\psi_T\rarr 0$) the
         less probable that point is actually means the generation of states in
         which $\psi_T$ is removed. In the next chapter we will derive the
@@ -971,12 +969,12 @@
                 \mb{F} = \frac{2}{\psi_T}\nabla \psi_T.
                 \label{eq:qForceDef}
             \end{equation}
-        This is the so-called \txtit{quantum force} resposnible for pushing the
+        This is the so-called \txtit{quantum force} responsible for pushing the
         walkers towards regions where the wave function is large.
 
         The missing part now is to model the selection probability in
         \Arf{eq:metropolisAcceptance}. Inserting the quantum force into the
-        Focker-Planck equation(\Arf{eq:FokkerPlanckDef}) the following
+        Focker-Planck equation(\Arf{eq:FokkerPlanckDef}), the following
         diffusion equation appears
             \begin{equation}
                 \prd{t}[P] = -D\nabla^2 P.
@@ -1038,7 +1036,7 @@
         general product for bosonic systems\cite{GriffQuan, NeOr, FeWa, DiVNe}
         We will explain the fermionic case shortly since it is the main focus
         here and since the bosonic wavefunction is simple to express. The
-        Slater is expressed as
+        Slater determinant is expressed as
             \begin{equation}
                 \phiT = \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)
             \end{equation}
@@ -1047,33 +1045,32 @@
                 \Phi_{ij} = \phi_{n_j}(\blds{r}_i;\blds{\alpha})
             \end{equation}
         such that each row is evaluated for particle $i$ and each column is for
-        a quantum number $n_j$ dependant on the basis used. The $\xi(s)$ is the
-        spin-dependant part. Notice also that we switched the labeling from
+        a quantum number $n_j$ dependent on the basis used. The $\xi(s)$ is the
+        spin-dependent part. Notice also that we switched the labeling from
         $\Psi_T$ to $\Phi_T$. This is to make a distinction between
         \txtit{one-body} and \txtit{correlation} terms. The latter will be
-        introduced later in \Arf{susec:TWFJastrow}. In this case the
+        introduced in \Arf{susec:TWFJastrow}. In this case the
         \txtit{single-particle} functions $\phi_j(r)$ are expanded in some
-        basis(i.e Hartree-Fock).
+        basis(in most cases a Hartree-Fock basis).
 
     \subsection{The Trial Wavefunction: Splitting the Slater Determinant}
         An important part of the trial-wavefunction presented here is that the
         one-body term is \txtit{independent} of spin, meaning the Hamiltonian
-        is not explicitly dependant on the spin degrees of freedom. For the
-        case of a Hamiltonian with an inherent spin part The following
-        splitting of the Slater determinant is not valid! In that case the
+        is not explicitly dependent on the spin degrees of freedom. For the
+        case of a Hamiltonian with an inherent spin part, the following
+        splitting of the Slater determinant is not valid. In that case the
         expectation value(presented in the variational principal in
         \Arf{eq:varPrinc}) would be a product of the expectation value over the
         spin-independent part of the Hamiltonian and the expectation value over
-        the remaining spin-dependant parts\cite{spinDep}. The results presented
+        the remaining spin-dependent parts\cite{spinDep}. The results presented
         here is however for systems of spin-independent systems, and in those
         cases the spin-part is essentially just another label which can be
         integrated out(similar to the procedure with the restricted
         Hartree-Fock method). For the splitting with a \txtit{spin-dependent}
         Hamiltonian see \cite{splitDet} and \cite{basicMB}. \\
         
-        The procedure is simply to arrange the basis functions in such a way
-        that we have $N/2$ single-particle functions in spin-up and the same
-        basis functions for spin-down. This means that the Slater is
+        The procedure is simply to arrange the basis functions in the following
+        Slater determinant
             \begin{equation}
                 \frac{1}{N!} \begin{pmatrix}
                     \phi_1(\blds{r}_1)\xi_{\urw} & \dots &
@@ -1090,9 +1087,9 @@
         This restructuring of the single-particle states implies that
             \begin{equation}
                 \det(\blds{\Phi}) \propto \det(\blds{\Phi_{\urw}})
-                \det(\blds{\Phi_{\drw}}).
+                \det(\blds{\Phi_{\drw}}),
             \end{equation}
-        Where we have defined
+        where we have defined
             \begin{equation}
                     \blds{\Phi_{\urw}} = \begin{pmatrix}
                         \phi_1(\blds{r}_1) & \dots & \phi_{N/2}(\blds{r}_1) \\
@@ -1111,38 +1108,38 @@
                 \end{pmatrix}.
             \end{equation}
         This essentially says that we put the first $N/2$ particle labels in
-        spin-up configuration and the remaining in spin-down and use the same
-        single-particle functions.  On a technical note, this rewriting is an
-        approximation. However it can be shown(again see \cite{splitDet}) that
-        the expectation value is still the same. The one-body term is now
-        rewritten to
+        spin-up configurations and the remaining in spin-down configurations
+        and use the same single-particle functions.  On a technical note, this
+        rewriting is an approximation. However it can be shown(see
+        \cite{splitDet}) that the expectation value is still the same. The
+        Slater determinant term is now rewritten as
             \begin{equation}
-                \det(\blds{\Phi}) = \det(\blds{\Phi_{\urw}})
+                \det(\blds{\Phi}) \approx \det(\blds{\Phi_{\urw}})
                 \det(\blds{\Phi_{\drw}}).
                 \label{eq:slatersplitdef}
             \end{equation}
 
     \subsection{The Trial Wavefunction: Jastrow Factor\label{susec:TWFJastrow}}
         As mentioned, we model the wavefunction as a product of the one-body
-        Slater and a correlation part known as a \txtit{Jastrow factor}. The
-        Jastrow can have many forms, but is build to exert some key features.
-        It should\cite{jastrow}. 
+        Slater determinant and a correlation part known as a \txtit{Jastrow
+        factor}. The Jastrow can have many forms, but is build to exert some
+        key features.  It should \cite{jastrow}. 
         \begin{itemize}
             \item Be dependent on the inter-particle distances.
             \item Approach unity at large distances.
             \item Vanish when particles are close to one another.
         \end{itemize}
         In this thesis we explore two forms, the popular
-        \txtit{Pad\'e-function} and a more resent one build with a specific
+        \txtit{Pad\'e-function} and a more recent one built with a specific
         neural network known as a \txtit{Boltzmann Machine}.
 
     \subsubsection{Cusp Condition\label{sususec:cusp_condition}}
         The derivations for the cusp conditions is described well in the master
-        thesis of Lars Eivind Lervåg\cite{larsEivindThesis}. We will here
+        thesis of Lars Eivind Lervåg \cite{larsEivindThesis}. We will here
         present the result of his for both two and three dimensions. Assuming
         the Jastrow factor $J$ has the form
             \begin{equation}
-                J = \prod_{i<j} \me^{f\left(r_{ij}\right)}
+                J = \prod_{i<j} \me^{f\left(r_{ij}\right)},
             \end{equation}
         and considering the local energy as two particles $i$ and $j$ approach,
         the final resulting conditions are known as the cusp conditions. The
@@ -1152,7 +1149,7 @@
                     \prd{r_{ij}}[f] \Bigg|_{r_{ij}=0} &=
                     \frac{1}{D-1},&\indent& \text{anti-parallel spin} \\
                     \prd{r_{ij}}[f] \Bigg|_{r_{ij}=0} &=
-                    \frac{1}{D+1},&\indent& \text{parallel spin}
+                    \frac{1}{D+1},&\indent& \text{parallel spin}.
                 \end{aligned}
                 \label{eq:cuspconditionsDef}
             \end{equation}
@@ -1160,58 +1157,59 @@
     \subsubsection{Pad\'e Function\label{sususec:TWFPadeJastrow}} 
     A popular form of a Jastrow function is the \txtit{Pad\'e},
     function\footnote{In which case it is know as the Pad\'e-Jastrow function.}
-    it is defined as\cite{basicMB, MCAbInitoChem}
+    it is defined as \cite{basicMB, MCAbInitoChem}
             \begin{equation}
                 J_{\text{Pad\'e}} =
                 \exp\left(\sum\limits_{i<j}\frac{\sum\limits_la^{(l)}_{ij}
-                r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right).
+                r^l_{ij}}{1 + \sum\limits_l \beta_l r^l_{ij}}\right).,
             \end{equation}
-        With the $\beta_l$'s as variational parameters. This function follows
-        the key features mentioned for a correlation factor and the
-        restrictions
-            \begin{equation}
-                a^{\text{2D}}_{ij} = \left\{\begin{aligned}
-                        \frac{1}{3},&\indent& &\text{parallel spin} \\
-                        1,&\indent& &\text{anti-parallel spin}
-                    \end{aligned}\right.
-            \end{equation}
-        and
-            \begin{equation}
-                a^{\text{3D}}_{ij} = \left\{\begin{aligned}
-                        \frac{1}{4},&\indent& &\text{parallel spin} \\
-                        \frac{1}{2},&\indent& &\text{anti-parallel spin}
-                    \end{aligned}\right.
-            \end{equation}
-        on the factor $a$ along with the fact that $a^{(l)}_{kj}=0$ for $l>1$,
-        means we may relabel $a^{(l)}_{ij}\rarr a_{ij}$ and $\beta_l\rarr
-        \beta$ and reduce the Pad\'e-Jastrow factor to
-            \begin{equation}
-                J_{\text{Pad\'e}} = \exp\left(\sum\limits_{i<j}\frac{a_{ij}
-                r_{ij}}{1 + \beta r_{ij}}\right).
-                \label{eq:padereduceddef}
-            \end{equation}
-        For expressions concerning the gradient and Laplacian, see
-        \Arf{appendix:B}.
+    with the $\beta_l$'s as variational parameters. This function follows the
+    key features mentioned above for a correlation factor and the restrictions
+    are
+        \begin{equation}
+            a^{\text{2D}}_{ij} = \left\{\begin{aligned}
+                    \frac{1}{3},&\indent& &\text{parallel spin} \\
+                    1,&\indent& &\text{anti-parallel spin}
+                \end{aligned}\right.
+        \end{equation}
+    and
+        \begin{equation}
+            a^{\text{3D}}_{ij} = \left\{\begin{aligned}
+                    \frac{1}{4},&\indent& &\text{parallel spin} \\
+                    \frac{1}{2},&\indent& &\text{anti-parallel spin}
+                \end{aligned}\right.
+        \end{equation}
+    on the factor $a$ along with the fact that $a^{(l)}_{kj}=0$ for $l>1$,
+    means we may relabel $a^{(l)}_{ij}\rarr a_{ij}$ and $\beta_l\rarr \beta$
+    and reduce the Pad\'e-Jastrow factor to
+        \begin{equation}
+            J_{\text{Pad\'e}} = \exp\left(\sum\limits_{i<j}\frac{a_{ij}
+            r_{ij}}{1 + \beta r_{ij}}\right).
+            \label{eq:padereduceddef}
+        \end{equation}
+    For expressions concerning the gradient and Laplacian, see
+    \Arf{appendix:B}.
 
     \subsubsection{Simple Exponential}
-        With the desirable features for a correlation function in mind. The
+        With the desirable features for a correlation function in mind, the
         simplest form for a correlation factor is a scaled exponential
         evaluated with the inter-particle distance, \footnote{The $a$'s can
         also be variational parameters.}
             \begin{equation}
                 J = \exp(\sumll{i<j} a_{ij} r_{ij}).
             \end{equation}
-        The $a$ would be defined the same as with the Pad\'e function. In
+        The factor $a_{ij}$ is defined the same way as in Pad\'e function. In
         itself this function is fairly useless as it doesn't model correlations
         very well for different systems or even the same system with different
         parameters. However we will present a new type of function in the next
-        section which does not give raise to any cusp conditions, but has a
-        more flexible form and may in connection with this simple exponential
-        give us all the necessary properties desired in a correlation function.
+        section which does not give raise to any cusp conditions, however it
+        has a more flexible form and may in connection with this simple
+        exponential give us all the necessary properties desired in a
+        correlation function.
 
     \subsubsection{The Trial Wavefunction: NQS Wavefunction
     \label{sususec:NQSJastrow}}
-        A more resent and completely different approach is to model the
+        A more recent and completely different approach is to model the
         wavefunction with a \txtit{neural network} as presented by Carleo and
         Troyer\cite{CarleoANN}. The approach used here is based on the
         \txtit{Restricted Boltzmann Machine} as described by
@@ -1255,14 +1253,6 @@
                 \exp(b_j + \suml{i=1}{N}\suml{d=1}{D}
                 \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2})\right).
             \end{equation}
-        It might not be completely clear as to why this function still makes it
-        so that the total wavefunction satisfies the cusp conditions, but the
-        reason lies in the derivation of the conditions, the procedure in which
-        the conditions presented in \Arf{sususec:cusp_condition} were found the
-        only consideration was within the terms involving $r_{ij}$ in the local
-        energy, all other terms were canceled out or were otherwise
-        non-divergent meaning the product between the Jastrow would yield the
-        same conditions.
 
 \section{Statistics and Blocking}
     Since we are dealing with physical systems of probabilistic origin, there
@@ -1277,38 +1267,35 @@
     values are stored).
 
     A nice and quite intuitive method is the resampling method known as
-    \txtit{blocking}. The details are explained with brilliance in the paper
-    \cite{blocking} by Flyvbjerg and Petersen. However the simple idea is to
-    take a set of $M$ samples $\{X\}^M_{k=1}$(from i.e a Monte-Carlo
-    simulation) and then dividing that data-set into $n$ blocks such that we
-    have $M/n$ sub-samples. Denote the mean of block $n$ by $\mu_n$ and then
-    calculate the variance in each block
+    \txtit{blocking}. The details are explained with article \cite{blocking} by
+    Flyvbjerg and Petersen. Te idea is to take a set of $M$ samples
+    $\{X\}^M_{k=1}$(from i.e a Monte-Carlo simulation) and then dividing that
+    data-set into $n$ blocks such that we have $M/n$ sub-samples. We denote the
+    mean of block $n$ by $\mu_n$ and then calculate the variance in each block
         \begin{equation}
             \Omega^2_n = \frac{1}{n_b}\suml{k=n}{2n} (X_k - \mu_n)^2,
         \end{equation}
     which gives a set $\{\Omega^2\}^{M/n}_{i=1}$. The estimate for the total
     variance of the entire sample is then approximated by
         \begin{equation}
-            \sigma^2[X] \approx \frac{1}{n} \sum_i (\Omega_i - \nu)^2.
+            \sigma^2[X] \approx \frac{1}{n} \sum_i (\Omega_i - \nu)^2,
         \end{equation}
-    Where $\nu$ is the mean of the set $\Omega^2$. \\
+    where $\nu$ is the mean of the set $\Omega^2$. \\
     The observation is then that as we increase the block-size the variance
     estimate should converge towards the true variance of the system(which
     includes the covariance). The exact size of the block is undetermined and
     the simplest approach is to just experiment with the size until convergence
     is reached. \\
-    However the thesis of Marius Jonsson the block-size is estimated with a
+    However the thesis of Marius Jonsson >>REF<< the block-size is estimated with a
     neat algorithm which we also use.
 
-
-\section{Density Matrices}
-    The Slater wavefunction presented throughout this chapter is quite
-    complicated and the solution-space for the Schrödinger equation with said
-    Slater is too large to extract any useful physical properties directly.
-    Luckily we have one part of the physical system we may extract from a
-    variational calculation, the so-called \txtit{one-body density}. From
-    quantum mechanics the one-body density for a normalized wavefunction is
-    defined as
+\section{Density Matrices\label{sec:densityMat}}
+    The Slater determinant presented is quite complicated and the
+    solution-space for the Schrödinger equation with said Slater is too large
+    to extract any useful physical properties directly.  Luckily we have one
+    part of the physical system we may extract from a variational calculation,
+    the so-called \txtit{one-body density}. From quantum mechanics the one-body
+    density for a normalized wavefunction is defined as
         \begin{equation}
             \Lambda(\blds{r},\blds{r}') = N\int
             \psi^{*}(\blds{r},\blds{r}_2,\dots,\blds{r}_N)
@@ -1324,11 +1311,12 @@
             N\times P\left(\text{Finding a particle within volume } \md\blds{r}
             \text{around point } \blds{r}\right),
         \end{equation}
-    with $P$ denoting a probability. This might not give any tingles at first
+    with $P$ denoting a probability. This might not give any direction at first
     when it comes to extraction of physical properties of the system, however
     one has to keep in mind that the actual \txtit{configuration} of particles
     within the spacial solution-grid gives a direct insight into the actual
     physics of the system. A good example of this is the distribution
+    \cite{onebodydens}
         \begin{equation}
             N\int \psi^{*}(\blds{r}_1)\psi(\blds{r}_1)\md\blds{r}_{12} = 0.
         \end{equation}
@@ -1343,7 +1331,7 @@
     Before we tackle the procedure of calculating the densities with the
     Metropolis algorithm, let us express the full $N$-body density. The
     expressions are directly copied from this insightful article by Per-Olov
-    L\"owdin\cite{onebodydens}. Density matrix of order $p$ is defined to be
+    L\"owdin \cite{onebodydens}. The density matrix of order $p$ is defined as
         \begin{equation}
             \Lambda^{(p)}\left(\blds{r}'_1,\dots,\blds{r}'_p|\blds{r}_1,\dots,\blds{r}_p\right)
             = {N\choose p} \int \psi^{*}(1',2',\dots,p',\dots,N)
@@ -1358,10 +1346,10 @@
             \Lambda_{ij} = N\int\phi^{*}_i(\blds{r}_1)\phi_j(\blds{r}')
             \frac{\psi(\blds{r}',\blds{r}_2,\dots,\blds{r}_N)}{\psi(\blds{r}_1,\dots,\blds{r}_N)}
             \abs{\psi(\blds{r}_1,\dots,\blds{r}_N)}^2
-            \md\blds{r}'\md\blds{r}_1\dots\md\blds{r}_N.
+            \md\blds{r}'\md\blds{r}_1\dots\md\blds{r}_N,
         \end{equation}
-    Where the $\phi$'s are the single-particle basis functions within the
-    Slater $\psi$. \\
+    where the $\phi$'s are the single-particle basis functions within the
+    Slater determinant $\psi$. \\
     The elements of the $\blds{\Lambda}$ matrix can then be calculated by
     simple counting. The basic premise is to essentially create a histogram of
     particle counts with the bins being various radial distances up to some
@@ -1371,18 +1359,18 @@
     usual total sum (sum of all values in the bins array), but also the radial
     distance to the power $D$ to the right-most edge of each bin. The reason
     for this additional normalization is to account for the radial
-    contributions to the configurations, a larger radial distance means the
-    sparsity of the particle-density increases. We are however only interested
-    in the non-dimensional count within each vicinity meaning we need to divide
-    away the dimensional volume element of each bin. The element for a bin $n$
-    is found to be\footnote{Constant proportional factors are dropped due to
-    them being canceled in the histogram normalization(division of the sum of
-    whole bin array).}
+    contributions to the configurations, a larger radial distance means that
+    the sparsity of the particle-density increases. We are however only
+    interested in the non-dimensional count within each vicinity meaning we
+    need to divide away the dimensional volume element of each bin. The element
+    for a bin $n$ is found to be\footnote{Constant proportional factors are
+    dropped due to them being canceled in the histogram normalization(division
+    of the sum of whole bin array).}
         \begin{equation}
             V^{(D)}_n = r^D_{n+1} - r^D_n = (r_n+\Delta r)^D - r^D_n.
         \end{equation}
     To keep this stable we also notice that if the number of bins is
-    satisfyingly large higher orders of $\Delta r$ vanish and only the terms
+    satisfyingly large, higher orders of $\Delta r$ vanish and only the terms
     with linear factors of $\Delta r$ give a significant contribution. Notice
     also that the highest order $r^D_n$ gets canceled out. All this together
     gives

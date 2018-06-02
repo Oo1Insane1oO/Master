@@ -75,12 +75,17 @@
     \input{text/t3D}
 
 \subsection{Double-Well\label{sec:dwbimp}}
-    For the double-well we used the larges basis-set from the Hartre-Fock
+    For the double-well we used the larges basis-set from the Hartree-Fock
     calculations, which was $120$ spacial functions. Meaning the sum over $l$
-    in \Arf{eq:dwexpansiondef} runs up to $120$ while the number of
-    basisfunctions used is choosen just as usual. Keep in mind that the
-    degeneration is lifted in the double-well system. The resulting energies
-    for are given in \Arf{tab:HODW2D, tab:HODW3D}.
+    in (\Arf{eq:dwexpansiondef}) 
+        \begin{equation}
+            \ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l},
+        \end{equation}
+    runs up to $120$ while the number of
+    basisfunctions used is chosen just as usual\footnote{Keep increasing until
+    Hatree-Fock limit is reached.}. Keep in mind that the degeneration is
+    lifted in the double-well system. The resulting energies for are given in
+    \Arf{tab:HODW2D, tab:HODW3D}.
     \input{text/t2DDW}
     \input{text/t3DDW}
 
@@ -131,11 +136,23 @@
     
     \input{text/tHFVAR2DVMCHO}
 
+    As mentioned, the energies are consistently lower, however they are not as
+    low as with the results with \Arf{eq:benchtrialwave}(\Arf{tab:HObench2D}).
+    This again means that for the harmonic oscillator case the optimal trial
+    wavefunction is indeed not the Hartree-Fock basis, but the harmonic
+    oscillator functions. The energies are however very close giving a good
+    foundation for believing the code works properly as intended.
+
 \subsection{Three-Dimensional Harmonic Oscillator}
     Here are the same results for the three-dimensional case.
     \input{text/tableHObench3D}
     \input{text/tHF3DVMCHO}
     \input{text/tHFVAR3DVMCHO}
+
+    Again the energies are higher than with \Arf{eq:benchtrialwave}, meaning
+    the same conclusion for the optimal wavefunction as with the
+    two-dimensional case is still the case for the three-dimensional case as
+    well.
 
 \subsection{Two-Dimensional Double-Well}
    \input{text/tHF2DVMCDW} 
@@ -144,3 +161,13 @@
 \subsection{Three-Dimensional Double-Well}
    \input{text/tHF3DVMCDW} 
    \input{text/tHFVAR3DVMCDW} 
+
+\subsection{Densities}
+    The resulting one-body radial densities described in \Arf{sec:densityMat}
+    are presented here.
+
+\subsubsection{Harmonic Oscillator}
+    \twofigure{{text/oneBodyFigs/HFHOVAROnebody/w0.28_D2_N2_HFHO_oneBody_rmax8.0.txt}.pdf}{$N=2$, $\omega=0.28$.}{HFHOOneBodyN20w028}{{text/oneBodyFigs/HFHOVAROnebody/w0.28_D2_N20_HFHO_oneBody_rmax10.0.txt}.pdf}{$N=20$, $\omega=0.28$.}{HFHOOneBodyN200w28}{One-Body density for the two dimensional harmonic oscillator potential using a Hartree-Fock basis with Pad\'e function and $\alpha$ parameter.}
+    \twofigure{{text/oneBodyFigs/HFHOVAROnebody/w1.0_D2_N2_HFHO_oneBody_rmax4.0.txt}.pdf}{$N=2$, $\omega=1.0$.}{HFHOOneBodyN2w1}{{text/oneBodyFigs/HFHOVAROnebody/w1.0_D2_N20_HFHO_oneBody_rmax6.0.txt}.pdf}{$N=20$, $\omega=1.0$.}{HFHOOneBodyN200w1}{One-Body density for the two dimensional harmonic oscillator potential using a Hartree-Fock basis with Pad\'e function and $\alpha$ parameter.}
+    \twofigure{{text/oneBodyFigs/HFHO3DVAROnebody/w0.1_D3_N2_HFHO_rmax10.0.txt}.pdf}{$N=2$, $\omega=0.1$.}{HFHO3DOneBodyN2w01}{{text/oneBodyFigs/HFHO3DVAROnebody/w0.1_D3_N8_HFHO_rmax14.0.txt}.pdf}{$N=20$, $\omega=0.1$.}{HFHOOneBodyN80w01}{One-Body density for the three dimensional harmonic oscillator potential using a Hartree-Fock basis with Pad\'e function and $\alpha$ parameter.}
+    \twofigure{{text/oneBodyFigs/HFHO3DVAROnebody/w1.0_D3_N2_HFHO_rmax2.0.txt}.pdf}{$N=2$, $\omega=1.0$.}{HFHO3DOneBodyN2w1}{{text/oneBodyFigs/HFHO3DVAROnebody/w1.0_D3_N8_HFHO_rmax3.5.txt}.pdf}{$N=20$, $\omega=1.0$.}{HFHOOneBodyN8w1}{One-Body density for the three dimensional harmonic oscillator potential using a Hartree-Fock basis with Pad\'e function and $\alpha$ parameter.}

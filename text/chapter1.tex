@@ -33,18 +33,18 @@
     Schrödinger equation, some of these are the first-order methods
     Hartree-Fock theory and Density Functional Theory, hierarchical methods
     such as Configuration Interaction and Coupled Cluster theory and
-    statistical methods Variational Monte-Carlo and Diffusion Monte-Carlo. 
+    statistical methods like Variational Monte Carlo and Diffusion Monte Carlo. 
 
     In case with Hartree-Fock and Density Functional Theory, the accuracy is
     not desirably high, however they are efficient and are most useful as
     inputs to the more accurate hierarchical methods\footnote{They are
-    hierarchical in the sense that increasingly accurate approximations can
+    hierarchical in the sense that increasingly accurate approximations can be
     systematically constructed.} or the variational method.
 
     For the configuration interaction methods one either truncates the defined
     hierarchical structure\footnote{In which case it is actually known as
     Configurations Interaction.} or uses all contributions in which case the
-    method is known as Full Configuration-Interaction. These methods suffer
+    method is known as Full Configuration Interaction. These methods suffer
     from \txtit{exponential scaling} and are therefore much heavier in
     computational strain than the less accurate methods mentioned. The
     truncated version however is not size-consistent.  The truncated
@@ -53,27 +53,26 @@
     when high accuracy is in question. 
 
     The statistical methods mentioned employes a different approach by
-    utilizing the statistical nature of the wavefunction in Schrödingers
+    utilizing the statistical nature of the wavefunction in the Schrödinger
     equation and modeling the entire problem as a stochastic diffusion process.
     Although the accuracy is on par with the hierarchical methods, the
     strenuous effort involved in the minimization within the variational method
     can utterly obliterate ones spirit.
 
-    Another great property which statistical methods makes available without
-    much effort are the beasts known as \txtit{density-matrices} or $N$-body
+    One great property which statistical methods is that they readily, without
+    much effort, gives the beasts known as \txtit{density-matrices} or $N$-body
     densities\footnote{Technically possible to obtain from the hierarchical
-    methods aswell, but in that case the mentioned beastily properties of the
-    matrices emerge.}. These can give some insight into desirable physics of
-    the system. It is also worth to mention that the variational method is in
-    many approaches an input to the more accurate diffusion method since the
-    latter requires a good initial starting-point.
+    methods as well, but it is harder.}. These can give some insight into
+    desirable physics of the system. It is also worth to mention that the
+    variational method is in many approaches an input to the more accurate
+    diffusion method since the latter requires a good initial starting point.
 
     A certain system which techniques from many-body quantum theory can be used
     is with the \txtit{artificial atoms} known as \txtit{quantum dots}.
-    Quantum dots were first proposed in the 50's and has ever since played a
+    Quantum dots were first proposed in the 50's and have since played a
     big part in some big breakthroughs in science and technology. They are
-    essentially really small semiconductor particles and they have played a
-    central role in nanotechnology because of their nice electrical and optical
+    essentially really small semiconductor systems and they have played a
+    central role in nanophysics because of their nice electrical and optical
     properties. They tend to exist in solid state meaning they can be more
     easily cooled. The result is that experiments have been conducted with
     lasers, LEDS, the new generation of transistors in the modern computer and
@@ -85,23 +84,22 @@
     the Hamiltonian.
 
 \section{Structure and Goals\label{sec:structure_and_goals}}
-    In this thesis we go into detail on the popular Hartree-Fock method and the
-    Variational Monte-Carlo method with the \txtit{artificial atoms} known as
-    quantum-dots by using single- and double-well potentials as primary systems
-    of study with this chapter being a brief introduction to the structure and
-    goals of the thesis.
+    In this thesis we go into details with the popular Hartree-Fock method and
+    the Variational Monte-Carlo method with the \txtit{artificial atoms} known
+    as quantum dots by using single- and double-well potentials as primary
+    systems of study with this chapter being a brief introduction to the
+    structure and goals of the thesis.
 
-    The main goal(at least at some point into the semester) was to make a
-    code-base for large-scale quantum many-body calculations from scratch. Of
-    course there exists many such code-bases and competing with those in terms
-    of scalability and computational efficiency is beyond the scope of this
-    thesis, the choice for a from-scratch approach was made in order to gain
-    some insight into the methods and a better understanding for the
-    programming aspects which would follow. With this in mind, we did however
-    get much inspiration from previous theses and implementations from other
-    sources as well. \\
-    The main goals for the thesis was
-        \begin{itemize}
+    The main goal was to make a code-base for large-scale quantum many-body
+    calculations from scratch. Of course there exists many such code-bases and
+    competing with those in terms of scalability and computational efficiency
+    is beyond the scope of this thesis, the choice for a from-scratch approach
+    was made in order to gain some insight into the methods and a better
+    understanding of the programming aspects which would follow. With this in
+    mind, we did however get much inspiration from previous theses and
+    implementations from other sources as well. \\
+    The main goals for the thesis were
+        \begin{enumerate}
             \item Make a general \CC code for the \txtit{Hartree-Fock method}
                 and the \txtit{Variational Monte Carlo method} which could take
                 any basis into play with minimal effort.
@@ -111,7 +109,7 @@
             \item Build an optimal one-body basis with the Hartree-Fock method
                 and make improvements on this basis with the variational
                 Monte-Carlo method with a \txtit{Slater-Jastrow} wavefunction.
-        \end{itemize}
+        \end{enumerate}
     With this in mind a general open-source code for the restricted
     Hartree-Fock method was developed and is open for use in
     \url{https://github.com/Oo1Insane1oO/HartreeFock}. The variational
@@ -125,7 +123,7 @@
     abstract wavefunction classes which only need to be filled in with
     analytical expressions and are otherwise already integrated with the
     existing code. \\
-    The thesis itself is built in three parts
+    The thesis itself is built in four parts
         \begin{itemize}
             \item Quantum Theory: Theory for the implementation.
             \item Choice of Basis: The form of the wavefunction.

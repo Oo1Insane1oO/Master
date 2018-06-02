@@ -5,29 +5,29 @@
     or function-space are all part of the same set which we refer to as a
     basis. It is a set of objects applied to systems in order to essentially
     change our view of them, to extract desirable properties and to describe
-    them in a rigidly fashion. In quantum mechanics the abstract vector-space
+    them in a rigorous way. In quantum mechanics the abstract vector-space
     models are used and the functions in mind are the wavefunctions thrown into
     the Schrödinger equation and the space at hand is the \txtit{Hilbert
-    Space}.  These functions are the central part of the particle-description
-    in which quantum theory bases itself in, as such the choice of a basis is
+    Space}. These functions are the central part of the particle-description
+    in quantum theory, therefore the choice of a basis is
     of monumental importance when solving quantum mechanical systems.
     Often\footnote{Read always} the choice of basis functions determine the
     efficiency and degree of usefulness that a specific method actually holds.
     This is usually to such degree that a poor choice of basis renders the
-    method in question less useful or even completely unavailing.
+    method in question less useful.
 
-    The poor choice of basis sentiment is most definitely true for both the
-    Hartree-Fock and the variational monte-carlo methods, and great care has to
-    be taken when introducing such choices. For the variational method, the
-    basis is taken directly from the Hartree-Fock method meaning much of the
-    physical properties desired within the trial wavefunction are within this
-    basis. In which case all except electron-electron
-    correlations\footnote{Technically also nucleon-electron correlation as
-    well, but quantum-dot systems do not have any atomic cores present.} are
-    modeled quite well. For the basis in Hartree-Fock the choice needs to be in
-    correspondence with the system of interest.
+    The choice of basis is most definitely true for both the Hartree-Fock and
+    the Variational Monte Carlo methods, and great care has to be taken when
+    introducing such choices. For the variational method, the basis is taken
+    directly from the Hartree-Fock method meaning much of the physical
+    properties desired within the trial wavefunction are within this basis. In
+    which case all except electron-electron correlations\footnote{Technically
+    also nucleon-electron correlation as well, but quantum-dot systems do not
+    have any atomic cores present.} are modeled quite well. For the basis in
+    Hartree-Fock the choice needs to be in correspondence with the system of
+    interest.
 
-    We will in this chapter mention some popular basis-sets used in atomic
+    We will in this chapter mention some popular basis sets used in atomic
     physics and deepen into a particular set of functions called
     \txtit{Gaussian Type orbitals} and use them with the well known
     \txtit{Hermite functions} and make a detailed calculation of the integral
@@ -38,29 +38,28 @@
     the double-well potentials can be defined by the symmetry in polar
     coordinates is broken making the polar approach less desirable. The
     procedure in building the basis for the double-well system is also
-    explained detail. A second motivation for taking the Cartesian route is due
-    to the complex part introduced in the spherical-harmonic part of the polar
-    wavefunction. This complex part has to be evaluated in the Monte-Carlo
-    sampling introducing a whole new level of undesired computational
-    complexity.
+    explained in detail. A second motivation for taking the Cartesian route is
+    due to the complex part introduced in the spherical-harmonic part of the
+    polar wavefunction. This complex part has to be evaluated in the
+    Monte-Carlo sampling introducing a whole new level of undesired
+    computational complexity.
 
 \section{Hermite Functions}
-    Hermite functions are functions 
+    The Hermite functions are
         \begin{equation}
             \phi^a_n(\blds{r}) \equiv \prod_d N_d
             H_{n_d}(\sqrt{a}x_d)\exp(-\frac{a}{2}x^2_d)
             \label{eq:HermiteFunc}
         \end{equation}
     with $\blds{r} = \sum\limits_d \blds{\me}_dx_d$ and the sum over $d$ being
-    the sum over the number of dimensions and the $H_n$ is the Hermite
-    polynomial of order $n$. The integer $n_d$ is the order of the
-    function\footnote{In quantum mechanics the number $n$ is referred to as the
-    principal quantum number and is associated with the energy of a given
-    orbital(energy-level) of the system.} while the parameter $a$ is a scaling
-    factor and $N_d$ is a normalization factor. These functions show up as
-    eigenfunctions for the \txtit{quantum harmonic oscillator
-    system}\cite{GriffQuan} with the scaling parameter $a$ equal to the
-    oscillator frequency ($\omega$) of the system.
+    the sum over the number of dimensions and $H_n$ is the Hermite polynomial
+    of order $n$. The integer $n_d$ is the order of the function\footnote{In
+    quantum mechanics the number $n$ is referred to as the principal quantum
+    number and is associated with the energy of a given orbital(energy-level)
+    of the system.} while the parameter $a$ is a scaling factor and $N_d$ is a
+    normalization factor. These functions show up as eigenfunctions for the
+    \txtit{quantum harmonic oscillator system} \cite{GriffQuan} with the scaling
+    parameter $a$ equal to the oscillator frequency ($\omega$) of the system.
 
     The Hermite functions are orthogonal and give a good ansatz for the VMC
     method, see \Arf{sec:QMC}, with the scaling parameter transformed with an
@@ -71,17 +70,17 @@
     \txtit{Hermite-Gaussians}. See \Arf{sec:hermiteGaussFunc}.
 
 \section{Gaussian Type Orbitals}
-    \txtit{Gaussian Type Orbitals} or GTO's are functions of form
-    form\cite{HelgakerMolElcTheory}
+    \txtit{Gaussian Type Orbitals} or GTO's are functions of the form
+    \cite{HelgakerMolElcTheory}
         \begin{equation}
             G_n(\blds{\alpha};\blds{r},\blds{A}) \equiv \prod_d (x_d-A_d)^{n_d}
             \me^{-\alpha_d (x_d-A_d)^2}.
             \label{eq:GTOdef1d}
         \end{equation}
     We call $\alpha$ for the scaling parameter and $i$ for the order of the
-    GTO. The variable $A$ is where the function is centered. These are in many
-    literatures referred to as \txtit{primitive Gaussians} and they alone
-    make a poor approximation to the true wave function.
+    GTO. The variable $A$ is where the function is centered. These are the
+    literature referred to as \txtit{primitive Gaussians} and they alone make
+    a poor approximation to the true wave function.
 
     In atomic physics these functions are used directly as a linear combination
     referred to as \txtit{contracted Gaussian functions}. These are written as
@@ -91,14 +90,15 @@
         \end{equation}
     and are fitted\footnote{Meaning we find the parameters $C_{a_k}.$ and
     $\alpha_{a_k}$} to \txtit{Slater-type orbitals}, which are functions with
-    decaying properties(present in atomic systems), or found by some variational
-    method before-hand. \\
+    decaying properties, or found by some variational method before hand. \\
 
     These functions are unfortunately not orthogonal, but they behave nicely in
     integrals and actually give an analytic expression for the
     interaction-elements mentioned in \Arf{sec:HFtheory}. For this reason we
-    will go forth and use the Gaussian contracted functions and actually fit
-    them to Hermite functions.
+    will go forth and use the Gaussian contracted functions and write the
+    Hermite-functions in terms of them, since Hermite-Functions are essentially
+    just a polynomial expansion with the constituents in the expansion being
+    Gaussian functions.
 
 \subsection{Hermite-Gaussian Functions\label{sec:hermiteGaussFunc}}
     The GTO's described can be explicitly expressed in terms of so-called
@@ -134,16 +134,14 @@
         \end{equation}
     with $C_{n_dl}$ being the $l'th$ Hermite-coefficient for the Hermite
     polynomial of order $n_d$. This means that the matrix-elements in
-    Hartree-Fock is just a linear combination over integrals over
+    Hartree-Fock theory is just a linear combination over integrals over
     Hermite-Gaussians. The following section will tackle this in detail for the
-    two-dimensional case. The three-dimensional case is given by an excellent
-    text by Trygve Helgaker and Peter R. Taylor\cite{HelgakerTaylorGauss}, see
-    also \cite{HelgakerGauss}.
+    two-dimensional case. The three-dimensional case is given by
+    \cite{HelgakerTaylorGauss}, see also \cite{HelgakerGauss}.
 
 \section{Integral Elements}
-    In the Hartree-Fock scheme described in \Arf{chapter:3} we need to
-    calculate the integrals which define the different matrix elements. The
-    integrals to be found are
+    In the Hartree-Fock scheme we need to calculate the integrals which define
+    the different matrix elements. The integrals to be evaluated are
         \begin{equation}
             \begin{aligned}
                 \Braket{i|j} &= \infint g_i(\alpha_i;r,A)g_j(\alpha_j;r,B) \md
@@ -168,16 +166,16 @@
     We will in this chapter limit ourselves to work with isotropic Gaussians
     (meaning $\alpha_d$ is the same for all dimensions) as this will yield a
     simpler closed-form solution to the integrals. For a calculation of
-    integral elements using non-isotropic Gaussian functions see this wonderful
-    article \cite{nonIsoGauss}, this article takes gives a detailed
+    integral elements using non-isotropic Gaussian functions see
+    \cite{nonIsoGauss}. This article gives a detailed explanation of the
     calculations of integrals over s-type non-isotropic gaussians. The
-    extension to general Gauss-Hermites can be done in the exact same manner as
+    extension to general Gauss-Hermites can be done in a similar way as
     presented here, however the proportionality factors involved in the
-    recursive relation is different. \\
+    recursive relation are different. \\
 
-    Before we throw ourselves out into the integrals, let us first express the
+    Before we calculate the integrals, let us first express the
     Hermite-Gaussians in a more convenient way(again see
-    \cite{HelgakerTaylorGauss} and \cite{HelgakerGauss}) such as
+    \cite{HelgakerTaylorGauss} and \cite{HelgakerGauss}),
         \begin{equation}
             g_n(\alpha;\blds{r},\blds{A}) = \prod_d  \prdp{A_{x_d}}{n_d}
             \me^{-\alpha (x_d-A_d)^2} = \prod_d \prdp{A_{x_d}}{n_d}
@@ -186,9 +184,14 @@
         \end{equation}
     Since the derivatives are with respect to the center variables we may pull
     them out of the integration meaning the integrals will only be over s-type
-    Gaussians, greatly simplifying the calculations. With the mentioned
-    simplification in mind, the problem is to find a closed-form expression for
-    the integrals over s-type Gaussians.
+    Gaussians,
+        \begin{equation}
+            g_0 (\blds{\alpha};\blds{r},\blds{A}) = \prod_d
+            \me^{-\alpha_d(x_d-A_d)^2},
+        \end{equation}
+    greatly simplifying the calculations. With the mentioned simplification in
+    mind, the problem is to find a closed-form expression for the integrals
+    over s-type Gaussians.
 
     We also introduce the \txtit{Gaussian product rule}\footnote{Still in the
     isotropic case.} which basically states that the product of two Gaussian
@@ -228,8 +231,8 @@
     centered in $P$, but with the extra monomial factors in $\blds{r}-\blds{A}$
     and $\blds{r}-\blds{B}$. These factors are troublesome when integrating,
     but with the motivation that Hermite-Gaussians make life simpler, we expand
-    the overlap distribution in a Hermite-Gaussian basis. Following T.
-    Helgaker\cite{HelgakerTaylorGauss} and working in one dimension(since
+    the overlap distribution in a Hermite-Gaussian basis. Following Helgaker
+    \cite{HelgakerTaylorGauss} and working in one dimension(since
     Hermite-Gaussians can be split in each respective dimension) we
     have\footnote{The indices $i$ and $j$ are now in 1 dimension!}
         \begin{equation}
@@ -254,12 +257,12 @@
             \frac{\beta}{\alpha+\beta}(A_x-B_x)g_t\right) \nonumber \\
             &= \suml{t=0}{i+j} \left((t+1)E^{ij}_{t+1} +
             \frac{1}{2(\alpha+\beta)}E^{ij}_{j-1} -
-            \frac{\beta}{\alpha+\beta}(A_x-B_x)\right)g_t
+            \frac{\beta}{\alpha+\beta}(A_x-B_x)\right)g_t,
             \label{eq:omegaIncr}
         \end{align}
-    Using the properties listed in \Arf{eq:hermiteGaussProp} (mainly the
-    recurrence) and the expansion in \Arf{eq:omegaDef}. The incrementation of
-    $j$ follows the exact same derivation and starting coefficient is
+    where we used the properties listed in \Arf{eq:hermiteGaussProp} (mainly
+    the recurrence) and the expansion in \Arf{eq:omegaDef}. The incrementation
+    of $j$ follows the exact same derivation and starting coefficient is
         \begin{equation}
             E^{00}_0 = K_{AB}.
         \end{equation}
@@ -268,7 +271,7 @@
     between the Hermite-Gaussians\footnote{Another way of expressing this
     statement is to say that each index $t$ in the sum corresponds to an
     equation for $E^{ij}_t$.}. The recurrent coupled relations for the
-    $E$'s given in \Arf{eq:coupledreccoeff}.
+    $E$'s given in here
         \begin{equation}
             \begin{aligned}
                 E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
@@ -276,7 +279,7 @@
                 (t+1)E^{ij}_{t+1} \\
                 E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
                 \frac{\alpha}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
-                (t+1)E^{ij}_{t+1}
+                (t+1)E^{ij}_{t+1}.
             \end{aligned}
             \label{eq:coupledreccoeff}
         \end{equation}
@@ -286,7 +289,7 @@
     As mentioned, the whole point of using Hermite-Gaussian functions is
     because of the inherent definition with the derivative with respect to the
     center-point. This means that for attaining the final expression we must in
-    the end differentiate the expansion coefficients. We will state in
+    the end differentiate the expansion coefficients. We state in
     \Arf{eq:coeffdiffdef} the coefficients differentiated with respect to the
     difference variable $Q_x=A_x-B_x$ 
         \begin{equation}
@@ -323,7 +326,7 @@
             &= \sumE{p}{i}{j}
             \left(\frac{\left((-1)^p-1\right)\Gamma\left(\frac{p+1}{2}\right)}
             {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^d
-            \label{eq:stypeOverlap}
+            \label{eq:stypeOverlap}.
         \end{align}
     The power $d$ in \Arf{eq:stypeOverlap} comes from splitting the integral
     into the $d$ dimensions. We are also using the \txtit{multi-index
@@ -332,7 +335,7 @@
     each dimension in $p$ and then multiplied
     together.}(\Arf{sec:multiIndexNotation}) and expanding
         \begin{equation}
-            E^{ab}_{n} = \prod_d E^{a_db_d}_{n_d}
+            E^{ab}_{n} = \prod_d E^{a_db_d}_{n_d},
             \label{eq:Enotation}
         \end{equation}
     such that the coefficients are all just products over coefficients in each
@@ -343,7 +346,7 @@
 \subsection{Potential Integral}
     The second integral with the $x^k_d$ part shows up in the external
     potential part of the Hamiltonian and the expression is(again with the
-    Gaussian product rule) given in \Arf{eq:potIntegral}.
+    Gaussian product rule) given here.
         \begin{align}
             \Braket{i|x^k_d|j} &= \infint x^{k}_d
             \Omega_{ij}(\alpha_p,\beta_p,\blds{r},\blds{A},\blds{B}) \md
@@ -365,7 +368,7 @@
             {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1}
             \sum\limits_{l=0}^k {k\choose l}
             \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
-            \left((-1)^l+1\right) \Gamma\left(\frac{l+1}{2}\right)
+            \left((-1)^l+1\right) \Gamma\left(\frac{l+1}{2}\right).
             \label{eq:potIntegral}
         \end{align}
     The integrals are split in each dimension and the dimensions not equal to
@@ -379,9 +382,8 @@
 \subsection{Laplacian Integral}
     The third integral with the Laplacian operator arises in the kinetic part
     of the Hamiltonian. This integral can be expressed in terms of
-    \Arf{eq:stypeOverlap}, the overlap integral, however the Laplacian applied
-    to a Hermite-Gaussian has to be calculated first. This is done in
-    \Arf{eq:laphermcalc}
+    \Arf{eq:stypeOverlap}, the overlap integral. However the Laplacian applied
+    to a Hermite-Gaussian has to be calculated first. This is done here
         \begin{align}
             \nabla^2 g_i(\alpha;\blds{r},\blds{A}) &= \sum_d \prd{x_d}[][2]
             \left(\prod_{d'} \left(x - A_{d'}\right)^{i_{d'}}_{d'} \exp(-\alpha
@@ -398,7 +400,7 @@
             &= g_i\sum_d \Bigg(4\alpha^2\left(x_d-A_d\right)^{i_d+2} -
             2\alpha\left(2i_d+1\right)\left(x_d-A_d\right)^{i_d} \nonumber \\
             &\hspace{2.0cm}+
-            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg)
+            i_d\left(i_d-1\right)\left(x_d-A_d\right)^{i_d-2}\Bigg).
             \label{eq:laphermcalc}
         \end{align}
     Now for the integral we have
@@ -432,14 +434,14 @@
 \subsection{Coulomb Potential Integral}
     Lastly, the troublesome Coulomb integral needs to be calculated. Due to the
     $1/r$ term we cannot split the integral in each respective dimension as
-    previously. Before we approach the full Coulomb integral, lets calculate a
-    simpler integral over a so-called \txtit{Coulomb Potential distribution}
+    previously. Before we approach the full Coulomb integral, let us calculate
+    a simpler integral over a so-called \txtit{Coulomb Potential distribution}
         \begin{equation}
             \infint \me^{-\alpha\left(\blds{r} - \blds{A}\right)^2}
             \frac{1}{\abs{\blds{r} - \blds{B}}} \md\blds{r}.
         \end{equation}
     The calculation of this integral will be beneficial for the calculation of
-    the Coulomb integral as we can reuse most of the tricks used. With
+    the Coulomb integral as we can reuse most of the tricks applied to it. With
     \Arf{eq:gaussianProductRule}, the Gaussian product rule, in mind. We
     rewrite the inverse term with
         \begin{equation}
@@ -465,9 +467,9 @@
         \end{align}
     The integral over $t$ has to be addressed separately for two- and three
     dimensions. For the three-dimensional case the reader is referred to
-    \cite{HelgakerTaylorGauss}. Here we will derive a closed-form form
-    expression for the two-dimensional case. First let us use the substitution
-    presented in \Arf{eq:uSubs1}.
+    \cite{HelgakerTaylorGauss}. Here we will derive a closed-form expression
+    for the two-dimensional case. First let us use the substitution presented
+    in \Arf{eq:uSubs1}.
         \begin{equation}
             \begin{aligned}
                 u &= \frac{t}{\sqrt{\alpha+t^2}} \\
@@ -482,7 +484,7 @@
             \end{aligned}
             \label{eq:uSubs1}
         \end{equation}
-    The integrand(ignoring the exponential part) is then
+    The integrand (ignoring the exponential part) is then
         \begin{align}
             \frac{\md t}{\alpha + t^2} &= \frac{1}{\alpha + t^2} \frac{(\alpha +
             t^2)^{\frac{3}{2}}}{\alpha} \md u \nonumber \\
@@ -507,20 +509,20 @@
         \end{align}
     These integrals must be solved numerically using \txtit{Chebyshev-Gauss
     Quadrature}\cite{gausschebyshev}. One can also rewrite the 2D-integral in
-    terms of the \txtit{Modified Bessel function of first kind} by using
-    $u^2=1/2(1 - \cos(\theta)$\cite{modifiedBessel}.
-    \cite{HelgakerTaylorGauss}. A take on this resulted nowhere as the closed
-    form expanded itself in ever-increasing order of polynomial factors with
-    the first and second order of the modified Bessel function of first kind.
-    The 3D-integral can be rewritten with an \txtit{incomplete Gamma function}
-    From \Arf{eq:centerDerGauss}, the integrals have to be differentiated in
-    order to get the final closed form expressions, see \Arf{sub:445}.
+    terms of the \txtit{Modified Bessel function of the first kind} by using
+    $u^2=1/2(1 - \cos(\theta)$\cite{modifiedBessel}. A take on this resulted
+    nowhere as the closed form expanded itself in an ever-increasing order of
+    polynomial factors with the first and second order of the modified Bessel
+    function of first kind.  The 3D-integral can be rewritten with an
+    \txtit{incomplete Gamma function} From \Arf{eq:centerDerGauss}, the
+    integrals have to be differentiated in order to get the final expression,
+    see \Arf{sub:445}.
 
 \subsection{Coulomb Interaction Integral}
-    In the previous section an expression for integral over a Coulomb potential
-    was derived. Before we embark into handling the full Coulomb interaction
-    integral, another exercise with simpler interaction integral is worthwhile.
-    The integral in question is
+    In the previous section an expression for the integral over the Coulomb
+    potential was derived. Before we embark into handling the full Coulomb
+    interaction integral, another exercise with a simpler interaction integral is
+    worthwhile. The integral to study is
         \begin{equation}
             I' = \infint\infint \me^{-\alpha(\blds{r'}-\blds{A})^2}
             \me^{-\beta(\blds{r}-\blds{B})^2} \frac{1}{\abs{\blds{r'} -
@@ -618,7 +620,7 @@
             u^2}} \me^{-u^2x} \md u.
             \label{eq:zetaDef}
         \end{equation}
-    This function also has the great relation
+    This function also has the relation
         \begin{equation}
             \prd{x}[\zeta_n] = -\zeta_{n+1}.
         \end{equation}
@@ -657,7 +659,7 @@
             &= t\prd{A_x}[][t-1] + X_{AB}\prd{A_x}[][t],
         \end{align}
     the final form of \Arf{eq:Rtincr} is\footnote{The incrementation of $u$ is
-    derived in the exact same manner as with $t$.} given in
+    derived in the same way as we did with $t$.} given in
     \Arf{eq:incfinalfinal}.
         \begin{equation}
             \begin{aligned}
@@ -669,25 +671,25 @@
     With this all Hermite integrals of order $t+u\leq N$ can be calculated from
     $\zeta$ of order $n\leq N$, the only difference being $X_{AB}$ and
     $Y_{AB}$. The Coulomb interaction integral
-    (\Arf{eq:coulombInteractionSimpleFinal}) follows this exact recurrence, but
-    with a different proportionality factor $\alpha\beta/(\alpha+\beta)$. We
-    will write it out in \Arf{eq:recurrInteraction} for the sake of clarity.
+    (\Arf{eq:coulombInteractionSimpleFinal}) follows this exact recurrence
+    relation, but with a different proportionality factor
+    $\alpha\beta/(\alpha+\beta)$. We will write it out in
+    \Arf{eq:recurrInteraction} for the sake of clarity.
         \begin{equation}
             \begin{aligned}
                 \prd{A_x}[I'_{\text{2D}}] &= -\frac{2\alpha\beta}{\alpha+\beta}
                 X_{AB}\zeta_1\left(\frac{\alpha\beta}{\alpha+\beta}R^2_{AB}\right)
                 \\
                 \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
-                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right).
             \end{aligned}
             \label{eq:recurrInteraction}
         \end{equation}
     Notice that the only difference between the obtained recurrence relations
     and the ones obtained by Helgaker\cite{HelgakerGauss} is in
     \Arf{eq:auxiliary2d1} and \Arf{eq:recurrInteraction}. Other than this the
-    incrementation of $\zeta_n$ gives the exact same $X_{AB}$(and similar for
-    the other directions) as with the\footnote{Misnomered} incomplete gamma
-    function.
+    increment of $\zeta_n$ gives the same $X_{AB}$(and similar for the other
+    directions) as with the incomplete gamma function.
 
 \subsection{Coulomb Distribution Integral}
     With the derived expressions for the Coulomb potential integral the full
@@ -706,17 +708,17 @@
             &= \frac{a}{\sqrt{(\alpha+\gamma+\beta+\delta)}} \suml{pq}{i+k,j+l}
             E^{ik}_pE^{jl}_q (-1)^{q} \xi_{p+q}\left(\frac{(\alpha +
             \gamma)(\beta + \delta)}{\alpha + \gamma + \beta +
-            \delta},\blds{R_{S_1S_2}}\right).
+            \delta},\blds{R_{S_1S_2}}\right),
             \label{eq:coulomb_dist_integral_stype}
         \end{align}
-    Where we have used the multi-index\footnote{Essentially just expanding an
+    where we have used the multi-index\footnote{Essentially just expanding an
     index in each dimension, for instance $i=(i_x,i_y,i_z)$ with corresponding
     $p=(p_x, p_y, p_z)$ with each index inside the tuple running to each
     respective index, meaning for instance $p_x=0$ to $i_x$ and so on.}
     notation for $p$, $q$, $i$, $k$, $j$, and $l$ \Arf{eq:Enotation}
     and used \Arf{eq:coulombInteractionSimpleFinal} to arrive at the final
     step. An additional simplification due to the fact that $\zeta_n$ is only
-    dependant on the relative distance of the centers is also used, for the
+    dependent on the relative distance of the centers is also used, for the
     x-coordinate it is stated as
         \begin{equation}
             \prdp{P_x}{p_x}\prdp{Q_x}{q_x} = (-1)^{p_x+q_x} \prdp{P_x}{p_x+q_x}
@@ -736,15 +738,15 @@
 \section{Double-Well Functions\label{sec:dwfunc}}
     This section will explain the building of a basis for the
     \txtit{double-well potential}. We will expand them in a linear combination
-    of harmonicoscillator functions and find the coefficients of this expansion
+    of harmonic oscillator functions and find the coefficients of this expansion
     by solving the arising eigenvalue-problem. Let us first express the
-    potential
+    potential as
         \begin{equation}
             \UDW(r) = \VHO(r) + \VDW_n(r).
             \label{eq:UDW}
         \end{equation}
     A double well potential is essentially just a perturbation of the usual
-    Harmonicoscillator potential(which is a single-well). The $\VDW_n$ part is
+    harmonic oscillator potential (which is a single-well). The $\VDW_n$ part is
     assumed to be a polynomial of \txtit{even} degree $n$. This means that the
     integral over such a potential can be calculated using
     \Arf{eq:potIntegral}. Notice also that the $n$ degree polynomial only needs
@@ -754,12 +756,13 @@
 \subsection{The Eigenvalue problem}
     The mentioned eigenvalue problem comes from the basis expansion of the
     spacial part and from the trick of projecting with a single function from
-    left. We will explain briefly. Firstly let us write out the expansion
+    the left. We will explain this briefly. Firstly let us write out the
+    expansion
         \begin{equation}
             \ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}
             \label{eq:dwexpansiondef}
         \end{equation}
-    and then project from left the bra $\bra{\psiHO_k}$ in the
+    and then project from left the bra state $\bra{\psiHO_k}$ in the
     inner-product space of $h^{\text{DW}}$
         \begin{equation}
             \Braket{\psiHO_k|\hDW|\psiDW_p} =
@@ -822,31 +825,31 @@
     to assume that the energies(the eigenvalues $\veps^{\text{DW}}$) are only
     shifted slightly off from the single-well energies. It is then also
     reasonable to believe that a basis set expansion in the single-well
-    functions(harmonic oscillator functions) give a nice set of basis-functions
-    for building the double-well basis.
+    functions(harmonic oscillator functions) gives a nice set of
+    basis-functions for building the double-well basis.
 
 \subsection{Choosing the Basis Functions}
     In order to actually solve the eigenvalue equation we use \text{Python} and
     the \text{NumPy} package, however we still need to choose the $\psiHO$'s
-    first. This will be experimented with and we will choose enough to reach to
-    \txtit{Hartree-Fock limit}. The choice will also follow the
-    Harmonicoscillator levels in terms of degeneracy(see \Arf{subfig:3Dspin} and
-    \Arf{subfig:2Dspin}). This means for instance that if we choose to only use $1$
-    spacial function we only need the ground-state function, but there is no
-    reason to believe that the electron-configuration would prefer any two(or
-    $3$ in 3D) of the functions in the second level over one another. This
-    means that we choose the basis functions according to the \txtit{magic
+    first. This will be experimented with and we will choose enough basis
+    functions to reach to \txtit{Hartree-Fock limit}. The choice will also
+    follow the harmonic oscillator levels in terms of degeneracy(see
+    \Arf{subfig:3Dspin} and \Arf{subfig:2Dspin}). This means for instance that
+    if we choose to only use $1$ spacial function we only need the ground-state
+    function, but there is no reason to believe that the electron-configuration
+    would prefer any of the functions in the second level over one another.
+    This means that we choose the basis functions according to the \txtit{magic
     numbers} of the harmonic oscillator system basis.
 
     For the actual Hartree-Fock calculations it is worthwhile to mentioned that
     the expansion sum in \Arf{eq:dwexpansiondef} has to be truncated. The hope
-    is that as we add more and more HO-functions to the eigenvalue problem(with
-    the magic-number in mind), \Arf{eq:Heigdef}, the eignvalues will converge.
-    We would then let the index $l$ run up to the number of eigenvalues
-    presented, but truncate the number of columns used at the number of
-    eigenvalues which have sufficiently converged. For an illustration of the
+    is that as we add more and more HO-functions to the eigenvalue problem
+    (with the magic-number in mind), \Arf{eq:Heigdef}, the eignvalues will
+    converge.  We would then let the index $l$ run up to the number of
+    eigenvalues presented, but truncate the number of columns used at the
+    number of eigenvalues which have converged. For an illustration of the
     eigenvalues for $R=2.0$ and $\omega=1.0$ in two dimensions see
-    \Arf{tab:eig2D}. See also \Arf{sec:dwbimp} for more on the specific
+    \Arf{tab:eig2D}. See also \Arf{sec:dwbimp} for details on the specific
     implementation.
 
 \subsection{Degeneracy}
@@ -856,7 +859,7 @@
     symmetry by the displacement. For the three-dimensional case a similar
     break occurs, but since the displacement is only in the $x$-direction the
     two-dimensional harmonic oscillator symmetry is still present for the $y$-
-    and $z$-directions. This means that the states which are directly dependant
+    and $z$-directions. This means that the states which are directly dependent
     on the $n_x$ quantum number have lower energy(since the double-well has
     lower energy than the harmonic oscillator) and we have new levels. \\ Since
     we are limiting ourselves to full-shell systems, this degeneracy has to be
@@ -865,9 +868,9 @@
 
 \section{Summary\label{sec:basis_summary}}
     This chapter tackled the one- and two-body integrals over s-type Gaussian
-    functions in two dimensions by using the results and approach of Trygve
-    Helgaker. We will here rewrite the expressions found and write out the full
-    expression for integrals over harmonic oscillator functions. \\
+    functions in two dimensions. We will here rewrite the expressions found
+    and write out the full expression for integrals over harmonic oscillator
+    functions. \\
 
     Firstly the integrals over Hermite-Gaussians (monomials multiplied by
     exponential). The Hermite-Gaussian was expressed as 
@@ -911,7 +914,7 @@
                 g_j(\blds{\beta};\blds{r},\blds{B})} =&
                 \suml{p=\text{even}}{i+j} E^{i+j}_p
                 \left(\frac{\Gamma\left(\frac{p+1}{2}\right)}
-                {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \bigtimes \\
+                {2(\alpha_p+\beta_p)^{\frac{p+1}{2}}}\right)^{D-1} \times \\
                 &\underset{\text{even}}{\sum\limits_{l=0}^k} {k\choose l}
                 \frac{P^{k-l}_d}{2(\alpha_p+\beta_p)^{\frac{l}{2}}}
                 \Gamma\left(\frac{l+1}{2}\right).
@@ -1037,11 +1040,11 @@
     implementations of these integrals are presented in \Arf{chapter:6}.
 
     As a note for further work the expressions found here are for isotropic
-    gaussians only. For certain systems, like the one presented in
-    article\cite{nonIsoGauss}, more flexibility in the Gaussian functions can
-    be desired, such that finding expression for the integrals of Gaussian
+    gaussians only. For certain systems, like the one presented in article
+    \cite{nonIsoGauss}, more flexibility in the Gaussian functions can be
+    desired, such as finding an expression for the integrals of Gaussian
     functions with higher order monomial factors and extending the existing
-    code to calculate those can be of desire.
+    code to calculate those can be useful.
 
     Experimentation with different centered gaussians for the double-well case
     can be interesting since it is not unreasonable to believe that functions
