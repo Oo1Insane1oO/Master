@@ -1,11 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 6 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Results \label{chapter:6}}
     No amount of physics theory will ever be interesting if it was not backed
-    up by some proof or atleast some results. \\
+    up by some proof or at least some results. \\
     In this chapter we present the results from the simulations of the quantum
-    dot system in the harmonic oscillator system and the double-well system. We
-    also present some results regarding the minimization scheme in the VMC
-    method.
+    dot system in the harmonic oscillator system and the double-well system.
+    The harmonic oscillator was used mainly as a benchmark for verification for
+    which is performed well. We also present some results regarding the
+    minimization scheme in the variational method. All the simulations with the
+    variational method was done with importance sampling as well.
 
 \section{Tweaks and Experimentation}
     With the minimization methods clarified and the function to be minimized
@@ -16,15 +18,14 @@
     some-what manually with a close eye on the function to be minimized. This
     approach is the one we used in the VMC method, with the most memorable one
     being the parameters set in the simulated annealing method and the
-    notorious step-size in the Metropolis sampling. All of the results
-    presented for the VMC method were run with importance sampling.
+    notorious step-size in the Metropolis sampling. 
 
 \subsection{Hartree-Fock}
     With the Hartree-Fock method the only part tweaked was the number of
     previous quantities to use in the DIIS procedure. Essentially just changing
     $M$ in (\Arf{eq:errorDIISdef})
         \begin{equation}
-            \blds{E} = \suml{m=1}{M} c_m\blds{e}_i.
+            \blds{Y} = \suml{m=1}{M} c_m\blds{y}_i.
         \end{equation}
     The exact number was changed to get convergence, however somewhere between
     $M=2$ to $M=8$ gave good results.
@@ -36,7 +37,19 @@
     lowered, this has to do with the form of the potential, see
     \Arf{subfig:HO1D}. For $N$, the number of particles, the step had to be
     slightly increased as $N$ increased, this is due to the repulsion part
-    being stronger with more particles.
+    being stronger with more particles. \\
+    We also mention that the only criteria for convergence was the absolute
+    value of the derivative
+        \begin{equation}
+            \abs{\nabla_{\blds{\alpha}}\ecp{E\left[\blds{\alpha;\blds{R}}\right]}}
+            < \epsilon
+        \end{equation}
+    With $\epsilon\in(0.1,0.001)$ depending on the size of the system. The
+    general idea was to look for sign oscillations of the gradient with respect
+    to the variational parameters. If it started to oscillate the maximum
+    step-size in the quasi-newton scheme was reduced(the maximum allowed in the
+    case with the Mor\'e-Thuente linesearch) and looked to see if any
+    improvement was made.
 
 \subsubsection{Simulated Annealing}
     With the simulated annealing the idea was to use it as a sort of
@@ -51,9 +64,10 @@
 
 \subsubsection{RBM}
     For the RBM-Jastrow we did not tweak as much manually, but we initialized
-    the parameters with a Gaussian distribution with mean $0$ and variance
-    between $0.01-1.0$ and settled with a value that gave a fairly good
-    acceptance rate and variance in the sampling.
+    the parameters in the RBM-wavefunction with a Gaussian distribution with
+    mean $0$ and variance between $0.01-1.0$ and settled with a value that gave
+    a fairly good acceptance rate and variance in the sampling without the
+    energies being way off the results with the Pad\'e-function.
 
 \section{Hartree-Fock}
 \subsection{Harmonic Oscillator}
@@ -129,3 +143,4 @@
 
 \subsection{Three-Dimensional Double-Well}
    \input{text/tHF3DVMCDW} 
+   \input{text/tHFVAR3DVMCDW} 

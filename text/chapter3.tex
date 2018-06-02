@@ -745,15 +745,18 @@
         \end{equation}
     A double well potential is essentially just a perturbation of the usual
     Harmonicoscillator potential(which is a single-well). The $\VDW_n$ part is
-    assumed to a polynomial of degree $n$. This means that the integral over
-    such a potential can be calculated using \Arf{eq:potIntegral}.
+    assumed to be a polynomial of \txtit{even} degree $n$. This means that the
+    integral over such a potential can be calculated using
+    \Arf{eq:potIntegral}. Notice also that the $n$ degree polynomial only needs
+    to be symmetric meaning $\abs{x}$ is also a valid polynomial to integrate
+    over with \Arf{eq:potIntegral}.
 
 \subsection{The Eigenvalue problem}
     The mentioned eigenvalue problem comes from the basis expansion of the
     spacial part and from the trick of projecting with a single function from
     left. We will explain briefly. Firstly let us write out the expansion
         \begin{equation}
-            \ket{\psiDW_p} = \sumll{l}C_{lp}\ket{\psiHO_l}
+            \ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}
             \label{eq:dwexpansiondef}
         \end{equation}
     and then project from left the bra $\bra{\psiHO_k}$ in the
@@ -765,15 +768,16 @@
         \end{equation}
     This gives us an eigenvalue equation
         \begin{equation}
-            \blds{H}\blds{C} = \blds{\varepsilon^{\text{DW}}}\blds{C}
+            \blds{H}^{\text{DW}}\blds{C}^{\text{DW}} =
+            \blds{\varepsilon^{\text{DW}}}\blds{C}^{\text{DW}}
         \end{equation}
     with
         \begin{equation}
-            H_{ij} = \Braket{\psiHO_i|h^{\text{DW}}|\psiHO_j}.
+            H^{\text{DW}}_{ij} = \Braket{\psiHO_i|h^{\text{DW}}|\psiHO_j}.
         \end{equation}
     Using \Arf{eq:UDW} we can write $H_{ij}$ as
         \begin{equation}
-            H_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
+            H^{\text{DW}}_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
             \Braket{\psiHO_i|\VDW_n|\psiHO_j},
             \label{eq:Heigdef}
         \end{equation}
@@ -789,7 +793,8 @@
     Hartree-Fock basis to be used with the Variational Monte-Carlo method. The
     expression is simply
         \begin{equation}
-            \psi^{\text{HF}}_p = \sumll{kl} C^{\text{HF}}_{pk}C_{kl}\psiHO_l.
+            \psi^{\text{HF}}_p = \sumll{kl}
+            C^{\text{HF}}_{pk}C^{\text{DW}}_{kl}\psiHO_l.
         \end{equation}
 
     The procedure of diagonalizing $H_{ij}$ also gives an additional set of
@@ -802,7 +807,7 @@
                 \Braket{\psiDW_p|h^{\text{DW}}|\psiDW_q} &=
                 \varepsilon^{\text{DW}}_p\delta_{pq} \\
                 \Braket{\psiDW_p\psiDW_q|\frac{1}{r_{12}}|\psiDW_r\psiDW_s} &=
-                \suml{tuvw}{ijkl} C_{tp}C_{uq}C_{vr}C_{ws}
+                \suml{tuvw}{ijkl} C^{\text{DW}}_{tp}C^{\text{DW}}_{uq}C^{\text{DW}}_{vr}C^{\text{DW}}_{ws}
                 \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
             \end{aligned}
             \label{eq:fullfinalsumary}
