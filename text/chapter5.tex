@@ -2,10 +2,10 @@
 \chapter{Implementation \label{chapter:5}}
     With almost every expression given in \Arf{chapter:3} being some kind of
     sum it is not hard to imagine that solving them by hand would be quite the
-    challenge and most likely\footnote{Read definitely.} impossible, but with
-    the modern computer at our disposal they can be tackled numerically.
-    However in order to get the data from the numerical simulations the actual
-    implementation, the raw code, has to be written, tested, verified and run. \\
+    challenge and most likely impossible, but with the modern computer at our
+    disposal they can be tackled numerically.  However in order to get the data
+    from the numerical simulations the actual implementation, the code, has to
+    be written, tested, verified and run. \\
     This chapter will explain the code used in the thesis in detail. The main
     code base is given in \url{https://github.com/Oo1Insane1oO/HartreeFock} and
     \url{https://github.com/Oo1Insane1oO/VMC}. General information of the usage
@@ -435,15 +435,14 @@
     and the same states with spin up after.
 
 \section{Hartree-Fock}
-    The Hartree-Fock method described in \Arf{sec:HFtheory} is implemented in
-    >> REF GITHUB <<. Only the restricted case is implemented and is present as
+    Only the restricted case is implemented and is present as
     the class \hltexttt{HartreeFockSolver}. The matrix-elements(integrals) are
     implemented in \hltexttt{HermiteIntegrals} class. This class also uses an
     auto-generated header for the Hermite-coefficients, see
     \Arf{sec:auto_generation} below. The \hltexttt{HartreeFockSolver} is
     implemented in a general way such that an abstract class for the integral
     elements is all that is needed. The \hltexttt{HartreeFockSolver} can then
-    be inherited and used.  An example of how to create a solver object with
+    be inherited and used. An example of how to create a solver object with
     the Double-Well system called HFS with number of dimensions $D$, number of
     basis functions $L$ and number of particles $N$.
         \begin{lstlisting}[language=C++, style=ccstyle]
@@ -562,8 +561,8 @@
         \end{equation}
     This is essentially just a matrix with each row being a tuple with $p$ and
     $q$ value. \\
-    The rows are then distributed evenly among $P$ processes according to
-    \Arf{eq:divideeven}.
+    The rows are then distributed evenly among $P$ processes according to this
+    \Arf{eq:divideeven},
         \begin{equation}
             \text{rows}_{p} = \left\{\begin{aligned}
                 \left\lceil\frac{\frac{N}{2}(N+1)}{P}\right\rceil &\indent&
@@ -660,11 +659,10 @@
     algorithm, but still using the same code for minimization. We will explain
     the minimization parts in the next section. \\ 
     The main input which \hltexttt{VMC} needs is a wavefunction. An abstract
-    class-template is implemented and can be generated using a python script,
-    also given in the same GitHub repository >>REF GITHUB <<. The template is
-    built in such a way that one only needs to fill in specific analytic
-    expressions for the gradient, Laplacian and gradient for the variational
-    parameters. The latter part is optional. \\ 
+    class-template is implemented and can be generated using a python script.
+    The template is built in such a way that one only needs to fill in specific
+    analytic expressions for the gradient, Laplacian and gradient for the
+    variational parameters. The latter part is optional. \\ 
     The wavefunction itself is built using the \hltexttt{Slater} or
     \hltexttt{SlaterJastrow} class. However, in order to use the
     \hltexttt{SlaterJastrow} one has to specify which Jastrow function to use
@@ -689,8 +687,7 @@
     Metropolis-Hastings algorithm. The parameters variable must be an
     Eigen\cite{eigenweb} vector or array and contain the variational
     parameters. The representation of each element in this vector(or
-    array) is specific to each system. For a more detailed explanation see >>
-    REF GITHUB <<. \\
+    array) is specific to each system. 
     This is just an example of how to build a simple run, however we have also
     built a run file which uses YAML\cite{yaml}. The basic template is as
     follows
@@ -707,7 +704,7 @@
     This is a template used for the \hltexttt{HarmonicOscillator} with the
     Pad\'e-function as Jastrow factor. If the NQS-function is used an
     additional parameter 'numhiddenbias' giving the number of hidden biases
-    used, is needed. Again, for more detail see >> REF GITHUB << \\ 
+    used, is needed. \\ 
     This form of input makes it fairly simple to actually run the code for
     different systems with ease. One needs to compile with the specific flag
     for the system(wavefunction and Jastrow) and then supply an YAML input file
@@ -1015,7 +1012,7 @@
     currently saved within the \hltexttt{VMC} object.
 
 \section{Auto-Generation\label{sec:auto_generation}}
-\subsection{Hermites}
+\subsection{Calculation of Hermite Polynomials}
     The analytic expressions involved in the quantum-dot systems are dependent
     on Hermite polynomials and their coefficients. These are calculated
     symbolically using the recurrence relation for Hermites with the SymPy

@@ -1,27 +1,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Numerical Optimization \label{chapter:4}}
-    Numerical optimizations, the one field that can be applied to virtually
-    anything. All the big problems in the world, from cancer research to
-    financial modeling, from finding variational energies to modeling large
-    scale atomic systems. You can be pretty sure that any field of research one
-    can name has some scheme which can be reformulated into a problem in which
-    numerical optimization methods can be applied. As such, the field of
-    numerical optimization has not been viewed more useful than now -especially
-    with the computing power at hand and machine learning having become quite
-    the popular hit.
-
     In the Variational Monte Carlo method in \Arf{sec:QMC} the essential point
     was to vary a set of \txtit{variational parameters} in order to reach an
     eigenbasis which gives the ground-state energy of the Hamiltonian in
     question. There are many ways one could approach this. One way could be to
-    wildly guess random parameters and hope for the best, obviously this is a
+    wildly guess random parameters and hope for the best. Obviously this is a
     poor approach. The more sound approach would be to optimize(minimization in
     the VMC case) the wavefunction using methods from (as the title suggests)
-    \txtit{numerical optimization}. The methods used in this thesis was the
+    \txtit{numerical optimization}. The methods used in this thesis are the
     \txtit{Conjugate Gradient method}, a version of the \txtit{Adaptive
     Stochastic Gradient Descent}, the well known \txtit{BFGS} method and a more
-    resent \txtit{Stochastic-Adaptive-BFGS} and also \txtit{Simulated
-    Annealing}. The explaining of the approaches for numerical optimization is
+    recent \txtit{Stochastic-Adaptive-BFGS} and also \txtit{Simulated
+    Annealing}. The description of the approaches for numerical optimization is
     only made briefly. For a better mathematical explanation see the various
     references in the text.
 
@@ -47,8 +37,8 @@
             \abs{\nabla_{x} f} \leq \epsilon.
             \label{eq:minconditionapprox}
         \end{equation}
-    One might at this point have the question, wouldn't the condition presented
-    in \Arf{eq:minconditionapprox}(and \Arf{eq:mincondition} be valid for a
+    One might at this point ask the question, wouldn't the condition presented
+    in \Arf{eq:minconditionapprox} (and \Arf{eq:mincondition} be valid for a
     maximum as well? The answer is yes, it would. The simple fix to this is to
     define the \txtit{search direction}, more precisely the sign of the search
     direction. The next section explains this in better detail.
@@ -130,21 +120,20 @@
     This method of finding the minimum is known as the method of
     \txtit{Gradient Descent} and its power lies in its simplicity. The problem
     however is stability, the termination condition is firstly not optimal and
-    the step-size $\gamma$ is a constant which can give allot of oscillations
-    around minimum as the algorithm might get close to the minimum and then
-    \txtit{over-shoot} and go past the minimum point, turn around(because the
-    sign changes) and over-shoot again and then keep going.  Many(seriously
-    many) methods have been devised to account for these problems and other. We
-    will contain ourselves with the methods mentioned in the introduction of
-    this chapter.
+    the step-size $\gamma$ is a constant which can give a lot of oscillations
+    around the minimum as the algorithm might get close to the minimum and then
+    \txtit{over-shoot} and go past the minimum point, turn around (because the
+    sign changes) and over-shoot again and then keep going.  Many methods have
+    been devised to account for these problems and other. We will contain
+    ourselves with the methods we presented in the introduction of this chapter.
 
     As an illustration of the method here are a couple of figures of the method
-    applied to two test-functions(\Arf{fig:sf,fig:rb}). One simple
+    applied to two test-functions(\Arf{fig:sf,fig:rb}). The first function is
     sphere-function
         \begin{equation}
             f(\blds{x}) = \suml{d=1}{D} x^2_d,
         \end{equation}
-    and the Rosenbrock function
+    and the second is the so-called Rosenbrock function
         \begin{equation}
             f(\blds{x}) = \suml{d=1}{D-1} 100\left(x_{d+1} - x^2_d\right)^2 +
             \left(x_d - 1\right)^2.
@@ -217,7 +206,7 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
     Along with the limitations of the method of gradient descent, the
     \txtit{Adaptive Stochastic Gradient Descent} tries to account for those,
     but also takes into account the variance introduced by the stochastic
-    nature of the probability distribution. As such many variations of the
+    nature of the probability distribution. As such, many variations of the
     method have been proven to be popular among problems in which the function
     to be minimized is an expectation value. The method used in this thesis is
     the one described in \cite{ASGD}. We will give a summary of the method
@@ -226,7 +215,7 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
     Like the gradient descent method the adaptive stochastic gradient descent
     method updates the parameters in the same manner as in \Arf{eq:gdupdate},
     the difference however is that the step $\gamma$ is changed for each
-    iteration in accordance to expression in \Arf{eq:ASGDDEF}.
+    iteration as follows
         \begin{equation}
             \begin{aligned}
                 \gamma_{n+1} &= \frac{a}{t_{n+1} + A} \\
@@ -239,16 +228,16 @@ Descent\label{sec:adaptive_stochastic_gradient_descent}}
             \label{eq:ASGDDEF}
         \end{equation}
     The whole idea of the method is that the form of $g$ and the accumulative
-    combination of gradient estimations for each step the total error would
-    tend quickly to zero, meaning the central element(namely the gradient) in
+    combination of gradient estimations for each step, the total error would
+    tend quickly to zero, meaning the central element (namely the gradient) in
     the minimization is well behaving. \\
 
-    The main concern with the method is the convergence, although the error in
-    the gradient estimations tend towards zero, the step-sizes themselves will
-    also be quite small after some iterations. For this reason we use the
-    adaptive method with a quasi-Newton method. This means that we start with a
-    random guess at the parameters and keep iterating with the quasi-Newton
-    method until the norm of the gradient is below some threshold, at which the
+    The main concern with the method is convergence, although the error in the
+    gradient estimations tend towards zero, the step-sizes themselves will also
+    be quite small after some iterations. For this reason we use the adaptive
+    method with a quasi-Newton method. This means that we start with a random
+    guess at the parameters and keep iterating with the quasi-Newton method
+    until the norm of the gradient is below some threshold, at which the
     adaptive method is applied from that point and onward till convergence is
     reached.
 
@@ -258,7 +247,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     \txtit{Quasi-Newton} methods as the ideas presented will be used in the
     next section. \\
 
-    Newton's method\cite{linalgDavid}(or Newton-Raphson method) is originally a
+    Newton's method \cite{linalgDavid} (or Newton-Raphson method) is originally a
     method for finding the zeros of a function. The rule states that given a
     real-valued function $f:\mathbb{R}\rarr\mathbb{R}$ and an initial guess
     $x\in\mathbb{R}$ for the zero-point, recursively find better
@@ -285,7 +274,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
         \end{equation}
     where $\blds{H}$ is the Hessian matrix. One might also introduce a
     step-length multiplied to the Hessian part in order to induce
-    conditions\cite{numOptNocWrig} which ensure some stability of the method.
+    conditions \cite{numOptNocWrig} which ensure some stability of the method.
 
     Newton's method, in most cases, converges faster(less iterations) towards
     the minimum than gradient descent making it favorable, however the full
@@ -402,7 +391,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     \end{figure}
     To illustrate the power of the method we again apply it to the sphere
     function and the Rosenbrock function using the BFGS scheme as the updating
-    method and the Mor\'e-Thuente linesearch method to find the step-size. The
+    method and the Mor\'e-Thuente line search method to find the step-size. The
     table of convergence is as follows
         \begin{table}[H]
             \centering
@@ -497,7 +486,7 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             \label{eq:shermanmorrisondef}
         \end{equation}
 
-\section{Linesearch methods\label{sec:linesearch_methods}}
+\section{Line Search methods\label{sec:linesearch_methods}}
     In the optimization methods described in
     \Arf{sec:newtons-method_and_quasi-newton_methods} there was one important
     part neglected, namely how to find the step-length $\gamma_n$ introduced in
@@ -507,13 +496,13 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     estimate for the step length at each iteration in the optimization. These
     methods all have some conditions for stability and convergence as an innate
     property, meaning the validity of the step length is better\footnote{It's
-    actually present...}. Some popular linesearch methods are backtracking
-    linesearch, Hager-Zhang method, Strong Wolfe conditions and the
-    More-Thuente linesearch method. The one used here is the latter.  For an
-    exact derivation and explanation of linesearch methods in general see
-    \cite{numOptNocWrig}. See also the fantastic article by Jorge J.  Mor{\'e}
-    and David J. Thuente\cite{moreThuenteArticle}. \\
-    The basic idea of linesearch methods is to solve a one-dimensional problem
+    actually present...}. Some popular line search methods are backtracking
+    line search, Hager-Zhang method, Strong Wolfe conditions and the
+    More-Thuente line search method. The one used here is the latter.  For an
+    exact derivation and explanation of line search methods in general see
+    \cite{numOptNocWrig}. See also the article by Jorge J.  Mor{\'e}
+    and David J. Thuente \cite{moreThuenteArticle}. \\
+    The basic idea of line search methods is to solve a one-dimensional problem
     of minimizing
         \begin{equation}
             \phi(\alpha) = f(\alpha \blds{p}_k + \blds{x}_k),
@@ -526,27 +515,27 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             \blds{x}_k)
         \end{equation}
     by the chain-rule and the gradient on the right hand side is over the
-    parameters $\blds{x}_k$. One usually perform this linesearch loosely since
+    parameters $\blds{x}_k$. One usually perform this line search loosely since
     the search direction is not necessarily directly pointing towards the
     minimum, meaning we only search for a step length that gives a
     \txtit{sufficient decrease} in the function value $f$. The basic procedure
-    is then to use one of these linesearch methods to find $\gamma_n$ at each
+    is then to use one of these line search methods to find $\gamma_n$ at each
     iteration in the minimization and then use the step-length outputted by the
-    linesearch algorithm to update the parameters.
+    line search algorithm to update the parameters.
 
 \section{Stochastic-Adaptive-BFGS\label{sec:stochastic_adaptive_bfgs}}
     In \Arf{sec:BFGS} we mentioned the popular BFGS method for updating the
     Hessian matrix and its inverse. A more resent method which uses that method
     with the stochastic nature of a functional expectation value is a method
-    called SABFGS\cite{SABFGS} described by Zhou C., Gao W. and Goldfarb D.
+    called SABFGS \cite{SABFGS} described by Zhou C., Gao W. and Goldfarb D.
     This method uses the BFGS update for the Hessian, but uses an adaptive step
-    instead of the deterministic linesearch for the step-size. \\ 
+    instead of the deterministic line search for the step-size. \\ 
     There one problem however, the method itself is only valid for
     \txtit{self-concordant} functions. The energy-functional is by-far not
     within this criteria. This problem can be accounted for by using the
-    Wolfe-conditions. That is to check that the step-size satisfies the
-    Wolfe-conditions at each iteration before actually making an update. The
-    algorithm presented takes this into account aswell.
+    Wolfe conditions. That is to check that the step-size satisfies the
+    Wolfe conditions at each iteration before actually making an update. The
+    algorithm presented takes this into account as well.
         \begin{algorithm}[H]
             \caption{SA-BFGS\label{alg:sabfgs}}
             \begin{algorithmic}[H]
@@ -622,17 +611,17 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
             T_j = \frac{T_{\text{max}}}{j}.
         \end{equation}
     And $T_{\text{max}}$ is the initial temperature. One then chooses new
-    neighbours within some min/max range from the current $s$\cite{simaneal}.
+    neighbours within some min/max range from the current $s$ \cite{simaneal}.
     After the annealing is done a Quasi-Newton method is used and then one of
     the adaptive methods is used to converge to the minimum. In order to test
     this scheme we apply it to more complex functions with many local minima.
-    Two such functions are the \txtit{Ackley function}\cite{simulationlib}
+    Two such functions are the \txtit{Ackley function} \cite{simulationlib}
     defined as
         \begin{equation}
             f(\blds{x}) = -a\exp(-b\sqrt{\frac{1}{D}\suml{d=1}{D}x^2_d}) -
             \exp(-\frac{1}{D}\suml{d=1}{D}\text{cos}(cx_d)) + a + \exp(1)
         \end{equation}
-    and the \txtit{Rastrigin function}\cite{simulationlib}
+    and the \txtit{Rastrigin function} \cite{simulationlib}
         \begin{equation}
             f(\blds{x}) = 10D + \suml{d=1}{D}\left(x^2_d - 10\text{cos}(2\pi
             x_i)\right).
@@ -640,10 +629,10 @@ Methods\label{sec:newtons-method_and_quasi-newton_methods}}
     Where $D$ is the number of parameters and $a$, $b$ and $c$ being parameters
     to be tweaked. Figures are shown below in \Arf{fig:ack, fig:rastr}
         \onefigure{Ackley Function}{text/figs/ackley.pdf}{Illustration of
-        Ackley function\cite{simulationlib} with global minimum
+        Ackley function \cite{simulationlib} with global minimum
         $\blds{x}_m=(0,0)$ of value $f(\blds{x}_m)=0$.}{ack}
         \onefigure{Rastrigin Function}{text/figs/rastrigin.pdf}{Illustration of
-        Rastrigin function\cite{simulationlib} with global minimum
+        Rastrigin function \cite{simulationlib} with global minimum
         $\blds{x}_m=(0,0)$ of value $f(\blds{x}_m)=0$.}{rastr}
     As for convergence, we again employ the same procedure as with the
     spherical and Rosenbrock functions as previously, but with the Ackelyn and
