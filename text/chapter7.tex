@@ -1,0 +1,55 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Chapter 6 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Conclusion \label{chapter:7}}
+    The aim of the thesis was to build a basis for closed-shell harmonic
+    oscillator and double-well potentials in both two- and three dimensions and
+    make a general code for simulating said potentials using the Hartree-Fock
+    method and the Variational Monte Carlo method. In order to simulate the
+    double-well potential we had to build the basis ourselves. This was made
+    using the harmonic oscillator functions as basis functions. To run the
+    Hartree-Fock simulation for the double-well a set of integral elements had
+    to be calculated. This was successfully done in Cartesian coordinates from
+    scratch.
+
+    The implementation of the Hartree-Fock method and the variational method
+    were both made in \CC and can be extended with little effort to other
+    systems. With the extension being all the simpler for systems with basis
+    functions that are Hermite-functions or Gauss-Hermite functions. The
+    implementation was also tested and verified with the harmonic oscillator
+    system and the tests perform very well indicating that the machinery is
+    working well. The Hartree-Fock implementation reproduces the Hartree-Fock
+    limit energies compared with literature for up to $30$ particles in the two
+    dimensional case and $20$ particles in three dimensions. The energies for
+    larger number of particles converge towards the limit indicating that we
+    only need to run with more shells in order to reach it.  We also
+    experimented with different Jastrow factors with the variational method and
+    managed to reproduce the energies from the literature for those as as well
+    and managed to get a lower energy than with the Hartree-Fock method as
+    expected.
+
+    The double-well simulation also seem good. The energies are lower than the
+    corresponding energy with the single-well and the variational method
+    manages to lower the energies further from the Hartree-Fock limit. The
+    double-well was also run for more than $2$ particles. The Hartree-Fock
+    limit was reached for all the cases with the double-well.
+
+    We made an effort in automation of the numerical minimization in the
+    variational method. This was fairly successful as long as the Simulated
+    Annealing scheme was run for a long time. Still the minimization had to be
+    tweaked and monitored in order to get a good result. The methods themselves
+    were however successful within their own limitations and worked as a great
+    tools for finding the ground-state energy.
+
+    In general the project was a success. The methods of interest performed
+    well for the systems to be studied and the resulting code from the
+    implementations ended up general and extendable.
+
+    We limited ourselves to isotropic gaussian functions (the constituents of
+    Hermite-functions), however it is reasonable to imagine that non-isotropic
+    gaussians could give an equally good or even better basis for the
+    double-well system. As it is now the computational time is not too long,
+    however it could be reduced since one might need far less basis functions
+    when using non-isotropic gaussians. Experimentations with the centering of
+    the gaussians is also a part left out in this thesis. The two-body elements
+    in Hartre-Fock are setup in the simplest way by writing out all the
+    elements. This matrix is known to be very sparse meaning an implementation
+    using sparse matrices would give a better performance.
