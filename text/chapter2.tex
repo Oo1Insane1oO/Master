@@ -1235,9 +1235,8 @@
         jastrow. The motivations for this is simple, we want the cusp
         conditions introduced by the old popular functions, but also want a
         more flexible type of function which can take care of other(possible)
-        correlations in the system. How well this actually performed is
-        presented in >> REF RESULTS WHEN YOU HAVE SOME (GO GET THEM!) <<. We
-        will write out the exact form for clarity.
+        correlations in the system. How well this actually performes is
+        unfortunately not presented in this thesis.
             \begin{equation}
                 J = \exp(\sum\limits_{i<j}a_{ij} r_{ij})
                 \exp(-\suml{i=1}{N} \frac{\left(\blds{r}_i -
@@ -1286,8 +1285,8 @@
     includes the covariance). The exact size of the block is undetermined and
     the simplest approach is to just experiment with the size until convergence
     is reached. \\
-    However the thesis of Marius Jonsson >>REF<< the block-size is estimated with a
-    neat algorithm which we also use.
+    However in a script by Marius Jonsson \cite{vmc} the block-size is
+    estimated with a neat algorithm which we also use.
 
 \section{Density Matrices\label{sec:densityMat}}
     The Slater determinant presented is quite complicated and the
@@ -1379,5 +1378,4 @@
         \end{equation}
     The factor $D$ in front can be dropped as the histogram normalization
     cancels it anyways. \\
-    The resulting one-body densities are presented visually in >> REF THESE
-    FIGURES (GO GET EM!) <<
+    The resulting one-body densities are presented visually in \Arf{chapter:6}. 
