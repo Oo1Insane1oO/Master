@@ -1,0 +1,112 @@
+\documentclass[10pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[style=numeric-comp, 
+            backend=biber,
+            url=false,
+            doi=true,
+            eprint=false]{biblatex}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\title{Quantum Many-Body Simulations of Double Dot System}
+% \date{\today}
+\date{}
+\author{Alocias Mariadason}
+\institute{Institute of Physics}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}[fragile]{Quantum-Dot}
+    What is a quantum-dot?
+        - small semiconductor nanostructure that confines motion of conduction.
+        - Can be made with i.e electrostatic potentials.
+        - $2$-$10$ nanometers in size
+\end{frame}
+
+\begin{frame}[fragile]{Quantum-Dot Model}
+    Schrödinger equation $\mathcal{H}\ket{\psi} = E\ket{\psi}$
+        - We model the quantum-dot as a many-body quantum system, meaning we solve the Schrödinger equation.
+        - Let us express the hamiltonian
+            \begin{itemize}
+                \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
+                    \sum_{i<j} f\left(\blds{r}_j, \blds{r}_j\right) -
+                    \frac{1}{2} \sum\limits_k \frac{\nabla^2_k}{M_k} + \sum\limits_{k<l}
+                    g\left(\blds{R}_k,\blds{R}_l\right) +
+                    V\left(\blds{R},\blds{r}\right)$
+            \end{itemize}
+            - This is the full system with a set of nuclei given here with an
+            interaction potential $g$, kinetic for electrons, kinetic for
+            nuclei an electron-electron interaction potential and lastly a
+            confinement potential.
+        - Born-Oppenheimer Approximation
+            - Firstly we assume the nuclei to be far heavier than the electrons
+            which means the system can be viewed as electrons moving in a
+            vicinity around stationary nuclei.
+            - The kinetic term then vanishes and the nuclei-interaction is a
+            constant which can be ignored since adding a constant to the
+            potential only alters the eigenvalues by a constant factor, the
+            eigenfunctions remain unchanged.
+            - We still need to model the electron-electron interaction and the
+            confinement potential
+\end{frame}
+
+\begin{frame}[fragile]{Quantum-Dot Model}
+    How do we model them?
+        - Interaction: is the Coulomb repulsion
+        - And for the confinement we studied two ways from >> ref <<. One is a simple parabolic-dot modelled by a harmonic oscillator.
+        - Other is a double-dot, which is just a harmonic oscillator displaced in the $x$-direction.
+        - Notice that for the confinement we have no terms including the nuclei. This is one of the characteristics of quantum-dot systems, we dont just set the nuclei interaction to constant, we also effectively ignore the entire thing (#nuclei have feeling)
+\end{frame}
+
+\section{Methods}
+- In order to solve the many-body time-independent Schrödinger equation we need
+some methods. We have used two method,
+\begin{frame}[fragile]{Methods}
+    - Hartree-Fock(HF)
+    - Variational Monte-Carlo(VMC)
+\end{frame}
+
+\section{Implementation}
+\section{Summary and Conclusion}
+
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]
+  Questions?
+\end{frame}
+}
+
+\appendix
+
+\begin{frame}[fragile]{Questions}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{References}
+
+  \bibliography{demo}
+  \bibliographystyle{abbrv}
+
+\end{frame}
+
+\end{document}
