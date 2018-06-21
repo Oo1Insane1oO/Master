@@ -1,96 +1,31 @@
-\frametitle{Methods: Hartree-Fock Method}
-\begin{figure}
-            \centering
-            \begin{tikzpicture}[
-                >={Latex[width=2mm,length=2mm]},
-                    base/.style = {rectangle, rounded corners, draw=black,
-                                minimum width=2cm, minimum height=0.5cm, text
-                                centered, font=\sffamily},
-                    basecode/.style = {rectangle, rounded corners, draw=black,
-                                minimum width=2cm, minimum height=0.5cm, text
-                                centered, font=\sffamily, align=left},
-                    activityStarts/.style = {base, fill=blue!30, drop shadow},
-                    startstop/.style = {base, fill=red!25, drop shadow},
-                    startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                    activityRuns/.style = {base, fill=green!25, drop shadow},
-                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-                scale=0.5,
-                node distance=1.5cm,
-                every node/.style={fill=white, font=\sffamily, scale=0.5},
-                align=center]
-                \node (pre) [activityStarts] {
-                    Pre-build two-body matrix $D_{pqrs}$ \\
-                    Pre-build one-body matrix $h_{pq}$ \\
-                    Pre-build overlap matrix $S_{pq}$ \\
-                    Initialize $\blds{C}$
-                };
-                \node (Fock) [activityRuns, below of=pre, yshift=-1.2cm] {
-                    Set Fock-matrix $\blds{F}$
-                };
-                \node (Fockmix) [activityRuns, below of=Fock, yshift=-0.7cm] {
-                    Perform mixing of $\blds{F}$ \\
-                    (Optional)
-                };
-                \node (Fockmixeq) [process, right of=Fockmix, xshift=2.4cm] {
-                    Pulay (DIIS)
-                };
-                \draw[->] (Fock) -- (Fockmix);
-                \draw[-] (Fockmix) -- (Fockmixeq);
-                \node (RHF) [process, above right of=Fock, xshift=3.0cm, yshift=-0.2cm] {
-                    RHF
-                };
-                \node (UHF) [process, below right of=Fock, xshift=3.0cm, yshift=0.1cm] {
-                    UHF
-                };
-                \draw[-] (Fock) to [out=15, in=180] (RHF);
-                \draw[-] (Fock) to [out=-15, in=180] (UHF);
-                \draw[->] (pre) -- (Fock);
-                \node (eigcomp) [activityRuns, below of=Fock, yshift=-2.5cm] {
-                    Solve generalized \\
-                    eigenvalue problem. \\
-                    $\blds{F}\blds{C} = \blds{\veps}\blds{S}\blds{C}$
-                };
-                \draw[->] (Fockmix) -- (eigcomp);
-                \node (density) [activityRuns, below of=eigcomp] {
-                   Set density matrix $\blds{\rho}$.
-                };
-                \draw[->] (eigcomp) -- (density);
-                \node (mix) [activityRuns, below of=density] {
-                    Perform mixing of $\blds{\rho}$. \\
-                    (Optional)
-                };
-                \draw[->] (density) -- (mix);
-                \node (mixeq) [process, right of=mix, xshift=2.5cm] {
-                    Simple
-                };
-                \draw[-] (mix) -- (mixeq);
-                \node (conv) [startstop, below of=mix] {
-                    Check convergence.
-                };
-                \draw[->] (mix) -- (conv);
-                \node (no) [above left of=conv, xshift=-4.0cm] {
-                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
-                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} \geq \epsilon$
-                };
-                \draw[->] (conv) to [out=180,in=-90] (no);
-                \node (keepOld) [process, above of=no, yshift=1.5cm, xshift=-0.5cm] {
-                    Save energy eigenvalues and \\
-                    density matrix(mixed). \\
-                    $\blds{\varepsilon}^{\text{HF}}_{\text{old}} =
-                    \blds{\varepsilon}^{\text{HF}}_{\text{new}}$ \\
-                    $\blds{\rho}_{\text{old}} = \blds{\rho}_{\text{new}}$
-                };
-                \draw[->] (no) to [out=90,in=-90] (keepOld);
-                \draw[->] (keepOld) to [out=90,in=180] (Fock);
-                \node (yes) [below of=conv] {
-                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
-                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \epsilon$
-                };
-                \draw[->] (conv) -- (yes);
-                \node (end) [activityStarts, below of=yes] {
-                    Output energy
-                };
-                \draw[->] (yes) -- (end);
-            \end{tikzpicture}
-        \end{figure}%
+\frametitle{Methods: Variational Monte-Carlo}
+\begin{itemize}
+        \item Variational Principle
+        \item Rewrite expectation value:
+            $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
+            \frac{\cnj{\Psi}\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r} \md r$
+            = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
+            \begin{itemize}
+                \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
+                \item $P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}$
+            \end{itemize}
+        \item Metropolis-Hastings Algorithm
+            \begin{itemize}
+                \item $r^{\text{new}} = r^{\text{old}} + \Delta t \xi$
+                \item $\ufij{A}{i}{j} =
+                    \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
+                    \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)$
+                \item Importance Sampling
+                    \begin{itemize}
+                        \item $r^{\text{new}} = r^{\text{old}} + D \Delta t
+                            F^{\text{old}} + \sqrt{\Delta t}\xi$
+                        \item $F = \frac{2}{\Psi}\nabla \Psi$
+                        \item $\frac{T(b,a,\Delta t)}{T(a,b,\Delta t)} =
+                            \sum\limits_i \exp(-\frac{\left(\blds{r}^{(b)}_i -
+                            \blds{r}^{(a)}_i - D\Delta t
+                            \blds{F}^{(a)}_i\right)^2}{4D\Delta t}
+                            +\frac{\left(\blds{r}^{(a)}_i - \blds{r}^{(b)}_i -
+                            D\Delta t \blds{F}^{(b)}_i\right)^2}{4D\Delta t})$
+                    \end{itemize}
+            \end{itemize}
+    \end{itemize}

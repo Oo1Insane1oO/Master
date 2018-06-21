@@ -1,5 +1,8 @@
 \documentclass[10pt, t]{beamer}
 
+\newcommand\hmmax{0}
+\newcommand\bmmax{0}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[utopia]{mathdesign}
@@ -10,12 +13,15 @@
             eprint=false]{biblatex}
 \usepackage{subcaption}
 \usepackage{graphicx}
+\usepackage{relsize}
 \usepackage{apacite}
 \usepackage{amsmath}
+\usepackage{mathtools}
 \usepackage{siunitx}
 \usepackage{braket}
 \usepackage{physics}
 \usepackage{tikz}
+\usepackage{bm}
 \usepackage[usenames,dvipsnames,cmyk]{xcolor}
   
 \usetikzlibrary{arrows.meta, shadows}
@@ -534,10 +540,82 @@
                 };
                 \draw[->] (yes) -- (end);
             \end{tikzpicture}
-        \end{figure}%
+        \end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+    \begin{itemize}
+        \item Variational Principle
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+    \begin{itemize}
+        \item Variational Principle
+        \item Rewrite expectation value:
+            $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
+            \frac{\cnj{\Psi}\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r} \md r$
+            = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
+            \begin{itemize}
+                \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
+                \item $P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}$
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+    \begin{itemize}
+        \item Variational Principle
+        \item Rewrite expectation value:
+            $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
+            \frac{\cnj{\Psi}\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r} \md r$
+            = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
+            \begin{itemize}
+                \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
+                \item $P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}$
+            \end{itemize}
+        \item Metropolis-Hastings Algorithm
+            \begin{itemize}
+                \item $r^{\text{new}} = r^{\text{old}} + \Delta t \xi$
+                \item $\ufij{A}{i}{j} =
+                    \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
+                    \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)$
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+    \begin{itemize}
+        \item Variational Principle
+        \item Rewrite expectation value:
+            $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
+            \frac{\cnj{\Psi}\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r} \md r$
+            = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
+            \begin{itemize}
+                \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
+                \item $P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}$
+            \end{itemize}
+        \item Metropolis-Hastings Algorithm
+            \begin{itemize}
+                \item $r^{\text{new}} = r^{\text{old}} + \Delta t \xi$
+                \item $\ufij{A}{i}{j} =
+                    \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
+                    \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)$
+                \item Importance Sampling
+                    \begin{itemize}
+                        \item $r^{\text{new}} = r^{\text{old}} + D \Delta t
+                            F^{\text{old}} + \sqrt{\Delta t}\xi$
+                        \item $F = \frac{2}{\Psi}\nabla \Psi$ 
+                        \item $\frac{T(b,a,\Delta t)}{T(a,b,\Delta t)} =
+                            \sum\limits_i \exp(-\frac{\left(\blds{r}^{(b)}_i -
+                            \blds{r}^{(a)}_i - D\Delta t
+                            \blds{F}^{(a)}_i\right)^2}{4D\Delta t}
+                            +\frac{\left(\blds{r}^{(a)}_i - \blds{r}^{(b)}_i -
+                            D\Delta t \blds{F}^{(b)}_i\right)^2}{4D\Delta t})$
+                    \end{itemize}
+            \end{itemize}
+    \end{itemize}
+\end{frame}
 
 \section{Implementation}
 \section{Summary and Conclusion}

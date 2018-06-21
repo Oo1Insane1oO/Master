@@ -180,6 +180,25 @@ some methods. We have used two method,
     eigenvalues and density matrix (for mixing).
 \end{frame}
 
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+    Variational Principle
+        - Again we make use of the variational principle
+        - However the variational method applies a statistical approach to the
+        problem, we first rewrite the expectation value with a so-called local
+        energy defined as this. The form of the integral is recognized as an
+        integral over the probability distribution $\abs{\Psi}^2$.
+   Mtropolis-Hastings
+        - We can solve this with the Metropolis algorithm in which we choose
+        positions $\blds{R}$ randomly and accept accoring to this
+        - The $T$-ratio is defined by Importance Sampling. We will skip the
+        derivation, but the main idea is to use the fact that the quantum
+        mechanical system can be modelled as an isotropic diffusion process,
+        solve the Focker-Plank and Langevin equations and end up with a new
+        proposal for the positions defined by a quantum force which pushes the
+        particles towards regions where the wavefunction is large. $\xi$ is a
+        normal distributed number with mean $0$ and unit variance
+\end{frame}
+
 \section{Implementation}
 \section{Summary and Conclusion}
 
