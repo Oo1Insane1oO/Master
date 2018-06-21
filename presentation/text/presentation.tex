@@ -12,8 +12,14 @@
 \usepackage{graphicx}
 \usepackage{apacite}
 \usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{braket}
 \usepackage{physics}
+\usepackage{tikz}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor}
   
+\usetikzlibrary{arrows.meta, shadows}
+
 \addbibresource{text/refs.bib}
 
 \usetheme[progressbar=frametitle]{metropolis}
@@ -59,6 +65,8 @@
 \author{Alocias Mariadason}
 \institute{Institute of Physics}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+\input{text/defs.tex}
 
 \begin{document}
 
@@ -190,12 +198,346 @@
 
 \section{Methods}
 
-\begin{frame}[fragile]{Methods}
+\begin{frame}[standout]{Methods}
+    Hartree-Fock \\
+    Variational Monte-Carlo
+\end{frame}
+
+\begin{frame}[standout]{Methods: Variational Principle}
+    \begin{equation*}
+        E_0 \leq \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
+        \label{eq:varPrinc}
+    \end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
     \begin{itemize}
-        \item Hartree-Fock(HF)
-        \item Variational Monte-Carlo(VMC)
+        \item Pauli Principle
     \end{itemize}
 \end{frame}
+
+\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
+    \begin{itemize}
+        \item Pauli Principle
+        \item Slater Determinant
+            \begin{itemize}
+                \item $\Psi^{\text{AS}}_T =
+                    \frac{1}{\sqrt{N!}}\sum\limits_{P}(-1)^p\mathcal{P}_P\prod\limits_i\psi_i$
+                \item $\Psi^{\text{S}}_T =
+                    \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum\limits_{P}\mathcal{P}_P\prod\limits_i\psi_i$
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
+    \begin{itemize}
+        \item Pauli Principle
+        \item Slater Determinant
+            \begin{itemize}
+                \item $\Psi^{\text{AS}}_T =
+                    \frac{1}{\sqrt{N!}}\sum\limits_{P}(-1)^p\mathcal{P}_P\prod\limits_i\psi_i$
+                \item $\Psi^{\text{S}}_T =
+                    \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum\limits_{P}\mathcal{P}_P\prod\limits_i\psi_i$
+            \end{itemize}
+        \item $E\left[\Psi\right] =
+            \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} =
+            \sum\limits_p\bra{p}\mathcal{H}_0\ket{p} +
+            \frac{1}{2}\sum\limits_{p,q}\left[\bra{pq}f_{12}\ket{pq} \pm
+            \bra{pq}f_{12}\ket{qp}\right]$
+        \item $\mathcal{H}_0 = -\frac{1}{2}\sum\limits_i\nabla^2_i + V(r)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Assumptions
+        \begin{itemize}
+            \item The Born-Oppenheimer approximation} holds. 
+            \item All relativistic effects are negligible.
+            \item The wavefunction can be described by a single \txtit{Slater
+                determinant}.
+            \item The Mean Field Approximation holds.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock Method}
+    \begin{itemize}
+        \item Assumptions
+        \begin{itemize}
+            \item The Born-Oppenheimer approximation} holds. 
+            \item All relativistic effects are negligible.
+            \item The wavefunction can be described by a single \txtit{Slater
+                determinant}.
+            \item The Mean Field Approximation holds.
+        \end{itemize}
+    \end{itemize}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[scale=0.5]
+            \draw (-1,0) -- (1,0);
+            \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
+            \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (-0.5,-0.5) -- (-0.5,0.5);
+            \draw[blue, <-] (0.5,-0.5) -- (0.5,0.5);
+            \node[text width=2.2cm, align=center] at (0,-1) {\footnotesize{$(0,0)$}};
+            \draw (-2.5,2) -- (-0.5,2);
+            \node at (-2.0,2) [draw,circle,fill=red,scale=0.6] {};
+            \node at (-1.0,2) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (-2.0,1.5) -- (-2.0,2.5);
+            \draw[blue, <-] (-1.0,1.5) -- (-1.0,2.5);
+            \node[text width=2.2cm, align=center] at (-1.5,1) {\footnotesize{$(1,0)$}};
+            \draw (0.5,2) -- (2.5,2);
+            \node at (1.0,2) [draw,circle,fill=red,scale=0.6] {};
+            \node at (2.0,2) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, <-] (1.0,1.5) -- (1.0,2.5);
+            \draw[blue, ->] (2.0,1.5) -- (2.0,2.5);
+            \node[text width=2.2cm, align=center] at (1.5,1) {\footnotesize{$(0,1)$}};
+            \draw (-4.5,4) -- (-2.5,4);
+            \node at (-4.0,4) [draw,circle,fill=red,scale=0.6] {};
+            \node at (-3.0,4) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (-4.0,3.5) -- (-4.0,4.5);
+            \draw[blue, <-] (-3.0,3.5) -- (-3.0,4.5);
+            \node[text width=2.2cm, align=center] at (-3.5,3) {\footnotesize{$(2,0)$}};
+            \draw (-1,4) -- (1,4);
+            \node at (-0.5,4) [draw,circle,fill=red,scale=0.6] {};
+            \node at (0.5,4) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (-0.5,3.5) -- (-0.5,4.5);
+            \draw[blue, <-] (0.5,3.5) -- (0.5,4.5);
+            \node[text width=2.2cm, align=center] at (0,3) {\footnotesize{$(1,1)$}};
+            \draw (4.5,4) -- (2.5,4);
+            \node at (4.0,4) [draw,circle,fill=red,scale=0.6] {};
+            \node at (3.0,4) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (4.0,3.5) -- (4.0,4.5);
+            \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
+            \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Constrained minimization
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Constrained minimization
+            \begin{itemize}
+                \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
+                    \delta_{ij}$
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Constrained minimization
+            \begin{itemize}
+                \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
+                    \delta_{ij}$
+                \item Lagrange Multiplier method
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Constrained minimization
+            \begin{itemize}
+                \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
+                    \delta_{ij}$
+                \item Lagrange Multiplier method
+                \item Fock-operator: $\mathcal{F} \equiv \mathcal{H}_0 +
+                    \mathcal{J} \pm \mathcal{K}$
+                    \begin{itemize}
+                        \item $\mathcal{J} \equiv \sum_k
+                            \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
+                            \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r$
+                        \vsp
+                        \item $\mathcal{K} \equiv \sum_k
+                            \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
+                            \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r$
+                        \vsp
+                        \item $\mathcal{F}\ket{\psi} = \blds{\veps}\ket{\psi},
+                            \blds{\veps}=(\veps_0,\dots,\veps_N)$
+                    \end{itemize}
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Constrained minimization
+            \begin{itemize}
+                \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
+                    \delta_{ij}$
+                \item Lagrange Multiplier method
+                \item Fock-operator: $\mathcal{F} \equiv \mathcal{H}_0 + \mathcal{J} \pm \mathcal{K}$
+                    \begin{itemize}
+                        \item $\mathcal{J} \equiv \sum_k
+                            \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
+                            \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r$
+                        \vsp
+                        \item $\mathcal{K} \equiv \sum_k
+                            \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
+                            \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r$
+                        \vsp
+                        \item $\mathcal{F}\ket{\psi} = \blds{\veps}\ket{\psi},
+                            \blds{\veps}=(\veps_0,\dots,\veps_N)$
+                    \end{itemize}
+                \item $N+1$ equations to be solved.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Integrate out spin
+        \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
+            \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Integrate out spin
+        \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
+            \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
+        \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Integrate out spin
+        \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
+            \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
+        \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
+        \item Roothan-Hall: $\blds{F}\blds{C}_i = \blds{\veps}S\blds{C}_i$
+            \begin{itemize}
+                \item $F_{pq} = h_{pq} + \sum\limits_{pq}\rho_{pq}\left(2D_{prqs} \pm D_{prsq}\right)$
+                \vsp
+                \item $h_{pq} \equiv \Braket{p | h | q}$
+                \vsp
+                \item $\rho_{pq} \equiv \sum\limits^{\frac{N}{2}}_{i=1} C_{pi}C^{*}_{qi}$
+                \vsp
+                \item $D_{pqrs} \equiv \Braket{pq | f_{12} | rs}$
+                \item $S_{pq} \equiv \Braket{p | q}$
+            \end{itemize}
+        \item Poople-Nesbet: $\blds{F}^{+}\blds{C}^{+} =
+            \blds{\veps}^{\+}\blds{S}\blds{C}^{+}$, $\blds{F}^{-}\blds{C}^{-} =
+            \blds{\veps}^{-}\blds{S}\blds{C}^{-}$
+            \begin{itemize}
+                \item $F^{\pm}_{pq} = h_{pq} + \sumll{k_{\pm}}\sumll{rs}
+                    C^{\pm\dagger}_{rk_{\pm}} C^{\pm\dagger}_{sk_{\pm}}
+                    \left[D_{prqs} - D_{prsq}\right] +
+                    \sumll{k_{\mp}}\sumll{rs} C^{\mp\dagger}_{rk_{\mp}}
+                    C^{\mp\dagger}_{sk_{\mp}} D_{prqs}$
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+        \begin{figure}
+            \centering
+            \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=blue!30, drop shadow},
+                    startstop/.style = {base, fill=red!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                    activityRuns/.style = {base, fill=green!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.5, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily, scale=0.5},
+                align=center]
+                \node (pre) [activityStarts] {
+                    Pre-build two-body matrix $D_{pqrs}$ \\
+                    Pre-build one-body matrix $h_{pq}$ \\
+                    Pre-build overlap matrix $S_{pq}$ \\
+                    Initialize $\blds{C}$
+                };
+                \node (Fock) [activityRuns, below of=pre, yshift=-1.2cm] {
+                    Set Fock-matrix $\blds{F}$
+                };
+                \node (Fockmix) [activityRuns, below of=Fock, yshift=-0.7cm] {
+                    Perform mixing of $\blds{F}$ \\
+                    (Optional)
+                };
+                \node (Fockmixeq) [process, right of=Fockmix, xshift=2.4cm] {
+                    Pulay (DIIS)
+                };
+                \draw[->] (Fock) -- (Fockmix);
+                \draw[-] (Fockmix) -- (Fockmixeq);
+                \node (RHF) [process, above right of=Fock, xshift=3.0cm, yshift=-0.2cm] {
+                    RHF
+                };
+                \node (UHF) [process, below right of=Fock, xshift=3.0cm, yshift=0.1cm] {
+                    UHF
+                };
+                \draw[-] (Fock) to [out=15, in=180] (RHF);
+                \draw[-] (Fock) to [out=-15, in=180] (UHF);
+                \draw[->] (pre) -- (Fock);
+                \node (eigcomp) [activityRuns, below of=Fock, yshift=-2.5cm] {
+                    Solve generalized \\ 
+                    eigenvalue problem. \\
+                    $\blds{F}\blds{C} = \blds{\veps}\blds{S}\blds{C}$
+                };
+                \draw[->] (Fockmix) -- (eigcomp);
+                \node (density) [activityRuns, below of=eigcomp] {
+                   Set density matrix $\blds{\rho}$.
+                };
+                \draw[->] (eigcomp) -- (density);
+                \node (mix) [activityRuns, below of=density] {
+                    Perform mixing of $\blds{\rho}$. \\
+                    (Optional)
+                };
+                \draw[->] (density) -- (mix);
+                \node (mixeq) [process, right of=mix, xshift=2.5cm] {
+                    Simple
+                };
+                \draw[-] (mix) -- (mixeq);
+                \node (conv) [startstop, below of=mix] {
+                    Check convergence.
+                };
+                \draw[->] (mix) -- (conv);
+                \node (no) [above left of=conv, xshift=-4.0cm] {
+                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
+                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} \geq \epsilon$
+                };
+                \draw[->] (conv) to [out=180,in=-90] (no);
+                \node (keepOld) [process, above of=no, yshift=1.5cm, xshift=-0.5cm] {
+                    Save energy eigenvalues and \\
+                    density matrix(mixed). \\
+                    $\blds{\varepsilon}^{\text{HF}}_{\text{old}} =
+                    \blds{\varepsilon}^{\text{HF}}_{\text{new}}$ \\
+                    $\blds{\rho}_{\text{old}} = \blds{\rho}_{\text{new}}$
+                };
+                \draw[->] (no) to [out=90,in=-90] (keepOld);
+                \draw[->] (keepOld) to [out=90,in=180] (Fock);
+                \node (yes) [below of=conv] {
+                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
+                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \epsilon$
+                };
+                \draw[->] (conv) -- (yes);
+                \node (end) [activityStarts, below of=yes] {
+                    Output energy
+                };
+                \draw[->] (yes) -- (end);
+            \end{tikzpicture}
+        \end{figure}%
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
 
 \section{Implementation}
 \section{Summary and Conclusion}

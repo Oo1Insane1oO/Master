@@ -7,6 +7,13 @@
             url=false,
             doi=true,
             eprint=false]{biblatex}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{apacite}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{braket}
+\usepackage{physics}
 
 \usetheme[progressbar=frametitle]{metropolis}
 \usepackage{appendixnumberbeamer}
@@ -84,8 +91,93 @@
 - In order to solve the many-body time-independent Schrödinger equation we need
 some methods. We have used two method,
 \begin{frame}[fragile]{Methods}
-    - Hartree-Fock(HF)
-    - Variational Monte-Carlo(VMC)
+    Hartree-Fock(HF)
+    Variational Monte-Carlo(VMC)
+    - Before we explain the Hartree-Fock method it is worth-while to mention the Variational principle
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Variational Principle}
+    - It states this
+    \begin{equation*}
+        E_0 \leq \ecp{\mathcal{H}} =
+        \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
+        \label{eq:varPrinc}
+    \end{equation*}
+    - It basically says that given a system described by some Hamiltonian $\mathcal{H}$ the expectation value of the energy can NEVER be lower than the true ground-state energy of the system $E_0$. This might seem trivial, but it gives us the oppurtunity to define a trial wavefunction $\Psi$ for the the system and then minimize this. This simple idea is the main fundament on which both the Hartree-Fock method and the Variational Monte-Carlo method rests on.
+\end{frame}
+
+\begin{frame}[standout]{Methods: Slater Determinant And Energy Functional}
+    Pauli Principle
+        - The Pauli principle states that for systems of identical particles no same particle can occupy the same quantum state simultaneously.
+    Slater Determinant
+        - Following this result the many-body wavefunction for a fermionic
+        system to be anti-symmetric and represented by a Slater determinant.
+        - The P-operator indicates permuations over all possible $\psi_i$ and
+        the latter case is the symmetric case present for bosons.
+        - Taking the anti-summetric wavefunction as the ansatz for our
+        trial-wavefunction we end up with the following energy-functional
+        - The H-zero term is just the single-body Hamiltonian
+        - This is the start of the Hartree-Fock method.
+\end{frame}
+
+\begin{frame}[standout]{Methods: Hartree-Fock}
+    Assumptions
+        - The first is already assumed and explained
+        - We also restrict the system to not be relativistic. This is true for the low number of particles we work with.
+        - The single-slater wavefunction assumption holds as long as we work
+        with closed-shell systems. This means that the number of particles
+        always fulfills the degeneracy levels, for the HO we have this figure.
+        So we we can only run with $N=2,6,12,20$ and so on for $2D$ and
+        $N=2,8,20$ for $3D$ for HO-system.
+        - An for the MFA, this essentially means that the entire interaction
+        potential can be described as a mean potential rather than specific
+        individual point-potentials for each particle. This is fulfilled with
+        the Coulomb interaction.
+\end{frame}
+
+\begin{frame}[standout]{Methods: Hartree-Fock}
+    Contrained Minimization
+        - As mentioned we need to minimize the energy. We notice one
+        constraint, the spin orthogonality. We can minimize with the Lagrange
+        multiplier method with the following Lagrangian. The delta-E part is
+        the energy variation we seek the zero of.
+        - We then define a Fock-operator giving the eigenvalue equation, and
+        two operators defined from the energy-functional.
+        - We then have $N+1$ equations to be solved
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    Integrate out spin
+        - The $\psi$'s have till now all been spin-orbitals. That is a
+        wavefunction consisting of a spacial function multiplied by a spin
+        function. It is convenient to integrate the spin dependency out of the
+        eigenvalue equation. There exists two ways of achieving this.
+    Pair spins as
+        - where $\phi$ is the spacial part and $\alpha$ and $\beta$ are two
+        spin configurations, up and down.
+        - We restrict both the spin-configurations to have the same spacial
+        function.
+    Expand
+        - and expand the spacial part in some known basis $\xi$ (i.e HO)
+    Roothan-Hall
+        - and end up with the Roothan-Hall equation with the elements of the
+        Fock-matrix as this, the sum now only goes up-to $N/2$ because of the
+        spin pairing
+    Poople-Nesbet
+        - If we dont restrict the spin-orbitals we end up with two Roothan-Hall
+        equations and a Fock-Matrix with mixed elements.
+    - The equations are a set of non-linear equations and have to be solvet
+    iteratively until a convergence is reached.
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    - The algorithm is to first pre-build the two-body, one-body and overlap
+    matrices. The initial coefficients can be set to unit-matrix if nothing
+    else is known. Set the Fock matrix either the restricted or the
+    unrestricted form. Perform an optional mixing of $F$. Solve the generalized
+    eigenvalue problem, calculate density matrix, mix this if desired, check
+    for convergence. If reached calculate energy and end, if not save
+    eigenvalues and density matrix (for mixing).
 \end{frame}
 
 \section{Implementation}
