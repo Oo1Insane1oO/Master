@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.11)  22 JUN 2018 16:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.11)  22 JUN 2018 17:38
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -2745,8 +2745,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.26 
-     
+l.26 \usepackage
+                {lmodern}
 The package xcolor has already been loaded with options:
   [dvipsnames,]
 There has now been an attempt to load it with options
@@ -2756,7 +2756,41 @@ Adding the global options:
 to your \documentclass declaration may fix this.
 Try typing  <return>  to proceed.
 
-
+(/usr/share/texmf/tex/latex/lm/lmodern.sty
+Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/mdput/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/mdput/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/mdput/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/mdput/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/mdput/b/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/mdput/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/mdput/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/mdput/b/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  T1/mdput/b/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  T1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  T1/mdput/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  T1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  T1/mdput/b/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  T1/cmss/b/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  T1/mdput/b/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  T1/cmtt/b/n --> OT1/lmtt/m/n on input line 38.
+)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.
 code.tex
 File: pgflibraryarrows.meta.code.tex 2015/05/13 v3.0.1a (rcs-revision 1.13)
@@ -2972,14 +3006,14 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 .................................................
 )
 
-./text/presentation.tex:82: Package biblatex Error: Incompatible package 'apaci
+./text/presentation.tex:83: Package biblatex Error: Incompatible package 'apaci
 te'.
 
 See the biblatex package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.82 \begin{document}
+l.83 \begin{document}
                      
 The 'apacite' package and biblatex are incompatible.
 
@@ -2998,35 +3032,39 @@ echnical note
 ) (./text/presentation.aux)
 \openout1 = `text/presentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 82.
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for MDA/cmr/m/n on input line 82.
-LaTeX Font Info:    Try loading font information for MDA+cmr on input line 82.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for MDA/cmr/m/n on input line 83.
+LaTeX Font Info:    Try loading font information for MDA+cmr on input line 83.
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdacmr.fd
 File: mdacmr.fd 
 )
-LaTeX Font Info:    ... okay on input line 82.
-LaTeX Font Info:    Checking defaults for MDB/cmr/m/n on input line 82.
-LaTeX Font Info:    Try loading font information for MDB+cmr on input line 82.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for MDB/cmr/m/n on input line 83.
+LaTeX Font Info:    Try loading font information for MDB+cmr on input line 83.
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdbcmr.fd
 File: mdbcmr.fd 
 )
-LaTeX Font Info:    ... okay on input line 82.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 83.
 
+(/usr/share/texmf/tex/latex/lm/t1lmss.fd
+File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -3093,7 +3131,7 @@ e
 ))
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box83
-Package hyperref Info: Link coloring OFF on input line 82.
+Package hyperref Info: Link coloring OFF on input line 83.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -3103,82 +3141,72 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count488
 )
-LaTeX Info: Redefining \ref on input line 82.
-LaTeX Info: Redefining \pageref on input line 82.
-LaTeX Info: Redefining \nameref on input line 82.
+LaTeX Info: Redefining \ref on input line 83.
+LaTeX Info: Redefining \pageref on input line 83.
+LaTeX Info: Redefining \nameref on input line 83.
 
 (./text/presentation.out) (./text/presentation.out)
 \@outlinefile=\write7
 \openout7 = `text/presentation.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/mdput/m/n --> OT1/cmss/m/n on input line 82.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 83.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/mdput/b/n --> OT1/cmss/b/n on input line 82.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 83.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 83.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 83.
 \symnumbers=\mathgroup12
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 82.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 83.
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `pureletters' in the math version `normal' on input line 82
+(Font)              `pureletters' in the math version `normal' on input line 83
 .
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/mathkerncmss/m/sl --> T1/cmss/m/it on input line 82
+(Font)                  OT1/mathkerncmss/m/sl --> T1/lmss/m/it on input line 83
 .
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `pureletters' in the math version `bold' on input line 82.
+(Font)              `pureletters' in the math version `bold' on input line 83.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/bx/sl --> T1/cmss/m/it on input line 8
-2.
+(Font)                  OT1/mathkerncmss/bx/sl --> T1/lmss/m/it on input line 8
+3.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OML/mdput/m/n --> T1/mdput/m/n on input line 82.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 82.
+(Font)                  OML/mdput/m/n --> T1/lmr/m/n on input line 83.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  T1/mdput/b/n --> T1/cmss/b/n on input line 82.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/mdput/b/n --> T1/cmss/b/n on input line 82.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 82.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 83.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  T1/cmss/m/n --> T1/cmss/m/n on input line 82.
+(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/cmss/b/n --> T1/cmss/m/n on input line 82.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 82.
+(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 83.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  T1/mdput/m/it --> T1/cmss/m/it on input line 82.
+(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/mdput/b/it --> T1/cmss/m/it on input line 82.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 82.
+(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 83.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  T1/cmtt/m/n --> T1/cmtt/m/n on input line 82.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtt/b/n --> T1/cmtt/m/n on input line 82.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 83.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/cmss/m/n --> T1/cmss/b/n on input line 82.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 83.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 82.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OML/mdput/b/n --> T1/mdput/b/n on input line 82.
+(Font)                  OML/mdput/b/n --> T1/lmr/b/n on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/cmss/b/n --> T1/cmss/b/n on input line 82.
+(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/cmss/m/n --> T1/cmss/b/n on input line 82.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 82.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 83.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 82.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 82.
-LaTeX Font Info:    Encoding `T1' has changed to `OT1' for symbol font
-(Font)              `pureletters' in the math version `normal' on input line 82
-.
-LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  T1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 82
-.
-LaTeX Font Info:    Encoding `T1' has changed to `OT1' for symbol font
-(Font)              `pureletters' in the math version `bold' on input line 82.
-LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 82
-.
-LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 82.
+(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 83.
+\symboldpureletters=\mathgroup13
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
@@ -3206,11 +3234,11 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 
 Package mathdesign/mdput Warning: Package 'amssymb' shouldn't be used in conjon
-ction with package mdput, on input line 82.
+ction with package mdput, on input line 83.
 
 
 Package mathdesign/mdput Warning: Package 'amsfonts' shouldn't be used in conjo
-nction with package mdput, on input line 82.
+nction with package mdput, on input line 83.
 
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
@@ -3220,8 +3248,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'text/presentation.bbl' found.
 (./text/presentation.bbl)
-Package biblatex Info: Reference section=0 on input line 82.
-Package biblatex Info: Reference segment=0 on input line 82.
+Package biblatex Info: Reference section=0 on input line 83.
+Package biblatex Info: Reference segment=0 on input line 83.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 \c@maskedRefs=\count489
@@ -3313,134 +3341,123 @@ Package pgfplots notification 'compat/show suggested version=true': you might b
 enefit from \pgfplotsset{compat=1.15} (current compat level: 1.9).
 
 (./text/presentation.nav)
-LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 5.17998pt on input line 82.
-LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 7.25197pt on input line 82.
 \c__siunitx_mathsf_int=\count490
-LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 7.25197pt on input line 82.
-LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 5.17998pt on input line 82.
-LaTeX Font Info:    Try loading font information for OML+mdput on input line 82
-.
+LaTeX Font Info:    Try loading font information for OT1+lmss on input line 83.
 
-(/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/omlmdput.fd
-File: omlmdput.fd 2013/08/29 Fontinst v1.933 font definitions for OML/mdput.
+ (/usr/share/texmf/tex/latex/lm/ot1lmss.fd
+File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 9.40002pt on input line 82.
-LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 6.58002pt on input line 82.
-LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 4.70001pt on input line 82.
-LaTeX Font Info:    Try loading font information for OMS+mdput on input line 82
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 83.
+
+(/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 83.
+
+
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 83.
+
+
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 83.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 83.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 83.
+LaTeX Font Info:    Try loading font information for U+msa on input line 83.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 83.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for OMS+mdput on input line 83
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/omsmdput.fd
 File: omsmdput.fd 2013/08/29 Fontinst v1.933 font definitions for OMS/mdput.
 )
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 82.
+(Font)              scaled to size 9.40002pt on input line 83.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 82.
+(Font)              scaled to size 6.58002pt on input line 83.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 82.
-LaTeX Font Info:    Try loading font information for OMX+mdput on input line 82
+(Font)              scaled to size 4.70001pt on input line 83.
+LaTeX Font Info:    Try loading font information for OML+mdput on input line 83
 .
 
-(/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/omxmdput.fd
-File: omxmdput.fd 2013/08/29 Fontinst v1.933 font definitions for OMX/mdput.
-)
-LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 82.
-LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 82.
-LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 82.
-LaTeX Font Info:    Try loading font information for U+msa on input line 82.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 82.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+(/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/omlmdput.fd
+File: omlmdput.fd 2013/08/29 Fontinst v1.933 font definitions for OML/mdput.
 )
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 82.
+(Font)              scaled to size 9.40002pt on input line 83.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 82.
+(Font)              scaled to size 6.58002pt on input line 83.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 82.
-LaTeX Font Info:    Try loading font information for MDA+mdput on input line 82
+(Font)              scaled to size 4.70001pt on input line 83.
+LaTeX Font Info:    Try loading font information for MDA+mdput on input line 83
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/mdamdput.fd
 File: mdamdput.fd 2013/08/29 Fontinst v1.933 font definitions for MDA/mdput.
 )
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 82.
+(Font)              scaled to size 9.40002pt on input line 83.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 82.
+(Font)              scaled to size 6.58002pt on input line 83.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 82.
-LaTeX Font Info:    Try loading font information for MDB+mdput on input line 82
+(Font)              scaled to size 4.70001pt on input line 83.
+LaTeX Font Info:    Try loading font information for MDB+mdput on input line 83
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/mdbmdput.fd
 File: mdbmdput.fd 2013/08/29 Fontinst v1.933 font definitions for MDB/mdput.
 )
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 82.
+(Font)              scaled to size 9.40002pt on input line 83.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 82.
+(Font)              scaled to size 6.58002pt on input line 83.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 82.
-LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 82.
-
-(/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
-File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
-thkerncmss.
-)
+(Font)              scaled to size 4.70001pt on input line 83.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 83.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 83.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 83.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <10> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 83.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <7> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 83.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <5> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 83.
 \c__siunitx_mathtt_int=\count491
-LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 10.70007pt on input line 82.
-LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 7.49005pt on input line 82.
-LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 5.35004pt on input line 82.
-LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 14.91832pt on input line 84.
-LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <14.4> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 84.
-LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 14.91832pt on input line 84.
-LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 9.32396pt on input line 84.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 83.
 
-Overfull \vbox (19.49039pt too high) detected at line 84
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <14.4> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 85.
+
+Overfull \vbox (19.49039pt too high) detected at line 85
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./text/presentation.toc)
-LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 12.43195pt on input line 89.
-LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <12> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 89.
-LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 12.43195pt on input line 89.
-
-
-LaTeX Font Warning: Font shape `T1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 89.
-
-LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 5.17998pt on input line 89.
-[2
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <12> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 90.
+ [2
 
 ] [3
 
@@ -3448,11 +3465,11 @@ LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 3.
-LaTeX Font Info:    No file OMScmss.fd. on input line 3.
+LaTeX Font Info:    Try loading font information for OMS+lmss on input line 3.
+LaTeX Font Info:    No file OMSlmss.fd. on input line 3.
 
 
-LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
+LaTeX Font Warning: Font shape `OMS/lmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
 (Font)              for symbol `textbullet' on input line 3.
 
@@ -3462,28 +3479,14 @@ LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 9.32396pt on input line 5.
-LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 6.21597pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 8.46002pt on input line 5.
-LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 5.64001pt on input line 5.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 5.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 5.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
 (Font)              scaled to size 8.46002pt on input line 5.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
 (Font)              scaled to size 5.64001pt on input line 5.
-LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 8.46002pt on input line 5.
-LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 5.64001pt on input line 5.
-LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 6.21597pt on input line 5.
-LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 9.63007pt on input line 5.
-LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 6.42004pt on input line 5.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
 (Font)              scaled to size 8.46002pt on input line 5.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
@@ -3496,6 +3499,29 @@ LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
 (Font)              scaled to size 8.46002pt on input line 5.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
 (Font)              scaled to size 5.64001pt on input line 5.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 5.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 5.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <9> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 5.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 5.
+
+
+./text/presentation.vrb:5: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5                 \item $\mathcal{H}
+                                      \ket{\psi} = E\ket{\psi}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
 ) [5
 
 ]
@@ -3503,30 +3529,45 @@ LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
 
  (./text/presentation.vrb
 
-LaTeX Font Warning: Font shape `OT1/cmss/b/n' undefined
-(Font)              using `OT1/cmss/m/n' instead on input line 10.
+./text/presentation.vrb:5: LaTeX Error: Too many math alphabets used in version
+ normal.
 
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 6.21597pt on input line 10.
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 5.17998pt on input line 10.
-LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 8.46002pt on input line 10.
-LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 5.64001pt on input line 10.
-LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 4.70001pt on input line 10.
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5                 \item $\mathcal{H}
+                                      \ket{\psi} = E\ket{\psi}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9                 \item $\mathcal{H}
+                                       = - \frac{1}{2} \sum\limits_i \nabla^...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <9> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 10.
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <6> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 10.
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <5> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 10.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
 (Font)              scaled to size 8.46002pt on input line 10.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
 (Font)              scaled to size 5.64001pt on input line 10.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
-(Font)              scaled to size 4.70001pt on input line 10.
-LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
-(Font)              scaled to size 8.46002pt on input line 10.
-LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
-(Font)              scaled to size 5.64001pt on input line 10.
-LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
 (Font)              scaled to size 4.70001pt on input line 10.
 LaTeX Font Info:    Font shape `OML/mdput/b/n' will be
 (Font)              scaled to size 8.46002pt on input line 10.
@@ -3546,77 +3587,141 @@ LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
 (Font)              scaled to size 5.64001pt on input line 10.
 LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
 (Font)              scaled to size 4.70001pt on input line 10.
-LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <9> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 10.
-LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 9.32396pt on input line 10.
-LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <6> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 10.
-LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 6.21597pt on input line 10.
-LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <5> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 10.
-LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 5.17998pt on input line 10.
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 9.32396pt on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <9> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <9> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <5> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <5> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <9> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 10.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <5> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 10.
 ) [6
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [7
+ (./text/presentation.vrb
 
-]
-\openout4 = `text/presentation.vrb'.
+./text/presentation.vrb:5: LaTeX Error: Too many math alphabets used in version
+ normal.
 
- (./text/presentation.vrb) [8
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5                 \item $\mathcal{H}
+                                      \ket{\psi} = E\ket{\psi}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
-]
-\openout4 = `text/presentation.vrb'.
 
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
 
-(./text/presentation.vrb) [9
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9                 \item $\mathcal{H}
+                                       = - \frac{1}{2} \sum\limits_i \nabla^...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [7
 
 ]
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 8.28796pt on input line 9.
-LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 8.28796pt on input line 9.
-LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 7.52002pt on input line 9.
+
+./text/presentation.vrb:5: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5                 \item $\mathcal{H}
+                                      \ket{\psi} = E\ket{\psi}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9                 \item $\mathcal{H}
+                                       = - \frac{1}{2} \sum\limits_i \nabla^...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:20: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.20                 \item $\mathcal{H}
+                                        = - \frac{1}{2} \sum\limits_i \nabla...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [8
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [9
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 9.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
 (Font)              scaled to size 7.52002pt on input line 9.
-LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 7.52002pt on input line 9.
-LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 8.56006pt on input line 9.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
 (Font)              scaled to size 7.52002pt on input line 9.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
 (Font)              scaled to size 7.52002pt on input line 9.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
 (Font)              scaled to size 7.52002pt on input line 9.
-LaTeX Font Info:    Font shape `T1/cmss/m/it' will be
-(Font)              scaled to size 8.28796pt on input line 9.
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 10.35995pt on input line 16.
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 7.25197pt on input line 16.
-LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 9.40002pt on input line 16.
-LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 6.58002pt on input line 16.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 9.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <8> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 9.
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <10> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 16.
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <7> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 16.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
 (Font)              scaled to size 9.40002pt on input line 16.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
-(Font)              scaled to size 6.58002pt on input line 16.
-LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
-(Font)              scaled to size 9.40002pt on input line 16.
-LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
 (Font)              scaled to size 6.58002pt on input line 16.
 LaTeX Font Info:    Font shape `OML/mdput/b/n' will be
 (Font)              scaled to size 9.40002pt on input line 16.
@@ -3630,20 +3735,24 @@ LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
 (Font)              scaled to size 9.40002pt on input line 16.
 LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
 (Font)              scaled to size 6.58002pt on input line 16.
-LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <10> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 16.
-LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 10.35995pt on input line 16.
-LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <7> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 16.
-LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 7.25197pt on input line 16.
-<text/figs/HO2Dplot.pdf, id=136, 400.49625pt x 269.9887pt>
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <10> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 16.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <10> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 16.
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <7> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 16.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <7> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 16.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 16.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <7> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 16.
+<text/figs/HO2Dplot.pdf, id=134, 400.49625pt x 269.9887pt>
 File: text/figs/HO2Dplot.pdf Graphic file (type pdf)
 <use text/figs/HO2Dplot.pdf>
 Package pdftex.def Info: text/figs/HO2Dplot.pdf  used on input line 18.
 (pdftex.def)             Requested size: 150.57372pt x 101.50916pt.
-<text/figs/DW2Dplot.pdf, id=137, 401.5pt x 272.99994pt>
+<text/figs/DW2Dplot.pdf, id=135, 401.5pt x 272.99994pt>
 File: text/figs/DW2Dplot.pdf Graphic file (type pdf)
 <use text/figs/DW2Dplot.pdf>
 Package pdftex.def Info: text/figs/DW2Dplot.pdf  used on input line 18.
@@ -3661,7 +3770,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (17.32564pt too high) detected at line 203
+Overfull \vbox (16.88626pt too high) detected at line 204
  []
 
 [10
@@ -3671,40 +3780,153 @@ Overfull \vbox (17.32564pt too high) detected at line 203
 ] [12
 
 ]
-LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 14.91832pt on input line 219.
-LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 13.53603pt on input line 219.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 220.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 219.
-LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 219.
-LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 15.4081pt on input line 219.
+(Font)              scaled to size 13.53603pt on input line 220.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 219.
+(Font)              scaled to size 13.53603pt on input line 220.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 219.
+(Font)              scaled to size 13.53603pt on input line 220.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 219.
- [13
+(Font)              scaled to size 13.53603pt on input line 220.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <14.4> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 220.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <14.4> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 220.
+
+
+
+./text/presentation.tex:220: LaTeX Error: Too many math alphabets used in versi
+on normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.220 \end{frame}
+                 
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[13
 
 ]
 \openout4 = `text/presentation.vrb'.
 
-
-(./text/presentation.vrb) [14
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb) [15
+ (./text/presentation.vrb) [14
 
 ]
 \openout4 = `text/presentation.vrb'.
 
+ (./text/presentation.vrb
 
-(./text/presentation.vrb) [16
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...{\sqrt{N!}}\sum\limits_{P}(-1)^p\mathcal{P}
+                                                  _P\prod\limits_i\psi_i$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9 ...N_{i=1}n_i!}{N!}}\sum\limits_{P}\mathcal{P}
+                                                  _P\prod\limits_i\psi_i$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [15
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...{\sqrt{N!}}\sum\limits_{P}(-1)^p\mathcal{P}
+                                                  _P\prod\limits_i\psi_i$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9 ...N_{i=1}n_i!}{N!}}\sum\limits_{P}\mathcal{P}
+                                                  _P\prod\limits_i\psi_i$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:12: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.12 ...Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
+                                                   =
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13             \sum\limits_p\bra{p}\mathcal{H}
+                                                _0\ket{p} +
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16         \item $\mathcal{H}
+                               _0 = -\frac{1}{2}\sum\limits_i\nabla^2_i + V(r)$
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [16
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -3719,8 +3941,6 @@ you forgot something else, as in `\hbox{$x}'. In such cases
 the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
-LaTeX Font Info:    Font shape `T1/cmss/m/it' will be
-(Font)              scaled to size 9.32396pt on input line 8.
 ) [17
 
 ]
@@ -3758,13 +3978,79 @@ deleted material, e.g., by typing `I$}'.
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 8.28796pt on input line 13.
-LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 7.52002pt on input line 13.
+
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.8 ...          \item Fock-operator: $\mathcal{F}
+                                                   \equiv \mathcal{H}_0 +
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.8 ...k-operator: $\mathcal{F} \equiv \mathcal{H}
+                                                  _0 +
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9                     \mathcal{J}
+                                    \pm \mathcal{K}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9 ...                \mathcal{J} \pm \mathcal{K}
+                                                  $
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:11: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.11                         \item $\mathcal{J}
+                                                \equiv
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <8> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 13.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
-(Font)              scaled to size 7.52002pt on input line 13.
-LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
 (Font)              scaled to size 7.52002pt on input line 13.
 LaTeX Font Info:    Font shape `OML/mdput/b/n' will be
 (Font)              scaled to size 7.52002pt on input line 13.
@@ -3772,11 +4058,12 @@ LaTeX Font Info:    Font shape `MDA/mdput/b/n' will be
 (Font)              scaled to size 7.52002pt on input line 13.
 LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
 (Font)              scaled to size 7.52002pt on input line 13.
-LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <8> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 13.
-LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 8.28796pt on input line 13.
-
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <8> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 13.
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <8> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 13.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <8> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 13.
 
 ./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
 n normal.
@@ -3787,6 +4074,20 @@ Type  H <return>  for immediate help.
                                                   
 l.13 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
                                                    r$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15                         \item $\mathcal{K}
+                                                \equiv
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -3805,12 +4106,99 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
+
+./text/presentation.vrb:19: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.19                         \item $\mathcal{F}
+                                               \ket{\psi} = \blds{\veps}\ket...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
 ) [22
 
 ]
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
+
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.8 ...          \item Fock-operator: $\mathcal{F}
+                                                   \equiv \mathcal{H}_0 + \m...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.8 ...k-operator: $\mathcal{F} \equiv \mathcal{H}
+                                                  _0 + \mathcal{J} \pm \math...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.8 ...thcal{F} \equiv \mathcal{H}_0 + \mathcal{J}
+                                                   \pm \mathcal{K}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.8 ...\mathcal{H}_0 + \mathcal{J} \pm \mathcal{K}
+                                                  $
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:10: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10                         \item $\mathcal{J}
+                                                \equiv
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
 
 ./text/presentation.vrb:12: LaTeX Error: Too many math alphabets used in versio
 n normal.
@@ -3826,6 +4214,20 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
+./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14                         \item $\mathcal{K}
+                                                \equiv
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
 ./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
@@ -3835,6 +4237,21 @@ Type  H <return>  for immediate help.
                                                   
 l.16 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
                                                    r$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:18: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.18                         \item $\mathcal{F}
+                                               \ket{\psi} = \blds{\veps}\ket...
+
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -3861,7 +4278,7 @@ or  <return>  to continue without it.
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb)
-Overfull \vbox (20.84818pt too high) detected at line 546
+Overfull \vbox (19.69275pt too high) detected at line 547
  []
 
 [27
@@ -3876,6 +4293,34 @@ Overfull \vbox (20.84818pt too high) detected at line 546
 
  (./text/presentation.vrb
 
+./text/presentation.vrb:5: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5 ...\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
+                                                   = \int
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:6: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.6 ...\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r}
+                                                   \md r$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
 ./text/presentation.vrb:6: LaTeX Error: Too many math alphabets used in version
  normal.
 
@@ -3935,6 +4380,20 @@ Type  H <return>  for immediate help.
                                                   
 l.7 ...{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md
                                                    r$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9 ...b{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}
+                                                  \Psi$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -3946,6 +4405,34 @@ or  <return>  to continue without it.
 
  (./text/presentation.vrb
 
+./text/presentation.vrb:5: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5 ...\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
+                                                   = \int
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:6: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.6 ...\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r}
+                                                   \md r$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
 ./text/presentation.vrb:6: LaTeX Error: Too many math alphabets used in version
  normal.
 
@@ -4005,6 +4492,20 @@ Type  H <return>  for immediate help.
                                                   
 l.7 ...{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md
                                                    r$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9 ...b{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}
+                                                  \Psi$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -4016,6 +4517,34 @@ or  <return>  to continue without it.
 
  (./text/presentation.vrb
 
+./text/presentation.vrb:5: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.5 ...\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
+                                                   = \int
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:6: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.6 ...\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r}
+                                                   \md r$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
 ./text/presentation.vrb:6: LaTeX Error: Too many math alphabets used in version
  normal.
 
@@ -4075,6 +4604,20 @@ Type  H <return>  for immediate help.
                                                   
 l.7 ...{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md
                                                    r$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:9: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.9 ...b{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}
+                                                  \Psi$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -4089,20 +4632,23 @@ or  <return>  to continue without it.
 ] [33
 
 ]
-LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 14.91832pt on input line 691.
-LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 13.53603pt on input line 691.
+LaTeX Font Info:    Font shape `OT1/lmss/b/n' in size <14.4> not available
+(Font)              Font shape `OT1/lmss/bx/n' tried instead on input line 692.
+
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 691.
-LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 691.
+(Font)              scaled to size 13.53603pt on input line 692.
 LaTeX Font Info:    Font shape `OML/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 691.
+(Font)              scaled to size 13.53603pt on input line 692.
 LaTeX Font Info:    Font shape `MDA/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 691.
+(Font)              scaled to size 13.53603pt on input line 692.
 LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 691.
+(Font)              scaled to size 13.53603pt on input line 692.
+LaTeX Font Info:    Font shape `T1/lmss/b/it' in size <14.4> not available
+(Font)              Font shape `T1/lmss/bx/it' tried instead on input line 692.
+
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <14.4> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 692.
+
  [34
 
 ] [35
@@ -4131,11 +4677,9 @@ LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
 
  (./text/presentation.vrb
 
-LaTeX Font Warning: Font shape `T1/cmss/m/fsc' undefined
-(Font)              using `T1/cmss/m/n' instead on input line 9.
+LaTeX Font Warning: Font shape `T1/lmss/m/fsc' undefined
+(Font)              using `T1/lmss/m/n' instead on input line 9.
 
-LaTeX Font Info:    Font shape `T1/cmss/m/fsc' will be
-(Font)              scaled to size 8.28796pt on input line 9.
 
 Underfull \hbox (badness 10000) in paragraph at lines 11--15
 
@@ -4204,7 +4748,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 )
-Overfull \vbox (8.52318pt too high) detected at line 789
+Overfull \vbox (13.48656pt too high) detected at line 790
  []
 
 [41
@@ -4234,24 +4778,255 @@ LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 13
 .
 
 
-Overfull \hbox (19.10686pt too wide) detected at line 23
+Overfull \hbox (12.95996pt too wide) detected at line 22
 [][]
  []
 
 ) [45
 
-] [46
+]
+\openout4 = `text/presentation.vrb'.
 
-] [47
+ (./text/presentation.vrb) [46
 
-] [48
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [47
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [48
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [49
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [50
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{b_j
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [51
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{b_j
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [52
+
+] [53
+
+] [54
+
+] [55
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\translate ' on input line 852.
+(hyperref)                removing `\translate ' on input line 953.
 
-[49
+[56
 
 ]
 \tf@nav=\write8
@@ -4263,17 +5038,13 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 \tf@snm=\write10
 \openout10 = `text/presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 859.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 859.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 960.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 960.
  (./text/presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 859.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 859.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 960.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 960.
 Package rerunfilecheck Info: File `text/presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 282804FC044AB085C1F03B46B272FCBF;283.
-
-
-LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 1.0pt have occurred.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -4284,61 +5055,50 @@ Package logreq Info: Writing requests to 'text/presentation.run.xml'.
  )
 (\end occurred inside a group at level 6)
 
-### simple group (level 6) entered at line 854 ({)
-### simple group (level 5) entered at line 698 ({)
-### simple group (level 4) entered at line 693 ({)
-### simple group (level 3) entered at line 688 ({)
-### simple group (level 2) entered at line 213 ({)
-### simple group (level 1) entered at line 207 ({)
+### simple group (level 6) entered at line 955 ({)
+### simple group (level 5) entered at line 699 ({)
+### simple group (level 4) entered at line 694 ({)
+### simple group (level 3) entered at line 689 ({)
+### simple group (level 2) entered at line 214 ({)
+### simple group (level 1) entered at line 208 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 52652 strings out of 493724
- 1183784 string characters out of 6151529
- 1650013 words of memory out of 5000000
- 55050 multiletter control sequences out of 15000+600000
- 636599 words of font info for 227 fonts, out of 8000000 for 9000
+ 52800 strings out of 493724
+ 1185979 string characters out of 6151529
+ 1649155 words of memory out of 5000000
+ 55194 multiletter control sequences out of 15000+600000
+ 712171 words of font info for 193 fonts, out of 8000000 for 9000
  667 hyphenation exceptions out of 8191
- 65i,14n,103p,10387b,2779s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/
-ec/ecsx0800.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappe
-n/ec/ectt0800.643pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknap
-pen/ec/ecsx1000.623pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jkn
-appen/ec/ecso1200.720pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/j
-knappen/ec/ecso0800.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour
-/jknappen/ec/ecsi0900.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfo
-ur/jknappen/ec/ecsi0800.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/lj
-four/jknappen/ec/ecss0800.623pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/
-ljfour/jknappen/ec/ecso1000.600pk> </home/saintz/.texlive2017/texmf-var/fonts/p
-k/ljfour/jknappen/ec/ecso0800.450pk> </home/saintz/.texlive2017/texmf-var/fonts
-/pk/ljfour/jknappen/ec/ecss0500.622pk>{/usr/share/texlive/texmf-dist/fonts/enc/
-dvips/ly1/texnansi.enc} </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jk
-nappen/ec/ecso0900.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/
-jknappen/ec/ecss0600.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfou
-r/jknappen/ec/ecss1000.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljf
-our/jknappen/ec/ecsx1200.623pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/l
-jfour/jknappen/ec/ecss0700.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk
-/ljfour/jknappen/ec/ecss0900.623pk> </home/saintz/.texlive2017/texmf-var/fonts/
-pk/ljfour/jknappen/ec/ecsx1440.622pk></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/mathdesign/mdput/md-utbi7m.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/mathdesign/mdput/md-utr7m.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/mathdesign/mdput/md-utr7v.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/mathdesign/mdput/md-utr7y.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/mathdesign/mdput/md-utri7m.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/adobe/utopia/putr8a.pfb>
-Output written on text/presentation.pdf (49 pages, 731019 bytes).
+ 65i,16n,103p,10387b,2779s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/
+texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.e
+nc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/e
+nc/dvips/lm/lm-mathex.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+9.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/font
+s/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12.pfb
+></usr/share/texmf/fonts/type1/public/lm/lmmi5.pfb></usr/share/texmf/fonts/type
+1/public/lm/lmmi6.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public
+/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmmib10.pfb></usr/share/t
+exmf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts/type1/public/lm/l
+mss12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss8.pfb></usr/share/texmf/f
+onts/type1/public/lm/lmss9.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbo10
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb></usr/share/texmf/fon
+ts/type1/public/lm/lmsso10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsso12.
+pfb></usr/share/texmf/fonts/type1/public/lm/lmsso8.pfb></usr/share/texmf/fonts/
+type1/public/lm/lmsso9.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb><
+/usr/share/texmf/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/
+public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/sha
+re/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/l
+m/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt8.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/mathdesign/mdput/md-utb7m.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/mathdesign/mdput/md-utr7m.pfb>
+Output written on text/presentation.pdf (56 pages, 844975 bytes).
 PDF statistics:
- 854 PDF objects out of 1000 (max. 8388607)
- 410 compressed objects within 5 object streams
- 106 named destinations out of 1000 (max. 500000)
+ 544 PDF objects out of 1000 (max. 8388607)
+ 424 compressed objects within 5 object streams
+ 120 named destinations out of 1000 (max. 500000)
  197 words of extra memory for PDF output out of 10000 (max. 10000000)
 

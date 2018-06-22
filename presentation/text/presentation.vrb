@@ -1,24 +1,19 @@
-\frametitle{Wavefunction: Double-Well}
+\frametitle{Wavefunction: Slater-Jastrow}
 \begin{itemize}
-        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
-        \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
-        \item Eigenvalue equation: $\blds{H}^{\text{DW}}\blds{C}^{\text{DW}} =
-            \blds{\varepsilon^{\text{DW}}}\blds{C}^{\text{DW}}$
-            \begin{itemize}
-                \item $H^{\text{DW}}_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
-                    \Braket{\psiHO_i|\VDW_n|\psiHO_j}$
-            \end{itemize}
-        \item Integral-Elements
-        \begin{equation*}
-            \footnotesize
-            \begin{aligned}
-                \Braket{\psiDW_p|\psiDW_q} &= \delta_{pq}
-                \varepsilon^{\text{DW}}_p\delta_{pq} \\
-                \Braket{\psiDW_p|h^{\text{DW}}|\psiDW_q} &=
-                \varepsilon^{\text{DW}}_p\delta_{pq} \\
-                \Braket{\psiDW_p\psiDW_q|\frac{1}{r_{12}}|\psiDW_r\psiDW_s} &=
-                \suml{tuvw}{ijkl} C^{\text{DW}}_{tp}C^{\text{DW}}_{uq}C^{\text{DW}}_{vr}C^{\text{DW}}_{ws}
-                \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
-            \end{aligned}
-        \end{equation*}
+        \item Slater determinant: $\psi_T =
+            \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
+        \item Modified Hermite: $\Phi_{ij} =
+            \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
+            H_{n_d}(\sqrt{\alpha \omega}x_d)\me^{-\frac{\alpha\omega}{2}x^2_d}$
+        \item Hartree-Fock: $\Phi_{ij} =
+            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)$
+        \item Modified Hartree-Fock: $\Phi_{ij} =
+            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\alpha\omega}r_i\right)$
+        \item Pad\'e-Jastrow: $J_{\text{Pad\'e}} = \prod\limits_{i<j}
+            \me^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+        \item NQS: $J_{\text{NQS}} = \me^{-\suml{i=1}{N} \frac{\left(\bm{r}_i -
+            \bm{a}_i\right)^2}{2\sigma^2}}\prod\limits^{M}_j \left(1 + \me^{b_j
+            + \suml{i=1}{N}\suml{d=1}{D}
+            \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}}\right)$
+        \item Pad\'e-NQS: $J = J_{\text{Pad\'e}}J_{\text{NQS}}$
     \end{itemize}

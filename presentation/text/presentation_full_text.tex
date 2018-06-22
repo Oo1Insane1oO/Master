@@ -256,11 +256,37 @@ some methods. We have used two method,
 \begin{frame}[fragile]{Wavefunction: Double-Well}
     - Notice that double-well is only a perturbation of single-well
     - Reasonable to use HO-functions as basis in an expansion
-    - Projecting with the HO-bra we get an eigenvalue equation to be solved for the coefficients
+    - Projecting with the HO-bra we get an eigenvalue equation to be solved for
+    the coefficients
     - And we have the following integral-elements. The eigenvalues DW are
     readily available from the solution to the eigenvalue equation and the
     two-body integral elements are also ready from the full solution of the
-    harmonic oscillator system, meaning we only need to assemble the elements for Hartree-Fock.
+    harmonic oscillator system, meaning we only need to assemble the elements
+    for Hartree-Fock.
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Slater Determinant}
+    - For the variational method we have everything needed to actually build a
+    trial-wavefunction.
+    - The wavefunction is represented as a Slater determinant
+    - We used three of them, first is the HO-basis with a variational parameter
+    $\alpha$. This one was used as a benchmark to test the implementation.
+    - The second is a Hartree-Fock basis.
+    - and the third is a Hartree-Fock basis with a similar $\alpha$-parameter
+    - For the correlation part a so-called Jastrow function is introduced. The
+    ones we used are these
+    - The Pad\'e-Jastrow with $\beta$ a variational parameters, NQS built from
+    a restricted-boltzmann machine where $a$, $b$ and $w$ are variational
+    parameters and a combination of both.
+    - The reason for using the Pad\'e function is due to a cusp-condition. This
+    essentially ensures that the wavefunction does not have a singularity when
+    two particles are close, that is when $r_{ij}$ is zero, the NQS does not
+    have this property as it does not depend on the inter-particle distance,
+    however the functional form is more flexible. The hope then with the
+    combination is that with the cusp-condition fulfilled by the
+    Pad\'e-function we can model other correlations with the NQS.
+    - The full wavefunction is then the Slater determinant multiplied with one
+    of the correlation functions.
 \end{frame}
 
 \section{Implementation}
