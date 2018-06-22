@@ -1,0 +1,51 @@
+\begin{tikzpicture}[
+    >={Latex[width=2mm,length=2mm]},
+        base/.style = {rectangle, rounded corners, draw=black,
+                    minimum width=2cm, minimum height=0.5cm, text
+                    centered, font=\sffamily},
+        basecode/.style = {rectangle, rounded corners, draw=black,
+                    minimum width=2cm, minimum height=0.5cm, text
+                    centered, font=\sffamily, align=left},
+        activityStarts/.style = {base, fill=blue!30, drop shadow},
+        startstop/.style = {base, fill=red!25, drop shadow},
+        startstopcode/.style = {basecode, fill=red!25, drop shadow},
+        activityRuns/.style = {base, fill=green!25, drop shadow},
+        process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+        processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+    scale=0.8, 
+    node distance=1.5cm, 
+    every node/.style={fill=white, font=\sffamily, scale=0.7},
+    align=center]
+    \node (Hexpander) [processcode] {
+        \hltexttt{Hexpander}
+    };
+    \node (GaussianQuadrature) [processcode, left of=Hexpander, xshift=-3cm] {
+        \hltexttt{GaussianQuadrature}
+    };
+    \node (Cartesian) [processcode, below of=HartreeFockSolver] {
+        \hltexttt{Cartesian}
+    };
+    \node (Hermite) [processcode, below of=Cartesian] {
+        \hltexttt{Hermite}
+    };
+    \node (HartreeFockSolver) [processcode, below of=Hermite] {
+        \hltexttt{HartreeFockSolver}
+    };
+    \node (GaussianIntegrals) [processcode, above right of=HartreeFockSolver, xshift=4cm] {
+        \hltexttt{GaussianIntegrals}
+    };
+    \node (DoubleWell) [processcode, below right of=HartreeFockSolver, xshift=4cm] {
+        \hltexttt{DoubleWell}
+    };
+    \node (DWC) [processcode, below of=HartreeFockSolver] {
+        \hltexttt{DWC}
+    };
+    \draw[->] (GaussianQuadrature) -- (Hexpander);
+    \draw[->] (Hexpander) to [out=0, in=90] (GaussianIntegrals);
+    \draw[->] (Cartesian) to [out=0, in=90] (GaussianIntegrals);
+    \draw[->] (Hermite) to [out=0, in=90] (GaussianIntegrals);
+    \draw[->] (HartreeFockSolver) to [out=0, in=180] (GaussianIntegrals);
+    \draw[->] (HartreeFockSolver) to [out=0, in=180] (DoubleWell);
+    \draw[->] (DWC) to [out=0, in=180] (DoubleWell);
+    \draw[->] (GaussianIntegrals) -- (DoubleWell);
+\end{tikzpicture}

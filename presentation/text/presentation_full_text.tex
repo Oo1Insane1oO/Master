@@ -290,6 +290,62 @@ some methods. We have used two method,
 \end{frame}
 
 \section{Implementation}
+
+\begin{frame}[fragile]{Implementation}
+    \CC
+        - All calculations are implemented in C++ using Eigen, a linear algebra library
+        - The reason for this is performance
+        - Generalization with object-oriented programming, especially with the
+        fact that the double-well reuses many of the elements from the
+        single-well used as a benchmark. This gave us the oppurtunity to
+        quickly implement the double-well system after the harmonic oscillator
+        was implemented by just inheriting the harmonic oscillator class
+\end{frame}
+
+\begin{frame}[fragile]{Implementation: Cartesian}
+    - The structure of the energy-levels of the Harmonic oscillator had to be
+    respected, that. This structure here, as we have seen, had to be respected.
+    The levels here are implemented in a class Cartesian and is used to
+    pre-build a matrix containing these states.
+\end{frame}
+
+\begin{frame}[fragile]{Implementation: Hartree-Fock}
+    - We have split the implementation in several parts. The main ones being
+    HartreeFockSolver
+        - Where the restricted Hartree-Fock method is implemented
+    Integrals
+        - GaussianIntegrals and DoubleWell
+        - The Both of these inherit HartreeFockSolver, and DoubleWell inherits
+        GaussianIntegrals additionally
+    Hexpander: Recurrence relations 
+        - The recurrence relations are contained within a class Hexpander, also
+        inherited from in the integrals classes.
+        - The class calculated and tabulates the coefficients and integral
+        elements when initialized. The integral class does this with a function
+        initializeParameters which is called once. The two-body elements are
+        then built by fetching the elements from the Hexpander class.
+    Parallelization
+        - The two-body element is expensive to calculate, even with the
+        pre-calculations and everything. In order to not waste to-much time, we
+        parallelized the entire procedure. One problem however was that sending
+        chunks of the two-body matrix in order to each process results in the
+        latter processes calculating much more than the first few. We over-came
+        this by weighting the chunck-sizes according to this
+        - $S_i$ indicates the number of elements process $i$ calculates, the
+        chunk size, and it is weighted by the sum product of the quantum
+        numbers in its chunk. We first distribute the chunk sizes evenly,
+        resulting in uneven computational strain, and then vary the sizes such
+        that the mean of all of these $S_i$'s are as equal as possible.
+        - Each process then calculates its own elements and sends it to root
+        and then assembled into the full matrix, and the
+        Hartree-Fock algorithm only run on one process
+            - The Hartree-Fock algorithm is only run on root process
+    Tabulation of Two-Body matrix
+        - The two-body matrix is written to binary-file and read in for
+        subsequent runs. This means we only need to run the heavy calculation
+        once and just reuse this later.
+\end{frame}
+
 \section{Summary and Conclusion}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
