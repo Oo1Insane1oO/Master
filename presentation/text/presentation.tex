@@ -1427,6 +1427,367 @@
     \end{figure}
 \end{frame}
 
+\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            >={Latex[width=2mm,length=2mm]},
+                base/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily},
+                basecode/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily, align=left},
+                activityStarts/.style = {base, fill=blue!30, drop shadow},
+                startstop/.style = {base, fill=red!25, drop shadow},
+                startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                activityRuns/.style = {base, fill=green!25, drop shadow},
+                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+            scale=0.8, 
+            node distance=1.25cm, 
+            every node/.style={fill=white, font=\sffamily, scale=0.49},
+            align=center]
+            \node (_HarmonicOscillator) [processcode] {
+                \hltexttt{HarmonicOscillator}
+            };
+            \node (_HartreeFock) [processcode, below of=_HarmonicOscillator] {
+                \hltexttt{HartreeFock}
+            };
+            \node (_VariationalHartreeFock) [processcode, below of=_HartreeFock] {
+                \hltexttt{VariationalHartreeFock}
+            };
+            \node (_HartreeFockDoubleWell) [processcode, below of=_VariationalHartreeFock] {
+                \hltexttt{HartreeFockDoubleWell}
+            };
+            \node (_VariationalHartreeFockDoubleWell) [processcode, below of=_HartreeFockDoubleWell] {
+                \hltexttt{VariationalHartreeFockDoubleWell}
+            };
+            \node (_PadeJastrow) [processcode, below of=_VariationalHartreeFockDoubleWell, xshift=-2cm] {
+                \hltexttt{PadeJastrow}
+            };
+            \node (_RBMJastrow) [processcode, below of=_PadeJastrow, yshift=-2cm] {
+                \hltexttt{RBMJastrow}
+            };
+            \node (_PadeNQS) [processcode, below right of=_PadeJastrow, xshift=2.0cm] {
+                \hltexttt{PadeNQS}
+            };
+            \node (_ExpNQS) [processcode, below of=_PadeNQS] {
+                \hltexttt{ExpNQS}
+            };
+            \node (_Cartesian) [processcode, below left of=_HarmonicOscillator, xshift=-4.6cm] {
+                \hltexttt{Cartesian}
+            };
+            \node (_Hermite) [processcode, below of=_Cartesian] {
+                \hltexttt{Hermite}
+            };
+            \node (_DWC) [processcode, below of=_Hermite, yshift=-1.7cm] {
+                \hltexttt{DWC}
+            };
+            \node (_Slater) [processcode, above right of=_VariationalHartreeFock, xshift=5cm] {
+                \hltexttt{Slater}
+            };
+            \node (_SlaterJastrow) [processcode, above right of=_PadeNQS, xshift=5cm, yshift=-1.5cm] {
+                \hltexttt{SlaterJastrow}
+            };
+            \node (_VMC) [processcode, right of=_HartreeFockDoubleWell, xshift=7cm] {
+                \hltexttt{VMC}
+            };
+            \node (_Minimizer) [processcode, right of=_VMC, xshift=2.5cm] {
+                \hltexttt{Minimizer}
+            };
+            \node (_BruteForce) [processcode, above right of=_VMC, xshift=3cm, yshift=1.5cm] {
+                \hltexttt{BruteForce}
+            };
+            \node (_ImportanceSampling) [processcode, below right of=_VMC, xshift=3cm, yshift=-1.5cm] {
+                \hltexttt{ImportanceSampling}
+            };
+            \draw[->] (_Cartesian) to [out=0, in=180] (_HarmonicOscillator);
+            \draw[->] (_Cartesian) to [out=0, in=180] (_HartreeFock);
+            \draw[->] (_Cartesian) to [out=0, in=180] (_VariationalHartreeFock);
+            \draw[->] (_Cartesian) to [out=0, in=180] (_HartreeFockDoubleWell);
+            \draw[->] (_Cartesian) to [out=0, in=180] (_VariationalHartreeFockDoubleWell);
+            \draw[->] (_Hermite) to [out=0, in=180] (_HarmonicOscillator);
+            \draw[->] (_Hermite) to [out=0, in=180] (_HartreeFock);
+            \draw[->] (_Hermite) to [out=0, in=180] (_VariationalHartreeFock);
+            \draw[->] (_Hermite) to [out=0, in=180] (_HartreeFockDoubleWell);
+            \draw[->] (_Hermite) to [out=0, in=180] (_VariationalHartreeFockDoubleWell);
+            \draw[->] (_DWC) to [out=0, in=180] (_HartreeFockDoubleWell);
+            \draw[->] (_DWC) to [out=0, in=180] (_VariationalHartreeFockDoubleWell);
+            \draw[->]  (_HarmonicOscillator)               to [out=0, in=180] (_Slater);
+            \draw[->]  (_HartreeFock)                      to [out=0, in=180] (_Slater);
+            \draw[->]  (_VariationalHartreeFock)           to [out=0, in=180] (_Slater);
+            \draw[->]  (_HartreeFockDoubleWell)            to [out=0, in=180] (_Slater);
+            \draw[->]  (_VariationalHartreeFockDoubleWell) to [out=0, in=180] (_Slater);
+            \draw[->]  (_PadeJastrow)            to [out=0, in=180] (_SlaterJastrow);
+            \draw[->]  (_RBMJastrow)                      to [out=0, in=180] (_SlaterJastrow);
+            \draw[->]  (_PadeNQS)           to [out=0, in=180] (_SlaterJastrow);
+            \draw[->]  (_ExpNQS)            to [out=0, in=180] (_SlaterJastrow);
+            \draw[->]  (_Slater)            to [out=-90, in=90] (_SlaterJastrow);
+            \draw[->]  (_Slater)            to [out=0, in=90] (_VMC);
+            \draw[->]  (_SlaterJastrow)      to [out=0, in=-90] (_VMC);
+            \draw[->]  (_VMC)    to [out=0, in=180] (_BruteForce);
+            \draw[->]  (_VMC)    to [out=0, in=180] (_ImportanceSampling);
+            \draw[->]  (_VMC)    to [out=0, in=180] (_Minimizer);
+            \draw[->]  (_PadeJastrow)    to [out=-90, in=180] (_PadeNQS);
+            \draw[->]  (_RBMJastrow)    to [out=90, in=180] (_PadeNQS);
+            \draw[->]  (_RBMJastrow)    to [out=90, in=180] (_ExpNQS);
+        \end{tikzpicture}
+    \end{figure}
+    \begin{itemize}
+        \item \hltexttt{Hermite} generated with Python and SymPy
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    \footnotesize
+    \begin{itemize}
+        \item {\makebox[3cm]{\hltextttf{set}:\hfill} Called during
+            initialization (before each sampling)} \\
+        \item {\makebox[3cm]{\hltextttf{reSetAll}:\hfill} Sets all matrices
+            to zero (used in testing)} \\
+        \item {\makebox[3cm]{\hltextttf{initializeMatrices}:\hfill}
+            Allocate memory} \\
+        \item {\makebox[3cm]{\hltextttf{update}:\hfill} Update positions
+            and wavefunction} \\
+        \item {\makebox[3cm]{\hltextttf{reset}:\hfill} Revert to previous
+            positions and wavefunction} \\
+        \item {\makebox[3cm]{\hltextttf{resetGradient}:\hfill} Revert to
+            previous gradient} \\
+        \item {\makebox[3cm]{\hltextttf{acceptState}:\hfill} Update
+            previous positions and wavefunction to current} \\
+        \item {\makebox[3cm]{\hltextttf{acceptGradient}:\hfill} Update
+            previous gradient to current one}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            >={Latex[width=2mm,length=2mm]},
+                base/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily},
+                basecode/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily, align=left},
+                activityStarts/.style = {base, fill=blue!30, drop shadow},
+                startstop/.style = {base, fill=red!25, drop shadow},
+                startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                activityRuns/.style = {base, fill=green!25, drop shadow},
+                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+            scale=0.8, 
+            node distance=1.25cm, 
+            every node/.style={fill=white, font=\sffamily, scale=0.49},
+            align=center]
+            \node (__HarmonicOscillator) [processcode] {
+                \hltexttt{HarmonicOscillator}
+            };
+            \node (__HartreeFock) [processcode, below of=__HarmonicOscillator] {
+                \hltexttt{HartreeFock}
+            };
+            \node (__VariationalHartreeFock) [processcode, below of=__HartreeFock] {
+                \hltexttt{VariationalHartreeFock}
+            };
+            \node (__HartreeFockDoubleWell) [processcode, below of=__VariationalHartreeFock] {
+                \hltexttt{HartreeFockDoubleWell}
+            };
+            \node (__VariationalHartreeFockDoubleWell) [processcode, below of=__HartreeFockDoubleWell] {
+                \hltexttt{VariationalHartreeFockDoubleWell}
+            };
+            \node (__PadeJastrow) [processcode, below of=__VariationalHartreeFockDoubleWell, xshift=-2cm] {
+                \hltexttt{PadeJastrow}
+            };
+            \node (__RBMJastrow) [processcode, below of=__PadeJastrow, yshift=-2cm] {
+                \hltexttt{RBMJastrow}
+            };
+            \node (__PadeNQS) [processcode, below right of=__PadeJastrow, xshift=2.0cm] {
+                \hltexttt{PadeNQS}
+            };
+            \node (__ExpNQS) [processcode, below of=__PadeNQS] {
+                \hltexttt{ExpNQS}
+            };
+            \node (__Cartesian) [processcode, below left of=__HarmonicOscillator, xshift=-4.6cm] {
+                \hltexttt{Cartesian}
+            };
+            \node (__Hermite) [processcode, below of=__Cartesian] {
+                \hltexttt{Hermite}
+            };
+            \node (__DWC) [processcode, below of=__Hermite, yshift=-1.7cm] {
+                \hltexttt{DWC}
+            };
+            \node (__Slater) [processcode, above right of=__VariationalHartreeFock, xshift=5cm] {
+                \hltexttt{Slater}
+            };
+            \node (__SlaterJastrow) [processcode, above right of=__PadeNQS, xshift=5cm, yshift=-1.5cm] {
+                \hltexttt{SlaterJastrow}
+            };
+            \node (__VMC) [processcode, right of=__HartreeFockDoubleWell, xshift=7cm] {
+                \hltexttt{VMC}
+            };
+            \node (__Minimizer) [processcode, right of=__VMC, xshift=2.5cm] {
+                \hltexttt{Minimizer}
+            };
+            \node (__BruteForce) [processcode, above right of=__VMC, xshift=3cm, yshift=1.5cm] {
+                \hltexttt{BruteForce}
+            };
+            \node (__ImportanceSampling) [processcode, below right of=__VMC, xshift=3cm, yshift=-1.5cm] {
+                \hltexttt{ImportanceSampling}
+            };
+            \draw[->] (__Cartesian) to [out=0, in=180] (__HarmonicOscillator);
+            \draw[->] (__Cartesian) to [out=0, in=180] (__HartreeFock);
+            \draw[->] (__Cartesian) to [out=0, in=180] (__VariationalHartreeFock);
+            \draw[->] (__Cartesian) to [out=0, in=180] (__HartreeFockDoubleWell);
+            \draw[->] (__Cartesian) to [out=0, in=180] (__VariationalHartreeFockDoubleWell);
+            \draw[->] (__Hermite) to [out=0, in=180] (__HarmonicOscillator);
+            \draw[->] (__Hermite) to [out=0, in=180] (__HartreeFock);
+            \draw[->] (__Hermite) to [out=0, in=180] (__VariationalHartreeFock);
+            \draw[->] (__Hermite) to [out=0, in=180] (__HartreeFockDoubleWell);
+            \draw[->] (__Hermite) to [out=0, in=180] (__VariationalHartreeFockDoubleWell);
+            \draw[->] (__DWC) to [out=0, in=180] (__HartreeFockDoubleWell);
+            \draw[->] (__DWC) to [out=0, in=180] (__VariationalHartreeFockDoubleWell);
+            \draw[->]  (__HarmonicOscillator)               to [out=0, in=180] (__Slater);
+            \draw[->]  (__HartreeFock)                      to [out=0, in=180] (__Slater);
+            \draw[->]  (__VariationalHartreeFock)           to [out=0, in=180] (__Slater);
+            \draw[->]  (__HartreeFockDoubleWell)            to [out=0, in=180] (__Slater);
+            \draw[->]  (__VariationalHartreeFockDoubleWell) to [out=0, in=180] (__Slater);
+            \draw[->]  (__PadeJastrow)            to [out=0, in=180] (__SlaterJastrow);
+            \draw[->]  (__RBMJastrow)                      to [out=0, in=180] (__SlaterJastrow);
+            \draw[->]  (__PadeNQS)           to [out=0, in=180] (__SlaterJastrow);
+            \draw[->]  (__ExpNQS)            to [out=0, in=180] (__SlaterJastrow);
+            \draw[->]  (__Slater)            to [out=-90, in=90] (__SlaterJastrow);
+            \draw[->]  (__Slater)            to [out=0, in=90] (__VMC);
+            \draw[->]  (__SlaterJastrow)      to [out=0, in=-90] (__VMC);
+            \draw[->]  (__VMC)    to [out=0, in=180] (__BruteForce);
+            \draw[->]  (__VMC)    to [out=0, in=180] (__ImportanceSampling);
+            \draw[->]  (__VMC)    to [out=0, in=180] (__Minimizer);
+            \draw[->]  (__PadeJastrow)    to [out=-90, in=180] (__PadeNQS);
+            \draw[->]  (__RBMJastrow)    to [out=90, in=180] (__PadeNQS);
+            \draw[->]  (__RBMJastrow)    to [out=90, in=180] (__ExpNQS);
+        \end{tikzpicture}
+    \end{figure}
+    \begin{itemize}
+        \item \hltexttt{Hermite} generated with Python and SymPy
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            >={Latex[width=2mm,length=2mm]},
+                base/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily},
+                basecode/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily, align=left},
+                activityStarts/.style = {base, fill=blue!30, drop shadow},
+                startstop/.style = {base, fill=red!25, drop shadow},
+                startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                activityRuns/.style = {base, fill=green!25, drop shadow},
+                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+            scale=0.8, 
+            node distance=1.25cm, 
+            every node/.style={fill=white, font=\sffamily, scale=0.49},
+            align=center]
+            \node (___HarmonicOscillator) [processcode] {
+                \hltexttt{HarmonicOscillator}
+            };
+            \node (___HartreeFock) [processcode, below of=___HarmonicOscillator] {
+                \hltexttt{HartreeFock}
+            };
+            \node (___VariationalHartreeFock) [processcode, below of=___HartreeFock] {
+                \hltexttt{VariationalHartreeFock}
+            };
+            \node (___HartreeFockDoubleWell) [processcode, below of=___VariationalHartreeFock] {
+                \hltexttt{HartreeFockDoubleWell}
+            };
+            \node (___VariationalHartreeFockDoubleWell) [processcode, below of=___HartreeFockDoubleWell] {
+                \hltexttt{VariationalHartreeFockDoubleWell}
+            };
+            \node (___PadeJastrow) [processcode, below of=___VariationalHartreeFockDoubleWell, xshift=-2cm] {
+                \hltexttt{PadeJastrow}
+            };
+            \node (___RBMJastrow) [processcode, below of=___PadeJastrow, yshift=-2cm] {
+                \hltexttt{RBMJastrow}
+            };
+            \node (___PadeNQS) [processcode, below right of=___PadeJastrow, xshift=2.0cm] {
+                \hltexttt{PadeNQS}
+            };
+            \node (___ExpNQS) [processcode, below of=___PadeNQS] {
+                \hltexttt{ExpNQS}
+            };
+            \node (___Cartesian) [processcode, below left of=___HarmonicOscillator, xshift=-4.6cm] {
+                \hltexttt{Cartesian}
+            };
+            \node (___Hermite) [processcode, below of=___Cartesian] {
+                \hltexttt{Hermite}
+            };
+            \node (___DWC) [processcode, below of=___Hermite, yshift=-1.7cm] {
+                \hltexttt{DWC}
+            };
+            \node (___Slater) [processcode, above right of=___VariationalHartreeFock, xshift=5cm] {
+                \hltexttt{Slater}
+            };
+            \node (___SlaterJastrow) [processcode, above right of=___PadeNQS, xshift=5cm, yshift=-1.5cm] {
+                \hltexttt{SlaterJastrow}
+            };
+            \node (___VMC) [processcode, right of=___HartreeFockDoubleWell, xshift=7cm] {
+                \hltexttt{VMC}
+            };
+            \node (___Minimizer) [processcode, right of=___VMC, xshift=2.5cm] {
+                \hltexttt{Minimizer}
+            };
+            \node (___BruteForce) [processcode, above right of=___VMC, xshift=3cm, yshift=1.5cm] {
+                \hltexttt{BruteForce}
+            };
+            \node (___ImportanceSampling) [processcode, below right of=___VMC, xshift=3cm, yshift=-1.5cm] {
+                \hltexttt{ImportanceSampling}
+            };
+            \draw[->] (___Cartesian) to [out=0, in=180] (___HarmonicOscillator);
+            \draw[->] (___Cartesian) to [out=0, in=180] (___HartreeFock);
+            \draw[->] (___Cartesian) to [out=0, in=180] (___VariationalHartreeFock);
+            \draw[->] (___Cartesian) to [out=0, in=180] (___HartreeFockDoubleWell);
+            \draw[->] (___Cartesian) to [out=0, in=180] (___VariationalHartreeFockDoubleWell);
+            \draw[->] (___Hermite) to [out=0, in=180] (___HarmonicOscillator);
+            \draw[->] (___Hermite) to [out=0, in=180] (___HartreeFock);
+            \draw[->] (___Hermite) to [out=0, in=180] (___VariationalHartreeFock);
+            \draw[->] (___Hermite) to [out=0, in=180] (___HartreeFockDoubleWell);
+            \draw[->] (___Hermite) to [out=0, in=180] (___VariationalHartreeFockDoubleWell);
+            \draw[->] (___DWC) to [out=0, in=180] (___HartreeFockDoubleWell);
+            \draw[->] (___DWC) to [out=0, in=180] (___VariationalHartreeFockDoubleWell);
+            \draw[->]  (___HarmonicOscillator)               to [out=0, in=180] (___Slater);
+            \draw[->]  (___HartreeFock)                      to [out=0, in=180] (___Slater);
+            \draw[->]  (___VariationalHartreeFock)           to [out=0, in=180] (___Slater);
+            \draw[->]  (___HartreeFockDoubleWell)            to [out=0, in=180] (___Slater);
+            \draw[->]  (___VariationalHartreeFockDoubleWell) to [out=0, in=180] (___Slater);
+            \draw[->]  (___PadeJastrow)            to [out=0, in=180] (___SlaterJastrow);
+            \draw[->]  (___RBMJastrow)                      to [out=0, in=180] (___SlaterJastrow);
+            \draw[->]  (___PadeNQS)           to [out=0, in=180] (___SlaterJastrow);
+            \draw[->]  (___ExpNQS)            to [out=0, in=180] (___SlaterJastrow);
+            \draw[->]  (___Slater)            to [out=-90, in=90] (___SlaterJastrow);
+            \draw[->]  (___Slater)            to [out=0, in=90] (___VMC);
+            \draw[->]  (___SlaterJastrow)      to [out=0, in=-90] (___VMC);
+            \draw[->]  (___VMC)    to [out=0, in=180] (___BruteForce);
+            \draw[->]  (___VMC)    to [out=0, in=180] (___ImportanceSampling);
+            \draw[->]  (___VMC)    to [out=0, in=180] (___Minimizer);
+            \draw[->]  (___PadeJastrow)    to [out=-90, in=180] (___PadeNQS);
+            \draw[->]  (___RBMJastrow)    to [out=90, in=180] (___PadeNQS);
+            \draw[->]  (___RBMJastrow)    to [out=90, in=180] (___ExpNQS);
+        \end{tikzpicture}
+    \end{figure}
+    \begin{itemize}
+        \item \hltexttt{Hermite} generated with Python and SymPy
+        \item Wavefunction class can be created with Python
+    \end{itemize}
+\end{frame}
+
+\section{Results}
+
 \section{Summary and Conclusion}
 
 {\setbeamercolor{palette primary}{fg=orange, bg=white}

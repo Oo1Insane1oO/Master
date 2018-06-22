@@ -346,6 +346,60 @@ some methods. We have used two method,
         once and just reuse this later.
 \end{frame}
 
+\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    - We have the following wavefunction classes for modified harmonic
+    oscillator, Hartree-Fock with Harmonic oscillator functions, the modified
+    version of that and the two for double-well. All of those inherit from the
+    same Cartesian class as before.
+    - The Hermite class is generated with Python, that is we calculate the
+    Hermite polynomials using the recurrence relation for Hermites symbolically
+    with SymPy and write this to C++ template functions and write those to
+    file.
+    - DWC is same as before.
+    - The implementation of the Jastrow class are given in these 4 classes, the
+    main two classes which use the wavefunction classes are Slater and
+    SlaterJastrow. Slater contains the Slater matrix along with inversers etc.
+    and has functions for updating positions according to if the state was
+    accepted or rejected.
+    - On a technical note, Slater uses only one of the Wavefunction classes,
+    this information is provided at compile time. The same goes for
+    SlaterJastrow with the Jastrow classes. Additionally, Slater checks the
+    wavefunction class in question for a set of functions at compile time
+\end{frame}
+
+\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    Specifically, these functions. If they exist in the wavefunction class,
+    they are compiled and called when the same function is called in Slater
+    during the sampling. This gives the oppurtunity for specific factors or
+    tabulations can be initialized and updated during the sampling giving room
+    for optimizations. Of course, the updating and such has to be controlled by
+    the user.
+\end{frame}
+
+\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    The VMC class uses the Slater and SlaterJastrow classes for transition of
+    states in the Metropolis sampling and depending on which type of sampling
+    is used either BruteForce is initialized or ImportanceSampling is
+    initialized. The only function that VMC uses is then the sampler function
+    implemented in BruteForce and ImportanceSampling and smples accordingly.
+    The Minimizer class can be used for the minimization, in that case it needs
+    to be initialized with the specific Slater og SlaterJastrow class aswell.
+    It then uses the VMC class for sampling. The derivations with respect to
+    the variational parameters, which are needed in the minimization is also
+    calcualted within VMC by using functions present in Slater, SlaterJastrow
+    and the Jastrow and Wavefunction classes.
+\end{frame}
+
+\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    A script which generated a template Wavefunction class is also present. It
+    creates a header and source file with the neccesary function used by
+    Slater. These are just the analytic expressions such as the gradient and
+    laplacian of the wavefunction and also derivatives with respect to
+    variational parameters. Currently one has to modify the generated C++ files
+    manually, however the whole tweaking can be automated with for instance
+    SymPy and PyBind.
+\end{frame}
+
 \section{Summary and Conclusion}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
