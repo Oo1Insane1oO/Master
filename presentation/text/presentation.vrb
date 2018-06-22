@@ -1,31 +1,24 @@
-\frametitle{Methods: Variational Monte-Carlo}
+\frametitle{Wavefunction: Double-Well}
 \begin{itemize}
-        \item Variational Principle
-        \item Rewrite expectation value:
-            $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
-            \frac{\cnj{\Psi}\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r} \md r$
-            = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
+        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
+        \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
+        \item Eigenvalue equation: $\blds{H}^{\text{DW}}\blds{C}^{\text{DW}} =
+            \blds{\varepsilon^{\text{DW}}}\blds{C}^{\text{DW}}$
             \begin{itemize}
-                \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
-                \item $P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}$
+                \item $H^{\text{DW}}_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
+                    \Braket{\psiHO_i|\VDW_n|\psiHO_j}$
             \end{itemize}
-        \item Metropolis-Hastings Algorithm
-            \begin{itemize}
-                \item $r^{\text{new}} = r^{\text{old}} + \Delta t \xi$
-                \item $\ufij{A}{i}{j} =
-                    \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
-                    \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)$
-                \item Importance Sampling
-                    \begin{itemize}
-                        \item $r^{\text{new}} = r^{\text{old}} + D \Delta t
-                            F^{\text{old}} + \sqrt{\Delta t}\xi$
-                        \item $F = \frac{2}{\Psi}\nabla \Psi$
-                        \item $\frac{T(b,a,\Delta t)}{T(a,b,\Delta t)} =
-                            \sum\limits_i \exp(-\frac{\left(\blds{r}^{(b)}_i -
-                            \blds{r}^{(a)}_i - D\Delta t
-                            \blds{F}^{(a)}_i\right)^2}{4D\Delta t}
-                            +\frac{\left(\blds{r}^{(a)}_i - \blds{r}^{(b)}_i -
-                            D\Delta t \blds{F}^{(b)}_i\right)^2}{4D\Delta t})$
-                    \end{itemize}
-            \end{itemize}
+        \item Integral-Elements
+        \begin{equation*}
+            \footnotesize
+            \begin{aligned}
+                \Braket{\psiDW_p|\psiDW_q} &= \delta_{pq}
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p|h^{\text{DW}}|\psiDW_q} &=
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p\psiDW_q|\frac{1}{r_{12}}|\psiDW_r\psiDW_s} &=
+                \suml{tuvw}{ijkl} C^{\text{DW}}_{tp}C^{\text{DW}}_{uq}C^{\text{DW}}_{vr}C^{\text{DW}}_{ws}
+                \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
+            \end{aligned}
+        \end{equation*}
     \end{itemize}

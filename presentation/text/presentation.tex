@@ -1,4 +1,4 @@
-\documentclass[10pt, t]{beamer}
+\documentclass[10pt, t, xcolor=dvipsnames]{beamer}
 
 \newcommand\hmmax{0}
 \newcommand\bmmax{0}
@@ -23,6 +23,11 @@
 \usepackage{tikz}
 \usepackage{bm}
 \usepackage[usenames,dvipsnames,cmyk]{xcolor}
+
+\setbeamercolor{frametitle}{fg=orange, bg=red!10}
+\setbeamercolor{progress bar}{fg=red, bg=red!30}
+\setbeamercolor{progress bar in head/foot}{fg=red, bg=red!30}
+\setbeamercolor{progress bar in section page}{fg=red, bg=red!30}
   
 \usetikzlibrary{arrows.meta, shadows}
 
@@ -78,7 +83,7 @@
 
 \maketitle
 
-\begin{frame}{Table of contents}
+\begin{frame}{Contents}
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents[hideallsubsections]
 \end{frame}
@@ -197,18 +202,15 @@
     \twofigure{text/figs/HO2Dplot.pdf}{text/figs/DW2Dplot.pdf}
 \end{frame}
 
-{\setbeamercolor{palette primary}{fg=black, bg=white}
-\begin{frame}[standout]{Quantum-Dot Model}
-    \#NucleiHaveFeelingsTo
-\end{frame}
-
 \section{Methods}
 
+{\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Methods}
     Hartree-Fock \\
     Variational Monte-Carlo
 \end{frame}
 
+{\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Methods: Variational Principle}
     \begin{equation*}
         E_0 \leq \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
@@ -267,7 +269,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Methods: Hartree-Fock Method}
+\begin{frame}[fragile]{Methods: Hartree-Fock}
     \begin{itemize}
         \item Assumptions
         \begin{itemize}
@@ -358,11 +360,11 @@
                 \item Fock-operator: $\mathcal{F} \equiv \mathcal{H}_0 +
                     \mathcal{J} \pm \mathcal{K}$
                     \begin{itemize}
-                        \item $\mathcal{J} \equiv \sum_k
+                        \item $\mathcal{J} \equiv
                             \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
                             \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r$
                         \vsp
-                        \item $\mathcal{K} \equiv \sum_k
+                        \item $\mathcal{K} \equiv
                             \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
                             \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r$
                         \vsp
@@ -382,11 +384,11 @@
                 \item Lagrange Multiplier method
                 \item Fock-operator: $\mathcal{F} \equiv \mathcal{H}_0 + \mathcal{J} \pm \mathcal{K}$
                     \begin{itemize}
-                        \item $\mathcal{J} \equiv \sum_k
+                        \item $\mathcal{J} \equiv
                             \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
                             \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r$
                         \vsp
-                        \item $\mathcal{K} \equiv \sum_k
+                        \item $\mathcal{K} \equiv
                             \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
                             \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r$
                         \vsp
@@ -617,10 +619,231 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            >={Latex[width=2mm,length=2mm]},
+                base/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily},
+                basecode/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily, align=left},
+                activityStarts/.style = {base, fill=blue!30, drop shadow},
+                startstop/.style = {base, fill=red!25, drop shadow},
+                startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                activityRuns/.style = {base, fill=green!25, drop shadow},
+                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+            scale=0.8, 
+            node distance=1.5cm, 
+            every node/.style={fill=white, font=\sffamily, scale=0.9},
+            align=center]
+            \node (1) [activityStarts] {
+                Pick initial state $i$ at random.
+            };
+            \node (2) [activityStarts, below of=1] {
+                Pick proposed state at random in accordance to
+                $\ufij{T}{j}{i}$.
+            };
+            \node (3) [activityStarts, below of=2] {
+                Accept state according to $\ufij{A}{j}{i}$.
+            };
+            \node (a) [activityRuns, below left of=3, xshift=-3cm, yshift=-0.1cm] {
+                Accepted \\
+                $j = i$
+            };
+            \node (r) [startstop, below right of=3, xshift=3cm, yshift=-0.1cm] {
+                Rejected \\
+                $i = j$
+            };
+            \draw[<-] (3) to [out=180,in=90] (a);
+            \draw[<-] (3) to [out=0,in=90] (r);
+            \node (4) [activityStarts, below of=3, yshift=-0.5cm] {
+                Number of states satisfied?
+            };
+            \node (yes) [below of=4, yshift=0.5cm] {
+                Yes
+            };
+            \node (no) [above left of=4, xshift=-5cm] {
+                No
+            };
+            \draw[->] (4) to [out=180, in=-90] (no);
+            \draw[->] (no) to [out=90, in=180] (2);
+            \node (5) [activityStarts, below of=yes, yshift=0.3cm] {
+                End.
+            };
+            \draw[->] (1) -- (2);
+            \draw[->] (2) -- (3);
+            \draw[->] (3) -- (4);
+            \draw[->] (4) -- (yes);
+            \draw[->] (yes) -- (5);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\section{Wavefunction}
+
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]{Wavefunction}
+    $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
+\end{frame}
+
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]{Wavefunction}
+    $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\color{red}{\chi_p(\blds{r})}$
+\end{frame}
+
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]{Wavefunction: Integral Elements}
+    $\Braket{\phi_i(\blds{r})|\phi_j(\blds{r})}$ \\ \vsp\vsp\vsp\vsp
+    $\Braket{\phi_i(\blds{r})|x^k_d|\phi_j(\blds{r})}$ \\ \vsp\vsp\vsp\vsp
+    $\Braket{\phi_i(\blds{r})|\nabla^2|\phi_j(\blds{r})}$ \\ \vsp\vsp\vsp\vsp
+    $\Braket{\phi_i(\blds{r}_1)\phi_j(\blds{r}_2)|f_{12}|\phi_k(\blds{r}_1)\phi_l(\blds{r}_2)}$ \\
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Single-Well}
+    \begin{itemize}
+        \item Hermite Function: $\psi_n(\blds{r}) \equiv \prod\limits_d N_d
+            H_{n_d}(\sqrt{w}x_d)\exp(-\frac{w}{2}x^2_d)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Single-Well}
+    \begin{itemize}
+        \item Hermite Function: $\psi_n(\blds{r}) \equiv \prod\limits_d N_d
+            H_{n_d}(\sqrt{w}x_d)\exp(-\frac{w}{2}x^2_d)$
+        \item Solution in polar\footfullcite{anisimovas}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Single-Well}
+    \begin{itemize}
+        \item Hermite Function: $\psi_n(\blds{r}) \equiv \prod\limits_d N_d
+            H_{n_d}(\sqrt{w}x_d)\exp(-\frac{w}{2}x^2_d)$
+        \item Solution in polar\footfullcite{anisimovas}
+        \item $\psi_n(\blds{r}) = \prod\limits_d N_d \sum\limits^{n_d}_{l=1}
+            C^{\text{Hermite}}_{n_dl}
+            g_l\left(\frac{\omega}{2},\blds{r},\blds{0}\right)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Single-Well}
+    \begin{itemize}
+        \item Hermite Function: $\psi_n(\blds{r}) \equiv \prod\limits_d N_d
+            H_{n_d}(\sqrt{w}x_d)\exp(-\frac{w}{2}x^2_d)$
+        \item Solution in polar\footfullcite{anisimovas}
+        \item $\psi_n(\blds{r}) = \prod\limits_d N_d \sum\limits^{n_d}_{l=1}
+            C^{\text{Hermite}}_{n_dl}
+            g_l\left(\frac{\omega}{2},\blds{r},\blds{0}\right)$
+        \item Solution in Cartesian\footfullcite{HelgakerMolElcTheory} \\ \vspace{0.2cm} \hspace{1cm}
+            \begin{minipage}[H]{0.5\textwidth}
+                $\Braket{g_i(\blds{r})|g_j(\blds{r})}$ \vsp \\
+                $\Braket{g_i(\blds{r})|x^k_d|g_j(\blds{r})}$ \vsp \\
+                $\Braket{g_i(\blds{r})|\nabla^2|g_j(\blds{r})}$ \vsp \\
+                $\Braket{g_i(\blds{r}_1)g_j(\blds{r}_2)|f_{12}|g_k(\blds{r}_1)g_l(\blds{r}_2)}$ \\
+            \end{minipage}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Single-Well Integral Elements}
+    \centering\footnotesize
+    $\Braket{\psiHO_i|\psiHO_j} = N_i \delta_{ij}$ \\
+    $\Braket{\psiHO_i|h^{\text{HO}}|\psiHO_j} =
+    N_i\varepsilon^{\text{HO}}_i\delta_{ij}$ \\
+    $\Braket{\psiHO_i\psiHO_j|\frac{1}{r_{12}}|\psiHO_k\psiHO_l} =
+    \frac{aN_{ijkl}}{\sqrt{2\omega}}  \sum\limits^{ijkl}_{tuvw} H^{ijkl}_{tuvw}
+    \suml{pq}{t+v,u+w} E^{tv}_pE^{uw}_q (-1)^q\xi_{p+q}\left(\frac{\omega}{2},
+    \blds{0}\right)$
+        \begin{equation*}
+            \begin{aligned}
+                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\alpha}{\alpha+\beta}(A_y - B_y)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{00}_0 &= K_{AB}
+            \end{aligned}
+        \end{equation*}
+        \begin{equation*}
+            \begin{aligned}
+                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right) \\
+                \zeta_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+                u^2}} \me^{-u^2x} \md u
+            \end{aligned} \hspace{0.5cm}
+            \begin{aligned}
+                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} + X_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} + Y_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} + Y_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{000} &= \left(-2\alpha\beta\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
+                \\
+                \zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md u
+            \end{aligned}
+        \end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Double-Well}
+    \begin{itemize}
+        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Double-Well}
+    \begin{itemize}
+        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
+        \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Double-Well}
+    \begin{itemize}
+        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
+        \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
+        \item Eigenvalue equation: $\blds{H}^{\text{DW}}\blds{C}^{\text{DW}} =
+            \blds{\varepsilon^{\text{DW}}}\blds{C}^{\text{DW}}$
+            \begin{itemize}
+                \item $H^{\text{DW}}_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
+                    \Braket{\psiHO_i|\VDW_n|\psiHO_j}$
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Double-Well}
+    \begin{itemize}
+        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
+        \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
+        \item Eigenvalue equation: $\blds{H}^{\text{DW}}\blds{C}^{\text{DW}} =
+            \blds{\varepsilon^{\text{DW}}}\blds{C}^{\text{DW}}$
+            \begin{itemize}
+                \item $H^{\text{DW}}_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
+                    \Braket{\psiHO_i|\VDW_n|\psiHO_j}$
+            \end{itemize}
+        \item Integral-Elements
+        \begin{equation*}
+            \footnotesize
+            \begin{aligned}
+                \Braket{\psiDW_p|\psiDW_q} &= \delta_{pq}
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p|h^{\text{DW}}|\psiDW_q} &=
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p\psiDW_q|\frac{1}{r_{12}}|\psiDW_r\psiDW_s} &=
+                \suml{tuvw}{ijkl} C^{\text{DW}}_{tp}C^{\text{DW}}_{uq}C^{\text{DW}}_{vr}C^{\text{DW}}_{ws}
+                \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
+            \end{aligned}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
 \section{Implementation}
 \section{Summary and Conclusion}
 
-{\setbeamercolor{palette primary}{fg=black, bg=white}
+{\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]
   Questions?
 \end{frame}
@@ -628,6 +851,7 @@
 
 \appendix
 
+{\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]{Questions}
     Questions?
 \end{frame}

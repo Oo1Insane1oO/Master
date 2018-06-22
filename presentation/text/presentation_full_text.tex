@@ -187,7 +187,7 @@ some methods. We have used two method,
         problem, we first rewrite the expectation value with a so-called local
         energy defined as this. The form of the integral is recognized as an
         integral over the probability distribution $\abs{\Psi}^2$.
-   Mtropolis-Hastings
+   Metropolis-Hastings
         - We can solve this with the Metropolis algorithm in which we choose
         positions $\blds{R}$ randomly and accept accoring to this
         - The $T$-ratio is defined by Importance Sampling. We will skip the
@@ -197,6 +197,70 @@ some methods. We have used two method,
         proposal for the positions defined by a quantum force which pushes the
         particles towards regions where the wavefunction is large. $\xi$ is a
         normal distributed number with mean $0$ and unit variance
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+    Algortihm (figure)
+        - Initialize state, i.e set positions and calculate wavefunction,
+        gradient, laplacian, local energy etc. Pick a random state accoring to
+        the acceptance definition, either accept or reject. If we have enough
+        samples, end, and if not keep accumulating.
+\end{frame}
+
+\section{Wavefunction}
+    - We have now seen the Hartree-Fock and Variational Monte-Carlo methods,
+    but one part of both has been ignored. Namely the choice of the
+    wavefunction.
+
+\begin{frame}[standout]{Methods: Wavefunction}
+    - For the Hartree-Fock method we had the following
+\end{frame}
+
+\begin{frame}[standout]{Methods: Wavefunction}
+    - We need to make a choice for this (focus red $\xi$)
+\end{frame}
+
+\begin{frame}[standout]{Wavefunction: Integral Elements}
+    - The overlap, potential, kinetic and interaction integrals. We need to
+    make a choice for the basisfunctions in order to find an analytic solution
+    to these integrals.
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Single-Well}
+    - One choice for the single-well case is the Hermite-functions which form
+    an eigenbasis for the quantum harmonic oscillator system.
+    - A solution in polar-coordinates already exists, however our goal is to
+    actually use the Hartree-Fock basis in the variational method. The full
+    wavefunction has to be evaluated in that case and the wavefunction in polar
+    has a complex part which complicated the calculations.
+    - In order to avoid that we went full Cartesian instead. Unfortunatly a
+    solution did not exist, so we calculated it by using the fact that
+    Hermite-Functions consist of Hermite-Gaussian constituents, with $C$ being the
+    hermite coefficients.
+    - The expressions to be solved are thus integrals over Hermite-Gaussian
+    functions. A solution in $3D$ already exists for such integrals, and we
+    used a similar approach and found the solution to be
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Single-Well Integral Elements}
+    - We have a recursion relation for the coefficient $E$ and integrals $\xi$,
+    $\zeta$ integrals have to be solved numerically and can be solved accuratly
+    with Gaussian-Quadrature. In particular the $2D$ case follows the form of
+    Gauss-Chebyshev quadrature. Again not to important to understand this
+    fully, it is presented to show that solving the integral over
+    Hermite-Functions is possible in Cartesian coordinates.
+    - This is all that is needed for the Hartree-Fock method for the
+    single-well case. For the double-well we still need to build a basis.
+\end{frame}
+
+\begin{frame}[fragile]{Wavefunction: Double-Well}
+    - Notice that double-well is only a perturbation of single-well
+    - Reasonable to use HO-functions as basis in an expansion
+    - Projecting with the HO-bra we get an eigenvalue equation to be solved for the coefficients
+    - And we have the following integral-elements. The eigenvalues DW are
+    readily available from the solution to the eigenvalue equation and the
+    two-body integral elements are also ready from the full solution of the
+    harmonic oscillator system, meaning we only need to assemble the elements for Hartree-Fock.
 \end{frame}
 
 \section{Implementation}

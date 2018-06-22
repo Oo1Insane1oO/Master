@@ -19,6 +19,39 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
+    \entry{anisimovas}{article}{}
+      \name{author}{2}{}{%
+        {{hash=ea9300a0e5f0ec4699ad8ce10b532d95}{%
+           family={Anisimovas},
+           familyi={A\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+        {{hash=2d4d7518b04941d07e8d5abc37a83a65}{%
+           family={Matulis},
+           familyi={M\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{c33115341d19b9f20eaa9a6ad89c261d}
+      \strng{fullhash}{c33115341d19b9f20eaa9a6ad89c261d}
+      \strng{bibnamehash}{c33115341d19b9f20eaa9a6ad89c261d}
+      \strng{authorbibnamehash}{c33115341d19b9f20eaa9a6ad89c261d}
+      \strng{authornamehash}{c33115341d19b9f20eaa9a6ad89c261d}
+      \strng{authorfullhash}{c33115341d19b9f20eaa9a6ad89c261d}
+      \field{sortinit}{A}
+      \field{sortinithash}{d77c7cdd82ff690d4c3ef13216f92f0b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Physics: Condensed Matter}
+      \field{title}{Energy spectra of few-electron quantum dots}
+      \field{year}{1998}
+      \verb{urlraw}
+      \verb \url{http://stacks.iop.org/0953-8984/10/i=3/a=013}
+      \endverb
+      \verb{url}
+      \verb %5Curl%7Bhttp://stacks.iop.org/0953-8984/10/i=3/a=013%7D
+      \endverb
+    \endentry
     \entry{kvaaldots}{article}{}
       \name{author}{1}{}{%
         {{hash=942ea83ed3d88830b9ddb507117179a0}{%
@@ -96,6 +129,36 @@
       \field{year}{2014}
       \field{pages}{195310}
       \range{pages}{1}
+    \endentry
+    \entry{HelgakerMolElcTheory}{book}{}
+      \name{author}{1}{}{%
+        {{hash=d7332db80a9e29f3d3608c831e2c32e5}{%
+           family={T.\bibnamedelimi Helgaker},
+           familyi={T\bibinitperiod\bibinitdelim H\bibinitperiod},
+           given={J.\bibnamedelimi Olsen},
+           giveni={J\bibinitperiod\bibinitdelim O\bibinitperiod},
+           suffix={P.\bibnamedelimi Jørgensen},
+           suffixi={P\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Wiley}%
+      }
+      \strng{namehash}{d7332db80a9e29f3d3608c831e2c32e5}
+      \strng{fullhash}{d7332db80a9e29f3d3608c831e2c32e5}
+      \strng{bibnamehash}{d7332db80a9e29f3d3608c831e2c32e5}
+      \strng{authorbibnamehash}{d7332db80a9e29f3d3608c831e2c32e5}
+      \strng{authornamehash}{d7332db80a9e29f3d3608c831e2c32e5}
+      \strng{authorfullhash}{d7332db80a9e29f3d3608c831e2c32e5}
+      \field{sortinit}{T}
+      \field{sortinithash}{6f7aff9db9dcfeb7f95fd5bbd2f78df9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-47-196755-2}
+      \field{title}{Molecular Electronic-Structure Theory}
+      \field{year}{2014}
+      \verb{doi}
+      \verb 10.1002/9781119019572
+      \endverb
     \endentry
   \enddatalist
 \endrefsection

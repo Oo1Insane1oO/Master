@@ -1,5 +1,6 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@sectionintoc {2}{Methods}{12}{0}{2}
-\beamer@sectionintoc {3}{Implementation}{33}{0}{3}
-\beamer@sectionintoc {4}{Summary and Conclusion}{34}{0}{4}
+\beamer@sectionintoc {2}{Methods}{11}{0}{2}
+\beamer@sectionintoc {3}{Wavefunction}{33}{0}{3}
+\beamer@sectionintoc {4}{Implementation}{46}{0}{4}
+\beamer@sectionintoc {5}{Summary and Conclusion}{47}{0}{5}
