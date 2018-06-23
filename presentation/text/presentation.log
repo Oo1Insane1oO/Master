@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.11)  23 JUN 2018 19:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.11)  23 JUN 2018 23:52
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -2783,6 +2783,87 @@ File: tikzlibraryfadings.code.tex 2009/11/15 v3.0.1a (rcs-revision 1.2)
 .tex
 File: pgflibraryfadings.code.tex 2008/02/07 v3.0.1a (rcs-revision 1.3)
 )))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2008/06/26 v3.0.1a (rcs-revision 1.1)
+
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.misc.code.tex
+File: pgflibraryshapes.misc.code.tex 2013/07/18 v3.0.1a (rcs-revision 1.5)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2013/09/11 v3.0.1a (rcs-revision 1.6)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2008/06/26 v3.0.1a (rcs-revision 1.1)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.callouts.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.callouts.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2010/01/07 v3.0.1a (rcs-revision 1.2)
+
+\pgfnodepartlowerbox=\box81
+\pgfnodeparttwobox=\box82
+\pgfnodepartthreebox=\box83
+\pgfnodepartfourbox=\box84
+\pgfnodeparttwentybox=\box85
+\pgfnodepartnineteenbox=\box86
+\pgfnodeparteighteenbox=\box87
+\pgfnodepartseventeenbox=\box88
+\pgfnodepartsixteenbox=\box89
+\pgfnodepartfifteenbox=\box90
+\pgfnodepartfourteenbox=\box91
+\pgfnodepartthirteenbox=\box92
+\pgfnodeparttwelvebox=\box93
+\pgfnodepartelevenbox=\box94
+\pgfnodeparttenbox=\box95
+\pgfnodepartninebox=\box96
+\pgfnodeparteightbox=\box97
+\pgfnodepartsevenbox=\box98
+\pgfnodepartsixbox=\box99
+\pgfnodepartfivebox=\box100
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex
+File: pgflibraryarrows.code.tex 2013/09/23 v3.0.1a (rcs-revision 1.16)
+\arrowsize=\dimen323
+))
 (/usr/share/texlive/texmf-dist/tex/latex/beamertheme-metropolis/beamerthememetr
 opolis.sty
 Package: beamerthememetropolis 2017/01/23 v1.2 Metropolis Beamer theme
@@ -2824,23 +2905,23 @@ aTeX to use the Fira fonts on input line 95.
 (/usr/share/texlive/texmf-dist/tex/latex/appendixnumberbeamer/appendixnumberbea
 mer.sty) (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2016/04/27 v1.618033 publication quality tables
-\heavyrulewidth=\dimen323
-\lightrulewidth=\dimen324
-\cmidrulewidth=\dimen325
-\belowrulesep=\dimen326
-\belowbottomsep=\dimen327
-\aboverulesep=\dimen328
-\abovetopsep=\dimen329
-\cmidrulesep=\dimen330
-\cmidrulekern=\dimen331
-\defaultaddspace=\dimen332
+\heavyrulewidth=\dimen324
+\lightrulewidth=\dimen325
+\cmidrulewidth=\dimen326
+\belowrulesep=\dimen327
+\belowbottomsep=\dimen328
+\aboverulesep=\dimen329
+\abovetopsep=\dimen330
+\cmidrulesep=\dimen331
+\cmidrulekern=\dimen332
+\defaultaddspace=\dimen333
 \@cmidla=\count468
 \@cmidlb=\count469
-\@aboverulesep=\dimen333
-\@belowrulesep=\dimen334
+\@aboverulesep=\dimen334
+\@belowrulesep=\dimen335
 \@thisruleclass=\count470
 \@lastruleclass=\count471
-\@thisrulewidth=\dimen335
+\@thisrulewidth=\dimen336
 )
 (/usr/share/texlive/texmf-dist/tex/latex/ccicons/ccicons.sty
 Package: ccicons 2017/10/30 v1.6 LaTeX support for Creative Commons icons
@@ -2854,7 +2935,7 @@ Package: pgfplots 2017/06/05 v1.15 Data Visualization (1.15)
 \t@pgfplots@toka=\toks52
 \t@pgfplots@tokb=\toks53
 \t@pgfplots@tokc=\toks54
-\pgfplots@tmpa=\dimen336
+\pgfplots@tmpa=\dimen337
 \c@pgfplots@coordindex=\count472
 \c@pgfplots@scanlineindex=\count473
 
@@ -2927,16 +3008,16 @@ e.tex)
 zlibrarydecorations.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.cod
 e.tex
-\pgfdecoratedcompleteddistance=\dimen337
-\pgfdecoratedremainingdistance=\dimen338
-\pgfdecoratedinputsegmentcompleteddistance=\dimen339
-\pgfdecoratedinputsegmentremainingdistance=\dimen340
-\pgf@decorate@distancetomove=\dimen341
+\pgfdecoratedcompleteddistance=\dimen338
+\pgfdecoratedremainingdistance=\dimen339
+\pgfdecoratedinputsegmentcompleteddistance=\dimen340
+\pgfdecoratedinputsegmentremainingdistance=\dimen341
+\pgf@decorate@distancetomove=\dimen342
 \pgf@decorate@repeatstate=\count478
-\pgfdecorationsegmentamplitude=\dimen342
-\pgfdecorationsegmentlength=\dimen343
+\pgfdecorationsegmentamplitude=\dimen343
+\pgfdecorationsegmentlength=\dimen344
 )
-\tikz@lib@dec@box=\box81
+\tikz@lib@dec@box=\box101
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarydecorations.pathmorphing.code.tex
@@ -2947,12 +3028,12 @@ zlibrarydecorations.pathreplacing.code.tex
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
 decorations.pathreplacing.code.tex))
 \pgfplots@numplots=\count479
-\pgfplots@xmin@reg=\dimen344
-\pgfplots@xmax@reg=\dimen345
-\pgfplots@ymin@reg=\dimen346
-\pgfplots@ymax@reg=\dimen347
-\pgfplots@zmin@reg=\dimen348
-\pgfplots@zmax@reg=\dimen349
+\pgfplots@xmin@reg=\dimen345
+\pgfplots@xmax@reg=\dimen346
+\pgfplots@ymin@reg=\dimen347
+\pgfplots@ymax@reg=\dimen348
+\pgfplots@zmin@reg=\dimen349
+\pgfplots@zmax@reg=\dimen350
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryplotmarks.code.tex
@@ -2978,14 +3059,14 @@ Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
 .................................................
 )
 
-./text/presentation.tex:90: Package biblatex Error: Incompatible package 'apaci
+./text/presentation.tex:92: Package biblatex Error: Incompatible package 'apaci
 te'.
 
 See the biblatex package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.90 \begin{document}
+l.92 \begin{document}
                      
 The 'apacite' package and biblatex are incompatible.
 
@@ -3004,34 +3085,34 @@ echnical note
 ) (./text/presentation.aux)
 \openout1 = `text/presentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for MDA/cmr/m/n on input line 90.
-LaTeX Font Info:    Try loading font information for MDA+cmr on input line 90.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 92.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for MDA/cmr/m/n on input line 92.
+LaTeX Font Info:    Try loading font information for MDA+cmr on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdacmr.fd
 File: mdacmr.fd 
 )
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for MDB/cmr/m/n on input line 90.
-LaTeX Font Info:    Try loading font information for MDB+cmr on input line 90.
+LaTeX Font Info:    ... okay on input line 92.
+LaTeX Font Info:    Checking defaults for MDB/cmr/m/n on input line 92.
+LaTeX Font Info:    Try loading font information for MDB+cmr on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdbcmr.fd
 File: mdbcmr.fd 
 )
-LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    ... okay on input line 92.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -3070,13 +3151,13 @@ LaTeX Font Info:    ... okay on input line 90.
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count483
-\scratchdimen=\dimen350
-\scratchbox=\box82
+\scratchdimen=\dimen351
+\scratchbox=\box102
 \nofMPsegments=\count484
 \nofMParguments=\count485
 \everyMPshowfont=\toks56
 \MPscratchCnt=\count486
-\MPscratchDim=\dimen351
+\MPscratchDim=\dimen352
 \MPnumerator=\count487
 \makeMPintoPDFobject=\count488
 \everyMPtoPDFconversion=\toks57
@@ -3098,8 +3179,8 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box83
-Package hyperref Info: Link coloring OFF on input line 90.
+\AtBeginShipoutBox=\box103
+Package hyperref Info: Link coloring OFF on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -3109,82 +3190,82 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count489
 )
-LaTeX Info: Redefining \ref on input line 90.
-LaTeX Info: Redefining \pageref on input line 90.
-LaTeX Info: Redefining \nameref on input line 90.
+LaTeX Info: Redefining \ref on input line 92.
+LaTeX Info: Redefining \pageref on input line 92.
+LaTeX Info: Redefining \nameref on input line 92.
 
 (./text/presentation.out) (./text/presentation.out)
 \@outlinefile=\write7
 \openout7 = `text/presentation.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/mdput/m/n --> OT1/cmss/m/n on input line 90.
+(Font)                  OT1/mdput/m/n --> OT1/cmss/m/n on input line 92.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/mdput/b/n --> OT1/cmss/b/n on input line 90.
+(Font)                  OT1/mdput/b/n --> OT1/cmss/b/n on input line 92.
 \symnumbers=\mathgroup12
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 90.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 92.
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `pureletters' in the math version `normal' on input line 90
+(Font)              `pureletters' in the math version `normal' on input line 92
 .
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/mathkerncmss/m/sl --> T1/cmss/m/it on input line 90
+(Font)                  OT1/mathkerncmss/m/sl --> T1/cmss/m/it on input line 92
 .
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `pureletters' in the math version `bold' on input line 90.
+(Font)              `pureletters' in the math version `bold' on input line 92.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/bx/sl --> T1/cmss/m/it on input line 9
-0.
+2.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OML/mdput/m/n --> T1/mdput/m/n on input line 90.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 90.
+(Font)                  OML/mdput/m/n --> T1/mdput/m/n on input line 92.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  T1/mdput/b/n --> T1/cmss/b/n on input line 90.
+(Font)                  T1/mdput/b/n --> T1/cmss/b/n on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/mdput/b/n --> T1/cmss/b/n on input line 90.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 90.
+(Font)                  T1/mdput/b/n --> T1/cmss/b/n on input line 92.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  T1/cmss/m/n --> T1/cmss/m/n on input line 90.
+(Font)                  T1/cmss/m/n --> T1/cmss/m/n on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/cmss/b/n --> T1/cmss/m/n on input line 90.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 90.
+(Font)                  T1/cmss/b/n --> T1/cmss/m/n on input line 92.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  T1/mdput/m/it --> T1/cmss/m/it on input line 90.
+(Font)                  T1/mdput/m/it --> T1/cmss/m/it on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/mdput/b/it --> T1/cmss/m/it on input line 90.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 90.
+(Font)                  T1/mdput/b/it --> T1/cmss/m/it on input line 92.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  T1/cmtt/m/n --> T1/cmtt/m/n on input line 90.
+(Font)                  T1/cmtt/m/n --> T1/cmtt/m/n on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtt/b/n --> T1/cmtt/m/n on input line 90.
+(Font)                  T1/cmtt/b/n --> T1/cmtt/m/n on input line 92.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/cmss/m/n --> T1/cmss/b/n on input line 90.
+(Font)                  T1/cmss/m/n --> T1/cmss/b/n on input line 92.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 90.
+(Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OML/mdput/b/n --> T1/mdput/b/n on input line 90.
+(Font)                  OML/mdput/b/n --> T1/mdput/b/n on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/cmss/b/n --> T1/cmss/b/n on input line 90.
+(Font)                  T1/cmss/b/n --> T1/cmss/b/n on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/cmss/m/n --> T1/cmss/b/n on input line 90.
+(Font)                  T1/cmss/m/n --> T1/cmss/b/n on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 90.
+(Font)                  T1/cmss/m/it --> T1/cmss/b/it on input line 92.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 90.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 90.
+(Font)                  T1/cmtt/m/n --> T1/cmtt/b/n on input line 92.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 92.
 LaTeX Font Info:    Encoding `T1' has changed to `OT1' for symbol font
-(Font)              `pureletters' in the math version `normal' on input line 90
+(Font)              `pureletters' in the math version `normal' on input line 92
 .
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  T1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 90
+(Font)                  T1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 92
 .
 LaTeX Font Info:    Encoding `T1' has changed to `OT1' for symbol font
-(Font)              `pureletters' in the math version `bold' on input line 90.
+(Font)              `pureletters' in the math version `bold' on input line 92.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 90
+(Font)                  T1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 92
 .
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
 (Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on inp
-ut line 90.
+ut line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
 -English.dict
@@ -3212,11 +3293,11 @@ Dictionary: translator-theorem-dictionary, Language: English
 )
 
 Package mathdesign/mdput Warning: Package 'amssymb' shouldn't be used in conjon
-ction with package mdput, on input line 90.
+ction with package mdput, on input line 92.
 
 
 Package mathdesign/mdput Warning: Package 'amsfonts' shouldn't be used in conjo
-nction with package mdput, on input line 90.
+nction with package mdput, on input line 92.
 
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
@@ -3226,8 +3307,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'text/presentation.bbl' found.
 (./text/presentation.bbl)
-Package biblatex Info: Reference section=0 on input line 90.
-Package biblatex Info: Reference segment=0 on input line 90.
+Package biblatex Info: Reference section=0 on input line 92.
+Package biblatex Info: Reference segment=0 on input line 92.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 \c@maskedRefs=\count490
@@ -3320,92 +3401,92 @@ enefit from \pgfplotsset{compat=1.15} (current compat level: 1.9).
 
 (./text/presentation.nav)
 LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 5.17998pt on input line 90.
+(Font)              scaled to size 5.17998pt on input line 92.
 LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 7.25197pt on input line 90.
+(Font)              scaled to size 7.25197pt on input line 92.
 \c__siunitx_mathsf_int=\count491
 LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 7.25197pt on input line 90.
+(Font)              scaled to size 7.25197pt on input line 92.
 LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 5.17998pt on input line 90.
-LaTeX Font Info:    Try loading font information for OML+mdput on input line 90
+(Font)              scaled to size 5.17998pt on input line 92.
+LaTeX Font Info:    Try loading font information for OML+mdput on input line 92
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/omlmdput.fd
 File: omlmdput.fd 2013/08/29 Fontinst v1.933 font definitions for OML/mdput.
 )
 LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 9.40002pt on input line 90.
+(Font)              scaled to size 9.40002pt on input line 92.
 LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 6.58002pt on input line 90.
+(Font)              scaled to size 6.58002pt on input line 92.
 LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 4.70001pt on input line 90.
-LaTeX Font Info:    Try loading font information for OMS+mdput on input line 90
+(Font)              scaled to size 4.70001pt on input line 92.
+LaTeX Font Info:    Try loading font information for OMS+mdput on input line 92
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/omsmdput.fd
 File: omsmdput.fd 2013/08/29 Fontinst v1.933 font definitions for OMS/mdput.
 )
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 90.
+(Font)              scaled to size 9.40002pt on input line 92.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 90.
+(Font)              scaled to size 6.58002pt on input line 92.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 90.
-LaTeX Font Info:    Try loading font information for OMX+mdput on input line 90
+(Font)              scaled to size 4.70001pt on input line 92.
+LaTeX Font Info:    Try loading font information for OMX+mdput on input line 92
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/omxmdput.fd
 File: omxmdput.fd 2013/08/29 Fontinst v1.933 font definitions for OMX/mdput.
 )
 LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 90.
+(Font)              scaled to size 9.40002pt on input line 92.
 LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 90.
+(Font)              scaled to size 6.58002pt on input line 92.
 LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 90.
-LaTeX Font Info:    Try loading font information for U+msa on input line 90.
+(Font)              scaled to size 4.70001pt on input line 92.
+LaTeX Font Info:    Try loading font information for U+msa on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 90.
+LaTeX Font Info:    Try loading font information for U+msb on input line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 90.
+(Font)              scaled to size 9.40002pt on input line 92.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 90.
+(Font)              scaled to size 6.58002pt on input line 92.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 90.
-LaTeX Font Info:    Try loading font information for MDA+mdput on input line 90
+(Font)              scaled to size 4.70001pt on input line 92.
+LaTeX Font Info:    Try loading font information for MDA+mdput on input line 92
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/mdamdput.fd
 File: mdamdput.fd 2013/08/29 Fontinst v1.933 font definitions for MDA/mdput.
 )
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 90.
+(Font)              scaled to size 9.40002pt on input line 92.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 90.
+(Font)              scaled to size 6.58002pt on input line 92.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 90.
-LaTeX Font Info:    Try loading font information for MDB+mdput on input line 90
+(Font)              scaled to size 4.70001pt on input line 92.
+LaTeX Font Info:    Try loading font information for MDB+mdput on input line 92
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/mathdesign/mdput/mdbmdput.fd
 File: mdbmdput.fd 2013/08/29 Fontinst v1.933 font definitions for MDB/mdput.
 )
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 9.40002pt on input line 90.
+(Font)              scaled to size 9.40002pt on input line 92.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 6.58002pt on input line 90.
+(Font)              scaled to size 6.58002pt on input line 92.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 4.70001pt on input line 90.
+(Font)              scaled to size 4.70001pt on input line 92.
 LaTeX Font Info:    Try loading font information for OT1+mathkerncmss on input 
-line 90.
+line 92.
 
 (/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
@@ -3413,39 +3494,39 @@ thkerncmss.
 )
 \c__siunitx_mathtt_int=\count492
 LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 10.70007pt on input line 90.
+(Font)              scaled to size 10.70007pt on input line 92.
 LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 7.49005pt on input line 90.
+(Font)              scaled to size 7.49005pt on input line 92.
 LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 5.35004pt on input line 90.
+(Font)              scaled to size 5.35004pt on input line 92.
 LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 14.91832pt on input line 92.
+(Font)              scaled to size 14.91832pt on input line 94.
 LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <14.4> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 92.
+(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 94.
 LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 14.91832pt on input line 92.
+(Font)              scaled to size 14.91832pt on input line 94.
 LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 9.32396pt on input line 92.
+(Font)              scaled to size 9.32396pt on input line 94.
 
-Overfull \vbox (19.49039pt too high) detected at line 92
+Overfull \vbox (19.49039pt too high) detected at line 94
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./text/presentation.toc)
 LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 12.43195pt on input line 97.
+(Font)              scaled to size 12.43195pt on input line 99.
 LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <12> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 97.
+(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 99.
 LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 12.43195pt on input line 97.
+(Font)              scaled to size 12.43195pt on input line 99.
 
 
 LaTeX Font Warning: Font shape `T1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 97.
+(Font)              size <5> substituted on input line 99.
 
 LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
-(Font)              scaled to size 5.17998pt on input line 97.
+(Font)              scaled to size 5.17998pt on input line 99.
 [2
 
 ] [3
@@ -3587,7 +3668,13 @@ LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb
+ (./text/presentation.vrb) [10
+
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb
 LaTeX Font Info:    Font shape `T1/cmss/m/n' will be
 (Font)              scaled to size 8.28796pt on input line 9.
 LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
@@ -3644,12 +3731,12 @@ LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <7> not available
 (Font)              Font shape `T1/cmss/bx/n' tried instead on input line 16.
 LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
 (Font)              scaled to size 7.25197pt on input line 16.
-<text/figs/HO2Dplot.pdf, id=142, 400.49625pt x 269.9887pt>
+<text/figs/HO2Dplot.pdf, id=147, 400.49625pt x 269.9887pt>
 File: text/figs/HO2Dplot.pdf Graphic file (type pdf)
 <use text/figs/HO2Dplot.pdf>
 Package pdftex.def Info: text/figs/HO2Dplot.pdf  used on input line 18.
 (pdftex.def)             Requested size: 150.57372pt x 101.50916pt.
-<text/figs/DW2Dplot.pdf, id=143, 401.5pt x 272.99994pt>
+<text/figs/DW2Dplot.pdf, id=148, 401.5pt x 272.99994pt>
 File: text/figs/DW2Dplot.pdf Graphic file (type pdf)
 <use text/figs/DW2Dplot.pdf>
 Package pdftex.def Info: text/figs/DW2Dplot.pdf  used on input line 18.
@@ -3667,97 +3754,107 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (17.32564pt too high) detected at line 210
+Overfull \vbox (17.32564pt too high) detected at line 228
  []
 
-[10
+[11
 
- <./text/figs/HO2Dplot.pdf> <./text/figs/DW2Dplot.pdf>] [11
+ <./text/figs/HO2Dplot.pdf> <./text/figs/DW2Dplot.pdf>] [12
 
-] [12
+] [13
 
 ]
 LaTeX Font Info:    Font shape `OT1/cmss/m/n' will be
-(Font)              scaled to size 14.91832pt on input line 226.
+(Font)              scaled to size 14.91832pt on input line 244.
 LaTeX Font Info:    Font shape `OML/mdput/m/it' will be
-(Font)              scaled to size 13.53603pt on input line 226.
+(Font)              scaled to size 13.53603pt on input line 244.
 LaTeX Font Info:    Font shape `OMS/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 226.
+(Font)              scaled to size 13.53603pt on input line 244.
 LaTeX Font Info:    Font shape `OMX/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 226.
+(Font)              scaled to size 13.53603pt on input line 244.
 LaTeX Font Info:    Font shape `T1/cmtt/m/n' will be
-(Font)              scaled to size 15.4081pt on input line 226.
+(Font)              scaled to size 15.4081pt on input line 244.
 LaTeX Font Info:    Font shape `OML/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 226.
+(Font)              scaled to size 13.53603pt on input line 244.
 LaTeX Font Info:    Font shape `MDA/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 226.
+(Font)              scaled to size 13.53603pt on input line 244.
 LaTeX Font Info:    Font shape `MDB/mdput/m/n' will be
-(Font)              scaled to size 13.53603pt on input line 226.
- [13
+(Font)              scaled to size 13.53603pt on input line 244.
+ [14
 
 ]
 \openout4 = `text/presentation.vrb'.
 
 
-(./text/presentation.vrb) [14
+(./text/presentation.vrb) [15
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [15
-
-]
-\openout4 = `text/presentation.vrb'.
-
-
-(./text/presentation.vrb) [16
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb) [17
+ (./text/presentation.vrb) [16
 
 ]
 \openout4 = `text/presentation.vrb'.
 
 
-(./text/presentation.vrb) [18
+(./text/presentation.vrb) [17
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb
-LaTeX Font Info:    Font shape `T1/cmss/m/it' will be
-(Font)              scaled to size 9.32396pt on input line 8.
-) [19
-
-]
-\openout4 = `text/presentation.vrb'.
-
-
-(./text/presentation.vrb) [20
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb) [21
+ (./text/presentation.vrb) [18
 
 ]
 \openout4 = `text/presentation.vrb'.
 
 
-(./text/presentation.vrb) [22
+(./text/presentation.vrb) [19
+
+] (./text/presentation.vrb) [20
+
+]
+(./text/presentation.vrb) [21
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [23
+ (./text/presentation.vrb) [22
 
 ]
 \openout4 = `text/presentation.vrb'.
 
 
 (./text/presentation.vrb
+LaTeX Font Info:    Font shape `T1/cmss/m/it' will be
+(Font)              scaled to size 9.32396pt on input line 8.
+) [23
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [24
+
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb) [25
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [26
+
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb) [27
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
 (Font)              scaled to size 8.28796pt on input line 13.
 LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
@@ -3805,7 +3902,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-) [24
+) [28
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -3839,34 +3936,12 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-) [25
+) [29
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [26
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb) [27
-
-]
-\openout4 = `text/presentation.vrb'.
-
-
-(./text/presentation.vrb) [28
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb) [29
-
-]
-\openout4 = `text/presentation.vrb'.
-
-
-(./text/presentation.vrb) [30
+ (./text/presentation.vrb) [30
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -3877,11 +3952,7 @@ or  <return>  to continue without it.
 \openout4 = `text/presentation.vrb'.
 
 
-(./text/presentation.vrb)
-Overfull \vbox (20.84818pt too high) detected at line 588
- []
-
-[32
+(./text/presentation.vrb) [32
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -3891,7 +3962,33 @@ Overfull \vbox (20.84818pt too high) detected at line 588
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [34
+
+(./text/presentation.vrb) [34
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [35
+
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb)
+Overfull \vbox (20.84818pt too high) detected at line 627
+ []
+
+[36
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [37
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [38
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -3954,7 +4051,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-) [35
+) [39
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -4016,7 +4113,7 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-) [36
+) [40
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -4078,57 +4175,130 @@ Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-) [37
+) [41
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [38
+ (./text/presentation.vrb) [42
 
-] [39
+] [43
+
+]
+<text/figs/sphere.pdf, id=341, 419.5675pt x 319.17244pt>
+File: text/figs/sphere.pdf Graphic file (type pdf)
+<use text/figs/sphere.pdf>
+Package pdftex.def Info: text/figs/sphere.pdf  used on input line 779.
+(pdftex.def)             Requested size: 150.57372pt x 114.54158pt.
+<text/figs/rosenbrock.pdf, id=342, 444.66125pt x 290.06369pt>
+File: text/figs/rosenbrock.pdf Graphic file (type pdf)
+<use text/figs/rosenbrock.pdf>
+Package pdftex.def Info: text/figs/rosenbrock.pdf  used on input line 779.
+(pdftex.def)             Requested size: 150.57372pt x 98.222pt.
+
+./text/presentation.tex:779: Undefined control sequence.
+\twofigure ...h ]{{#2}} \end {subfigure} \justify 
+                                                  \end {figure} 
+l.779 \end{frame}
+                 }
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[44
+
+ <./text/figs/sphere.pdf> <./text/figs/rosenbrock.pdf>]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb
+
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 34
+.
+
+) [45
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb)
+Overfull \vbox (23.2093pt too high) detected at line 870
+ []
+
+[46
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+LaTeX Font Info:    Font shape `T1/cmss/m/it' will be
+(Font)              scaled to size 10.35995pt on input line 27.
+
+
+LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 45
+.
+
+)
+Overfull \vbox (1.96059pt too high) detected at line 931
+ []
+
+[47
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb)
+Overfull \vbox (17.97484pt too high) detected at line 968
+ []
+
+[48
+
+] [49
 
 ]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 14.91832pt on input line 736.
+(Font)              scaled to size 14.91832pt on input line 975.
 LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 13.53603pt on input line 736.
+(Font)              scaled to size 13.53603pt on input line 975.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 736.
+(Font)              scaled to size 13.53603pt on input line 975.
 LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 736.
+(Font)              scaled to size 13.53603pt on input line 975.
 LaTeX Font Info:    Font shape `OML/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 736.
+(Font)              scaled to size 13.53603pt on input line 975.
 LaTeX Font Info:    Font shape `MDA/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 736.
+(Font)              scaled to size 13.53603pt on input line 975.
 LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 736.
- [40
+(Font)              scaled to size 13.53603pt on input line 975.
+ [50
 
-] [41
+] [51
 
-] [42
+] [52
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [53
 
 ]
 \openout4 = `text/presentation.vrb'.
 
 
-(./text/presentation.vrb) [43
+(./text/presentation.vrb) [54
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [44
+ (./text/presentation.vrb) [55
 
 ]
 \openout4 = `text/presentation.vrb'.
 
 
-(./text/presentation.vrb) [45
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb
+(./text/presentation.vrb
 
 LaTeX Font Warning: Font shape `T1/cmss/m/fsc' undefined
 (Font)              using `T1/cmss/m/n' instead on input line 9.
@@ -4140,7 +4310,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 11--15
 
  []
 
-) [46
+) [56
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -4203,26 +4373,26 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 )
-Overfull \vbox (8.52318pt too high) detected at line 834
+Overfull \vbox (8.52318pt too high) detected at line 1073
  []
 
-[47
+[57
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [48
+ (./text/presentation.vrb) [58
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [49
+ (./text/presentation.vrb) [59
 
 ]
 \openout4 = `text/presentation.vrb'.
 
 
-(./text/presentation.vrb) [50
+(./text/presentation.vrb) [60
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -4237,309 +4407,7 @@ Overfull \hbox (19.10686pt too wide) detected at line 22
 [][]
  []
 
-) [51
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb) [52
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb
-
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
- normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) [53
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb
-
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
- normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) [54
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb
-
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
- normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) [55
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb
-
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
- normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) [56
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb
-
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
- normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) [57
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb
-
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
- normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) [58
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb
-
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
- normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-) [59
-
-] [60
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb) [61
+) [61
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -4549,52 +4417,299 @@ or  <return>  to continue without it.
 ]
 \openout4 = `text/presentation.vrb'.
 
+ (./text/presentation.vrb
 
-(./text/presentation.vrb) [63
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
 
-]
-\openout4 = `text/presentation.vrb'.
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
 
- (./text/presentation.vrb) [64
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
-]
-\openout4 = `text/presentation.vrb'.
-
-
-(./text/presentation.vrb) [65
-
-]
-\openout4 = `text/presentation.vrb'.
-
- (./text/presentation.vrb) [66
-
-]
-\openout4 = `text/presentation.vrb'.
-
-
-(./text/presentation.vrb) [67
+) [63
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [68
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [64
 
 ]
 \openout4 = `text/presentation.vrb'.
 
+ (./text/presentation.vrb
 
-(./text/presentation.vrb) [69
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [65
 
 ]
 \openout4 = `text/presentation.vrb'.
 
- (./text/presentation.vrb) [70
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [66
 
 ]
 \openout4 = `text/presentation.vrb'.
 
+ (./text/presentation.vrb
 
-(./text/presentation.vrb) [71
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{b_j
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [67
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{b_j
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [68
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb
+
+./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+ normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
+                                                  ^{-\frac{\alpha\omega}{2}x...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.13             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:14: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.14         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{b_j
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+) [69
+
+] [70
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [71
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -4623,24 +4738,79 @@ or  <return>  to continue without it.
 
  (./text/presentation.vrb) [76
 
-] [77
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb) [77
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [78
 
 ]
 \openout4 = `text/presentation.vrb'.
 
 
-(./text/presentation.vrb) [78
+(./text/presentation.vrb) [79
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [80
+
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb) [81
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [82
+
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb) [83
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [84
+
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb) [85
+
+]
+\openout4 = `text/presentation.vrb'.
+
+ (./text/presentation.vrb) [86
+
+] [87
+
+]
+\openout4 = `text/presentation.vrb'.
+
+
+(./text/presentation.vrb) [88
 
 ]
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-<text/figs/N2.pdf, id=531, 462.52798pt x 346.89601pt>
+<text/figs/N2.pdf, id=593, 462.52798pt x 346.89601pt>
 File: text/figs/N2.pdf Graphic file (type pdf)
 <use text/figs/N2.pdf>
 Package pdftex.def Info: text/figs/N2.pdf  used on input line 3.
 (pdftex.def)             Requested size: 150.57372pt x 112.93042pt.
-<text/figs/N6.pdf, id=532, 462.52798pt x 346.89601pt>
+<text/figs/N6.pdf, id=594, 462.52798pt x 346.89601pt>
 File: text/figs/N6.pdf Graphic file (type pdf)
 <use text/figs/N6.pdf>
 Package pdftex.def Info: text/figs/N6.pdf  used on input line 3.
@@ -4657,12 +4827,12 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<text/figs/N12.pdf, id=533, 462.52798pt x 346.89601pt>
+<text/figs/N12.pdf, id=595, 462.52798pt x 346.89601pt>
 File: text/figs/N12.pdf Graphic file (type pdf)
 <use text/figs/N12.pdf>
 Package pdftex.def Info: text/figs/N12.pdf  used on input line 5.
 (pdftex.def)             Requested size: 150.57372pt x 112.93042pt.
-<text/figs/N20.pdf, id=534, 462.52798pt x 346.89601pt>
+<text/figs/N20.pdf, id=596, 462.52798pt x 346.89601pt>
 File: text/figs/N20.pdf Graphic file (type pdf)
 <use text/figs/N20.pdf>
 Package pdftex.def Info: text/figs/N20.pdf  used on input line 5.
@@ -4679,10 +4849,10 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (20.94618pt too high) detected at line 1838
+Overfull \vbox (20.94618pt too high) detected at line 2077
  []
 
-[79
+[89
 
  <./text/figs/N2.pdf> <./text/figs/N6.pdf
 
@@ -4700,12 +4870,12 @@ fs with page group included in a single page
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-<text/figs/N30.pdf, id=734, 462.52798pt x 346.89601pt>
+<text/figs/N30.pdf, id=795, 462.52798pt x 346.89601pt>
 File: text/figs/N30.pdf Graphic file (type pdf)
 <use text/figs/N30.pdf>
 Package pdftex.def Info: text/figs/N30.pdf  used on input line 3.
 (pdftex.def)             Requested size: 150.57372pt x 112.93042pt.
-<text/figs/N42.pdf, id=735, 462.52798pt x 346.89601pt>
+<text/figs/N42.pdf, id=796, 462.52798pt x 346.89601pt>
 File: text/figs/N42.pdf Graphic file (type pdf)
 <use text/figs/N42.pdf>
 Package pdftex.def Info: text/figs/N42.pdf  used on input line 3.
@@ -4722,7 +4892,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<text/figs/N56.pdf, id=736, 462.52798pt x 346.89601pt>
+<text/figs/N56.pdf, id=797, 462.52798pt x 346.89601pt>
 File: text/figs/N56.pdf Graphic file (type pdf)
 <use text/figs/N56.pdf>
 Package pdftex.def Info: text/figs/N56.pdf  used on input line 5.
@@ -4739,10 +4909,10 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (5.14598pt too high) detected at line 1845
+Overfull \vbox (5.14598pt too high) detected at line 2084
  []
 
-[80
+[90
 
  <./text/figs/N30.pdf> <./text/figs/N42.pdf
 
@@ -4756,12 +4926,12 @@ fs with page group included in a single page
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-<text/figs/N2_D3.pdf, id=888, 462.52798pt x 346.89601pt>
+<text/figs/N2_D3.pdf, id=948, 462.52798pt x 346.89601pt>
 File: text/figs/N2_D3.pdf Graphic file (type pdf)
 <use text/figs/N2_D3.pdf>
 Package pdftex.def Info: text/figs/N2_D3.pdf  used on input line 3.
 (pdftex.def)             Requested size: 150.57372pt x 112.93042pt.
-<text/figs/N8_D3.pdf, id=889, 462.52798pt x 346.89601pt>
+<text/figs/N8_D3.pdf, id=949, 462.52798pt x 346.89601pt>
 File: text/figs/N8_D3.pdf Graphic file (type pdf)
 <use text/figs/N8_D3.pdf>
 Package pdftex.def Info: text/figs/N8_D3.pdf  used on input line 3.
@@ -4778,12 +4948,12 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<text/figs/N20_D3.pdf, id=890, 462.52798pt x 346.89601pt>
+<text/figs/N20_D3.pdf, id=950, 462.52798pt x 346.89601pt>
 File: text/figs/N20_D3.pdf Graphic file (type pdf)
 <use text/figs/N20_D3.pdf>
 Package pdftex.def Info: text/figs/N20_D3.pdf  used on input line 5.
 (pdftex.def)             Requested size: 150.57372pt x 112.93042pt.
-<text/figs/N40_D3.pdf, id=891, 462.52798pt x 346.89601pt>
+<text/figs/N40_D3.pdf, id=951, 462.52798pt x 346.89601pt>
 File: text/figs/N40_D3.pdf Graphic file (type pdf)
 <use text/figs/N40_D3.pdf>
 Package pdftex.def Info: text/figs/N40_D3.pdf  used on input line 5.
@@ -4800,10 +4970,10 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (20.94618pt too high) detected at line 1852
+Overfull \vbox (20.94618pt too high) detected at line 2091
  []
 
-[81
+[91
 
  <./text/figs/N2_D3.pdf> <./text/figs/N8_D3.pdf
 
@@ -4821,7 +4991,7 @@ pdfTeX warning: pdflatex (file ./text/figs/N40_D3.pdf): PDF inclusion: multiple
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb (./text/tables/tableHObench2D)
-(./text/tables/tableHObench3D)) [82
+(./text/tables/tableHObench3D)) [92
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -4838,10 +5008,10 @@ Overfull \hbox (4.55042pt too wide) in paragraph at lines 5--13
  []
 
 ))
-Overfull \vbox (7.15828pt too high) detected at line 1876
+Overfull \vbox (7.15828pt too high) detected at line 2115
  []
 
-[83
+[93
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -4857,16 +5027,16 @@ Overfull \hbox (4.8322pt too wide) in paragraph at lines 5--13
  []
 
 ))
-Overfull \vbox (7.15828pt too high) detected at line 1889
+Overfull \vbox (7.15828pt too high) detected at line 2128
  []
 
-[84
+[94
 
 ]
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-<text/figs/D2_DW.pdf, id=1103, 1084.05pt x 346.89601pt>
+<text/figs/D2_DW.pdf, id=1165, 1084.05pt x 346.89601pt>
 File: text/figs/D2_DW.pdf Graphic file (type pdf)
 <use text/figs/D2_DW.pdf>
 Package pdftex.def Info: text/figs/D2_DW.pdf  used on input line 2.
@@ -4883,7 +5053,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-<text/figs/D3_DW.pdf, id=1104, 1084.05pt x 346.89601pt>
+<text/figs/D3_DW.pdf, id=1166, 1084.05pt x 346.89601pt>
 File: text/figs/D3_DW.pdf Graphic file (type pdf)
 <use text/figs/D3_DW.pdf>
 Package pdftex.def Info: text/figs/D3_DW.pdf  used on input line 4.
@@ -4899,7 +5069,7 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-) [85
+) [95
 
  <./text/figs/D2_DW.pdf> <./text/figs/D3_DW.pdf
 
@@ -4909,56 +5079,56 @@ pdfs with page group included in a single page
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb (./text/tables/tHF2DVMCDW)
-(./text/tables/tHFVAR2DVMCDW)) [86
+(./text/tables/tHFVAR2DVMCDW)) [96
 
 ]
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-(./text/tables/tHF3DVMCDW) (./text/tables/tHFVAR3DVMCDW)) [87
+(./text/tables/tHF3DVMCDW) (./text/tables/tHFVAR3DVMCDW)) [97
 
 ]
 
-./text/presentation.tex:1928: LaTeX Error: Too many math alphabets used in vers
+./text/presentation.tex:2167: LaTeX Error: Too many math alphabets used in vers
 ion normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1928 \end{frame}
-                  
+l.2167 \end{frame}
+                  }
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.tex:1928: LaTeX Error: Too many math alphabets used in vers
+./text/presentation.tex:2167: LaTeX Error: Too many math alphabets used in vers
 ion normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1928 \end{frame}
-                  
+l.2167 \end{frame}
+                  }
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-[88
+[98
 
 ]
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb
-<text/figs/w1.0_N2_D2_padenqs.pdf, id=1223, 462.52798pt x 346.89601pt>
+<text/figs/w1.0_N2_D2_padenqs.pdf, id=1284, 462.52798pt x 346.89601pt>
 File: text/figs/w1.0_N2_D2_padenqs.pdf Graphic file (type pdf)
 <use text/figs/w1.0_N2_D2_padenqs.pdf>
 Package pdftex.def Info: text/figs/w1.0_N2_D2_padenqs.pdf  used on input line 2
 .
 (pdftex.def)             Requested size: 150.57372pt x 112.93042pt.
-<text/figs/w1.0_N6_D2_padenqs.pdf, id=1224, 462.52798pt x 346.89601pt>
+<text/figs/w1.0_N6_D2_padenqs.pdf, id=1285, 462.52798pt x 346.89601pt>
 File: text/figs/w1.0_N6_D2_padenqs.pdf Graphic file (type pdf)
 <use text/figs/w1.0_N6_D2_padenqs.pdf>
 Package pdftex.def Info: text/figs/w1.0_N6_D2_padenqs.pdf  used on input line 2
@@ -4976,22 +5146,22 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-) [89
+) [99
 
  <./text/figs/w1.0_N2_D2_padenqs.pdf> <./text/figs/w1.0_N6_D2_padenqs.pdf
 
 pdfTeX warning: pdflatex (file ./text/figs/w1.0_N6_D2_padenqs.pdf): PDF inclusi
 on: multiple pdfs with page group included in a single page
->] [90
+>] [100
 
-] [91
+] [101
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\translate ' on input line 1942.
+(hyperref)                removing `\translate ' on input line 2180.
 
-[92
+[102
 
 ]
 \tf@nav=\write8
@@ -5003,11 +5173,11 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 \tf@snm=\write10
 \openout10 = `text/presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1949.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1949.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2187.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2187.
  (./text/presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1949.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1949.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2187.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2187.
 
 Package rerunfilecheck Info: File `text/presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 9B634C3B2859828E8E48A177CCBAE8A7;325.
@@ -5022,69 +5192,60 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 Package logreq Info: Writing requests to 'text/presentation.run.xml'.
 \openout1 = `text/presentation.run.xml'.
 
- )
-(\end occurred inside a group at level 7)
-
-### simple group (level 7) entered at line 1944 ({)
-### simple group (level 6) entered at line 1923 ({)
-### simple group (level 5) entered at line 743 ({)
-### simple group (level 4) entered at line 738 ({)
-### simple group (level 3) entered at line 733 ({)
-### simple group (level 2) entered at line 220 ({)
-### simple group (level 1) entered at line 214 ({)
-### bottom level 
+ ) 
 Here is how much of TeX's memory you used:
- 53640 strings out of 493724
- 1204146 string characters out of 6151529
- 1651706 words of memory out of 5000000
- 55814 multiletter control sequences out of 15000+600000
- 638696 words of font info for 232 fonts, out of 8000000 for 9000
+ 56089 strings out of 493724
+ 1274514 string characters out of 6151529
+ 1743589 words of memory out of 5000000
+ 58178 multiletter control sequences out of 15000+600000
+ 639512 words of font info for 233 fonts, out of 8000000 for 9000
  667 hyphenation exceptions out of 8191
- 65i,16n,103p,10387b,2851s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/
-ec/ecss1440.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappe
-n/ec/ectt1000.643pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknap
-pen/ec/ecso0800.375pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jkn
-appen/ec/ecsx0800.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/j
-knappen/ec/ectt0800.643pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour
-/jknappen/ec/ecsx1000.623pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfo
-ur/jknappen/ec/ecso1200.720pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/lj
-four/jknappen/ec/ecso0800.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/
-ljfour/jknappen/ec/ecsi0900.622pk> </home/saintz/.texlive2017/texmf-var/fonts/p
-k/ljfour/jknappen/ec/ecsi0800.622pk> </home/saintz/.texlive2017/texmf-var/fonts
-/pk/ljfour/jknappen/ec/ecss0800.623pk> </home/saintz/.texlive2017/texmf-var/fon
-ts/pk/ljfour/jknappen/ec/ecso1000.600pk> </home/saintz/.texlive2017/texmf-var/f
-onts/pk/ljfour/jknappen/ec/ecso0800.450pk> </home/saintz/.texlive2017/texmf-var
-/fonts/pk/ljfour/jknappen/ec/ecss0500.622pk>{/usr/share/texlive/texmf-dist/font
-s/enc/dvips/ly1/texnansi.enc} </home/saintz/.texlive2017/texmf-var/fonts/pk/ljf
-our/jknappen/ec/ecso0900.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/l
-jfour/jknappen/ec/ecss0600.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk
-/ljfour/jknappen/ec/ecss0700.622pk> </home/saintz/.texlive2017/texmf-var/fonts/
-pk/ljfour/jknappen/ec/ecss1000.600pk> </home/saintz/.texlive2017/texmf-var/font
-s/pk/ljfour/jknappen/ec/ecsx1200.623pk> </home/saintz/.texlive2017/texmf-var/fo
-nts/pk/ljfour/jknappen/ec/ecss0900.623pk> </home/saintz/.texlive2017/texmf-var/
-fonts/pk/ljfour/jknappen/ec/ecsx1440.622pk></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi
-12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/mathdesign/mdput/md-utb7m.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/mathdesign/mdput/md-utbi7m.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/mathdesign/mdput/md-utr7m.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/mathdesign/mdput/md-utr7v.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/mathdesign/mdput/md-utr7y.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/mathdesign/mdput/md-utri7m.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb>
-Output written on text/presentation.pdf (92 pages, 1060134 bytes).
+ 65i,16n,103p,10387b,1917s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecss1440.62
+2pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.
+643pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecso080
+0.375pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ecsx0
+800.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/ect
+t0800.643pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec/e
+csx1000.623pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/ec
+/ecso1200.720pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen/
+ec/ecsi1000.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappe
+n/ec/ecso0800.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknap
+pen/ec/ecsi0900.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jkn
+appen/ec/ecsi0800.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/j
+knappen/ec/ecss0800.623pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour
+/jknappen/ec/ecso1000.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfo
+ur/jknappen/ec/ecso0800.450pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/lj
+four/jknappen/ec/ecss0500.622pk>{/usr/share/texlive/texmf-dist/fonts/enc/dvips/
+ly1/texnansi.enc} </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknappen
+/ec/ecso0900.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecss0600.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jkna
+ppen/ec/ecss0700.622pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/jk
+nappen/ec/ecss1000.600pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfour/
+jknappen/ec/ecsx1200.623pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljfou
+r/jknappen/ec/ecss0900.623pk> </home/saintz/.texlive2017/texmf-var/fonts/pk/ljf
+our/jknappen/ec/ecsx1440.622pk></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/mathdesign/mdput/md-utb7m.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/mathdesign/mdput/md-utbi7m.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/mathdesign/mdput/md-utr7m.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/mathdesign/mdput/md-utr7v.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/mathdesign/mdput/md-utr7y.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/mathdesign/mdput/md-utri7m.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/adobe/utopia/putr8a.pfb>
+Output written on text/presentation.pdf (102 pages, 1594641 bytes).
 PDF statistics:
- 1933 PDF objects out of 2073 (max. 8388607)
- 769 compressed objects within 8 object streams
- 193 named destinations out of 1000 (max. 500000)
- 280 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2019 PDF objects out of 2073 (max. 8388607)
+ 821 compressed objects within 9 object streams
+ 213 named destinations out of 1000 (max. 500000)
+ 290 words of extra memory for PDF output out of 10000 (max. 10000000)
 

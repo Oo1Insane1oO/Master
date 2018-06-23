@@ -400,6 +400,45 @@ some methods. We have used two method,
     SymPy and PyBind.
 \end{frame}
 
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]
+    Minimization
+        - The second major part of the variational method is the actual
+        variation of the parameters. As mentioned, the variational principle
+        still holds meaning a minimization is sufficient to reach the
+        ground-state. We use the aid of numerical optimization methods and
+        experimented around with a bunch. 
+\end{frame}}
+
+\begin{frame}[fragile]{Minimization: Gradient Descent}
+    - The first one is the simple gradient descent scheme, we we update based
+    only on the negative gradient.
+\end{frame}}
+
+\begin{frame}[fragile]{Minimization: Gradient Descent}
+    - We can see that the number of iterations needed to reach the minimium is
+    very large.
+\end{frame}}
+
+\begin{frame}[fragile]{Minimization: Quasi-Newton BFGS}
+    - The second was a class of Quasi-Newton method called BFGS which uses the
+    current gradient and previous one to estimate the Hessian matrix which is
+    used in the updating. Additionally the step-size, which was constant in the
+    gradient descent method, is changed adaptively with a so-called linesearch.
+    A one-dimensional optimization of the step-size. The one we used, and
+    implemented, was the popular Mor\'e-Thuente linesearch.
+\end{frame}
+
+\begin{frame}[fragile]{Minimization: Quasi-Newton BFGS}
+    - The same runs again, but with a Quasi-Newton method with the BFGS update.
+    As we can see the BFGS scheme utterly destroys the gradient descent in
+    terms of number of iterations.
+    - As one note though, each step in the BFGS method is computationally much
+    more extensive. We need to make a vector-matrix dot product and calculate
+    the BFGS update and a linesearch. The linesearch is the heaviest part here
+    though, as it can introduce many more evaluations of the function.
+\end{frame}}
+
 \section{Results}
 
 \begin{frame}[fragile]{Results: Benchmark}

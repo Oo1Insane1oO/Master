@@ -13,11 +13,11 @@ defaultpen(fontsize(12pt));
 
 currentprojection=orthographic(
 camera=(26.0935158686183,33.2749714613687,1753961.89227429),
-up=(-0.0240978954315237,-0.0282958474986643,3508.89213393995),
-target=(0,0,-2.3283064365387e-10),
-zoom=0.613913253540759);
+up=(-0.0142952699962292,-0.0182296036348172,6452.49090907516),
+target=(3.5527136788005e-15,0,-2.3283064365387e-10),
+zoom=0.907029478458049);
 
-currentlight=Headlamp;
+//currentlight=Headlamp;
 //real myopacity=0.5;//0.801
 
 triple simulatedS(pair ij){
@@ -33,7 +33,7 @@ surface graf = surface(simulatedS, (-10,-10), (10,10),nu=100,nv=100,Spline);
 //draw(graf, mean(palette(graf.map(zpart),cmyk(Rainbow()))),black, light=currentlight);
 draw(graf, mean(palette(graf.map(zpart),cmyk(Gradient(palecyan, heavycyan, orange, red)))),black, light=currentlight);
 
-axes3("$x$","$y$","$f(x,y)$",min=(-10,-10,0),max=(12,10,1700000),arrow=Arrow3(),fontsize(20));
+axes3("$x$","$y$","$f(x,y)$",min=(-10,-10,0),max=(12,10,900000),arrow=Arrow3(),fontsize(20));
 
 // triple simulatedR(pair ij){
 //     real i = ij.x;

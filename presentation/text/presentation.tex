@@ -26,17 +26,19 @@
 \usepackage[usenames,dvipsnames,cmyk]{xcolor}
 \usepackage{multirow}
 
+\setbeamercolor{}{fg=black, bg=white}
 \setbeamercolor{frametitle}{fg=orange, bg=red!10}
 \setbeamercolor{progress bar}{fg=red, bg=red!30}
 \setbeamercolor{progress bar in head/foot}{fg=red, bg=red!30}
 \setbeamercolor{progress bar in section page}{fg=red, bg=red!30}
+\setbeamercolor{background canvas}{bg=white}
 
 \definecolor{filecolor}{RGB}{180,43,190}
 \definecolor{funccolor}{RGB}{150,83,210}
 \newcommand{\hltexttt}[1]{\texttt{\color{filecolor}{#1}}}
 \newcommand{\hltextttf}[1]{\texttt{\color{funccolor}{#1}}}
   
-\usetikzlibrary{arrows.meta, shadows}
+\usetikzlibrary{arrows.meta, shadows, shapes, arrows}
 
 \addbibresource{text/refs.bib}
 
@@ -147,8 +149,6 @@
         \item Born-Oppenheimer Approximation
             \begin{itemize}
                 \item Ignore Nuclei
-                \item $\sum\limits_k \frac{\nabla^2_k}{M_k}$ gone
-                \item $\sum\limits_{k<l} g\left(\blds{R}_k,\blds{R}_l\right)$ constant
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -162,19 +162,37 @@
         \item Hamiltonian
             \begin{itemize}
                 \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
-                    \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right) -
-                    \frac{1}{2} \sum\limits_k \frac{\nabla^2_k}{M_k} + \sum\limits_{k<l}
+                    \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right)
+                    {\color{black!20}{-\frac{1}{2} \sum\limits_k
+                    \frac{\nabla^2_k}{M_k}}} + \sum\limits_{k<l}
                     g\left(\blds{R}_k,\blds{R}_l\right) +
                     V\left(\blds{R},\blds{r}\right)$
             \end{itemize}
         \item Born-Oppenheimer Approximation
             \begin{itemize}
                 \item Ignore Nuclei
-                \item $\sum\limits_k \frac{\nabla^2_k}{M_k}$ gone
-                \item $\sum\limits_{k<l} g\left(\blds{R}_k,\blds{R}_l\right)$ constant
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Quantum-Dot Model}
+    \begin{itemize}
+        \item Schrödinger equation 
+            \begin{itemize}
+                \item $\mathcal{H}\ket{\psi} = E\ket{\psi}$
+            \end{itemize}
+        \item Hamiltonian
+            \begin{itemize}
                 \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
-                    \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right) +
+                    \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right)
+                    {\color{black!20}{-\frac{1}{2} \sum\limits_k
+                    \frac{\nabla^2_k}{M_k}}} {\color{black!20}{+
+                    \sum\limits_{k<l} g\left(\blds{R}_k,\blds{R}_l\right)}} +
                     V\left(\blds{R},\blds{r}\right)$
+            \end{itemize}
+        \item Born-Oppenheimer Approximation
+            \begin{itemize}
+                \item Ignore Nuclei
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -184,7 +202,7 @@
         \item Interaction
             \begin{itemize}
                 \item $f\left(\blds{r}_i, \blds{r}_j\right) =
-                    \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$
+                    \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$,\hspace{2cm} Coulomb Repulsion
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -192,10 +210,10 @@
 \begin{frame}[fragile]{Quantum-Dot Model}
     \centering
     \begin{itemize}
-        \item Interaction: Coulomb repulsion
+        \item Interaction:
             \begin{itemize}
                 \item $f\left(\blds{r}_i, \blds{r}_j\right) =
-                    \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$
+                    \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$,\hspace{2cm} Coulomb Repulsion
             \end{itemize}
         \item Confinement: Harmonic Oscillator\footfullcite{kvaaldots}, Double-Well\footfullcite{ddotnuc}
     \end{itemize}
@@ -215,7 +233,7 @@
 \begin{frame}[standout]{Methods}
     Hartree-Fock \\
     Variational Monte-Carlo
-\end{frame}
+\end{frame}}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Methods: Variational Principle}
@@ -223,7 +241,7 @@
         E_0 \leq \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
         \label{eq:varPrinc}
     \end{equation*}
-\end{frame}
+\end{frame}}
 
 \begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
 \end{frame}
@@ -264,6 +282,27 @@
             \bra{pq}f_{12}\ket{qp}\right]$
         \item $\mathcal{H}_0 = -\frac{1}{2}\sum\limits_i\nabla^2_i + V(r)$
     \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
+    \begin{itemize}
+        \item Pauli Principle
+        \item Slater Determinant
+            \begin{itemize}
+                \item $\Psi^{\text{AS}}_T =
+                    \frac{1}{\sqrt{N!}}\sum\limits_{P}(-1)^p\mathcal{P}_P\prod\limits_i\psi_i$ \tikz[remember picture] \node[coordinate] (n1) {};
+                \item $\Psi^{\text{S}}_T =
+                    \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum\limits_{P}\mathcal{P}_P\prod\limits_i\psi_i$
+            \end{itemize}
+        \item $E\left[\Psi\right] =
+            \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} =
+            \sum\limits_p\bra{p}\mathcal{H}_0\ket{p} +$
+            \tikz[baseline, remember picture]{\node[anchor=base] (t1) {$\frac{1}{2}\sum\limits_{p,q}\left[\bra{pq}f_{12}\ket{pq} \pm
+            \bra{pq}f_{12}\ket{qp}\right]$};}
+    \end{itemize}
+    \begin{tikzpicture}[remember picture, overlay]
+        \path[draw=magenta, thick, ->]<3-> ([yshift=2mm]n1.south) to [out=0, in=90] (t1.north);
+    \end{tikzpicture}
 \end{frame}
 
 \begin{frame}[fragile]{Methods: Hartree-Fock}
@@ -728,17 +767,217 @@
     \end{figure}
 \end{frame}
 
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]
+    Minimization
+\end{frame}}
+
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]
+    Single-Well\hspace{2cm} Rosenbrock
+    \twofigure{text/figs/sphere.pdf}{text/figs/rosenbrock.pdf}
+\end{frame}}
+
+\begin{frame}[fragile]{Minimization: Gradient Descent}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=blue!30, drop shadow},
+                    startstop/.style = {base, fill=red!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                    activityRuns/.style = {base, fill=green!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily, scale=0.8},
+                align=center]
+            \node (start) [activityStarts] {
+                Initialize $\blds{x}_0$ and find
+                $\nabla_{x}f({\blds{x}_0})$ \\
+                Set $\gamma$ and $n=1$.
+            };
+            \node (update) [activityRuns, below of=start] {
+                Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma
+                \nabla_{x} f\left(\blds{x}_n\right)$
+            };
+            \draw[->] (start) -- (update);
+            \node (conv) [startstop, below of=update, yshift=-0.5cm] {
+                Check for termination \\
+                Increment index $n {\footnotesize\mathrel{+}=} 1$
+            };
+            \draw[->] (update) -- (conv);
+            \node (no) [above left of=conv, xshift=-3.0cm] {
+                $\abs{\nabla_{x} f} > \epsilon$
+            };
+            \draw[->] (conv) to [out=180, in=-90] (no);
+            \draw[->] (no) to [out=90, in=180] (update);
+            \node (yes) [below of=conv] {
+                $\abs{\nabla_{x} f} \leq \epsilon$
+            };
+            \draw[->] (conv) -- (yes);
+            \node (end) [activityStarts, below of=yes] {
+                Output $\blds{x}_m=\blds{x}_n$
+            };
+            \draw[->] (yes) -- (end);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Minimization: Gradient Descent}
+    \vspace{-0.25cm}
+    \begin{table}[H]
+        \centering
+        \footnotesize
+        \setlength{\tabcolsep}{6.0pt}
+        \begin{tabular}{ccccc} \hline\hline
+            $\blds{x}_0$ & $\gamma$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \vsp \\
+            $(5,5)$ & $0.9$ & $20$ & $(-0.072,-0.072)$ & $0.010$ \\
+            $(5,5)$ & $0.9$ & $50$ & $(-8.920\times10^{-5},-8.920\times10^{-5})$ & $1.591\times10^{-8}$ \\
+            $(5,5)$ & $0.9$ & $100$ & $(-1.273\times10^{-9},-1.273\times10^{-9})$ & $3.242\times10^{-18}$ \\
+            $(5,5)$ & $0.5$ & $20$ & $(0.0,0.0)$ & $0.0$ \\
+            $(5,5)$ & $0.5$ & $50$ & $(0.0,0.0)$ & $0.0$ \\
+            $(5,5)$ & $0.5$ & $100$ & $(0.0,0.0)$ & $0.0$ \\
+            $(5,5)$ & $0.1$ & $20$ & $(0.072,0.072)$ & $0.010$ \\
+            $(5,5)$ & $0.1$ & $50$ & $(8.920\times10^{-5},8.920\times10^{-5})$ & $1.591\times10^{-8}$ \\
+            $(5,5)$ & $0.1$ & $100$ & $(1.273\times10^{-9},1.273\times10^{-9})$ & $3.242\times10^{-18}$ \\ \hline\hline
+        \end{tabular}
+    \end{table}
+    \vspace{-0.5cm}
+    \begin{table}[H]
+        \centering
+        \footnotesize
+        \setlength{\tabcolsep}{10.3pt}
+        \begin{tabular}{ccccc} \hline\hline
+            $\blds{x}_0$ & $\gamma$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \vsp \\
+            $(0,0.5)$ & $0.001$ & $100$ & $(0.181,0.030)$ & $0.034$ \\
+            $(0,0.5)$ & $0.001$ & $500$ & $(0.512,0.258)$ & $0.327$ \\
+            $(0,0.5)$ & $0.001$ & $1000$ & $(0.675,0.454)$ & $0.106$ \\
+            $(0,0.5)$ & $0.001$ & $100000$ & $(1.000,1.000) $ & $0.0$ \\
+            $(0,0.5)$ & $0.0001$ & $100$ & $(0.027,0.068)$ & $1.399$ \\
+            $(0,0.5)$ & $0.0001$ & $500$ & $(0.105,0.009)$ & $0.801$ \\
+            $(0,0.5)$ & $0.0001$ & $1000$ & $(0.184,0.031)$ & $0.666$ \\
+            $(0,0.5)$ & $0.0001$ & $100000$ & $(0.994,0.989)$ & $3.131\times10^{-5}$ \\ \hline\hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}[fragile]{Minimization: Quasi-Newton BFGS}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=blue!30, drop shadow},
+                    startstop/.style = {base, fill=red!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                    activityRuns/.style = {base, fill=green!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.8, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily, scale=0.8},
+                align=center]
+            \node (start) [activityStarts] {
+                Initialize $\blds{x}_0$ and find $\nabla f({\blds{x}_0})$ \\
+                Set $\blds{H}^{-1}_0$ and $n=1$.
+            };
+            \node (LS) [process, below of=start] {
+                Perform \txtit{linesearch} giving $\gamma_n$.
+            };
+            \node (update) [activityRuns, below of=LS] {
+                Find $\blds{x}_{n} = \blds{x}_{n-1} - \gamma_n
+                \blds{H}^{-1}_{n-1}\nabla f\left(\blds{x}_{n-1}\right)$
+            };
+            \draw[->] (start) -- (LS);
+            \draw[->] (LS) -- (update);
+            \node (conv) [startstop, below of=update, yshift=-0.5cm] {
+                Check for termination
+            };
+            \draw[->] (update) -- (conv);
+            \node (no) [below left of=conv, xshift=-4.0cm, yshift=-0.3cm] {
+                $\abs{\nabla_{x} f} > \epsilon$
+            };
+            \node (hupdate) [process, above of=no, xshift=-2.0cm, yshift=0.5cm] {
+                Use $\nabla f(\blds{x}_n)$ and $f(\blds{x}_{n-1})$ in an \\
+                updating formula of choice to find $\blds{H}^{-1}_n$ \\
+                Increment index $n {\footnotesize\mathrel{+}=} 1$
+            };
+            \draw[->] (conv) to [out=180, in=0] (no);
+            \draw[->] (no) to [out=90, in=-90] (hupdate);
+            \draw[->] (hupdate) to [out=90, in=180] (LS);
+            \node (yes) [below of=conv] {
+                $\abs{\nabla_{x} f} \leq \epsilon$
+            };
+            \draw[->] (conv) -- (yes);
+            \node (end) [activityStarts, below of=yes] {
+                Output $\blds{x}_m=\blds{x}_n$
+            };
+            \draw[->] (yes) -- (end);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Minimization: Quasi-Newton BFGS}
+    \vspace{-0.25cm}
+    \begin{table}[H]
+        \centering
+        \footnotesize
+        \setlength{\tabcolsep}{16.2pt}
+        \begin{tabular}{cccc} \hline\hline
+            $\blds{x}_0$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \vsp \\
+            $(1,1)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
+            $(-1,2)$ & $1$ & $(0.447,-0.894)$ & $1.000$ \\
+            $(1,1)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\
+            $(-1,2)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\
+            $(10,10)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
+            $(10,10)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\
+            $(100,100)$ & $1$ & $(-0.071,-0.071)$ & $1.000$ \\
+            $(100,100)$ & $2$ & $(0.000,0.000)$ & $0.000$ \\ \hline\hline
+        \end{tabular}
+    \end{table}
+    \vspace{-0.3cm}
+    \begin{table}[H]
+        \centering
+        \footnotesize
+        \setlength{\tabcolsep}{16.3pt}
+        \begin{tabular}{ccccc} \hline\hline
+            $\blds{x}_0$ & Iterations & $\blds{x}_m$ & $f(\blds{x}_m)$ \vsp \\
+            $(-0.5,2.0)$ & $1$ & $(-0.706,0.708)$ & $7.280$ \\
+            $(-0.5,2.0)$ & $2$ & $(-0.780,0.649)$ & $3.342$ \\
+            $(-0.5,2.0)$ & $10$ & $(0.238,0.051)$ & $0.584$ \\
+            $(-0.5,2.0)$ & $30$ & $(1.000,1,000)$ & $0.000$ \\
+            $(5.5,-10.0)$ & $1$ & $(-0.996,0.091)$ & $85.214$ \\
+            $(5.5,-10.0)$ & $2$ & $(-0.908,1.087)$ & $10.549$ \\
+            $(5.5,-10.0)$ & $10$ & $(0.027,0.012)$ & $0.9613$ \\
+            $(5.5,-10.0)$ & $30$ & $(1.000,1,000)$ & $0.000$ \\ \hline\hline
+        \end{tabular}
+    \end{table}
+\end{frame}
+
 \section{Wavefunction}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Wavefunction}
     $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
-\end{frame}
+\end{frame}}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Wavefunction}
     $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\color{red}{\chi_p(\blds{r})}$
-\end{frame}
+\end{frame}}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Wavefunction: Integral Elements}
@@ -746,7 +985,7 @@
     $\Braket{\phi_i(\blds{r})|x^k_d|\phi_j(\blds{r})}$ \\ \vsp\vsp\vsp\vsp
     $\Braket{\phi_i(\blds{r})|\nabla^2|\phi_j(\blds{r})}$ \\ \vsp\vsp\vsp\vsp
     $\Braket{\phi_i(\blds{r}_1)\phi_j(\blds{r}_2)|f_{12}|\phi_k(\blds{r}_1)\phi_l(\blds{r}_2)}$ \\
-\end{frame}
+\end{frame}}
 
 \begin{frame}[fragile]{Wavefunction: Single-Well}
     \begin{itemize}
@@ -1925,7 +2164,7 @@
     $J_{\text{NQS}} = \me^{-\suml{i=1}{N} \frac{\left({r}_i -
     {a}_i\right)^2}{2\sigma^2}}\prod\limits^{M}_j \left(1 + \me^{b_j +
     \suml{i=1}{N}\suml{d=1}{D} \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}}\right)$
-\end{frame}
+\end{frame}}
 
 \begin{frame}[fragile]{Results: NQS-Jastrow Harmonic Oscillator}
     \twofigure{{text/figs/w1.0_N2_D2_padenqs}.pdf}{{text/figs/w1.0_N6_D2_padenqs}.pdf}
@@ -1936,14 +2175,13 @@
 {\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]
   Questions?
-\end{frame}
-}
+\end{frame}}
 
 \appendix
 
 {\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]{Questions}
     Questions?
-\end{frame}
+\end{frame}}
 
 \end{document}
