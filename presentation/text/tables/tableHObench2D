@@ -1,0 +1,13 @@
+\begin{table}[H]
+    \centering
+    \small
+   \setlength{\tabcolsep}{10.0pt}
+   \begin{tabular}{c"cccccc}
+\toprule\hline $\omega[\text{a.u}]$ & \multicolumn{4}{c}{$N$} \\ \hline
+ & $2$ & $6$ & $12$ & $20$\\
+0.1 & 0.4407(4) & 3.5650(4) & 12.3164(4) & 30.0480(4)\\
+0.28 & 1.0020(4) & 7.6198(4) & 25.5948(3) & 61.8090(3)\\
+0.5 & 1.6650(4) & 11.8017(4) & 39.3166(3) & 93.9240(2)\\
+1.0 & 3.0000(5) & 20.2863(3) & 68.1465(3) & 156.2778(2)\\
+\hline\bottomrule\end{tabular}
+\end{table}

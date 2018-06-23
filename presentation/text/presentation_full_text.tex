@@ -400,6 +400,26 @@ some methods. We have used two method,
     SymPy and PyBind.
 \end{frame}
 
+\section{Results}
+
+\begin{frame}[fragile]{Results: Benchmark}
+    - We used the harmonic oscillator system as s benchmark to see that the
+    code works properly, that is, can we reproduce known results calculated
+    with the polar form.
+    - The Hartree-Fock limit was reached for both the two- and three dimensinal
+    case for lower number of particles. For the higher the tendency was that
+    increasing number of basis functions made the energy tend towards the limit
+    (comparing with the polar case) indicating that we only need to run with
+    more basis functions in order to reach the limit.
+\end{frame}
+
+\begin{frame}[fragile]{Results: Benchmark}
+    - For the variational method we benchmarked the code with this function,
+    the modified harmonic oscillator and the Pad\'e-Jastrow. The results are
+    good compared to literature and the energies are also lower then the
+    Hartree-Fock energies as expected.
+\end{frame}
+
 \section{Summary and Conclusion}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}

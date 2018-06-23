@@ -24,6 +24,7 @@
 \usepackage{tikz}
 \usepackage{bm}
 \usepackage[usenames,dvipsnames,cmyk]{xcolor}
+\usepackage{multirow}
 
 \setbeamercolor{frametitle}{fg=orange, bg=red!10}
 \setbeamercolor{progress bar}{fg=red, bg=red!30}
@@ -51,13 +52,10 @@
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
-\newcommand{\onefigure}[4]{
+\newcommand{\onefigure}[1]{
     \begin{figure}[H]
         \centering
-        \textbf{{#1}}\\
-        \includegraphics[scale=0.95]{{#2}}
-        \caption{{#3}}
-        \label{fig:#4}
+        \includegraphics[scale=0.35]{{#1}}
     \end{figure}
     \justifying
 } %one figure {filename}{caption}
@@ -76,11 +74,15 @@
     \end{figure}
 } %two figure one-line {title}{file1}{caption1}{file2}{caption2}
 
+\makeatletter
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1.1pt\hskip\tabcolsep}}
+\makeatother
+
 \title{Quantum Many-Body Simulations of Double Dot System}
 % \date{\today}
 \date{}
 \author{Alocias Mariadason}
-\institute{Institute of Physics}
+\institute{}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
 \input{text/defs.tex}
@@ -99,7 +101,6 @@
 \begin{frame}[fragile]{Quantum-Dot}
     \begin{itemize}
         \item Small semiconductor nanostructures
-        \item $2$-$10$ nanometers with $10-50$ particles
     \end{itemize}
 \end{frame}
 
@@ -200,7 +201,7 @@
     \end{itemize}
     \vspace{-0.2cm}
     \begin{align*}
-        V(\blds{r}) = \frac{1}{2} \omega mr^2& \hspace{1cm}
+        V(\blds{r}) = \frac{1}{2} m\omega^2r^2& \hspace{1cm}
         &V(\blds{R},\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - \delta R\abs{x}
         + R^2\right)
     \end{align*}
@@ -222,6 +223,9 @@
         E_0 \leq \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}}
         \label{eq:varPrinc}
     \end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
 \end{frame}
 
 \begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
@@ -260,6 +264,9 @@
             \bra{pq}f_{12}\ket{qp}\right]$
         \item $\mathcal{H}_0 = -\frac{1}{2}\sum\limits_i\nabla^2_i + V(r)$
     \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
 \end{frame}
 
 \begin{frame}[fragile]{Methods: Hartree-Fock}
@@ -398,11 +405,20 @@
                             \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
                             \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r$
                         \vsp
-                        \item $\mathcal{F}\ket{\psi} = \blds{\veps}\ket{\psi},
-                            \blds{\veps}=(\veps_0,\dots,\veps_N)$
+                        \item \color{red}{$\mathcal{F}\ket{\psi} =
+                            \blds{\veps}\ket{\psi},
+                            \blds{\veps}=(\veps_0,\dots,\veps_N)$}
                     \end{itemize}
-                \item $N+1$ equations to be solved.
             \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Integrate out spin
     \end{itemize}
 \end{frame}
 
@@ -420,6 +436,26 @@
         \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
             \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
         \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Integrate out spin
+        \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
+            \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
+        \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
+        \item Roothan-Hall: $\blds{F}\blds{C}_i = \blds{\veps}S\blds{C}_i$
+            \begin{itemize}
+                \item $F_{pq} = h_{pq} + \sum\limits_{pq}\rho_{pq}\left(2D_{prqs} \pm D_{prsq}\right)$
+                \vsp
+                \item $h_{pq} \equiv \Braket{p | h | q}$
+                \vsp
+                \item $\rho_{pq} \equiv \sum\limits^{\frac{N}{2}}_{i=1} C_{pi}C^{*}_{qi}$
+                \vsp
+                \item $D_{pqrs} \equiv \Braket{pq | f_{12} | rs}$
+                \item $S_{pq} \equiv \Braket{p | q}$
+            \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -552,6 +588,9 @@
 \end{frame}
 
 \begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
     \begin{itemize}
         \item Variational Principle
     \end{itemize}
@@ -566,7 +605,7 @@
             = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
             \begin{itemize}
                 \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
-                \item $P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}$
+                \item $P(\mb{R}) \equiv \frac{\abs{\Psi}^2}{\Braket{\Psi|\Psi}}$
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -1787,6 +1826,41 @@
 \end{frame}
 
 \section{Results}
+
+\begin{frame}[fragile]{Results: Benchmark}
+\end{frame}
+
+\begin{frame}[fragile]{Results: Benchmark}
+    \vspace{-0.25cm}
+    \twofigure{text/figs/N2.pdf}{text/figs/N6.pdf}
+    \vspace{-0.5cm}
+    \twofigure{text/figs/N12.pdf}{text/figs/N20.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Results: Benchmark}
+    \vspace{-0.25cm}
+    \twofigure{text/figs/N30.pdf}{text/figs/N42.pdf}
+    \vspace{-0.5cm}
+    \onefigure{text/figs/N56.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Results: Benchmark}
+    \vspace{-0.25cm}
+    \twofigure{text/figs/N2_D3.pdf}{text/figs/N8_D3.pdf}
+    \vspace{-0.5cm}
+    \twofigure{text/figs/N20_D3.pdf}{text/figs/N40_D3.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Results: Benchmark}
+    \vspace{-0.25cm}
+    \input{text/tables/tableHObench2D}
+    \vspace{-0.7cm}
+    \input{text/tables/tableHObench3D}
+    \begin{equation*}
+        \psi =
+        \psi^{\text{HO}}\left(\sqrt{\alpha\omega}r\right)J_{\text{Pad\'e}}
+    \end{equation*}
+\end{frame}
 
 \section{Summary and Conclusion}
 
