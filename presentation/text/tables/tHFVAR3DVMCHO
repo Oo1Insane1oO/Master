@@ -1,0 +1,13 @@
+\begin{table}[H]
+    \centering
+    \small
+   \setlength{\tabcolsep}{27.5pt}
+   \begin{tabular}{c"cccc}
+\toprule\hline $\omega$ & \multicolumn{2}{c}{$N$} \\ \hline
+ & $2$ & $8$\\
+$0.1$ & $0.50751(5)\{70\}$ & $5.84082(4)\{240\}$ \\
+$0.28$ & $1.20320(5)\{20\}$ & $12.37435(4)\{168\}$ \\
+$0.5$ & $2.01439(4)\{20\}$ & $19.09917(4)\{112\}$ \\
+$1.0$ & $3.72959(5)\{70\}$ & $33.04162(4)\{168\}$ \\
+\hline\bottomrule\end{tabular}
+\end{table}

@@ -1,0 +1,9 @@
+\begin{table}[H]
+    \centering
+   \setlength{\tabcolsep}{30.25pt}
+   \begin{tabular}{c"ccccc}
+\toprule\hline $\omega$ & \multicolumn{3}{c}{$N$} \\ \hline
+ & $2$ & $4$ & $8$\\
+$1.0$ & $3.22226(4)\{11\}$ & $9.17013(4)\{17\}$ & $28.62826(4)\{26\}$\\
+\hline\bottomrule\end{tabular}
+\end{table}

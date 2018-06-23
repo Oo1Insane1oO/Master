@@ -177,25 +177,29 @@
 \headcommand {\beamer@framepages {81}{81}}
 \headcommand {\slideentry {5}{0}{6}{82/82}{}{0}}
 \headcommand {\beamer@framepages {82}{82}}
-\headcommand {\beamer@sectionpages {77}{82}}
-\headcommand {\beamer@subsectionpages {77}{82}}
-\headcommand {\sectionentry {6}{Summary and Conclusion}{83}{Summary and Conclusion}{0}}
-\headcommand {\slideentry {6}{0}{1}{83/83}{}{0}}
+\headcommand {\slideentry {5}{0}{7}{83/83}{}{0}}
 \headcommand {\beamer@framepages {83}{83}}
-\headcommand {\slideentry {6}{0}{2}{84/84}{}{0}}
+\headcommand {\slideentry {5}{0}{8}{84/84}{}{0}}
 \headcommand {\beamer@framepages {84}{84}}
-\headcommand {\gdef \insertmainframenumber {71}}
-\headcommand {\partentry {\translate {Appendix}}{1}}
-\headcommand {\beamer@partpages {1}{84}}
-\headcommand {\beamer@sectionpages {83}{84}}
-\headcommand {\beamer@subsectionpages {83}{84}}
-\headcommand {\beamer@appendixpages {85}}
-\headcommand {\slideentry {6}{0}{3}{85/85}{}{1}}
+\headcommand {\beamer@sectionpages {77}{84}}
+\headcommand {\beamer@subsectionpages {77}{84}}
+\headcommand {\sectionentry {6}{Summary and Conclusion}{85}{Summary and Conclusion}{0}}
+\headcommand {\slideentry {6}{0}{1}{85/85}{}{0}}
 \headcommand {\beamer@framepages {85}{85}}
-\headcommand {\beamer@partpages {85}{85}}
-\headcommand {\beamer@subsectionpages {85}{85}}
-\headcommand {\beamer@sectionpages {85}{85}}
-\headcommand {\beamer@documentpages {85}}
+\headcommand {\slideentry {6}{0}{2}{86/86}{}{0}}
+\headcommand {\beamer@framepages {86}{86}}
+\headcommand {\gdef \insertmainframenumber {73}}
+\headcommand {\partentry {\translate {Appendix}}{1}}
+\headcommand {\beamer@partpages {1}{86}}
+\headcommand {\beamer@sectionpages {85}{86}}
+\headcommand {\beamer@subsectionpages {85}{86}}
+\headcommand {\beamer@appendixpages {87}}
+\headcommand {\slideentry {6}{0}{3}{87/87}{}{1}}
+\headcommand {\beamer@framepages {87}{87}}
+\headcommand {\beamer@partpages {87}{87}}
+\headcommand {\beamer@subsectionpages {87}{87}}
+\headcommand {\beamer@sectionpages {87}{87}}
+\headcommand {\beamer@documentpages {87}}
 \headcommand {\gdef \inserttotalframenumber {0}}
-\headcommand {\gdef \inserttotalframenumber {71}}
+\headcommand {\gdef \inserttotalframenumber {73}}
 \headcommand {\gdef \appendixtotalframenumber {0}}

@@ -1,8 +1,11 @@
 \frametitle{Results: Benchmark}
 \vspace{-0.25cm}
-    \input{text/tables/tableHObench2D}
-    \vspace{-0.7cm}
-    \input{text/tables/tableHObench3D}
+    \input{text/tables/tHF3DVMCHO}
+    \vspace{-0.5cm}
+    \input{text/tables/tHFVAR3DVMCHO}
     \begin{equation*}
-        \psi = \psi^{\text{HO}}\left(\sqrt{\alpha\omega}r\right)J_{\text{Pad\'e}}
+        \psi_p =
+        \sum_lC_{lp}\psi^{\text{HO}}_l\left(\sqrt{\omega}r\right)J_{\text{Pad\'e}},\hspace{0.5cm}
+        \psi_p =
+        \sum_lC_{lp}\psi^{\text{HO}}_l\left(\sqrt{\alpha\omega}r\right)J_{\text{Pad\'e}}
     \end{equation*}
