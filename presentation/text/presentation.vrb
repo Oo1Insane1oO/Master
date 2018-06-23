@@ -1,11 +1,2 @@
-\frametitle{Results: Benchmark}
-\vspace{-0.25cm}
-    \input{text/tables/tHF3DVMCHO}
-    \vspace{-0.5cm}
-    \input{text/tables/tHFVAR3DVMCHO}
-    \begin{equation*}
-        \psi_p =
-        \sum_lC_{lp}\psi^{\text{HO}}_l\left(\sqrt{\omega}r\right)J_{\text{Pad\'e}},\hspace{0.5cm}
-        \psi_p =
-        \sum_lC_{lp}\psi^{\text{HO}}_l\left(\sqrt{\alpha\omega}r\right)J_{\text{Pad\'e}}
-    \end{equation*}
+\frametitle{Results: NQS-Jastrow Harmonic Oscillator}
+\twofigure{{text/figs/w1.0_N2_D2_padenqs}.pdf}{{text/figs/w1.0_N6_D2_padenqs}.pdf}

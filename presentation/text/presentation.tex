@@ -55,7 +55,7 @@
 \newcommand{\onefigure}[1]{
     \begin{figure}[H]
         \centering
-        \includegraphics[scale=0.35]{{#1}}
+        \includegraphics[scale=0.28]{{#1}}
     \end{figure}
     \justifying
 } %one figure {filename}{caption}
@@ -1886,6 +1886,49 @@
         \psi_p =
         \sum_lC_{lp}\psi^{\text{HO}}_l\left(\sqrt{\alpha\omega}r\right)J_{\text{Pad\'e}}
     \end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Results: Double-Well Hartree-Fock}
+    \onefigure{text/figs/D2_DW.pdf}
+    \vspace{-0.8cm}
+    \onefigure{text/figs/D3_DW.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Results: Double-Well Variational Monte-Carlo}
+    \input{text/tables/tHF2DVMCDW}
+    \begin{equation*}
+        \psi_p =
+        \sum_lC^{\text{HF}}_{lp}\sum_kC^{\text{DW}}_{kl}\psi^{\text{HO}}_k\left(\sqrt{\omega}r\right)J_{\text{Pad\'e}}
+    \end{equation*}
+    \input{text/tables/tHFVAR2DVMCDW}
+    \begin{equation*}
+        \psi_p =
+        \sum_lC^{\text{HF}}_{lp}\sum_kC^{\text{DW}}_{kl}\psi^{\text{HO}}_k\left(\sqrt{\alpha\omega}r\right)J_{\text{Pad\'e}}
+    \end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Results: Double-Well Variational Monte-Carlo}
+    \input{text/tables/tHF3DVMCDW}
+    \begin{equation*}
+        \psi_p =
+        \sum_lC^{\text{HF}}_{lp}\sum_kC^{\text{DW}}_{kl}\psi^{\text{HO}}_k\left(\sqrt{\omega}r\right)J_{\text{Pad\'e}}
+    \end{equation*}
+    \input{text/tables/tHFVAR3DVMCDW}
+    \begin{equation*}
+        \psi_p =
+        \sum_lC^{\text{HF}}_{lp}\sum_kC^{\text{DW}}_{kl}\psi^{\text{HO}}_k\left(\sqrt{\alpha\omega}r\right)J_{\text{Pad\'e}}
+    \end{equation*}
+\end{frame}
+
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]{Results: NQS-Jastrow}
+    $J_{\text{NQS}} = \me^{-\suml{i=1}{N} \frac{\left({r}_i -
+    {a}_i\right)^2}{2\sigma^2}}\prod\limits^{M}_j \left(1 + \me^{b_j +
+    \suml{i=1}{N}\suml{d=1}{D} \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}}\right)$
+\end{frame}
+
+\begin{frame}[fragile]{Results: NQS-Jastrow Harmonic Oscillator}
+    \twofigure{{text/figs/w1.0_N2_D2_padenqs}.pdf}{{text/figs/w1.0_N6_D2_padenqs}.pdf}
 \end{frame}
 
 \section{Summary and Conclusion}

@@ -1,6 +1,7 @@
 \begin{table}[H]
     \centering
-   \setlength{\tabcolsep}{16.25pt}
+    \small
+   \setlength{\tabcolsep}{3.0pt}
    \begin{tabular}{c"cccccc}
 \toprule\hline $\omega$ & \multicolumn{4}{c}{$N$} \\ \hline
  & $2$ & $4$ & $6$ & $8$\\

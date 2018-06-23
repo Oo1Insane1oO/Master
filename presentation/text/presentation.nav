@@ -181,25 +181,35 @@
 \headcommand {\beamer@framepages {83}{83}}
 \headcommand {\slideentry {5}{0}{8}{84/84}{}{0}}
 \headcommand {\beamer@framepages {84}{84}}
-\headcommand {\beamer@sectionpages {77}{84}}
-\headcommand {\beamer@subsectionpages {77}{84}}
-\headcommand {\sectionentry {6}{Summary and Conclusion}{85}{Summary and Conclusion}{0}}
-\headcommand {\slideentry {6}{0}{1}{85/85}{}{0}}
+\headcommand {\slideentry {5}{0}{9}{85/85}{}{0}}
 \headcommand {\beamer@framepages {85}{85}}
-\headcommand {\slideentry {6}{0}{2}{86/86}{}{0}}
+\headcommand {\slideentry {5}{0}{10}{86/86}{}{0}}
 \headcommand {\beamer@framepages {86}{86}}
-\headcommand {\gdef \insertmainframenumber {73}}
-\headcommand {\partentry {\translate {Appendix}}{1}}
-\headcommand {\beamer@partpages {1}{86}}
-\headcommand {\beamer@sectionpages {85}{86}}
-\headcommand {\beamer@subsectionpages {85}{86}}
-\headcommand {\beamer@appendixpages {87}}
-\headcommand {\slideentry {6}{0}{3}{87/87}{}{1}}
+\headcommand {\slideentry {5}{0}{11}{87/87}{}{0}}
 \headcommand {\beamer@framepages {87}{87}}
-\headcommand {\beamer@partpages {87}{87}}
-\headcommand {\beamer@subsectionpages {87}{87}}
-\headcommand {\beamer@sectionpages {87}{87}}
-\headcommand {\beamer@documentpages {87}}
+\headcommand {\slideentry {5}{0}{12}{88/88}{}{0}}
+\headcommand {\beamer@framepages {88}{88}}
+\headcommand {\slideentry {5}{0}{13}{89/89}{}{0}}
+\headcommand {\beamer@framepages {89}{89}}
+\headcommand {\beamer@sectionpages {77}{89}}
+\headcommand {\beamer@subsectionpages {77}{89}}
+\headcommand {\sectionentry {6}{Summary and Conclusion}{90}{Summary and Conclusion}{0}}
+\headcommand {\slideentry {6}{0}{1}{90/90}{}{0}}
+\headcommand {\beamer@framepages {90}{90}}
+\headcommand {\slideentry {6}{0}{2}{91/91}{}{0}}
+\headcommand {\beamer@framepages {91}{91}}
+\headcommand {\gdef \insertmainframenumber {77}}
+\headcommand {\partentry {\translate {Appendix}}{1}}
+\headcommand {\beamer@partpages {1}{91}}
+\headcommand {\beamer@sectionpages {90}{91}}
+\headcommand {\beamer@subsectionpages {90}{91}}
+\headcommand {\beamer@appendixpages {92}}
+\headcommand {\slideentry {6}{0}{3}{92/92}{}{1}}
+\headcommand {\beamer@framepages {92}{92}}
+\headcommand {\beamer@partpages {92}{92}}
+\headcommand {\beamer@subsectionpages {92}{92}}
+\headcommand {\beamer@sectionpages {92}{92}}
+\headcommand {\beamer@documentpages {92}}
 \headcommand {\gdef \inserttotalframenumber {0}}
-\headcommand {\gdef \inserttotalframenumber {73}}
+\headcommand {\gdef \inserttotalframenumber {77}}
 \headcommand {\gdef \appendixtotalframenumber {0}}
