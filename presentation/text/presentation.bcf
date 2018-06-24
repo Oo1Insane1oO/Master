@@ -1925,10 +1925,12 @@
   <bcf:section number="0">
     <bcf:citekey order="1">kvaaldots</bcf:citekey>
     <bcf:citekey order="2">ddotnuc</bcf:citekey>
-    <bcf:citekey order="3">anisimovas</bcf:citekey>
-    <bcf:citekey order="4">anisimovas</bcf:citekey>
+    <bcf:citekey order="3">kvaaldots</bcf:citekey>
+    <bcf:citekey order="4">ddotnuc</bcf:citekey>
     <bcf:citekey order="5">anisimovas</bcf:citekey>
-    <bcf:citekey order="6">HelgakerMolElcTheory</bcf:citekey>
+    <bcf:citekey order="6">anisimovas</bcf:citekey>
+    <bcf:citekey order="7">anisimovas</bcf:citekey>
+    <bcf:citekey order="8">HelgakerMolElcTheory</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">

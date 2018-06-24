@@ -45,6 +45,8 @@
       \field{journaltitle}{Journal of Physics: Condensed Matter}
       \field{title}{Energy spectra of few-electron quantum dots}
       \field{year}{1998}
+      \field{pages}{601}
+      \range{pages}{1}
       \verb{urlraw}
       \verb \url{http://stacks.iop.org/0953-8984/10/i=3/a=013}
       \endverb
@@ -73,13 +75,9 @@
       \field{sortinithash}{9fd838a31ba64d981e8f44562bd33f89}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{issue}{4}
       \field{journaltitle}{Phys. Rev. B}
       \field{title}{Harmonic Oscillator Eigenfunction Expansions, Quantum dots, and Effective Interactions}
-      \field{volume}{80}
       \field{year}{2009}
-      \field{pages}{045321}
-      \range{pages}{1}
     \endentry
     \entry{ddotnuc}{article}{}
       \name{author}{5}{}{%
@@ -122,13 +120,9 @@
       \field{sortinithash}{322b1d5276f2f6c1bccdcd15920dbee6}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{issue}{19}
       \field{journaltitle}{Phys. Rev. B}
       \field{title}{Nuclear Spin Dynamics in Double Quantum Dots: Multistability, Dynamical Polarization, Criticality, and Entanglement}
-      \field{volume}{89}
       \field{year}{2014}
-      \field{pages}{195310}
-      \range{pages}{1}
     \endentry
     \entry{HelgakerMolElcTheory}{book}{}
       \name{author}{1}{}{%

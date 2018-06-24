@@ -1,10 +1,11 @@
-\documentclass[10pt, t, xcolor=dvipsnames]{beamer}
+\documentclass[10pt, t]{beamer}
 
 \newcommand\hmmax{0}
 \newcommand\bmmax{0}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[usenames,dvipsnames,cmyk]{xcolor}
 \usepackage[utopia]{mathdesign}
 \usepackage[style=numeric-comp, 
             backend=biber,
@@ -14,7 +15,7 @@
 \usepackage{subcaption}
 \usepackage{graphicx}
 \usepackage{relsize}
-\usepackage{apacite}
+% \usepackage{apacite}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
@@ -23,8 +24,8 @@
 \usepackage{physics}
 \usepackage{tikz}
 \usepackage{bm}
-\usepackage[usenames,dvipsnames,cmyk]{xcolor}
 \usepackage{multirow}
+\usepackage{xmpmulti}
 
 \setbeamercolor{}{fg=black, bg=white}
 \setbeamercolor{frametitle}{fg=orange, bg=red!10}
@@ -101,60 +102,13 @@
 \section{Introduction}
 
 \begin{frame}[fragile]{Quantum-Dot}
-    \begin{itemize}
+    \begin{enumerate}
         \item Small semiconductor nanostructures
-    \end{itemize}
+    \end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]{Quantum-Dot Model}
-    \begin{itemize}
-        \item Schrödinger equation 
-            \begin{itemize}
-                \item $\mathcal{H}\ket{\psi} = E\ket{\psi}$
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Quantum-Dot Model}
-    \begin{itemize}
-        \item Schrödinger equation 
-            \begin{itemize}
-                \item $\mathcal{H}\ket{\psi} = E\ket{\psi}$
-            \end{itemize}
-        \item Hamiltonian
-            \begin{itemize}
-                \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
-                    \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right) -
-                    \frac{1}{2} \sum\limits_k \frac{\nabla^2_k}{M_k} + \sum\limits_{k<l}
-                    g\left(\blds{R}_k,\blds{R}_l\right) +
-                    V\left(\blds{R},\blds{r}\right)$
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Quantum-Dot Model}
-    \begin{itemize}
-        \item Schrödinger equation 
-            \begin{itemize}
-                \item $\mathcal{H}\ket{\psi} = E\ket{\psi}$
-            \end{itemize}
-        \item Hamiltonian
-            \begin{itemize}
-                \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
-                    \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right) -
-                    \frac{1}{2} \sum\limits_k \frac{\nabla^2_k}{M_k} + \sum\limits_{k<l}
-                    g\left(\blds{R}_k,\blds{R}_l\right) +
-                    V\left(\blds{R},\blds{r}\right)$
-            \end{itemize}
-        \item Born-Oppenheimer Approximation
-            \begin{itemize}
-                \item Ignore Nuclei
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Quantum-Dot Model}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Schrödinger equation 
             \begin{itemize}
                 \item $\mathcal{H}\ket{\psi} = E\ket{\psi}$
@@ -163,30 +117,8 @@
             \begin{itemize}
                 \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
                     \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right)
-                    {\color{black!20}{-\frac{1}{2} \sum\limits_k
-                    \frac{\nabla^2_k}{M_k}}} + \sum\limits_{k<l}
-                    g\left(\blds{R}_k,\blds{R}_l\right) +
-                    V\left(\blds{R},\blds{r}\right)$
-            \end{itemize}
-        \item Born-Oppenheimer Approximation
-            \begin{itemize}
-                \item Ignore Nuclei
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Quantum-Dot Model}
-    \begin{itemize}
-        \item Schrödinger equation 
-            \begin{itemize}
-                \item $\mathcal{H}\ket{\psi} = E\ket{\psi}$
-            \end{itemize}
-        \item Hamiltonian
-            \begin{itemize}
-                \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
-                    \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right)
-                    {\color{black!20}{-\frac{1}{2} \sum\limits_k
-                    \frac{\nabla^2_k}{M_k}}} {\color{black!20}{+
+                    {\color<7->{black!20}{-\frac{1}{2} \sum\limits_k
+                    \frac{\nabla^2_k}{M_k}}} {\color<8->{black!20}{+
                     \sum\limits_{k<l} g\left(\blds{R}_k,\blds{R}_l\right)}} +
                     V\left(\blds{R},\blds{r}\right)$
             \end{itemize}
@@ -198,33 +130,21 @@
 \end{frame}
 
 \begin{frame}[fragile]{Quantum-Dot Model}
-    \begin{itemize}
-        \item Interaction
-            \begin{itemize}
-                \item $f\left(\blds{r}_i, \blds{r}_j\right) =
-                    \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$,\hspace{2cm} Coulomb Repulsion
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Quantum-Dot Model}
     \centering
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Interaction:
             \begin{itemize}
                 \item $f\left(\blds{r}_i, \blds{r}_j\right) =
                     \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$,\hspace{2cm} Coulomb Repulsion
             \end{itemize}
-        \item Confinement: Harmonic Oscillator\footfullcite{kvaaldots}, Double-Well\footfullcite{ddotnuc}
+        \item<3-> Confinement: Harmonic
+            Oscillator{\only<3->{\footnotesize\footfullcite{kvaaldots}}},
+            Double-Well{\only<3->{\footnotesize\footfullcite{ddotnuc}}}
     \end{itemize}
-    \vspace{-0.2cm}
-    \begin{align*}
-        V(\blds{r}) = \frac{1}{2} m\omega^2r^2& \hspace{1cm}
-        &V(\blds{R},\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - \delta R\abs{x}
-        + R^2\right)
-    \end{align*}
-    \vspace{-0.80cm}
-    \twofigure{text/figs/HO2Dplot.pdf}{text/figs/DW2Dplot.pdf}
+    \onslide<4->{$V(\blds{r}) = \frac{1}{2} m\omega^2r^2 \hspace{1cm}
+    V(\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - \delta R\abs{x} +
+    R^2\right)$}
+    \onslide<4->{\vspace{-0.40cm}\twofigure{text/figs/HO2Dplot.pdf}{text/figs/DW2Dplot.pdf}}
 \end{frame}
 
 \section{Methods}
@@ -243,49 +163,13 @@
     \end{equation*}
 \end{frame}}
 
-\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
-\end{frame}
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]
+    Slater Determinant and Energy Functional
+\end{frame}}
 
 \begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
-    \begin{itemize}
-        \item Pauli Principle
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
-    \begin{itemize}
-        \item Pauli Principle
-        \item Slater Determinant
-            \begin{itemize}
-                \item $\Psi^{\text{AS}}_T =
-                    \frac{1}{\sqrt{N!}}\sum\limits_{P}(-1)^p\mathcal{P}_P\prod\limits_i\psi_i$
-                \item $\Psi^{\text{S}}_T =
-                    \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum\limits_{P}\mathcal{P}_P\prod\limits_i\psi_i$
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
-    \begin{itemize}
-        \item Pauli Principle
-        \item Slater Determinant
-            \begin{itemize}
-                \item $\Psi^{\text{AS}}_T =
-                    \frac{1}{\sqrt{N!}}\sum\limits_{P}(-1)^p\mathcal{P}_P\prod\limits_i\psi_i$
-                \item $\Psi^{\text{S}}_T =
-                    \sqrt{\frac{\prod\limits^N_{i=1}n_i!}{N!}}\sum\limits_{P}\mathcal{P}_P\prod\limits_i\psi_i$
-            \end{itemize}
-        \item $E\left[\Psi\right] =
-            \frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} =
-            \sum\limits_p\bra{p}\mathcal{H}_0\ket{p} +
-            \frac{1}{2}\sum\limits_{p,q}\left[\bra{pq}f_{12}\ket{pq} \pm
-            \bra{pq}f_{12}\ket{qp}\right]$
-        \item $\mathcal{H}_0 = -\frac{1}{2}\sum\limits_i\nabla^2_i + V(r)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Slater Determinant and Energy Functional}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Pauli Principle
         \item Slater Determinant
             \begin{itemize}
@@ -300,16 +184,19 @@
             \tikz[baseline, remember picture]{\node[anchor=base] (t1) {$\frac{1}{2}\sum\limits_{p,q}\left[\bra{pq}f_{12}\ket{pq} \pm
             \bra{pq}f_{12}\ket{qp}\right]$};}
     \end{itemize}
+    \only<5->{
     \begin{tikzpicture}[remember picture, overlay]
         \path[draw=magenta, thick, ->]<3-> ([yshift=2mm]n1.south) to [out=0, in=90] (t1.north);
-    \end{tikzpicture}
+    \end{tikzpicture}}
 \end{frame}
 
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-\end{frame}
+{\setbeamercolor{palette primary}{fg=orange, bg=white}
+\begin{frame}[standout]
+    Hartree-Fock
+\end{frame}}
 
 \begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Assumptions
         \begin{itemize}
             \item The Born-Oppenheimer approximation holds. 
@@ -319,19 +206,7 @@
             \item The Mean Field Approximation holds.
         \end{itemize}
     \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Assumptions
-        \begin{itemize}
-            \item The Born-Oppenheimer approximation holds. 
-            \item All relativistic effects are negligible.
-            \item The wavefunction can be described by a single \txtit{Slater
-                determinant}.
-            \item The Mean Field Approximation holds.
-        \end{itemize}
-    \end{itemize}
+    \only<4->{
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[scale=0.5]
@@ -372,70 +247,18 @@
             \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
             \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
         \end{tikzpicture}
-    \end{figure}
+    \end{figure}}
 \end{frame}
 
 \begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Constrained minimization
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Constrained minimization
-            \begin{itemize}
-                \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
-                    \delta_{ij}$
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Constrained minimization
-            \begin{itemize}
-                \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
-                    \delta_{ij}$
-                \item Lagrange Multiplier method
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Constrained minimization
-            \begin{itemize}
-                \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
-                    \delta_{ij}$
-                \item Lagrange Multiplier method
-                \item Fock-operator: $\mathcal{F} \equiv \mathcal{H}_0 +
-                    \mathcal{J} \pm \mathcal{K}$
-                    \begin{itemize}
-                        \item $\mathcal{J} \equiv
-                            \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
-                            \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r$
-                        \vsp
-                        \item $\mathcal{K} \equiv
-                            \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
-                            \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r$
-                        \vsp
-                        \item $\mathcal{F}\ket{\psi} = \blds{\veps}\ket{\psi},
-                            \blds{\veps}=(\veps_0,\dots,\veps_N)$
-                    \end{itemize}
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Constrained minimization
             \begin{itemize}
                 \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
                     \delta_{ij}$
                 \item Lagrange Multiplier method
                 \item Fock-operator: $\mathcal{F} \equiv \mathcal{H}_0 + \mathcal{J} \pm \mathcal{K}$
-                    \begin{itemize}
+                    \begin{itemize}[<4->]
                         \item $\mathcal{J} \equiv
                             \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
                             \psi^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md r$
@@ -444,7 +267,7 @@
                             \bra{\psi^{*}_k}f_{12}\ket{\psi} = \int
                             \psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md r$
                         \vsp
-                        \item \color{red}{$\mathcal{F}\ket{\psi} =
+                        \item<5-> \color{red}{$\mathcal{F}\ket{\psi} =
                             \blds{\veps}\ket{\psi},
                             \blds{\veps}=(\veps_0,\dots,\veps_N)$}
                     \end{itemize}
@@ -452,60 +275,20 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-\end{frame}
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]
+    $\mathcal{F}\ket{\psi} = \blds{\veps}\ket{\psi},\hspace{0.5cm}
+    \blds{\veps}=(\veps_0,\dots,\veps_N)$
+\end{frame}}
 
 \begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Integrate out spin
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Integrate out spin
-        \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
-            \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Integrate out spin
-        \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
-            \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
-        \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Integrate out spin
         \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
             \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
         \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
         \item Roothan-Hall: $\blds{F}\blds{C}_i = \blds{\veps}S\blds{C}_i$
-            \begin{itemize}
-                \item $F_{pq} = h_{pq} + \sum\limits_{pq}\rho_{pq}\left(2D_{prqs} \pm D_{prsq}\right)$
-                \vsp
-                \item $h_{pq} \equiv \Braket{p | h | q}$
-                \vsp
-                \item $\rho_{pq} \equiv \sum\limits^{\frac{N}{2}}_{i=1} C_{pi}C^{*}_{qi}$
-                \vsp
-                \item $D_{pqrs} \equiv \Braket{pq | f_{12} | rs}$
-                \item $S_{pq} \equiv \Braket{p | q}$
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}
-        \item Integrate out spin
-        \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
-            \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
-        \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
-        \item Roothan-Hall: $\blds{F}\blds{C}_i = \blds{\veps}S\blds{C}_i$
-            \begin{itemize}
+            \begin{itemize}[<4->]
                 \item $F_{pq} = h_{pq} + \sum\limits_{pq}\rho_{pq}\left(2D_{prqs} \pm D_{prsq}\right)$
                 \vsp
                 \item $h_{pq} \equiv \Braket{p | h | q}$
@@ -518,7 +301,7 @@
         \item Poople-Nesbet: $\blds{F}^{+}\blds{C}^{+} =
             \blds{\veps}^{\+}\blds{S}\blds{C}^{+}$, $\blds{F}^{-}\blds{C}^{-} =
             \blds{\veps}^{-}\blds{S}\blds{C}^{-}$
-            \begin{itemize}
+            \begin{itemize}[<5->]
                 \item $F^{\pm}_{pq} = h_{pq} + \sumll{k_{\pm}}\sumll{rs}
                     C^{\pm\dagger}_{rk_{\pm}} C^{\pm\dagger}_{sk_{\pm}}
                     \left[D_{prqs} - D_{prsq}\right] +
@@ -626,17 +409,13 @@
         \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
-\end{frame}
+{\setbeamercolor{palette primary}{fg=orange, bg=white}
+\begin{frame}[standout]
+    Variational Monte-Carlo
+\end{frame}}
 
 \begin{frame}[fragile]{Methods: Variational Monte-Carlo}
-    \begin{itemize}
-        \item Variational Principle
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Variational Principle
         \item Rewrite expectation value:
             $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
@@ -646,41 +425,6 @@
                 \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
                 \item $P(\mb{R}) \equiv \frac{\abs{\Psi}^2}{\Braket{\Psi|\Psi}}$
             \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
-    \begin{itemize}
-        \item Variational Principle
-        \item Rewrite expectation value:
-            $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
-            \frac{\cnj{\Psi}\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r} \md r
-            = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
-            \begin{itemize}
-                \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
-                \item $P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}$
-            \end{itemize}
-        \item Metropolis-Hastings Algorithm
-            \begin{itemize}
-                \item $r^{\text{new}} = r^{\text{old}} + \Delta t \xi$
-                \item $\ufij{A}{i}{j} =
-                    \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
-                    \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)$
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
-    \begin{itemize}
-        \item Variational Principle
-        \item Rewrite expectation value:
-            $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
-            \frac{\cnj{\Psi}\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r} \md r
-            = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
-            \begin{itemize}
-                \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
-                \item $P(\mb{R}) \equiv \frac{\abs{\psi_T}^2}{\pinner}$
-            \end{itemize}
         \item Metropolis-Hastings Algorithm
             \begin{itemize}
                 \item $r^{\text{new}} = r^{\text{old}} + \Delta t \xi$
@@ -688,7 +432,7 @@
                     \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
                     \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)$
                 \item Importance Sampling
-                    \begin{itemize}
+                    \begin{itemize}[<8->]
                         \item $r^{\text{new}} = r^{\text{old}} + D \Delta t
                             F^{\text{old}} + \sqrt{\Delta t}\xi$
                         \item $F = \frac{2}{\Psi}\nabla \Psi$ 
@@ -767,7 +511,7 @@
     \end{figure}
 \end{frame}
 
-{\setbeamercolor{palette primary}{fg=black, bg=white}
+{\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]
     Minimization
 \end{frame}}
@@ -967,16 +711,18 @@
     \end{table}
 \end{frame}
 
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]{Minimization: Simulated Annealing}
+    \transduration<1->{0}
+    \multiinclude[<+->][format=png, graphics={scale=0.5}, start=0]{text/sianData/fig}
+\end{frame}}
+
 \section{Wavefunction}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Wavefunction}
-    $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
-\end{frame}}
-
-{\setbeamercolor{palette primary}{fg=black, bg=white}
-\begin{frame}[standout]{Wavefunction}
-    $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\color{red}{\chi_p(\blds{r})}$
+    \only<1->{$\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$}
+    \only<2->{$\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\color{red}{\chi_p(\blds{r})}$}
 \end{frame}}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
@@ -988,40 +734,14 @@
 \end{frame}}
 
 \begin{frame}[fragile]{Wavefunction: Single-Well}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Hermite Function: $\psi_n(\blds{r}) \equiv \prod\limits_d N_d
             H_{n_d}(\sqrt{\omega}x_d)\exp(-\frac{\omega}{2}x^2_d)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Single-Well}
-    \begin{itemize}
-        \item Hermite Function: $\psi_n(\blds{r}) \equiv \prod\limits_d N_d
-            H_{n_d}(\sqrt{\omega}x_d)\exp(-\frac{\omega}{2}x^2_d)$
-        \item Solution in polar\footfullcite{anisimovas}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Single-Well}
-    \begin{itemize}
-        \item Hermite Function: $\psi_n(\blds{r}) \equiv \prod\limits_d N_d
-            H_{n_d}(\sqrt{\omega}x_d)\exp(-\frac{\omega}{2}x^2_d)$
-        \item Solution in polar\footfullcite{anisimovas}
+        \item Solution in polar\only<2->{\footfullcite{anisimovas}}
         \item $\psi_n(\blds{r}) = \prod\limits_d N_d \sum\limits^{n_d}_{l=1}
             C^{\text{Hermite}}_{n_dl}
             g_l\left(\frac{\omega}{2},\blds{r},\blds{0}\right)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Single-Well}
-    \begin{itemize}
-        \item Hermite Function: $\psi_n(\blds{r}) \equiv \prod\limits_d N_d
-            H_{n_d}(\sqrt{\omega}x_d)\exp(-\frac{\omega}{2}x^2_d)$
-        \item Solution in polar\footfullcite{anisimovas}
-        \item $\psi_n(\blds{r}) = \prod\limits_d N_d \sum\limits^{n_d}_{l=1}
-            C^{\text{Hermite}}_{n_dl}
-            g_l\left(\frac{\omega}{2},\blds{r},\blds{0}\right)$
-        \item Solution in Cartesian\footfullcite{HelgakerMolElcTheory} \\ \vspace{0.2cm} \hspace{1cm}
+        \item Solution in Cartesian\only<4->{\footfullcite{HelgakerMolElcTheory}} \\ \vspace{0.2cm} \hspace{1cm}
             \begin{minipage}[H]{0.5\textwidth}
                 $\Braket{g_i(\blds{r})|g_j(\blds{r})}$ \vsp \\
                 $\Braket{g_i(\blds{r})|x^k_d|g_j(\blds{r})}$ \vsp \\
@@ -1073,38 +793,12 @@
 \end{frame}
 
 \begin{frame}[fragile]{Wavefunction: Double-Well}
-    \begin{itemize}
-        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Double-Well}
-    \begin{itemize}
-        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
-        \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Double-Well}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
         \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
         \item Eigenvalue equation: $\blds{H}^{\text{DW}}\blds{C}^{\text{DW}} =
             \blds{\varepsilon^{\text{DW}}}\blds{C}^{\text{DW}}$
-            \begin{itemize}
-                \item $H^{\text{DW}}_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
-                    \Braket{\psiHO_i|\VDW_n|\psiHO_j}$
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Double-Well}
-    \begin{itemize}
-        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
-        \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
-        \item Eigenvalue equation: $\blds{H}^{\text{DW}}\blds{C}^{\text{DW}} =
-            \blds{\varepsilon^{\text{DW}}}\blds{C}^{\text{DW}}$
-            \begin{itemize}
+            \begin{itemize}[<3->]
                 \item $H^{\text{DW}}_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
                     \Braket{\psiHO_i|\VDW_n|\psiHO_j}$
             \end{itemize}
@@ -1124,109 +818,8 @@
 \end{frame}
 
 \begin{frame}[fragile]{Wavefunction: Slater-Jastrow}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Slater determinant: $\psi_T =
-            \det(\blds{\Phi(\blds{R};\blds{\alpha})})
-            \xi(s)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Slater-Jastrow}
-    \begin{itemize}
-        \item Slater determinant: $\psi_T =
-            \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
-        \item Modified Hermite: $\Phi_{ij} =
-            \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
-            H_{n_d}(\sqrt{\alpha \omega}x_d)\me^{-\frac{\alpha\omega}{2}x^2_d}$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Slater-Jastrow}
-    \begin{itemize}
-        \item Slater determinant: $\psi_T =
-            \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
-        \item Modified Hermite: $\Phi_{ij} =
-            \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
-            H_{n_d}(\sqrt{\alpha \omega}x_d)\me^{-\frac{\alpha\omega}{2}x^2_d}$
-        \item Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Slater-Jastrow}
-    \begin{itemize}
-        \item Slater determinant: $\psi_T =
-            \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
-        \item Modified Hermite: $\Phi_{ij} =
-            \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
-            H_{n_d}(\sqrt{\alpha \omega}x_d)\me^{-\frac{\alpha\omega}{2}x^2_d}$
-        \item Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)$
-        \item Modified Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\alpha\omega}r_i\right)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Slater-Jastrow}
-    \begin{itemize}
-        \item Slater determinant: $\psi_T =
-            \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
-        \item Modified Hermite: $\Phi_{ij} =
-            \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
-            H_{n_d}(\sqrt{\alpha \omega}x_d)\me^{-\frac{\alpha\omega}{2}x^2_d}$
-        \item Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)$
-        \item Modified Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\alpha\omega}r_i\right)$
-        \item Pad\'e-Jastrow: $J_{\text{Pad\'e}} = \prod\limits_{i<j}
-            \me^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Slater-Jastrow}
-    \begin{itemize}
-        \item Slater determinant: $\psi_T =
-            \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
-        \item Modified Hermite: $\Phi_{ij} =
-            \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
-            H_{n_d}(\sqrt{\alpha \omega}x_d)\me^{-\frac{\alpha\omega}{2}x^2_d}$
-        \item Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)$
-        \item Modified Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\alpha\omega}r_i\right)$
-        \item Pad\'e-Jastrow: $J_{\text{Pad\'e}} = \prod\limits_{i<j}
-            \me^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
-        \item NQS: $J_{\text{NQS}} = \me^{-\suml{i=1}{N} \frac{\left(\bm{r}_i -
-            \bm{a}_i\right)^2}{2\sigma^2}}\prod\limits^{M}_j \left(1 + \me^{b_j
-            + \suml{i=1}{N}\suml{d=1}{D}
-            \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}}\right)$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Slater-Jastrow}
-    \begin{itemize}
-        \item Slater determinant: $\psi_T =
-            \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
-        \item Modified Hermite: $\Phi_{ij} =
-            \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
-            H_{n_d}(\sqrt{\alpha \omega}x_d)\me^{-\frac{\alpha\omega}{2}x^2_d}$
-        \item Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)$
-        \item Modified Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\alpha\omega}r_i\right)$
-        \item Pad\'e-Jastrow: $J_{\text{Pad\'e}} = \prod\limits_{i<j}
-            \me^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
-        \item NQS: $J_{\text{NQS}} = \me^{-\suml{i=1}{N} \frac{\left(\bm{r}_i -
-            \bm{a}_i\right)^2}{2\sigma^2}}\prod\limits^{M}_j \left(1 + \me^{b_j
-            + \suml{i=1}{N}\suml{d=1}{D}
-            \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}}\right)$
-        \item Pad\'e-NQS: $J = J_{\text{Pad\'e}}J_{\text{NQS}}$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Wavefunction: Slater-Jastrow}
-    \begin{itemize}
-        \item Slater determinant: $\psi =
             \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
         \item Modified Hermite: $\Phi_{ij} =
             \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
@@ -1248,46 +841,7 @@
 \section{Implementation}
 
 \begin{frame}[fragile]{Implementation}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation}
-    \begin{itemize}
-        \item \CC and Eigen
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation}
-    \begin{itemize}
-        \item \CC and Eigen
-            \begin{itemize}
-                \item Performance
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation}
-    \begin{itemize}
-        \item \CC and Eigen
-            \begin{itemize}
-                \item Performance
-                \item Generalization
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation}
-    \begin{itemize}
-        \item \CC and Eigen
-            \begin{itemize}
-                \item Performance
-                \item Generalization
-            \end{itemize}
-        \item Python
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item \CC and Eigen
             \begin{itemize}
                 \item Performance
@@ -1345,6 +899,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Implementation: Hartree-Fock}
+    \only<1->{
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[
@@ -1398,205 +953,20 @@
             \draw[->] (DWC) to [out=0, in=180] (DoubleWell);
             \draw[->] (GaussianIntegrals) -- (DoubleWell);
         \end{tikzpicture}
-    \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation: Hartree-Fock}
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[
-            >={Latex[width=2mm,length=2mm]},
-                base/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily},
-                basecode/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily, align=left},
-                activityStarts/.style = {base, fill=blue!30, drop shadow},
-                startstop/.style = {base, fill=red!25, drop shadow},
-                startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                activityRuns/.style = {base, fill=green!25, drop shadow},
-                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-            scale=0.8, 
-            node distance=1.5cm, 
-            every node/.style={fill=white, font=\sffamily, scale=0.49},
-            align=center]
-            \node (_Hexpander) [processcode] {
-                \hltexttt{Hexpander}
-            };
-            \node (_GaussianQuadrature) [processcode, left of=_Hexpander, xshift=-3cm] {
-                \hltexttt{GaussianQuadrature}
-            };
-            \node (_Cartesian) [processcode, below of=_Hexpander] {
-                \hltexttt{Cartesian}
-            };
-            \node (_Hermite) [processcode, below of=_Cartesian] {
-                \hltexttt{Hermite}
-            };
-            \node (_HartreeFockSolver) [processcode, below of=_Hermite] {
-                \hltexttt{HartreeFockSolver}
-            };
-            \node (_GaussianIntegrals) [processcode, above right of=_HartreeFockSolver, xshift=4cm] {
-                \hltexttt{GaussianIntegrals}
-            };
-            \node (_DoubleWell) [processcode, below right of=_HartreeFockSolver, xshift=4cm] {
-                \hltexttt{DoubleWell}
-            };
-            \node (_DWC) [processcode, below of=_HartreeFockSolver] {
-                \hltexttt{DWC}
-            };
-            \draw[->] (_GaussianQuadrature) -- (_Hexpander);
-            \draw[->] (_Hexpander) to [out=0, in=90] (_GaussianIntegrals);
-            \draw[->] (_Cartesian) to [out=0, in=90] (_GaussianIntegrals);
-            \draw[->] (_Hermite) to [out=0, in=90] (_GaussianIntegrals);
-            \draw[->] (_HartreeFockSolver) to [out=0, in=180] (_GaussianIntegrals);
-            \draw[->] (_HartreeFockSolver) to [out=0, in=180] (_DoubleWell);
-            \draw[->] (_DWC) to [out=0, in=180] (_DoubleWell);
-            \draw[->] (_GaussianIntegrals) -- (_DoubleWell);
-        \end{tikzpicture}
-    \end{figure}
+    \end{figure}}
     \begin{itemize}
-        \item Parallelization
-            \begin{itemize}
+        \item<2-> Parallelization
+            \begin{itemize}[<3->]
                 \item Two-body element is computationally expensive
                 \item $S_i = \suml{j=0}{P_i} \prod\limits_d (n_{j_d}+1)$
             \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation: Hartree-Fock}
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[
-            >={Latex[width=2mm,length=2mm]},
-                base/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily},
-                basecode/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily, align=left},
-                activityStarts/.style = {base, fill=blue!30, drop shadow},
-                startstop/.style = {base, fill=red!25, drop shadow},
-                startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                activityRuns/.style = {base, fill=green!25, drop shadow},
-                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-            scale=0.8, 
-            node distance=1.5cm, 
-            every node/.style={fill=white, font=\sffamily, scale=0.49},
-            align=center]
-            \node (__Hexpander) [processcode] {
-                \hltexttt{Hexpander}
-            };
-            \node (__GaussianQuadrature) [processcode, left of=__Hexpander, xshift=-3cm] {
-                \hltexttt{GaussianQuadrature}
-            };
-            \node (__Cartesian) [processcode, below of=__Hexpander] {
-                \hltexttt{Cartesian}
-            };
-            \node (__Hermite) [processcode, below of=__Cartesian] {
-                \hltexttt{Hermite}
-            };
-            \node (__HartreeFockSolver) [processcode, below of=__Hermite] {
-                \hltexttt{HartreeFockSolver}
-            };
-            \node (__GaussianIntegrals) [processcode, above right of=__HartreeFockSolver, xshift=4cm] {
-                \hltexttt{GaussianIntegrals}
-            };
-            \node (__DoubleWell) [processcode, below right of=__HartreeFockSolver, xshift=4cm] {
-                \hltexttt{DoubleWell}
-            };
-            \node (__DWC) [processcode, below of=__HartreeFockSolver] {
-                \hltexttt{DWC}
-            };
-            \draw[->] (__GaussianQuadrature) -- (__Hexpander);
-            \draw[->] (__Hexpander) to [out=0, in=90] (__GaussianIntegrals);
-            \draw[->] (__Cartesian) to [out=0, in=90] (__GaussianIntegrals);
-            \draw[->] (__Hermite) to [out=0, in=90] (__GaussianIntegrals);
-            \draw[->] (__HartreeFockSolver) to [out=0, in=180] (__GaussianIntegrals);
-            \draw[->] (__HartreeFockSolver) to [out=0, in=180] (__DoubleWell);
-            \draw[->] (__DWC) to [out=0, in=180] (__DoubleWell);
-            \draw[->] (__GaussianIntegrals) -- (__DoubleWell);
-        \end{tikzpicture}
-    \end{figure}
-    \begin{itemize}
-        \item Parallelization
-            \begin{itemize}
-                \item Two-body element is computationally expensive
-                \item $S_i = \suml{j=0}{P_i} \prod\limits_d (n_{j_d}+1)$
-            \end{itemize}
-        \item Hartree-Fock algorithm only run on one process
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation: Hartree-Fock}
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[
-            >={Latex[width=2mm,length=2mm]},
-                base/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily},
-                basecode/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily, align=left},
-                activityStarts/.style = {base, fill=blue!30, drop shadow},
-                startstop/.style = {base, fill=red!25, drop shadow},
-                startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                activityRuns/.style = {base, fill=green!25, drop shadow},
-                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-            scale=0.8, 
-            node distance=1.5cm, 
-            every node/.style={fill=white, font=\sffamily, scale=0.49},
-            align=center]
-            \node (___Hexpander) [processcode] {
-                \hltexttt{Hexpander}
-            };
-            \node (___GaussianQuadrature) [processcode, left of=___Hexpander, xshift=-3cm] {
-                \hltexttt{GaussianQuadrature}
-            };
-            \node (___Cartesian) [processcode, below of=___Hexpander] {
-                \hltexttt{Cartesian}
-            };
-            \node (___Hermite) [processcode, below of=___Cartesian] {
-                \hltexttt{Hermite}
-            };
-            \node (___HartreeFockSolver) [processcode, below of=___Hermite] {
-                \hltexttt{HartreeFockSolver}
-            };
-            \node (___GaussianIntegrals) [processcode, above right of=___HartreeFockSolver, xshift=4cm] {
-                \hltexttt{GaussianIntegrals}
-            };
-            \node (___DoubleWell) [processcode, below right of=___HartreeFockSolver, xshift=4cm] {
-                \hltexttt{DoubleWell}
-            };
-            \node (___DWC) [processcode, below of=___HartreeFockSolver] {
-                \hltexttt{DWC}
-            };
-            \draw[->] (___GaussianQuadrature) -- (___Hexpander);
-            \draw[->] (___Hexpander) to [out=0, in=90] (___GaussianIntegrals);
-            \draw[->] (___Cartesian) to [out=0, in=90] (___GaussianIntegrals);
-            \draw[->] (___Hermite) to [out=0, in=90] (___GaussianIntegrals);
-            \draw[->] (___HartreeFockSolver) to [out=0, in=180] (___GaussianIntegrals);
-            \draw[->] (___HartreeFockSolver) to [out=0, in=180] (___DoubleWell);
-            \draw[->] (___DWC) to [out=0, in=180] (___DoubleWell);
-            \draw[->] (___GaussianIntegrals) -- (___DoubleWell);
-        \end{tikzpicture}
-    \end{figure}
-    \begin{itemize}
-        \item Parallelization
-            \begin{itemize}
-                \item Two-body element is computationally expensive
-                \item $S_i = \suml{j=0}{P_i} \prod\limits_d (n_{j_d}+1)$
-            \end{itemize}
-        \item Hartree-Fock algorithm only run on one process
-        \item Tabulation of Two-Body matrix
+        \item<4-> Hartree-Fock algorithm only run on one process
+        \item<5-> Tabulation of Two-Body matrix
     \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    \only<1->{
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[
@@ -1702,117 +1072,8 @@
             \draw[->]  (RBMJastrow)    to [out=90, in=180] (PadeNQS);
             \draw[->]  (RBMJastrow)    to [out=90, in=180] (ExpNQS);
         \end{tikzpicture}
-    \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[
-            >={Latex[width=2mm,length=2mm]},
-                base/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily},
-                basecode/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily, align=left},
-                activityStarts/.style = {base, fill=blue!30, drop shadow},
-                startstop/.style = {base, fill=red!25, drop shadow},
-                startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                activityRuns/.style = {base, fill=green!25, drop shadow},
-                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-            scale=0.8, 
-            node distance=1.25cm, 
-            every node/.style={fill=white, font=\sffamily, scale=0.49},
-            align=center]
-            \node (_HarmonicOscillator) [processcode] {
-                \hltexttt{HarmonicOscillator}
-            };
-            \node (_HartreeFock) [processcode, below of=_HarmonicOscillator] {
-                \hltexttt{HartreeFock}
-            };
-            \node (_VariationalHartreeFock) [processcode, below of=_HartreeFock] {
-                \hltexttt{VariationalHartreeFock}
-            };
-            \node (_HartreeFockDoubleWell) [processcode, below of=_VariationalHartreeFock] {
-                \hltexttt{HartreeFockDoubleWell}
-            };
-            \node (_VariationalHartreeFockDoubleWell) [processcode, below of=_HartreeFockDoubleWell] {
-                \hltexttt{VariationalHartreeFockDoubleWell}
-            };
-            \node (_PadeJastrow) [processcode, below of=_VariationalHartreeFockDoubleWell, xshift=-2cm] {
-                \hltexttt{PadeJastrow}
-            };
-            \node (_RBMJastrow) [processcode, below of=_PadeJastrow, yshift=-2cm] {
-                \hltexttt{RBMJastrow}
-            };
-            \node (_PadeNQS) [processcode, below right of=_PadeJastrow, xshift=2.0cm] {
-                \hltexttt{PadeNQS}
-            };
-            \node (_ExpNQS) [processcode, below of=_PadeNQS] {
-                \hltexttt{ExpNQS}
-            };
-            \node (_Cartesian) [processcode, below left of=_HarmonicOscillator, xshift=-4.6cm] {
-                \hltexttt{Cartesian}
-            };
-            \node (_Hermite) [processcode, below of=_Cartesian] {
-                \hltexttt{Hermite}
-            };
-            \node (_DWC) [processcode, below of=_Hermite, yshift=-1.7cm] {
-                \hltexttt{DWC}
-            };
-            \node (_Slater) [processcode, above right of=_VariationalHartreeFock, xshift=5cm] {
-                \hltexttt{Slater}
-            };
-            \node (_SlaterJastrow) [processcode, above right of=_PadeNQS, xshift=5cm, yshift=-1.5cm] {
-                \hltexttt{SlaterJastrow}
-            };
-            \node (_VMC) [processcode, right of=_HartreeFockDoubleWell, xshift=7cm] {
-                \hltexttt{VMC}
-            };
-            \node (_Minimizer) [processcode, right of=_VMC, xshift=2.5cm] {
-                \hltexttt{Minimizer}
-            };
-            \node (_BruteForce) [processcode, above right of=_VMC, xshift=3cm, yshift=1.5cm] {
-                \hltexttt{BruteForce}
-            };
-            \node (_ImportanceSampling) [processcode, below right of=_VMC, xshift=3cm, yshift=-1.5cm] {
-                \hltexttt{ImportanceSampling}
-            };
-            \draw[->] (_Cartesian) to [out=0, in=180] (_HarmonicOscillator);
-            \draw[->] (_Cartesian) to [out=0, in=180] (_HartreeFock);
-            \draw[->] (_Cartesian) to [out=0, in=180] (_VariationalHartreeFock);
-            \draw[->] (_Cartesian) to [out=0, in=180] (_HartreeFockDoubleWell);
-            \draw[->] (_Cartesian) to [out=0, in=180] (_VariationalHartreeFockDoubleWell);
-            \draw[->] (_Hermite) to [out=0, in=180] (_HarmonicOscillator);
-            \draw[->] (_Hermite) to [out=0, in=180] (_HartreeFock);
-            \draw[->] (_Hermite) to [out=0, in=180] (_VariationalHartreeFock);
-            \draw[->] (_Hermite) to [out=0, in=180] (_HartreeFockDoubleWell);
-            \draw[->] (_Hermite) to [out=0, in=180] (_VariationalHartreeFockDoubleWell);
-            \draw[->] (_DWC) to [out=0, in=180] (_HartreeFockDoubleWell);
-            \draw[->] (_DWC) to [out=0, in=180] (_VariationalHartreeFockDoubleWell);
-            \draw[->]  (_HarmonicOscillator)               to [out=0, in=180] (_Slater);
-            \draw[->]  (_HartreeFock)                      to [out=0, in=180] (_Slater);
-            \draw[->]  (_VariationalHartreeFock)           to [out=0, in=180] (_Slater);
-            \draw[->]  (_HartreeFockDoubleWell)            to [out=0, in=180] (_Slater);
-            \draw[->]  (_VariationalHartreeFockDoubleWell) to [out=0, in=180] (_Slater);
-            \draw[->]  (_PadeJastrow)            to [out=0, in=180] (_SlaterJastrow);
-            \draw[->]  (_RBMJastrow)                      to [out=0, in=180] (_SlaterJastrow);
-            \draw[->]  (_PadeNQS)           to [out=0, in=180] (_SlaterJastrow);
-            \draw[->]  (_ExpNQS)            to [out=0, in=180] (_SlaterJastrow);
-            \draw[->]  (_Slater)            to [out=-90, in=90] (_SlaterJastrow);
-            \draw[->]  (_Slater)            to [out=0, in=90] (_VMC);
-            \draw[->]  (_SlaterJastrow)      to [out=0, in=-90] (_VMC);
-            \draw[->]  (_VMC)    to [out=0, in=180] (_BruteForce);
-            \draw[->]  (_VMC)    to [out=0, in=180] (_ImportanceSampling);
-            \draw[->]  (_VMC)    to [out=0, in=180] (_Minimizer);
-            \draw[->]  (_PadeJastrow)    to [out=-90, in=180] (_PadeNQS);
-            \draw[->]  (_RBMJastrow)    to [out=90, in=180] (_PadeNQS);
-            \draw[->]  (_RBMJastrow)    to [out=90, in=180] (_ExpNQS);
-        \end{tikzpicture}
-    \end{figure}
-    \begin{itemize}
+    \end{figure}}
+    \begin{itemize}[<2->]
         \item \hltexttt{Hermite} generated with Python and SymPy
     \end{itemize}
 \end{frame}
@@ -1840,6 +1101,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
+    \only<1->{
     \begin{figure}[H]
         \centering
         \begin{tikzpicture}[
@@ -1945,129 +1207,19 @@
             \draw[->]  (__RBMJastrow)    to [out=90, in=180] (__PadeNQS);
             \draw[->]  (__RBMJastrow)    to [out=90, in=180] (__ExpNQS);
         \end{tikzpicture}
-    \end{figure}
+    \end{figure}}
     \begin{itemize}
-        \item \hltexttt{Hermite} generated with Python and SymPy
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[
-            >={Latex[width=2mm,length=2mm]},
-                base/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily},
-                basecode/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily, align=left},
-                activityStarts/.style = {base, fill=blue!30, drop shadow},
-                startstop/.style = {base, fill=red!25, drop shadow},
-                startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                activityRuns/.style = {base, fill=green!25, drop shadow},
-                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-            scale=0.8, 
-            node distance=1.25cm, 
-            every node/.style={fill=white, font=\sffamily, scale=0.49},
-            align=center]
-            \node (___HarmonicOscillator) [processcode] {
-                \hltexttt{HarmonicOscillator}
-            };
-            \node (___HartreeFock) [processcode, below of=___HarmonicOscillator] {
-                \hltexttt{HartreeFock}
-            };
-            \node (___VariationalHartreeFock) [processcode, below of=___HartreeFock] {
-                \hltexttt{VariationalHartreeFock}
-            };
-            \node (___HartreeFockDoubleWell) [processcode, below of=___VariationalHartreeFock] {
-                \hltexttt{HartreeFockDoubleWell}
-            };
-            \node (___VariationalHartreeFockDoubleWell) [processcode, below of=___HartreeFockDoubleWell] {
-                \hltexttt{VariationalHartreeFockDoubleWell}
-            };
-            \node (___PadeJastrow) [processcode, below of=___VariationalHartreeFockDoubleWell, xshift=-2cm] {
-                \hltexttt{PadeJastrow}
-            };
-            \node (___RBMJastrow) [processcode, below of=___PadeJastrow, yshift=-2cm] {
-                \hltexttt{RBMJastrow}
-            };
-            \node (___PadeNQS) [processcode, below right of=___PadeJastrow, xshift=2.0cm] {
-                \hltexttt{PadeNQS}
-            };
-            \node (___ExpNQS) [processcode, below of=___PadeNQS] {
-                \hltexttt{ExpNQS}
-            };
-            \node (___Cartesian) [processcode, below left of=___HarmonicOscillator, xshift=-4.6cm] {
-                \hltexttt{Cartesian}
-            };
-            \node (___Hermite) [processcode, below of=___Cartesian] {
-                \hltexttt{Hermite}
-            };
-            \node (___DWC) [processcode, below of=___Hermite, yshift=-1.7cm] {
-                \hltexttt{DWC}
-            };
-            \node (___Slater) [processcode, above right of=___VariationalHartreeFock, xshift=5cm] {
-                \hltexttt{Slater}
-            };
-            \node (___SlaterJastrow) [processcode, above right of=___PadeNQS, xshift=5cm, yshift=-1.5cm] {
-                \hltexttt{SlaterJastrow}
-            };
-            \node (___VMC) [processcode, right of=___HartreeFockDoubleWell, xshift=7cm] {
-                \hltexttt{VMC}
-            };
-            \node (___Minimizer) [processcode, right of=___VMC, xshift=2.5cm] {
-                \hltexttt{Minimizer}
-            };
-            \node (___BruteForce) [processcode, above right of=___VMC, xshift=3cm, yshift=1.5cm] {
-                \hltexttt{BruteForce}
-            };
-            \node (___ImportanceSampling) [processcode, below right of=___VMC, xshift=3cm, yshift=-1.5cm] {
-                \hltexttt{ImportanceSampling}
-            };
-            \draw[->] (___Cartesian) to [out=0, in=180] (___HarmonicOscillator);
-            \draw[->] (___Cartesian) to [out=0, in=180] (___HartreeFock);
-            \draw[->] (___Cartesian) to [out=0, in=180] (___VariationalHartreeFock);
-            \draw[->] (___Cartesian) to [out=0, in=180] (___HartreeFockDoubleWell);
-            \draw[->] (___Cartesian) to [out=0, in=180] (___VariationalHartreeFockDoubleWell);
-            \draw[->] (___Hermite) to [out=0, in=180] (___HarmonicOscillator);
-            \draw[->] (___Hermite) to [out=0, in=180] (___HartreeFock);
-            \draw[->] (___Hermite) to [out=0, in=180] (___VariationalHartreeFock);
-            \draw[->] (___Hermite) to [out=0, in=180] (___HartreeFockDoubleWell);
-            \draw[->] (___Hermite) to [out=0, in=180] (___VariationalHartreeFockDoubleWell);
-            \draw[->] (___DWC) to [out=0, in=180] (___HartreeFockDoubleWell);
-            \draw[->] (___DWC) to [out=0, in=180] (___VariationalHartreeFockDoubleWell);
-            \draw[->]  (___HarmonicOscillator)               to [out=0, in=180] (___Slater);
-            \draw[->]  (___HartreeFock)                      to [out=0, in=180] (___Slater);
-            \draw[->]  (___VariationalHartreeFock)           to [out=0, in=180] (___Slater);
-            \draw[->]  (___HartreeFockDoubleWell)            to [out=0, in=180] (___Slater);
-            \draw[->]  (___VariationalHartreeFockDoubleWell) to [out=0, in=180] (___Slater);
-            \draw[->]  (___PadeJastrow)            to [out=0, in=180] (___SlaterJastrow);
-            \draw[->]  (___RBMJastrow)                      to [out=0, in=180] (___SlaterJastrow);
-            \draw[->]  (___PadeNQS)           to [out=0, in=180] (___SlaterJastrow);
-            \draw[->]  (___ExpNQS)            to [out=0, in=180] (___SlaterJastrow);
-            \draw[->]  (___Slater)            to [out=-90, in=90] (___SlaterJastrow);
-            \draw[->]  (___Slater)            to [out=0, in=90] (___VMC);
-            \draw[->]  (___SlaterJastrow)      to [out=0, in=-90] (___VMC);
-            \draw[->]  (___VMC)    to [out=0, in=180] (___BruteForce);
-            \draw[->]  (___VMC)    to [out=0, in=180] (___ImportanceSampling);
-            \draw[->]  (___VMC)    to [out=0, in=180] (___Minimizer);
-            \draw[->]  (___PadeJastrow)    to [out=-90, in=180] (___PadeNQS);
-            \draw[->]  (___RBMJastrow)    to [out=90, in=180] (___PadeNQS);
-            \draw[->]  (___RBMJastrow)    to [out=90, in=180] (___ExpNQS);
-        \end{tikzpicture}
-    \end{figure}
-    \begin{itemize}
-        \item \hltexttt{Hermite} generated with Python and SymPy
-        \item Wavefunction class can be created with Python
+        \item<1-> \hltexttt{Hermite} generated with Python and SymPy
+        \item<2-> Wavefunction class can be created with Python
     \end{itemize}
 \end{frame}
 
 \section{Results}
 
-\begin{frame}[fragile]{Results: Benchmark}
-\end{frame}
+{\setbeamercolor{palette primary}{fg=orange, bg=white}
+\begin{frame}[standout]
+    Benchmark
+\end{frame}}
 
 \begin{frame}[fragile]{Results: Benchmark}
     \vspace{-0.25cm}
@@ -2167,7 +1319,10 @@
 \end{frame}}
 
 \begin{frame}[fragile]{Results: NQS-Jastrow Harmonic Oscillator}
+    \vspace{-0.26cm}
     \twofigure{{text/figs/w1.0_N2_D2_padenqs}.pdf}{{text/figs/w1.0_N6_D2_padenqs}.pdf}
+    \vspace{-0.65cm}
+    \twofigure{{text/figs/w1.0_D3_N2_energies_fig}.pdf}{{text/figs/w1.0_D3_N8_energies_fig}.pdf}
 \end{frame}
 
 \section{Summary and Conclusion}

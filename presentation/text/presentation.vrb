@@ -1,2 +1,5 @@
 \frametitle{Results: NQS-Jastrow Harmonic Oscillator}
-\twofigure{{text/figs/w1.0_N2_D2_padenqs}.pdf}{{text/figs/w1.0_N6_D2_padenqs}.pdf}
+\vspace{-0.26cm}
+    \twofigure{{text/figs/w1.0_N2_D2_padenqs}.pdf}{{text/figs/w1.0_N6_D2_padenqs}.pdf}
+    \vspace{-0.65cm}
+    \twofigure{{text/figs/w1.0_D3_N2_energies_fig}.pdf}{{text/figs/w1.0_D3_N8_energies_fig}.pdf}
