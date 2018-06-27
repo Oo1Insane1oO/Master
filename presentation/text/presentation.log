@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.11)  27 JUN 2018 19:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.11)  27 JUN 2018 21:00
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -3913,47 +3913,47 @@ LaTeX Font Info:    Font shape `T1/cmss/m/it' will be
 
  (./text/presentation.vrb
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 8.28796pt on input line 12.
+(Font)              scaled to size 8.28796pt on input line 11.
 LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 7.52002pt on input line 12.
+(Font)              scaled to size 7.52002pt on input line 11.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
-(Font)              scaled to size 7.52002pt on input line 12.
+(Font)              scaled to size 7.52002pt on input line 11.
 LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
-(Font)              scaled to size 7.52002pt on input line 12.
+(Font)              scaled to size 7.52002pt on input line 11.
 LaTeX Font Info:    Font shape `OML/mdput/b/n' will be
-(Font)              scaled to size 7.52002pt on input line 12.
+(Font)              scaled to size 7.52002pt on input line 11.
 LaTeX Font Info:    Font shape `MDA/mdput/b/n' will be
-(Font)              scaled to size 7.52002pt on input line 12.
+(Font)              scaled to size 7.52002pt on input line 11.
 LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
-(Font)              scaled to size 7.52002pt on input line 12.
+(Font)              scaled to size 7.52002pt on input line 11.
 LaTeX Font Info:    Font shape `T1/cmss/b/n' in size <8> not available
-(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 12.
+(Font)              Font shape `T1/cmss/bx/n' tried instead on input line 11.
 LaTeX Font Info:    Font shape `T1/cmss/bx/n' will be
-(Font)              scaled to size 8.28796pt on input line 12.
+(Font)              scaled to size 8.28796pt on input line 11.
 
 
-./text/presentation.vrb:12: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:11: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.12 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
+l.11 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.16 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
+l.15 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -3963,28 +3963,28 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:12: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:11: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.12 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
+l.11 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.16 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
+l.15 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -3994,28 +3994,28 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:12: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:11: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.12 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
+l.11 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.16 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
+l.15 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -4025,28 +4025,28 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:12: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:11: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.12 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
+l.11 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.16 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
+l.15 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -4056,28 +4056,28 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:12: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:11: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.12 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
+l.11 ...i^{*}_k(\blds{r})f_{12}\psi_k(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:15: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.16 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
+l.15 ...psi^{*}_k(\blds{r})f_{12}\psi(\blds{r})\md
                                                    r$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -4087,19 +4087,19 @@ or  <return>  to continue without it.
 
 ]
 LaTeX Font Info:    Font shape `OT1/cmss/b/n' will be
-(Font)              scaled to size 14.91832pt on input line 288.
+(Font)              scaled to size 14.91832pt on input line 287.
 LaTeX Font Info:    Font shape `OML/mdput/b/it' will be
-(Font)              scaled to size 13.53603pt on input line 288.
+(Font)              scaled to size 13.53603pt on input line 287.
 LaTeX Font Info:    Font shape `OMS/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 288.
+(Font)              scaled to size 13.53603pt on input line 287.
 LaTeX Font Info:    Font shape `OMX/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 288.
+(Font)              scaled to size 13.53603pt on input line 287.
 LaTeX Font Info:    Font shape `OML/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 288.
+(Font)              scaled to size 13.53603pt on input line 287.
 LaTeX Font Info:    Font shape `MDA/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 288.
+(Font)              scaled to size 13.53603pt on input line 287.
 LaTeX Font Info:    Font shape `MDB/mdput/b/n' will be
-(Font)              scaled to size 13.53603pt on input line 288.
+(Font)              scaled to size 13.53603pt on input line 287.
  [37
 
 ]
@@ -4600,18 +4600,18 @@ or  <return>  to continue without it.
 <text/figs/sphere.pdf, id=395, 419.5675pt x 319.17244pt>
 File: text/figs/sphere.pdf Graphic file (type pdf)
 <use text/figs/sphere.pdf>
-Package pdftex.def Info: text/figs/sphere.pdf  used on input line 367.
+Package pdftex.def Info: text/figs/sphere.pdf  used on input line 366.
 (pdftex.def)             Requested size: 150.57372pt x 114.54158pt.
 <text/figs/rosenbrock.pdf, id=396, 444.66125pt x 290.06369pt>
 File: text/figs/rosenbrock.pdf Graphic file (type pdf)
 <use text/figs/rosenbrock.pdf>
-Package pdftex.def Info: text/figs/rosenbrock.pdf  used on input line 367.
+Package pdftex.def Info: text/figs/rosenbrock.pdf  used on input line 366.
 (pdftex.def)             Requested size: 150.57372pt x 98.222pt.
 
-./text/presentation.tex:367: Undefined control sequence.
+./text/presentation.tex:366: Undefined control sequence.
 \twofigure ...h ]{{#2}} \end {subfigure} \justify 
                                                   \end {figure} 
-l.367 \end{frame}
+l.366 \end{frame}
                  }
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4636,13 +4636,13 @@ LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 34
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb)
-Overfull \vbox (23.2093pt too high) detected at line 458
+Overfull \vbox (23.2093pt too high) detected at line 457
  []
 
 [55
 
 ] (./text/presentation.vrb)
-Overfull \vbox (23.2093pt too high) detected at line 458
+Overfull \vbox (23.2093pt too high) detected at line 457
  []
 
 [56
@@ -4659,7 +4659,7 @@ LaTeX Font Warning: Command \footnotesize invalid in math mode on input line 45
 .
 
 )
-Overfull \vbox (1.96059pt too high) detected at line 519
+Overfull \vbox (1.96059pt too high) detected at line 518
  []
 
 [57
@@ -4668,13 +4668,13 @@ Overfull \vbox (1.96059pt too high) detected at line 519
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb)
-Overfull \vbox (17.97484pt too high) detected at line 556
+Overfull \vbox (17.97484pt too high) detected at line 555
  []
 
 [58
 
 ] (./text/presentation.vrb)
-Overfull \vbox (17.97484pt too high) detected at line 556
+Overfull \vbox (17.97484pt too high) detected at line 555
  []
 
 [59
@@ -4683,629 +4683,629 @@ Overfull \vbox (17.97484pt too high) detected at line 556
 <text/sianData/fig-1.png, id=451, 462.528pt x 346.896pt>
 File: text/sianData/fig-1.png Graphic file (type png)
 <use text/sianData/fig-1.png>
-Package pdftex.def Info: text/sianData/fig-1.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-1.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-1.png> <a0,fr0>
 <text/sianData/fig-2.png, id=461, 462.528pt x 346.896pt>
 File: text/sianData/fig-2.png Graphic file (type png)
 <use text/sianData/fig-2.png>
-Package pdftex.def Info: text/sianData/fig-2.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-2.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-2.png> <a0,fr1>
 <text/sianData/fig-3.png, id=470, 462.528pt x 346.896pt>
 File: text/sianData/fig-3.png Graphic file (type png)
 <use text/sianData/fig-3.png>
-Package pdftex.def Info: text/sianData/fig-3.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-3.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-3.png> <a0,fr2>
 <text/sianData/fig-4.png, id=479, 462.528pt x 346.896pt>
 File: text/sianData/fig-4.png Graphic file (type png)
 <use text/sianData/fig-4.png>
-Package pdftex.def Info: text/sianData/fig-4.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-4.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-4.png> <a0,fr3>
 <text/sianData/fig-5.png, id=488, 462.528pt x 346.896pt>
 File: text/sianData/fig-5.png Graphic file (type png)
 <use text/sianData/fig-5.png>
-Package pdftex.def Info: text/sianData/fig-5.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-5.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-5.png> <a0,fr4>
 <text/sianData/fig-6.png, id=497, 462.528pt x 346.896pt>
 File: text/sianData/fig-6.png Graphic file (type png)
 <use text/sianData/fig-6.png>
-Package pdftex.def Info: text/sianData/fig-6.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-6.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-6.png> <a0,fr5>
 <text/sianData/fig-7.png, id=507, 462.528pt x 346.896pt>
 File: text/sianData/fig-7.png Graphic file (type png)
 <use text/sianData/fig-7.png>
-Package pdftex.def Info: text/sianData/fig-7.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-7.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-7.png> <a0,fr6>
 <text/sianData/fig-8.png, id=516, 462.528pt x 346.896pt>
 File: text/sianData/fig-8.png Graphic file (type png)
 <use text/sianData/fig-8.png>
-Package pdftex.def Info: text/sianData/fig-8.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-8.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-8.png> <a0,fr7>
 <text/sianData/fig-9.png, id=525, 462.528pt x 346.896pt>
 File: text/sianData/fig-9.png Graphic file (type png)
 <use text/sianData/fig-9.png>
-Package pdftex.def Info: text/sianData/fig-9.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-9.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-9.png> <a0,fr8>
 <text/sianData/fig-10.png, id=534, 462.528pt x 346.896pt>
 File: text/sianData/fig-10.png Graphic file (type png)
 <use text/sianData/fig-10.png>
-Package pdftex.def Info: text/sianData/fig-10.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-10.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-10.png> <a0,fr9>
 <text/sianData/fig-11.png, id=543, 462.528pt x 346.896pt>
 File: text/sianData/fig-11.png Graphic file (type png)
 <use text/sianData/fig-11.png>
-Package pdftex.def Info: text/sianData/fig-11.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-11.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-11.png> <a0,fr10>
 <text/sianData/fig-12.png, id=552, 462.528pt x 346.896pt>
 File: text/sianData/fig-12.png Graphic file (type png)
 <use text/sianData/fig-12.png>
-Package pdftex.def Info: text/sianData/fig-12.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-12.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-12.png> <a0,fr11>
 <text/sianData/fig-13.png, id=561, 462.528pt x 346.896pt>
 File: text/sianData/fig-13.png Graphic file (type png)
 <use text/sianData/fig-13.png>
-Package pdftex.def Info: text/sianData/fig-13.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-13.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-13.png> <a0,fr12>
 <text/sianData/fig-14.png, id=570, 462.528pt x 346.896pt>
 File: text/sianData/fig-14.png Graphic file (type png)
 <use text/sianData/fig-14.png>
-Package pdftex.def Info: text/sianData/fig-14.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-14.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-14.png> <a0,fr13>
 <text/sianData/fig-15.png, id=579, 462.528pt x 346.896pt>
 File: text/sianData/fig-15.png Graphic file (type png)
 <use text/sianData/fig-15.png>
-Package pdftex.def Info: text/sianData/fig-15.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-15.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-15.png> <a0,fr14>
 <text/sianData/fig-16.png, id=588, 462.528pt x 346.896pt>
 File: text/sianData/fig-16.png Graphic file (type png)
 <use text/sianData/fig-16.png>
-Package pdftex.def Info: text/sianData/fig-16.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-16.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-16.png> <a0,fr15>
 <text/sianData/fig-17.png, id=597, 462.528pt x 346.896pt>
 File: text/sianData/fig-17.png Graphic file (type png)
 <use text/sianData/fig-17.png>
-Package pdftex.def Info: text/sianData/fig-17.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-17.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-17.png> <a0,fr16>
 <text/sianData/fig-18.png, id=606, 462.528pt x 346.896pt>
 File: text/sianData/fig-18.png Graphic file (type png)
 <use text/sianData/fig-18.png>
-Package pdftex.def Info: text/sianData/fig-18.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-18.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-18.png> <a0,fr17>
 <text/sianData/fig-19.png, id=615, 462.528pt x 346.896pt>
 File: text/sianData/fig-19.png Graphic file (type png)
 <use text/sianData/fig-19.png>
-Package pdftex.def Info: text/sianData/fig-19.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-19.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-19.png> <a0,fr18>
 <text/sianData/fig-20.png, id=624, 462.528pt x 346.896pt>
 File: text/sianData/fig-20.png Graphic file (type png)
 <use text/sianData/fig-20.png>
-Package pdftex.def Info: text/sianData/fig-20.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-20.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-20.png> <a0,fr19>
 <text/sianData/fig-21.png, id=633, 462.528pt x 346.896pt>
 File: text/sianData/fig-21.png Graphic file (type png)
 <use text/sianData/fig-21.png>
-Package pdftex.def Info: text/sianData/fig-21.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-21.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-21.png> <a0,fr20>
 <text/sianData/fig-22.png, id=642, 462.528pt x 346.896pt>
 File: text/sianData/fig-22.png Graphic file (type png)
 <use text/sianData/fig-22.png>
-Package pdftex.def Info: text/sianData/fig-22.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-22.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-22.png> <a0,fr21>
 <text/sianData/fig-23.png, id=651, 462.528pt x 346.896pt>
 File: text/sianData/fig-23.png Graphic file (type png)
 <use text/sianData/fig-23.png>
-Package pdftex.def Info: text/sianData/fig-23.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-23.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-23.png> <a0,fr22>
 <text/sianData/fig-24.png, id=660, 462.528pt x 346.896pt>
 File: text/sianData/fig-24.png Graphic file (type png)
 <use text/sianData/fig-24.png>
-Package pdftex.def Info: text/sianData/fig-24.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-24.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-24.png> <a0,fr23>
 <text/sianData/fig-25.png, id=669, 462.528pt x 346.896pt>
 File: text/sianData/fig-25.png Graphic file (type png)
 <use text/sianData/fig-25.png>
-Package pdftex.def Info: text/sianData/fig-25.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-25.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-25.png> <a0,fr24>
 <text/sianData/fig-26.png, id=678, 462.528pt x 346.896pt>
 File: text/sianData/fig-26.png Graphic file (type png)
 <use text/sianData/fig-26.png>
-Package pdftex.def Info: text/sianData/fig-26.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-26.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-26.png> <a0,fr25>
 <text/sianData/fig-27.png, id=687, 462.528pt x 346.896pt>
 File: text/sianData/fig-27.png Graphic file (type png)
 <use text/sianData/fig-27.png>
-Package pdftex.def Info: text/sianData/fig-27.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-27.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-27.png> <a0,fr26>
 <text/sianData/fig-28.png, id=696, 462.528pt x 346.896pt>
 File: text/sianData/fig-28.png Graphic file (type png)
 <use text/sianData/fig-28.png>
-Package pdftex.def Info: text/sianData/fig-28.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-28.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-28.png> <a0,fr27>
 <text/sianData/fig-29.png, id=705, 462.528pt x 346.896pt>
 File: text/sianData/fig-29.png Graphic file (type png)
 <use text/sianData/fig-29.png>
-Package pdftex.def Info: text/sianData/fig-29.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-29.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-29.png> <a0,fr28>
 <text/sianData/fig-30.png, id=714, 462.528pt x 346.896pt>
 File: text/sianData/fig-30.png Graphic file (type png)
 <use text/sianData/fig-30.png>
-Package pdftex.def Info: text/sianData/fig-30.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-30.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-30.png> <a0,fr29>
 <text/sianData/fig-31.png, id=723, 462.528pt x 346.896pt>
 File: text/sianData/fig-31.png Graphic file (type png)
 <use text/sianData/fig-31.png>
-Package pdftex.def Info: text/sianData/fig-31.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-31.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-31.png>
 <a0,fr30>
 <text/sianData/fig-32.png, id=732, 462.528pt x 346.896pt>
 File: text/sianData/fig-32.png Graphic file (type png)
 <use text/sianData/fig-32.png>
-Package pdftex.def Info: text/sianData/fig-32.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-32.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-32.png> <a0,fr31>
 <text/sianData/fig-33.png, id=741, 462.528pt x 346.896pt>
 File: text/sianData/fig-33.png Graphic file (type png)
 <use text/sianData/fig-33.png>
-Package pdftex.def Info: text/sianData/fig-33.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-33.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-33.png>
 <a0,fr32>
 <text/sianData/fig-34.png, id=750, 462.528pt x 346.896pt>
 File: text/sianData/fig-34.png Graphic file (type png)
 <use text/sianData/fig-34.png>
-Package pdftex.def Info: text/sianData/fig-34.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-34.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-34.png> <a0,fr33>
 <text/sianData/fig-35.png, id=759, 462.528pt x 346.896pt>
 File: text/sianData/fig-35.png Graphic file (type png)
 <use text/sianData/fig-35.png>
-Package pdftex.def Info: text/sianData/fig-35.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-35.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-35.png>
 <a0,fr34>
 <text/sianData/fig-36.png, id=768, 462.528pt x 346.896pt>
 File: text/sianData/fig-36.png Graphic file (type png)
 <use text/sianData/fig-36.png>
-Package pdftex.def Info: text/sianData/fig-36.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-36.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-36.png> <a0,fr35>
 <text/sianData/fig-37.png, id=777, 462.528pt x 346.896pt>
 File: text/sianData/fig-37.png Graphic file (type png)
 <use text/sianData/fig-37.png>
-Package pdftex.def Info: text/sianData/fig-37.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-37.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-37.png>
 <a0,fr36>
 <text/sianData/fig-38.png, id=786, 462.528pt x 346.896pt>
 File: text/sianData/fig-38.png Graphic file (type png)
 <use text/sianData/fig-38.png>
-Package pdftex.def Info: text/sianData/fig-38.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-38.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-38.png> <a0,fr37>
 <text/sianData/fig-39.png, id=795, 462.528pt x 346.896pt>
 File: text/sianData/fig-39.png Graphic file (type png)
 <use text/sianData/fig-39.png>
-Package pdftex.def Info: text/sianData/fig-39.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-39.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-39.png>
 <a0,fr38>
 <text/sianData/fig-40.png, id=805, 462.528pt x 346.896pt>
 File: text/sianData/fig-40.png Graphic file (type png)
 <use text/sianData/fig-40.png>
-Package pdftex.def Info: text/sianData/fig-40.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-40.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-40.png> <a0,fr39>
 <text/sianData/fig-41.png, id=814, 462.528pt x 346.896pt>
 File: text/sianData/fig-41.png Graphic file (type png)
 <use text/sianData/fig-41.png>
-Package pdftex.def Info: text/sianData/fig-41.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-41.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-41.png>
 <a0,fr40>
 <text/sianData/fig-42.png, id=823, 462.528pt x 346.896pt>
 File: text/sianData/fig-42.png Graphic file (type png)
 <use text/sianData/fig-42.png>
-Package pdftex.def Info: text/sianData/fig-42.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-42.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-42.png> <a0,fr41>
 <text/sianData/fig-43.png, id=832, 462.528pt x 346.896pt>
 File: text/sianData/fig-43.png Graphic file (type png)
 <use text/sianData/fig-43.png>
-Package pdftex.def Info: text/sianData/fig-43.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-43.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-43.png>
 <a0,fr42>
 <text/sianData/fig-44.png, id=841, 462.528pt x 346.896pt>
 File: text/sianData/fig-44.png Graphic file (type png)
 <use text/sianData/fig-44.png>
-Package pdftex.def Info: text/sianData/fig-44.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-44.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-44.png> <a0,fr43>
 <text/sianData/fig-45.png, id=850, 462.528pt x 346.896pt>
 File: text/sianData/fig-45.png Graphic file (type png)
 <use text/sianData/fig-45.png>
-Package pdftex.def Info: text/sianData/fig-45.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-45.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-45.png>
 <a0,fr44>
 <text/sianData/fig-46.png, id=859, 462.528pt x 346.896pt>
 File: text/sianData/fig-46.png Graphic file (type png)
 <use text/sianData/fig-46.png>
-Package pdftex.def Info: text/sianData/fig-46.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-46.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-46.png> <a0,fr45>
 <text/sianData/fig-47.png, id=868, 462.528pt x 346.896pt>
 File: text/sianData/fig-47.png Graphic file (type png)
 <use text/sianData/fig-47.png>
-Package pdftex.def Info: text/sianData/fig-47.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-47.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-47.png>
 <a0,fr46>
 <text/sianData/fig-48.png, id=877, 462.528pt x 346.896pt>
 File: text/sianData/fig-48.png Graphic file (type png)
 <use text/sianData/fig-48.png>
-Package pdftex.def Info: text/sianData/fig-48.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-48.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-48.png> <a0,fr47>
 <text/sianData/fig-49.png, id=886, 462.528pt x 346.896pt>
 File: text/sianData/fig-49.png Graphic file (type png)
 <use text/sianData/fig-49.png>
-Package pdftex.def Info: text/sianData/fig-49.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-49.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-49.png>
 <a0,fr48>
 <text/sianData/fig-50.png, id=895, 462.528pt x 346.896pt>
 File: text/sianData/fig-50.png Graphic file (type png)
 <use text/sianData/fig-50.png>
-Package pdftex.def Info: text/sianData/fig-50.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-50.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-50.png> <a0,fr49>
 <text/sianData/fig-51.png, id=904, 462.528pt x 346.896pt>
 File: text/sianData/fig-51.png Graphic file (type png)
 <use text/sianData/fig-51.png>
-Package pdftex.def Info: text/sianData/fig-51.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-51.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-51.png>
 <a0,fr50>
 <text/sianData/fig-52.png, id=913, 462.528pt x 346.896pt>
 File: text/sianData/fig-52.png Graphic file (type png)
 <use text/sianData/fig-52.png>
-Package pdftex.def Info: text/sianData/fig-52.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-52.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-52.png> <a0,fr51>
 <text/sianData/fig-53.png, id=922, 462.528pt x 346.896pt>
 File: text/sianData/fig-53.png Graphic file (type png)
 <use text/sianData/fig-53.png>
-Package pdftex.def Info: text/sianData/fig-53.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-53.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-53.png>
 <a0,fr52>
 <text/sianData/fig-54.png, id=931, 462.528pt x 346.896pt>
 File: text/sianData/fig-54.png Graphic file (type png)
 <use text/sianData/fig-54.png>
-Package pdftex.def Info: text/sianData/fig-54.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-54.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-54.png> <a0,fr53>
 <text/sianData/fig-55.png, id=940, 462.528pt x 346.896pt>
 File: text/sianData/fig-55.png Graphic file (type png)
 <use text/sianData/fig-55.png>
-Package pdftex.def Info: text/sianData/fig-55.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-55.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-55.png>
 <a0,fr54>
 <text/sianData/fig-56.png, id=949, 462.528pt x 346.896pt>
 File: text/sianData/fig-56.png Graphic file (type png)
 <use text/sianData/fig-56.png>
-Package pdftex.def Info: text/sianData/fig-56.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-56.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-56.png> <a0,fr55>
 <text/sianData/fig-57.png, id=958, 462.528pt x 346.896pt>
 File: text/sianData/fig-57.png Graphic file (type png)
 <use text/sianData/fig-57.png>
-Package pdftex.def Info: text/sianData/fig-57.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-57.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-57.png>
 <a0,fr56>
 <text/sianData/fig-58.png, id=967, 462.528pt x 346.896pt>
 File: text/sianData/fig-58.png Graphic file (type png)
 <use text/sianData/fig-58.png>
-Package pdftex.def Info: text/sianData/fig-58.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-58.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-58.png> <a0,fr57>
 <text/sianData/fig-59.png, id=976, 462.528pt x 346.896pt>
 File: text/sianData/fig-59.png Graphic file (type png)
 <use text/sianData/fig-59.png>
-Package pdftex.def Info: text/sianData/fig-59.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-59.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-59.png>
 <a0,fr58>
 <text/sianData/fig-60.png, id=985, 462.528pt x 346.896pt>
 File: text/sianData/fig-60.png Graphic file (type png)
 <use text/sianData/fig-60.png>
-Package pdftex.def Info: text/sianData/fig-60.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-60.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-60.png> <a0,fr59>
 <text/sianData/fig-61.png, id=994, 462.528pt x 346.896pt>
 File: text/sianData/fig-61.png Graphic file (type png)
 <use text/sianData/fig-61.png>
-Package pdftex.def Info: text/sianData/fig-61.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-61.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-61.png>
 <a0,fr60>
 <text/sianData/fig-62.png, id=1003, 462.528pt x 346.896pt>
 File: text/sianData/fig-62.png Graphic file (type png)
 <use text/sianData/fig-62.png>
-Package pdftex.def Info: text/sianData/fig-62.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-62.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-62.png> <a0,fr61>
 <text/sianData/fig-63.png, id=1012, 462.528pt x 346.896pt>
 File: text/sianData/fig-63.png Graphic file (type png)
 <use text/sianData/fig-63.png>
-Package pdftex.def Info: text/sianData/fig-63.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-63.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-63.png>
 <a0,fr62>
 <text/sianData/fig-64.png, id=1021, 462.528pt x 346.896pt>
 File: text/sianData/fig-64.png Graphic file (type png)
 <use text/sianData/fig-64.png>
-Package pdftex.def Info: text/sianData/fig-64.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-64.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-64.png> <a0,fr63>
 <text/sianData/fig-65.png, id=1030, 462.528pt x 346.896pt>
 File: text/sianData/fig-65.png Graphic file (type png)
 <use text/sianData/fig-65.png>
-Package pdftex.def Info: text/sianData/fig-65.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-65.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-65.png>
 <a0,fr64>
 <text/sianData/fig-66.png, id=1039, 462.528pt x 346.896pt>
 File: text/sianData/fig-66.png Graphic file (type png)
 <use text/sianData/fig-66.png>
-Package pdftex.def Info: text/sianData/fig-66.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-66.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-66.png> <a0,fr65>
 <text/sianData/fig-67.png, id=1048, 462.528pt x 346.896pt>
 File: text/sianData/fig-67.png Graphic file (type png)
 <use text/sianData/fig-67.png>
-Package pdftex.def Info: text/sianData/fig-67.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-67.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-67.png>
 <a0,fr66>
 <text/sianData/fig-68.png, id=1057, 462.528pt x 346.896pt>
 File: text/sianData/fig-68.png Graphic file (type png)
 <use text/sianData/fig-68.png>
-Package pdftex.def Info: text/sianData/fig-68.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-68.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-68.png> <a0,fr67>
 <text/sianData/fig-69.png, id=1066, 462.528pt x 346.896pt>
 File: text/sianData/fig-69.png Graphic file (type png)
 <use text/sianData/fig-69.png>
-Package pdftex.def Info: text/sianData/fig-69.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-69.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-69.png>
 <a0,fr68>
 <text/sianData/fig-70.png, id=1075, 462.528pt x 346.896pt>
 File: text/sianData/fig-70.png Graphic file (type png)
 <use text/sianData/fig-70.png>
-Package pdftex.def Info: text/sianData/fig-70.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-70.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-70.png> <a0,fr69>
 <text/sianData/fig-71.png, id=1084, 462.528pt x 346.896pt>
 File: text/sianData/fig-71.png Graphic file (type png)
 <use text/sianData/fig-71.png>
-Package pdftex.def Info: text/sianData/fig-71.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-71.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-71.png>
 <a0,fr70>
 <text/sianData/fig-72.png, id=1093, 462.528pt x 346.896pt>
 File: text/sianData/fig-72.png Graphic file (type png)
 <use text/sianData/fig-72.png>
-Package pdftex.def Info: text/sianData/fig-72.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-72.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-72.png> <a0,fr71>
 <text/sianData/fig-73.png, id=1102, 462.528pt x 346.896pt>
 File: text/sianData/fig-73.png Graphic file (type png)
 <use text/sianData/fig-73.png>
-Package pdftex.def Info: text/sianData/fig-73.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-73.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-73.png>
 <a0,fr72>
 <text/sianData/fig-74.png, id=1112, 462.528pt x 346.896pt>
 File: text/sianData/fig-74.png Graphic file (type png)
 <use text/sianData/fig-74.png>
-Package pdftex.def Info: text/sianData/fig-74.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-74.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-74.png> <a0,fr73>
 <text/sianData/fig-75.png, id=1121, 462.528pt x 346.896pt>
 File: text/sianData/fig-75.png Graphic file (type png)
 <use text/sianData/fig-75.png>
-Package pdftex.def Info: text/sianData/fig-75.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-75.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-75.png>
 <a0,fr74>
 <text/sianData/fig-76.png, id=1130, 462.528pt x 346.896pt>
 File: text/sianData/fig-76.png Graphic file (type png)
 <use text/sianData/fig-76.png>
-Package pdftex.def Info: text/sianData/fig-76.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-76.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-76.png> <a0,fr75>
 <text/sianData/fig-77.png, id=1139, 462.528pt x 346.896pt>
 File: text/sianData/fig-77.png Graphic file (type png)
 <use text/sianData/fig-77.png>
-Package pdftex.def Info: text/sianData/fig-77.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-77.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-77.png>
 <a0,fr76>
 <text/sianData/fig-78.png, id=1148, 462.528pt x 346.896pt>
 File: text/sianData/fig-78.png Graphic file (type png)
 <use text/sianData/fig-78.png>
-Package pdftex.def Info: text/sianData/fig-78.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-78.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-78.png> <a0,fr77>
 <text/sianData/fig-79.png, id=1157, 462.528pt x 346.896pt>
 File: text/sianData/fig-79.png Graphic file (type png)
 <use text/sianData/fig-79.png>
-Package pdftex.def Info: text/sianData/fig-79.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-79.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-79.png>
 <a0,fr78>
 <text/sianData/fig-80.png, id=1166, 462.528pt x 346.896pt>
 File: text/sianData/fig-80.png Graphic file (type png)
 <use text/sianData/fig-80.png>
-Package pdftex.def Info: text/sianData/fig-80.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-80.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-80.png> <a0,fr79>
 <text/sianData/fig-81.png, id=1175, 462.528pt x 346.896pt>
 File: text/sianData/fig-81.png Graphic file (type png)
 <use text/sianData/fig-81.png>
-Package pdftex.def Info: text/sianData/fig-81.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-81.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-81.png>
 <a0,fr80>
 <text/sianData/fig-82.png, id=1184, 462.528pt x 346.896pt>
 File: text/sianData/fig-82.png Graphic file (type png)
 <use text/sianData/fig-82.png>
-Package pdftex.def Info: text/sianData/fig-82.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-82.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-82.png> <a0,fr81>
 <text/sianData/fig-83.png, id=1193, 462.528pt x 346.896pt>
 File: text/sianData/fig-83.png Graphic file (type png)
 <use text/sianData/fig-83.png>
-Package pdftex.def Info: text/sianData/fig-83.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-83.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-83.png>
 <a0,fr82>
 <text/sianData/fig-84.png, id=1202, 462.528pt x 346.896pt>
 File: text/sianData/fig-84.png Graphic file (type png)
 <use text/sianData/fig-84.png>
-Package pdftex.def Info: text/sianData/fig-84.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-84.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-84.png> <a0,fr83>
 <text/sianData/fig-85.png, id=1211, 462.528pt x 346.896pt>
 File: text/sianData/fig-85.png Graphic file (type png)
 <use text/sianData/fig-85.png>
-Package pdftex.def Info: text/sianData/fig-85.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-85.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-85.png>
 <a0,fr84>
 <text/sianData/fig-86.png, id=1220, 462.528pt x 346.896pt>
 File: text/sianData/fig-86.png Graphic file (type png)
 <use text/sianData/fig-86.png>
-Package pdftex.def Info: text/sianData/fig-86.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-86.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-86.png> <a0,fr85>
 <text/sianData/fig-87.png, id=1229, 462.528pt x 346.896pt>
 File: text/sianData/fig-87.png Graphic file (type png)
 <use text/sianData/fig-87.png>
-Package pdftex.def Info: text/sianData/fig-87.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-87.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-87.png>
 <a0,fr86>
 <text/sianData/fig-88.png, id=1238, 462.528pt x 346.896pt>
 File: text/sianData/fig-88.png Graphic file (type png)
 <use text/sianData/fig-88.png>
-Package pdftex.def Info: text/sianData/fig-88.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-88.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-88.png> <a0,fr87>
 <text/sianData/fig-89.png, id=1247, 462.528pt x 346.896pt>
 File: text/sianData/fig-89.png Graphic file (type png)
 <use text/sianData/fig-89.png>
-Package pdftex.def Info: text/sianData/fig-89.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-89.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-89.png>
 <a0,fr88>
 <text/sianData/fig-90.png, id=1256, 462.528pt x 346.896pt>
 File: text/sianData/fig-90.png Graphic file (type png)
 <use text/sianData/fig-90.png>
-Package pdftex.def Info: text/sianData/fig-90.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-90.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-90.png> <a0,fr89>
 <text/sianData/fig-91.png, id=1265, 462.528pt x 346.896pt>
 File: text/sianData/fig-91.png Graphic file (type png)
 <use text/sianData/fig-91.png>
-Package pdftex.def Info: text/sianData/fig-91.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-91.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-91.png>
 <a0,fr90>
 <text/sianData/fig-92.png, id=1274, 462.528pt x 346.896pt>
 File: text/sianData/fig-92.png Graphic file (type png)
 <use text/sianData/fig-92.png>
-Package pdftex.def Info: text/sianData/fig-92.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-92.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-92.png> <a0,fr91>
 <text/sianData/fig-93.png, id=1283, 462.528pt x 346.896pt>
 File: text/sianData/fig-93.png Graphic file (type png)
 <use text/sianData/fig-93.png>
-Package pdftex.def Info: text/sianData/fig-93.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-93.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-93.png>
 <a0,fr92>
 <text/sianData/fig-94.png, id=1292, 462.528pt x 346.896pt>
 File: text/sianData/fig-94.png Graphic file (type png)
 <use text/sianData/fig-94.png>
-Package pdftex.def Info: text/sianData/fig-94.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-94.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-94.png> <a0,fr93>
 <text/sianData/fig-95.png, id=1301, 462.528pt x 346.896pt>
 File: text/sianData/fig-95.png Graphic file (type png)
 <use text/sianData/fig-95.png>
-Package pdftex.def Info: text/sianData/fig-95.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-95.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-95.png>
 <a0,fr94>
 <text/sianData/fig-96.png, id=1310, 462.528pt x 346.896pt>
 File: text/sianData/fig-96.png Graphic file (type png)
 <use text/sianData/fig-96.png>
-Package pdftex.def Info: text/sianData/fig-96.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-96.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-96.png> <a0,fr95>
 <text/sianData/fig-97.png, id=1319, 462.528pt x 346.896pt>
 File: text/sianData/fig-97.png Graphic file (type png)
 <use text/sianData/fig-97.png>
-Package pdftex.def Info: text/sianData/fig-97.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-97.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-97.png>
 <a0,fr96>
 <text/sianData/fig-98.png, id=1328, 462.528pt x 346.896pt>
 File: text/sianData/fig-98.png Graphic file (type png)
 <use text/sianData/fig-98.png>
-Package pdftex.def Info: text/sianData/fig-98.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-98.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-98.png> <a0,fr97>
 <text/sianData/fig-99.png, id=1337, 462.528pt x 346.896pt>
 File: text/sianData/fig-99.png Graphic file (type png)
 <use text/sianData/fig-99.png>
-Package pdftex.def Info: text/sianData/fig-99.png  used on input line 567.
+Package pdftex.def Info: text/sianData/fig-99.png  used on input line 566.
 (pdftex.def)             Requested size: 462.52686pt x 346.89514pt.
  <./text/sianData/fig-99.png>
 <a0,fr98> [60
@@ -5314,18 +5314,18 @@ Package pdftex.def Info: text/sianData/fig-99.png  used on input line 567.
 <text/figs/ackley.pdf, id=1370, 484.81125pt x 256.93993pt>
 File: text/figs/ackley.pdf Graphic file (type pdf)
 <use text/figs/ackley.pdf>
-Package pdftex.def Info: text/figs/ackley.pdf  used on input line 573.
+Package pdftex.def Info: text/figs/ackley.pdf  used on input line 572.
 (pdftex.def)             Requested size: 150.57372pt x 79.79953pt.
 <text/figs/rastrigin.pdf, id=1371, 484.81125pt x 256.93993pt>
 File: text/figs/rastrigin.pdf Graphic file (type pdf)
 <use text/figs/rastrigin.pdf>
-Package pdftex.def Info: text/figs/rastrigin.pdf  used on input line 573.
+Package pdftex.def Info: text/figs/rastrigin.pdf  used on input line 572.
 (pdftex.def)             Requested size: 150.57372pt x 79.79953pt.
 
-./text/presentation.tex:573: Undefined control sequence.
+./text/presentation.tex:572: Undefined control sequence.
 \twofigure ...h ]{{#2}} \end {subfigure} \justify 
                                                   \end {figure} 
-l.573 \end{frame}
+l.572 \end{frame}
                  }
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -5387,66 +5387,62 @@ Underfull \hbox (badness 10000) in paragraph at lines 11--15
 
  (./text/presentation.vrb
 
-./text/presentation.vrb:28: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:24: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.28                 u^2}} \me
+l.24                 u^2}} \me
                               ^{-u^2x} \md u
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.vrb:28: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:24: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.28                 u^2}} \me^{-u^2x} \md
+l.24                 u^2}} \me^{-u^2x} \md
                                            u
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.vrb:37: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:31: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.37 ...zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me
+l.31 ...zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me
                                                   ^{-u^2x} \md u
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.vrb:37: LaTeX Error: Too many math alphabets used in versio
+./text/presentation.vrb:31: LaTeX Error: Too many math alphabets used in versio
 n normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.37 ... \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md
+l.31 ... \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md
                                                    u
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-)
-Overfull \vbox (8.52318pt too high) detected at line 647
- []
-
-[70
+) [70
 
 ]
 \openout4 = `text/presentation.vrb'.
@@ -5504,30 +5500,16 @@ Overfull \hbox (19.10686pt too wide) detected at line 22
 
  (./text/presentation.vrb
 
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
  normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
+l.8             \omega}x_d)\me
+                              ^{-\frac{{\color<2>{red}{\alpha}}\omega}{2}x^2...
 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5540,8 +5522,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+l.14             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5555,8 +5537,23 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
+l.15         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{{\color<6>{red}{b_j}}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5565,30 +5562,16 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
  normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
+l.8             \omega}x_d)\me
+                              ^{-\frac{{\color<2>{red}{\alpha}}\omega}{2}x^2...
 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5601,8 +5584,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+l.14             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5616,8 +5599,23 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
+l.15         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{{\color<6>{red}{b_j}}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5626,30 +5624,16 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
  normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
+l.8             \omega}x_d)\me
+                              ^{-\frac{{\color<2>{red}{\alpha}}\omega}{2}x^2...
 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5662,8 +5646,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+l.14             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5677,8 +5661,23 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
+l.15         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{{\color<6>{red}{b_j}}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5687,30 +5686,16 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
  normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
+l.8             \omega}x_d)\me
+                              ^{-\frac{{\color<2>{red}{\alpha}}\omega}{2}x^2...
 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5723,8 +5708,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+l.14             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5738,8 +5723,23 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
+l.15         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{{\color<6>{red}{b_j}}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5748,30 +5748,16 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
  normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
+l.8             \omega}x_d)\me
+                              ^{-\frac{{\color<2>{red}{\alpha}}\omega}{2}x^2...
 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5784,8 +5770,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+l.14             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5799,8 +5785,23 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
+l.15         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{{\color<6>{red}{b_j}}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5809,30 +5810,16 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
  normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
+l.8             \omega}x_d)\me
+                              ^{-\frac{{\color<2>{red}{\alpha}}\omega}{2}x^2...
 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5845,8 +5832,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+l.14             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5860,8 +5847,23 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
+l.15         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{{\color<6>{red}{b_j}}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5870,30 +5872,16 @@ or  <return>  to continue without it.
 
 ] (./text/presentation.vrb
 
-./text/presentation.vrb:7: LaTeX Error: Too many math alphabets used in version
+./text/presentation.vrb:8: LaTeX Error: Too many math alphabets used in version
  normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.7 ...        H_{n_d}(\sqrt{\alpha \omega}x_d)\me
-                                                  ^{-\frac{\alpha\omega}{2}x...
+l.8             \omega}x_d)\me
+                              ^{-\frac{{\color<2>{red}{\alpha}}\omega}{2}x^2...
 
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-./text/presentation.vrb:13: LaTeX Error: Too many math alphabets used in versio
-n normal.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.13             \me
-                    ^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -5906,8 +5894,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.14         \item NQS: $J_{\text{NQS}} = \me
-                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+l.14             \me
+                    ^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij...
 
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -5921,8 +5909,23 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
-                                                  ^{b_j
+l.15         \item NQS: $J_{\text{NQS}} = \me
+                                             ^{-\suml{i=1}{N} \frac{\left(\b...
+
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+./text/presentation.vrb:16: LaTeX Error: Too many math alphabets used in versio
+n normal.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.16 ...\sigma^2}}\prod\limits^{M}_j \left(1 + \me
+                                                  ^{{\color<6>{red}{b_j}}
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
@@ -6041,7 +6044,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (20.94618pt too high) detected at line 1083
+Overfull \vbox (20.94618pt too high) detected at line 1077
  []
 
 [101
@@ -6101,7 +6104,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (5.14598pt too high) detected at line 1090
+Overfull \vbox (5.14598pt too high) detected at line 1084
  []
 
 [102
@@ -6162,7 +6165,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (20.94618pt too high) detected at line 1097
+Overfull \vbox (20.94618pt too high) detected at line 1091
  []
 
 [103
@@ -6200,7 +6203,7 @@ Overfull \hbox (4.55042pt too wide) in paragraph at lines 5--13
  []
 
 ))
-Overfull \vbox (7.15828pt too high) detected at line 1121
+Overfull \vbox (7.15828pt too high) detected at line 1115
  []
 
 [105
@@ -6219,7 +6222,7 @@ Overfull \hbox (4.8322pt too wide) in paragraph at lines 5--13
  []
 
 ))
-Overfull \vbox (7.15828pt too high) detected at line 1134
+Overfull \vbox (7.15828pt too high) detected at line 1128
  []
 
 [106
@@ -6281,28 +6284,28 @@ pdfs with page group included in a single page
 
 ]
 
-./text/presentation.tex:1173: LaTeX Error: Too many math alphabets used in vers
+./text/presentation.tex:1167: LaTeX Error: Too many math alphabets used in vers
 ion normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1173 \end{frame}
+l.1167 \end{frame}
                   }
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.tex:1173: LaTeX Error: Too many math alphabets used in vers
+./text/presentation.tex:1167: LaTeX Error: Too many math alphabets used in vers
 ion normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.1173 \end{frame}
+l.1167 \end{frame}
                   }
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -6362,7 +6365,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (13.83298pt too high) detected at line 1180
+Overfull \vbox (13.83298pt too high) detected at line 1174
  []
 
 [111
@@ -6506,7 +6509,7 @@ Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 )
-Overfull \vbox (8.52318pt too high) detected at line 1250
+Overfull \vbox (8.52318pt too high) detected at line 1244
  []
 
 [116
@@ -6559,7 +6562,7 @@ Overfull \hbox (19.10686pt too wide) detected at line 22
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\translate ' on input line 1301.
+(hyperref)                removing `\translate ' on input line 1295.
 
 [128
 
@@ -6567,7 +6570,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 \openout4 = `text/presentation.vrb'.
 
  (./text/presentation.vrb)
-Overfull \vbox (20.44818pt too high) detected at line 1404
+Overfull \vbox (20.44818pt too high) detected at line 1398
  []
 
 [129
@@ -6587,11 +6590,11 @@ Overfull \vbox (20.44818pt too high) detected at line 1404
 \tf@snm=\write10
 \openout10 = `text/presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1470.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1470.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1464.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1464.
  (./text/presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1470.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1470.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1464.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1464.
 
 Package rerunfilecheck Info: File `text/presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 9B634C3B2859828E8E48A177CCBAE8A7;325.
@@ -6656,9 +6659,9 @@ nts/type1/public/mathdesign/mdput/md-utr7v.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/mathdesign/mdput/md-utr7y.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/mathdesign/mdput/md-utri7m.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/adobe/utopia/putr8a.pfb>
-Output written on text/presentation.pdf (130 pages, 5253399 bytes).
+Output written on text/presentation.pdf (130 pages, 5253443 bytes).
 PDF statistics:
- 3313 PDF objects out of 3580 (max. 8388607)
+ 3312 PDF objects out of 3580 (max. 8388607)
  1410 compressed objects within 15 object streams
  269 named destinations out of 1000 (max. 500000)
  2664 words of extra memory for PDF output out of 10000 (max. 10000000)

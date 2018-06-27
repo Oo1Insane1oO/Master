@@ -262,8 +262,7 @@
             \begin{itemize}
                 \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
                     \delta_{ij}$
-                \item Lagrange Multiplier method
-                \item Fock-operator: $\mathcal{F} \equiv \mathcal{H}_0 + \mathcal{J} \pm \mathcal{K}$
+                \item Fock-operator: $\mathcal{F} \equiv \mathcal{H}_0 + \mathcal{J} - \mathcal{K}$
                     \begin{itemize}[<4->]
                         \item $\mathcal{J} \equiv
                             \bra{\psi^{*}_k}f_{12}\ket{\psi_k} = \int
@@ -563,7 +562,7 @@
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Minimization: Simulated Annealing}
-    \animategraphics[autoplay, controls, scale=0.5]{10}{text/sianData/fig-}{1}{99}
+    \animategraphics[controls, scale=0.5]{10}{text/sianData/fig-}{1}{99}
 \end{frame}}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
@@ -594,7 +593,7 @@
         \item Solution in polar\only<2->{\footfullcite{anisimovas}}
         \item $\psi_n(\blds{r}) = \prod\limits_d N_d \sum\limits^{n_d}_{l=1}
             C^{\text{Hermite}}_{n_dl}
-            g_l\left(\frac{\omega}{2},\blds{r},\blds{0}\right)$
+            g_l\left(\frac{\omega}{2},\blds{r},\blds{0}\right),\hspace{0.3cm} g_l\left(\frac{\omega}{2},\blds{r},\blds{0}\right) = x_d^{(l)}\exp(-\frac{\omega^2}{2}x^2_d)$
         \item Solution in Cartesian\only<4->{\footfullcite{HelgakerMolElcTheory}} \\ \vspace{0.2cm} \hspace{1cm}
             \begin{minipage}[H]{0.5\textwidth}
                 $\Braket{g_i(\blds{r})|g_j(\blds{r})}$ \vsp \\
@@ -616,31 +615,25 @@
     \blds{0}\right)$
         \begin{equation*}
             \begin{aligned}
-                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
-                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
-                (t+1)E^{ij}_{t+1} \\
-                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
-                \frac{\alpha}{\alpha+\beta}(A_y - B_y)E^{ij}_t +
-                (t+1)E^{ij}_{t+1} \\
+                E^{i+1,j}_t &= \frac{1}{2\omega}E^{ij}_{t-1} \\
+                E^{i,j+1}_t &= \frac{1}{2\omega}E^{ij}_{t-1} \\
                 E^{00}_0 &= K_{AB}
             \end{aligned}
         \end{equation*}
         \begin{equation*}
             \begin{aligned}
-                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
-                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u} \\
-                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
-                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right) \\
+                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} \\
+                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} \\
+                \xi^n_{00} &= \left(\frac{-\omega}{2}\right)^n
+                \zeta_n\left(0\right) \\
                 \zeta_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
                 u^2}} \me^{-u^2x} \md u
             \end{aligned} \hspace{0.5cm}
             \begin{aligned}
-                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} + X_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} + Y_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} + Y_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{000} &= \left(-2\alpha\beta\right)^n
-                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
-                \\
+                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} \\
+                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} \\
+                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} \\
+                \xi^n_{000} &= \left(-\omega\right)^n \zeta_n\left(0\right) \\
                 \zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md u
             \end{aligned}
         \end{equation*}
@@ -676,18 +669,19 @@
         \item Slater determinant: $\psi_T =
             \det(\blds{\Phi(\blds{R};\blds{\alpha})}) \xi(s)$
         \item Modified Hermite: $\Phi_{ij} =
-            \psi^{\text{HO}}_{n_j}(\sqrt{\alpha\omega}r_i) = \prod\limits_d N_d
-            H_{n_d}(\sqrt{\alpha \omega}x_d)\me^{-\frac{\alpha\omega}{2}x^2_d}$
+            \psi^{\text{HO}}_{n_j}(\sqrt{{\color<2>{red}{\alpha}}\omega}r_i) =
+            \prod\limits_d N_d H_{n_d}(\sqrt{{\color<2>{red}{\alpha}}
+            \omega}x_d)\me^{-\frac{{\color<2>{red}{\alpha}}\omega}{2}x^2_d}$
         \item Hartree-Fock: $\Phi_{ij} =
             \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\omega}r_i\right)$
         \item Modified Hartree-Fock: $\Phi_{ij} =
-            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{\alpha\omega}r_i\right)$
+            \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{{\color<4>{red}{\alpha}}\omega}r_i\right)$
         \item Pad\'e-Jastrow: $J_{\text{Pad\'e}} = \prod\limits_{i<j}
-            \me^{\frac{a_{ij} r_{ij}}{1 + \beta r_{ij}}}$
+            \me^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij}}}$
         \item NQS: $J_{\text{NQS}} = \me^{-\suml{i=1}{N} \frac{\left(\bm{r}_i -
-            \bm{a}_i\right)^2}{2\sigma^2}}\prod\limits^{M}_j \left(1 + \me^{b_j
+            {\color<6>{red}{\bm{a}_i}}\right)^2}{2\sigma^2}}\prod\limits^{M}_j \left(1 + \me^{{\color<6>{red}{b_j}}
             + \suml{i=1}{N}\suml{d=1}{D}
-            \frac{x^{(d)}_iw_{i+d,j}}{\sigma^2}}\right)$
+            \frac{x^{(d)}_i{\color<6>{red}{w_{i+d,j}}}}{\sigma^2}}\right)$
         \item Pad\'e-NQS: $J = J_{\text{Pad\'e}}J_{\text{NQS}}$
     \end{itemize}
 \end{frame}
