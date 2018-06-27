@@ -1,7 +1,7 @@
 \boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
 \beamer@sectionintoc {2}{Methods}{17}{0}{2}
-\beamer@sectionintoc {3}{Wavefunction}{64}{0}{3}
-\beamer@sectionintoc {4}{Implementation}{84}{0}{4}
-\beamer@sectionintoc {5}{Results}{101}{0}{5}
-\beamer@sectionintoc {6}{Summary and Conclusion}{114}{0}{6}
+\beamer@sectionintoc {3}{Wavefunction}{62}{0}{3}
+\beamer@sectionintoc {4}{Implementation}{82}{0}{4}
+\beamer@sectionintoc {5}{Results}{99}{0}{5}
+\beamer@sectionintoc {6}{Summary and Conclusion}{113}{0}{6}

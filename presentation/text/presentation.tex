@@ -12,8 +12,8 @@
             url=false,
             doi=true,
             eprint=false]{biblatex}
-\usepackage{subcaption}
 \usepackage{graphicx}
+\usepackage{subcaption}
 \usepackage{relsize}
 % \usepackage{apacite}
 \usepackage{amsmath}
@@ -40,7 +40,7 @@
 \newcommand{\hltexttt}[1]{\texttt{\color{filecolor}{#1}}}
 \newcommand{\hltextttf}[1]{\texttt{\color{funccolor}{#1}}}
   
-\usetikzlibrary{arrows.meta, shadows, shapes, arrows}
+\usetikzlibrary{arrows.meta, shadows, shapes, arrows, positioning}
 
 \addbibresource{text/refs.bib}
 
@@ -83,17 +83,21 @@
 \makeatother
 
 \title{Quantum Many-Body Simulations of Double Dot System}
-% \date{\today}
-\date{}
-\author{Alocias Mariadason}
-\institute{}
+\date{\today}
+\author[me]{Alfred Alocias Mariadason}
+% \institute{}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
 \input{text/defs.tex}
 
 \begin{document}
 
+\begin{frame}
 \maketitle
+\begin{tikzpicture}[overlay, remember picture]
+    \node[above left=1.3cm and 2.0cm of current page.south east] {\includegraphics[scale=0.5]{text/UiO_Segl_pms485.eps}};
+\end{tikzpicture}
+\end{frame}
 
 \begin{frame}{Contents}
   \setbeamertemplate{section in toc}[sections numbered]
@@ -117,7 +121,7 @@
         \item Hamiltonian
             \begin{itemize}
                 \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
-                    \sum\limits_{i<j} f\left(\blds{r}_j, \blds{r}_j\right)
+                    \sum\limits_{i<j} f\left(\blds{r}_i, \blds{r}_j\right)
                     {\color<7->{black!20}{-\frac{1}{2} \sum\limits_k
                     \frac{\nabla^2_k}{M_k}}} {\color<8->{black!20}{+
                     \sum\limits_{k<l} g\left(\blds{R}_k,\blds{R}_l\right)}} +
@@ -142,6 +146,7 @@
             Oscillator{\only<3->{\footnotesize\footfullcite{kvaaldots}}},
             Double-Well{\only<3->{\footnotesize\footfullcite{ddotnuc}}}
     \end{itemize}
+    \vspace{-0.25cm}
     \onslide<4->{$V(\blds{r}) = \frac{1}{2} m\omega^2r^2 \hspace{1cm}
     V(\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - \delta R\abs{x} +
     R^2\right)$}
@@ -312,104 +317,6 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-        \begin{figure}
-            \centering
-            \begin{tikzpicture}[
-                >={Latex[width=2mm,length=2mm]},
-                    base/.style = {rectangle, rounded corners, draw=black,
-                                minimum width=2cm, minimum height=0.5cm, text
-                                centered, font=\sffamily},
-                    basecode/.style = {rectangle, rounded corners, draw=black,
-                                minimum width=2cm, minimum height=0.5cm, text
-                                centered, font=\sffamily, align=left},
-                    activityStarts/.style = {base, fill=blue!30, drop shadow},
-                    startstop/.style = {base, fill=red!25, drop shadow},
-                    startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                    activityRuns/.style = {base, fill=green!25, drop shadow},
-                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-                scale=0.5, 
-                node distance=1.5cm, 
-                every node/.style={fill=white, font=\sffamily, scale=0.5},
-                align=center]
-                \node (pre) [activityStarts] {
-                    Pre-build two-body matrix $D_{pqrs}$ \\
-                    Pre-build one-body matrix $h_{pq}$ \\
-                    Pre-build overlap matrix $S_{pq}$ \\
-                    Initialize $\blds{C}$
-                };
-                \node (Fock) [activityRuns, below of=pre, yshift=-1.2cm] {
-                    Set Fock-matrix $\blds{F}$
-                };
-                \node (Fockmix) [activityRuns, below of=Fock, yshift=-0.7cm] {
-                    Perform mixing of $\blds{F}$ \\
-                    (Optional)
-                };
-                \node (Fockmixeq) [process, right of=Fockmix, xshift=2.4cm] {
-                    Pulay (DIIS)
-                };
-                \draw[->] (Fock) -- (Fockmix);
-                \draw[-] (Fockmix) -- (Fockmixeq);
-                \node (RHF) [process, above right of=Fock, xshift=3.0cm, yshift=-0.2cm] {
-                    RHF
-                };
-                \node (UHF) [process, below right of=Fock, xshift=3.0cm, yshift=0.1cm] {
-                    UHF
-                };
-                \draw[-] (Fock) to [out=15, in=180] (RHF);
-                \draw[-] (Fock) to [out=-15, in=180] (UHF);
-                \draw[->] (pre) -- (Fock);
-                \node (eigcomp) [activityRuns, below of=Fock, yshift=-2.5cm] {
-                    Solve generalized \\ 
-                    eigenvalue problem. \\
-                    $\blds{F}\blds{C} = \blds{\veps}\blds{S}\blds{C}$
-                };
-                \draw[->] (Fockmix) -- (eigcomp);
-                \node (density) [activityRuns, below of=eigcomp] {
-                   Set density matrix $\blds{\rho}$.
-                };
-                \draw[->] (eigcomp) -- (density);
-                \node (mix) [activityRuns, below of=density] {
-                    Perform mixing of $\blds{\rho}$. \\
-                    (Optional)
-                };
-                \draw[->] (density) -- (mix);
-                \node (mixeq) [process, right of=mix, xshift=2.5cm] {
-                    Simple
-                };
-                \draw[-] (mix) -- (mixeq);
-                \node (conv) [startstop, below of=mix] {
-                    Check convergence.
-                };
-                \draw[->] (mix) -- (conv);
-                \node (no) [above left of=conv, xshift=-4.0cm] {
-                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
-                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} \geq \epsilon$
-                };
-                \draw[->] (conv) to [out=180,in=-90] (no);
-                \node (keepOld) [process, above of=no, yshift=1.5cm, xshift=-0.5cm] {
-                    Save energy eigenvalues and \\
-                    density matrix(mixed). \\
-                    $\blds{\varepsilon}^{\text{HF}}_{\text{old}} =
-                    \blds{\varepsilon}^{\text{HF}}_{\text{new}}$ \\
-                    $\blds{\rho}_{\text{old}} = \blds{\rho}_{\text{new}}$
-                };
-                \draw[->] (no) to [out=90,in=-90] (keepOld);
-                \draw[->] (keepOld) to [out=90,in=180] (Fock);
-                \node (yes) [below of=conv] {
-                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
-                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \epsilon$
-                };
-                \draw[->] (conv) -- (yes);
-                \node (end) [activityStarts, below of=yes] {
-                    Output energy
-                };
-                \draw[->] (yes) -- (end);
-            \end{tikzpicture}
-        \end{figure}
-\end{frame}
-
 {\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]
     Variational Monte-Carlo
@@ -421,17 +328,17 @@
         \item Rewrite expectation value:
             $\frac{\Braket{\Psi|\mathcal{H}|\Psi}}{\Braket{\Psi|\Psi}} = \int
             \frac{\cnj{\Psi}\mathcal{H}\Psi}{\int \cnj{\Psi}\Psi \md r} \md r
-            = \int \frac{\abs{\Psi}^2E_L}{\int \cnj{\Psi}\Psi \md r} \md r$
+            = \int {\color<4>{red}{\frac{\abs{\Psi}^2}{\int \cnj{\Psi}\Psi \md r}}} E_L\md r$
             \begin{itemize}
                 \item $E_L(\mb{R};\mb{\alpha}) \equiv \frac{1}{\Psi}\mathcal{H}\Psi$
-                \item $P(\mb{R}) \equiv \frac{\abs{\Psi}^2}{\Braket{\Psi|\Psi}}$
+                \item \color<4>{red}{$P(\mb{R}) \equiv \frac{\abs{\Psi}^2}{\Braket{\Psi|\Psi}}$}
             \end{itemize}
         \item Metropolis-Hastings Algorithm
             \begin{itemize}
-                \item $r^{\text{new}} = r^{\text{old}} + \Delta t \xi$
-                \item $\ufij{A}{i}{j} =
-                    \text{min}\left(\frac{\ufij{P}{i}{j}}{\ufij{P}{j}{i}}
-                    \frac{\ufij{T}{i}{j}}{\ufij{T}{j}{i}} ,1\right)$
+                \item $r^{(b)} = r^{(a)} + \Delta t \xi$
+                \item $\ufij{A}{a}{b} =
+                    \text{min}\left(\frac{\ufij{P}{a}{b}}{\ufij{P}{b}{a}}
+                    \frac{\ufij{T}{a}{b}}{\ufij{T}{b}{a}} ,1\right)$
                 \item Importance Sampling
                     \begin{itemize}[<8->]
                         \item $r^{\text{new}} = r^{\text{old}} + D \Delta t
@@ -446,70 +353,6 @@
                     \end{itemize}
             \end{itemize}
     \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[
-            >={Latex[width=2mm,length=2mm]},
-                base/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily},
-                basecode/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily, align=left},
-                activityStarts/.style = {base, fill=blue!30, drop shadow},
-                startstop/.style = {base, fill=red!25, drop shadow},
-                startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                activityRuns/.style = {base, fill=green!25, drop shadow},
-                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-            scale=0.8, 
-            node distance=1.5cm, 
-            every node/.style={fill=white, font=\sffamily, scale=0.9},
-            align=center]
-            \node (1) [activityStarts] {
-                Pick initial state $i$ at random.
-            };
-            \node (2) [activityStarts, below of=1] {
-                Pick proposed state at random in accordance to
-                $\ufij{T}{j}{i}$.
-            };
-            \node (3) [activityStarts, below of=2] {
-                Accept state according to $\ufij{A}{j}{i}$.
-            };
-            \node (a) [activityRuns, below left of=3, xshift=-3cm, yshift=-0.1cm] {
-                Accepted \\
-                $j = i$
-            };
-            \node (r) [startstop, below right of=3, xshift=3cm, yshift=-0.1cm] {
-                Rejected \\
-                $i = j$
-            };
-            \draw[<-] (3) to [out=180,in=90] (a);
-            \draw[<-] (3) to [out=0,in=90] (r);
-            \node (4) [activityStarts, below of=3, yshift=-0.5cm] {
-                Number of states satisfied?
-            };
-            \node (yes) [below of=4, yshift=0.5cm] {
-                Yes
-            };
-            \node (no) [above left of=4, xshift=-5cm] {
-                No
-            };
-            \draw[->] (4) to [out=180, in=-90] (no);
-            \draw[->] (no) to [out=90, in=180] (2);
-            \node (5) [activityStarts, below of=yes, yshift=0.3cm] {
-                End.
-            };
-            \draw[->] (1) -- (2);
-            \draw[->] (2) -- (3);
-            \draw[->] (3) -- (4);
-            \draw[->] (4) -- (yes);
-            \draw[->] (yes) -- (5);
-        \end{tikzpicture}
-    \end{figure}
 \end{frame}
 
 {\setbeamercolor{palette primary}{fg=orange, bg=white}
@@ -733,8 +576,7 @@
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
 \begin{frame}[standout]{Wavefunction}
-    \only<1->{$\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$}
-    \only<2->{$\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\color{red}{\chi_p(\blds{r})}$}
+    $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\color<2->{red}{\chi_p(\blds{r})}$
 \end{frame}}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
@@ -1331,13 +1173,125 @@
 \end{frame}}
 
 \begin{frame}[fragile]{Results: NQS-Jastrow Harmonic Oscillator}
-    \vspace{-0.26cm}
-    \twofigure{{text/figs/w1.0_N2_D2_padenqs}.pdf}{{text/figs/w1.0_N6_D2_padenqs}.pdf}
-    \vspace{-0.65cm}
-    \twofigure{{text/figs/w1.0_D3_N2_energies_fig}.pdf}{{text/figs/w1.0_D3_N8_energies_fig}.pdf}
+    \vspace{-0.4cm}
+    \twofigure{{text/figs/w1.0_D2_N2_Energies_fig}.pdf}{{text/figs/w1.0_D2_N6_Energies_fig}.pdf}
+    \vspace{-0.6cm}
+    \twofigure{{text/figs/w1.0_D3_N2_Energies_fig}.pdf}{{text/figs/w1.0_D3_N8_Energies_fig}.pdf}
+\end{frame}
+
+\begin{frame}[fragile]{Results: NQS-Jastrow Double-Well}
+    \vspace{-0.4cm}
+    \twofigure{{text/figs/w1.0_D2_N2_Energies_DW_fig}.pdf}{{text/figs/w1.0_D2_N4_Energies_DW_fig}.pdf}
+    \vspace{-0.6cm}
 \end{frame}
 
 \section{Summary and Conclusion}
+
+\begin{frame}[fragile]{Summary}
+    \centering
+    \begin{itemize}
+        \item Interaction:
+            \begin{itemize}
+                \item $f\left(\blds{r}_i, \blds{r}_j\right) =
+                    \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$,\hspace{2cm} Coulomb Repulsion
+            \end{itemize}
+        \item Confinement: Harmonic Oscillator, Double-Well
+    \end{itemize}
+    $V(\blds{r}) = \frac{1}{2} m\omega^2r^2 \hspace{1cm} V(\blds{r}) =
+    \frac{1}{2}m\omega^2\left(r^2 - \delta R\abs{x} + R^2\right)$
+    \twofigure{text/figs/HO2Dplot.pdf}{text/figs/DW2Dplot.pdf}
+\end{frame}
+
+{\setbeamercolor{palette primary}{fg=black, bg=white}
+\begin{frame}[standout]{Summary}
+    Hartree-Fock \\
+    Variational Monte-Carlo
+\end{frame}}
+
+\begin{frame}[fragile]{Summary}
+    \centering\footnotesize
+    $\Braket{\psiHO_i|\psiHO_j} = N_i \delta_{ij}$ \\
+    $\Braket{\psiHO_i|h^{\text{HO}}|\psiHO_j} =
+    N_i\varepsilon^{\text{HO}}_i\delta_{ij}$ \\
+    $\Braket{\psiHO_i\psiHO_j|\frac{1}{r_{12}}|\psiHO_k\psiHO_l} =
+    \frac{aN_{ijkl}}{\sqrt{2\omega}}  \sum\limits^{ijkl}_{tuvw} H^{ijkl}_{tuvw}
+    \suml{pq}{t+v,u+w} E^{tv}_pE^{uw}_q (-1)^q\xi_{p+q}\left(\frac{\omega}{2},
+    \blds{0}\right)$
+        \begin{equation*}
+            \begin{aligned}
+                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
+                \frac{\alpha}{\alpha+\beta}(A_y - B_y)E^{ij}_t +
+                (t+1)E^{ij}_{t+1} \\
+                E^{00}_0 &= K_{AB}
+            \end{aligned}
+        \end{equation*}
+        \begin{equation*}
+            \begin{aligned}
+                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u} \\
+                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right) \\
+                \zeta_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+                u^2}} \me^{-u^2x} \md u
+            \end{aligned} \hspace{0.5cm}
+            \begin{aligned}
+                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} + X_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} + Y_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} + Y_{AB}\xi^{n+1}_{t,u,v} \\
+                \xi^n_{000} &= \left(-2\alpha\beta\right)^n
+                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
+                \\
+                \zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md u
+            \end{aligned}
+        \end{equation*}
+\end{frame}
+
+\begin{frame}[fragile]{Summary}
+    \begin{itemize}
+        \item Perturbation of harmonic oscillator: $\UDW(r) = \VHO(r) + \VDW_n(r)$
+        \item Expand in HO-functions: $\ket{\psiDW_p} = \sumll{l}C^{\text{DW}}_{lp}\ket{\psiHO_l}$
+        \item Eigenvalue equation: $\blds{H}^{\text{DW}}\blds{C}^{\text{DW}} =
+            \blds{\varepsilon^{\text{DW}}}\blds{C}^{\text{DW}}$
+            \begin{itemize}
+                \item $H^{\text{DW}}_{ij} = \veps^{\text{HO}}_i\delta_{ij} +
+                    \Braket{\psiHO_i|\VDW_n|\psiHO_j}$
+            \end{itemize}
+        \item Integral-Elements
+        \begin{equation*}
+            \footnotesize
+            \begin{aligned}
+                \Braket{\psiDW_p|\psiDW_q} &= \delta_{pq} \\
+                \Braket{\psiDW_p|h^{\text{DW}}|\psiDW_q} &=
+                \varepsilon^{\text{DW}}_p\delta_{pq} \\
+                \Braket{\psiDW_p\psiDW_q|\frac{1}{r_{12}}|\psiDW_r\psiDW_s} &=
+                \suml{tuvw}{ijkl} C^{\text{DW}}_{tp}C^{\text{DW}}_{uq}C^{\text{DW}}_{vr}C^{\text{DW}}_{ws}
+                \Braket{\psiHO_t\psiHO_u|\frac{1}{r_{12}}|\psiHO_v\psiHO_w}
+            \end{aligned}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Conclusion}
+    \begin{itemize}[<+->]
+        \item Single-Well and Double-well
+        \item General \CC code implemented
+        \item Hartree-Fock limit reached
+        \item Hartree-Fock energies improved with Variational Monte-Carlo
+        \item Stable minimization with NQS-Jastrow
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Further Work}
+    \begin{itemize}[<+->]
+        \item Binding with Python
+        \item Optimize and clean-up code 
+        \item Rewrite with sparse matrices in Hartree-Fock 
+        \item Extend to non-isotropic gaussians
+    \end{itemize}
+\end{frame}
 
 {\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]
@@ -1350,5 +1304,167 @@
 \begin{frame}[standout]{Questions}
     Questions?
 \end{frame}}
+
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+        \begin{figure}
+            \centering
+            \begin{tikzpicture}[
+                >={Latex[width=2mm,length=2mm]},
+                    base/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily},
+                    basecode/.style = {rectangle, rounded corners, draw=black,
+                                minimum width=2cm, minimum height=0.5cm, text
+                                centered, font=\sffamily, align=left},
+                    activityStarts/.style = {base, fill=blue!30, drop shadow},
+                    startstop/.style = {base, fill=red!25, drop shadow},
+                    startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                    activityRuns/.style = {base, fill=green!25, drop shadow},
+                    process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                    processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+                scale=0.5, 
+                node distance=1.5cm, 
+                every node/.style={fill=white, font=\sffamily, scale=0.5},
+                align=center]
+                \node (pre) [activityStarts] {
+                    Pre-build two-body matrix $D_{pqrs}$ \\
+                    Pre-build one-body matrix $h_{pq}$ \\
+                    Pre-build overlap matrix $S_{pq}$ \\
+                    Initialize $\blds{C}$
+                };
+                \node (Fock) [activityRuns, below of=pre, yshift=-1.2cm] {
+                    Set Fock-matrix $\blds{F}$
+                };
+                \node (Fockmix) [activityRuns, below of=Fock, yshift=-0.7cm] {
+                    Perform mixing of $\blds{F}$ \\
+                    (Optional)
+                };
+                \node (Fockmixeq) [process, right of=Fockmix, xshift=2.4cm] {
+                    Pulay (DIIS)
+                };
+                \draw[->] (Fock) -- (Fockmix);
+                \draw[-] (Fockmix) -- (Fockmixeq);
+                \node (RHF) [process, above right of=Fock, xshift=3.0cm, yshift=-0.2cm] {
+                    RHF
+                };
+                \node (UHF) [process, below right of=Fock, xshift=3.0cm, yshift=0.1cm] {
+                    UHF
+                };
+                \draw[-] (Fock) to [out=15, in=180] (RHF);
+                \draw[-] (Fock) to [out=-15, in=180] (UHF);
+                \draw[->] (pre) -- (Fock);
+                \node (eigcomp) [activityRuns, below of=Fock, yshift=-2.5cm] {
+                    Solve generalized \\ 
+                    eigenvalue problem. \\
+                    $\blds{F}\blds{C} = \blds{\veps}\blds{S}\blds{C}$
+                };
+                \draw[->] (Fockmix) -- (eigcomp);
+                \node (density) [activityRuns, below of=eigcomp] {
+                   Set density matrix $\blds{\rho}$.
+                };
+                \draw[->] (eigcomp) -- (density);
+                \node (mix) [activityRuns, below of=density] {
+                    Perform mixing of $\blds{\rho}$. \\
+                    (Optional)
+                };
+                \draw[->] (density) -- (mix);
+                \node (mixeq) [process, right of=mix, xshift=2.5cm] {
+                    Simple
+                };
+                \draw[-] (mix) -- (mixeq);
+                \node (conv) [startstop, below of=mix] {
+                    Check convergence.
+                };
+                \draw[->] (mix) -- (conv);
+                \node (no) [above left of=conv, xshift=-4.0cm] {
+                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
+                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} \geq \epsilon$
+                };
+                \draw[->] (conv) to [out=180,in=-90] (no);
+                \node (keepOld) [process, above of=no, yshift=1.5cm, xshift=-0.5cm] {
+                    Save energy eigenvalues and \\
+                    density matrix(mixed). \\
+                    $\blds{\varepsilon}^{\text{HF}}_{\text{old}} =
+                    \blds{\varepsilon}^{\text{HF}}_{\text{new}}$ \\
+                    $\blds{\rho}_{\text{old}} = \blds{\rho}_{\text{new}}$
+                };
+                \draw[->] (no) to [out=90,in=-90] (keepOld);
+                \draw[->] (keepOld) to [out=90,in=180] (Fock);
+                \node (yes) [below of=conv] {
+                    $\abs{\blds{\varepsilon}^{\text{HF}}_{\text{new}} -
+                    \blds{\varepsilon}^{\text{HF}}_{\text{old}}} < \epsilon$
+                };
+                \draw[->] (conv) -- (yes);
+                \node (end) [activityStarts, below of=yes] {
+                    Output energy
+                };
+                \draw[->] (yes) -- (end);
+            \end{tikzpicture}
+        \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Methods: Variational Monte-Carlo}
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            >={Latex[width=2mm,length=2mm]},
+                base/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily},
+                basecode/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily, align=left},
+                activityStarts/.style = {base, fill=blue!30, drop shadow},
+                startstop/.style = {base, fill=red!25, drop shadow},
+                startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                activityRuns/.style = {base, fill=green!25, drop shadow},
+                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+            scale=0.8, 
+            node distance=1.5cm, 
+            every node/.style={fill=white, font=\sffamily, scale=0.9},
+            align=center]
+            \node (1) [activityStarts] {
+                Pick initial state $i$ at random.
+            };
+            \node (2) [activityStarts, below of=1] {
+                Pick proposed state at random in accordance to
+                $\ufij{T}{j}{i}$.
+            };
+            \node (3) [activityStarts, below of=2] {
+                Accept state according to $\ufij{A}{j}{i}$.
+            };
+            \node (a) [activityRuns, below left of=3, xshift=-3cm, yshift=-0.1cm] {
+                Accepted \\
+                $j = i$
+            };
+            \node (r) [startstop, below right of=3, xshift=3cm, yshift=-0.1cm] {
+                Rejected \\
+                $i = j$
+            };
+            \draw[<-] (3) to [out=180,in=90] (a);
+            \draw[<-] (3) to [out=0,in=90] (r);
+            \node (4) [activityStarts, below of=3, yshift=-0.5cm] {
+                Number of states satisfied?
+            };
+            \node (yes) [below of=4, yshift=0.5cm] {
+                Yes
+            };
+            \node (no) [above left of=4, xshift=-5cm] {
+                No
+            };
+            \draw[->] (4) to [out=180, in=-90] (no);
+            \draw[->] (no) to [out=90, in=180] (2);
+            \node (5) [activityStarts, below of=yes, yshift=0.3cm] {
+                End.
+            };
+            \draw[->] (1) -- (2);
+            \draw[->] (2) -- (3);
+            \draw[->] (3) -- (4);
+            \draw[->] (4) -- (yes);
+            \draw[->] (yes) -- (5);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
 
 \end{document}

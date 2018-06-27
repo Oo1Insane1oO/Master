@@ -1,5 +1,62 @@
-\frametitle{Results: NQS-Jastrow Harmonic Oscillator}
-\vspace{-0.26cm}
-    \twofigure{{text/figs/w1.0_N2_D2_padenqs}.pdf}{{text/figs/w1.0_N6_D2_padenqs}.pdf}
-    \vspace{-0.65cm}
-    \twofigure{{text/figs/w1.0_D3_N2_energies_fig}.pdf}{{text/figs/w1.0_D3_N8_energies_fig}.pdf}
+\frametitle{Methods: Variational Monte-Carlo}
+\begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[
+            >={Latex[width=2mm,length=2mm]},
+                base/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily},
+                basecode/.style = {rectangle, rounded corners, draw=black,
+                            minimum width=2cm, minimum height=0.5cm, text
+                            centered, font=\sffamily, align=left},
+                activityStarts/.style = {base, fill=blue!30, drop shadow},
+                startstop/.style = {base, fill=red!25, drop shadow},
+                startstopcode/.style = {basecode, fill=red!25, drop shadow},
+                activityRuns/.style = {base, fill=green!25, drop shadow},
+                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
+                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
+            scale=0.8,
+            node distance=1.5cm,
+            every node/.style={fill=white, font=\sffamily, scale=0.9},
+            align=center]
+            \node (1) [activityStarts] {
+                Pick initial state $i$ at random.
+            };
+            \node (2) [activityStarts, below of=1] {
+                Pick proposed state at random in accordance to
+                $\ufij{T}{j}{i}$.
+            };
+            \node (3) [activityStarts, below of=2] {
+                Accept state according to $\ufij{A}{j}{i}$.
+            };
+            \node (a) [activityRuns, below left of=3, xshift=-3cm, yshift=-0.1cm] {
+                Accepted \\
+                $j = i$
+            };
+            \node (r) [startstop, below right of=3, xshift=3cm, yshift=-0.1cm] {
+                Rejected \\
+                $i = j$
+            };
+            \draw[<-] (3) to [out=180,in=90] (a);
+            \draw[<-] (3) to [out=0,in=90] (r);
+            \node (4) [activityStarts, below of=3, yshift=-0.5cm] {
+                Number of states satisfied?
+            };
+            \node (yes) [below of=4, yshift=0.5cm] {
+                Yes
+            };
+            \node (no) [above left of=4, xshift=-5cm] {
+                No
+            };
+            \draw[->] (4) to [out=180, in=-90] (no);
+            \draw[->] (no) to [out=90, in=180] (2);
+            \node (5) [activityStarts, below of=yes, yshift=0.3cm] {
+                End.
+            };
+            \draw[->] (1) -- (2);
+            \draw[->] (2) -- (3);
+            \draw[->] (3) -- (4);
+            \draw[->] (4) -- (yes);
+            \draw[->] (yes) -- (5);
+        \end{tikzpicture}
+    \end{figure}
