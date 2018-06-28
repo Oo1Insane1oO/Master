@@ -29,7 +29,7 @@
 % \usepackage{xmpmulti}
 
 \setbeamercolor{}{fg=black, bg=white}
-\setbeamercolor{frametitle}{fg=orange, bg=red!10}
+\setbeamercolor{frametitle}{fg=orange, bg=brown!25}
 \setbeamercolor{progress bar}{fg=red, bg=red!30}
 \setbeamercolor{progress bar in head/foot}{fg=red, bg=red!30}
 \setbeamercolor{progress bar in section page}{fg=red, bg=red!30}
@@ -140,7 +140,7 @@
     \end{equation*}
 \end{frame}}
 
-{\setbeamercolor{palette primary}{fg=black, bg=white}
+{\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]
     Slater Determinant and Energy Functional
 \end{frame}}
@@ -174,61 +174,7 @@
 
 \begin{frame}[fragile]{Methods: Hartree-Fock}
     \begin{itemize}[<+->]
-        \item Assumptions
-        \begin{itemize}
-            \item The Born-Oppenheimer approximation holds. 
-            \item All relativistic effects are negligible.
-            \item The wavefunction can be described by a single \txtit{Slater
-                determinant}.
-            \item The Mean Field Approximation holds.
-        \end{itemize}
-    \end{itemize}
-    \only<4->{
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[scale=0.5]
-            \draw (-1,0) -- (1,0);
-            \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
-            \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
-            \draw[blue, ->] (-0.5,-0.5) -- (-0.5,0.5);
-            \draw[blue, <-] (0.5,-0.5) -- (0.5,0.5);
-            \node[text width=2.2cm, align=center] at (0,-1) {\footnotesize{$(0,0)$}};
-            \draw (-2.5,2) -- (-0.5,2);
-            \node at (-2.0,2) [draw,circle,fill=red,scale=0.6] {};
-            \node at (-1.0,2) [draw,circle,fill=red,scale=0.6] {};
-            \draw[blue, ->] (-2.0,1.5) -- (-2.0,2.5);
-            \draw[blue, <-] (-1.0,1.5) -- (-1.0,2.5);
-            \node[text width=2.2cm, align=center] at (-1.5,1) {\footnotesize{$(1,0)$}};
-            \draw (0.5,2) -- (2.5,2);
-            \node at (1.0,2) [draw,circle,fill=red,scale=0.6] {};
-            \node at (2.0,2) [draw,circle,fill=red,scale=0.6] {};
-            \draw[blue, <-] (1.0,1.5) -- (1.0,2.5);
-            \draw[blue, ->] (2.0,1.5) -- (2.0,2.5);
-            \node[text width=2.2cm, align=center] at (1.5,1) {\footnotesize{$(0,1)$}};
-            \draw (-4.5,4) -- (-2.5,4);
-            \node at (-4.0,4) [draw,circle,fill=red,scale=0.6] {};
-            \node at (-3.0,4) [draw,circle,fill=red,scale=0.6] {};
-            \draw[blue, ->] (-4.0,3.5) -- (-4.0,4.5);
-            \draw[blue, <-] (-3.0,3.5) -- (-3.0,4.5);
-            \node[text width=2.2cm, align=center] at (-3.5,3) {\footnotesize{$(2,0)$}};
-            \draw (-1,4) -- (1,4);
-            \node at (-0.5,4) [draw,circle,fill=red,scale=0.6] {};
-            \node at (0.5,4) [draw,circle,fill=red,scale=0.6] {};
-            \draw[blue, ->] (-0.5,3.5) -- (-0.5,4.5);
-            \draw[blue, <-] (0.5,3.5) -- (0.5,4.5);
-            \node[text width=2.2cm, align=center] at (0,3) {\footnotesize{$(1,1)$}};
-            \draw (4.5,4) -- (2.5,4);
-            \node at (4.0,4) [draw,circle,fill=red,scale=0.6] {};
-            \node at (3.0,4) [draw,circle,fill=red,scale=0.6] {};
-            \draw[blue, ->] (4.0,3.5) -- (4.0,4.5);
-            \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
-            \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
-        \end{tikzpicture}
-    \end{figure}}
-\end{frame}
-
-\begin{frame}[fragile]{Methods: Hartree-Fock}
-    \begin{itemize}[<+->]
+        \item Single Slater determinant wavefunction
         \item Constrained minimization
             \begin{itemize}
                 \item Spin orthogonality: $\braket{\psi_i}{\psi_j} =
@@ -259,12 +205,11 @@
 
 \begin{frame}[fragile]{Methods: Hartree-Fock}
     \begin{itemize}[<+->]
-        \item Integrate out spin
         \item Pair spins as: $\{\psi_{2l-1}, \psi_{2l}\} =
             \{\phi_l(\blds{r})\alpha(s),\phi_l(\blds{r})\beta(s)\}$
         \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
         \item Roothan-Hall: $\blds{F}\blds{C}_i = \blds{\veps}S\blds{C}_i$
-            \begin{itemize}[<4->]
+            \begin{itemize}[<3->]
                 \item $F_{pq} = h_{pq} +
                     \sum\limits_{pq}\rho_{pq}\left(2\Braket{pq | f_{12} | rs} -
                     \Braket{pq | f_{12} | sr}\right)$
@@ -1100,11 +1045,15 @@
 \begin{frame}[fragile]{Further Work}
     \begin{itemize}[<+->]
         \item Binding with Python
-        \item Optimize and clean-up code 
         \item Rewrite with sparse matrices in Hartree-Fock 
         \item Extend to non-isotropic gaussians
     \end{itemize}
 \end{frame}
+
+{\setbeamercolor{palette primary}{fg=orange, bg=white}
+\begin{frame}[standout]
+    End
+\end{frame}}
 
 {\setbeamercolor{palette primary}{fg=orange, bg=white}
 \begin{frame}[standout]
@@ -1113,10 +1062,60 @@
 
 \appendix
 
-{\setbeamercolor{palette primary}{fg=orange, bg=white}
-\begin{frame}[standout]{Questions}
-    Questions?
-\end{frame}}
+\begin{frame}[fragile]{Methods: Hartree-Fock}
+    \begin{itemize}
+        \item Assumptions
+        \begin{itemize}
+            \item The Born-Oppenheimer approximation holds. 
+            \item All relativistic effects are negligible.
+            \item The wavefunction can be described by a single \txtit{Slater
+                determinant}.
+            \item The Mean Field Approximation holds.
+        \end{itemize}
+    \end{itemize}
+    \only<4->{
+    \begin{figure}[H]
+        \centering
+        \begin{tikzpicture}[scale=0.5]
+            \draw (-1,0) -- (1,0);
+            \node at (-0.5,0) [draw,circle,fill=red,scale=0.6] {};
+            \node at (0.5,0) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (-0.5,-0.5) -- (-0.5,0.5);
+            \draw[blue, <-] (0.5,-0.5) -- (0.5,0.5);
+            \node[text width=2.2cm, align=center] at (0,-1) {\footnotesize{$(0,0)$}};
+            \draw (-2.5,2) -- (-0.5,2);
+            \node at (-2.0,2) [draw,circle,fill=red,scale=0.6] {};
+            \node at (-1.0,2) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (-2.0,1.5) -- (-2.0,2.5);
+            \draw[blue, <-] (-1.0,1.5) -- (-1.0,2.5);
+            \node[text width=2.2cm, align=center] at (-1.5,1) {\footnotesize{$(1,0)$}};
+            \draw (0.5,2) -- (2.5,2);
+            \node at (1.0,2) [draw,circle,fill=red,scale=0.6] {};
+            \node at (2.0,2) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, <-] (1.0,1.5) -- (1.0,2.5);
+            \draw[blue, ->] (2.0,1.5) -- (2.0,2.5);
+            \node[text width=2.2cm, align=center] at (1.5,1) {\footnotesize{$(0,1)$}};
+            \draw (-4.5,4) -- (-2.5,4);
+            \node at (-4.0,4) [draw,circle,fill=red,scale=0.6] {};
+            \node at (-3.0,4) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (-4.0,3.5) -- (-4.0,4.5);
+            \draw[blue, <-] (-3.0,3.5) -- (-3.0,4.5);
+            \node[text width=2.2cm, align=center] at (-3.5,3) {\footnotesize{$(2,0)$}};
+            \draw (-1,4) -- (1,4);
+            \node at (-0.5,4) [draw,circle,fill=red,scale=0.6] {};
+            \node at (0.5,4) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (-0.5,3.5) -- (-0.5,4.5);
+            \draw[blue, <-] (0.5,3.5) -- (0.5,4.5);
+            \node[text width=2.2cm, align=center] at (0,3) {\footnotesize{$(1,1)$}};
+            \draw (4.5,4) -- (2.5,4);
+            \node at (4.0,4) [draw,circle,fill=red,scale=0.6] {};
+            \node at (3.0,4) [draw,circle,fill=red,scale=0.6] {};
+            \draw[blue, ->] (4.0,3.5) -- (4.0,4.5);
+            \draw[blue, <-] (3.0,3.5) -- (3.0,4.5);
+            \node[text width=2.2cm, align=center] at (3.5,3) {\footnotesize{$(0,2)$}};
+        \end{tikzpicture}
+    \end{figure}}
+\end{frame}
 
 \begin{frame}[fragile]{Methods: Hartree-Fock}
         \begin{figure}
