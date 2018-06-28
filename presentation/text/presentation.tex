@@ -91,13 +91,12 @@
 \input{text/defs.tex}
 
 \begin{document}
-
-\begin{frame}
 \maketitle
-\begin{tikzpicture}[overlay, remember picture]
-    \node[above left=1.3cm and 2.0cm of current page.south east] {\includegraphics[scale=0.5]{text/UiO_Segl_pms485.eps}};
-\end{tikzpicture}
-\end{frame}
+% \begin{frame}
+% \begin{tikzpicture}[overlay, remember picture]
+%     \node[above left=1.3cm and 2.0cm of current page.south east] {\includegraphics[scale=0.5]{text/UiO_Segl_pms485.eps}};
+% \end{tikzpicture}
+% \end{frame}
 
 \begin{frame}{Contents}
   \setbeamertemplate{section in toc}[sections numbered]
@@ -106,48 +105,20 @@
 
 \section{Introduction}
 
-\begin{frame}[fragile]{Quantum-Dot}
-    \begin{enumerate}
-        \item Small semiconductor nanostructures
-    \end{enumerate}
-\end{frame}
-
 \begin{frame}[fragile]{Quantum-Dot Model}
     \begin{itemize}[<+->]
-        \item Schrödinger equation 
-            \begin{itemize}
-                \item $\mathcal{H}\ket{\psi} = E\ket{\psi}$
-            \end{itemize}
-        \item Hamiltonian
-            \begin{itemize}
-                \item $\mathcal{H} = - \frac{1}{2} \sum\limits_i \nabla^2_i +
-                    \sum\limits_{i<j} f\left(\blds{r}_i, \blds{r}_j\right)
-                    {\color<7->{black!20}{-\frac{1}{2} \sum\limits_k
-                    \frac{\nabla^2_k}{M_k}}} {\color<8->{black!20}{+
-                    \sum\limits_{k<l} g\left(\blds{R}_k,\blds{R}_l\right)}} +
-                    V\left(\blds{R},\blds{r}\right)$
-            \end{itemize}
-        \item Born-Oppenheimer Approximation
-            \begin{itemize}
-                \item Ignore Nuclei
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Quantum-Dot Model}
-    \centering
-    \begin{itemize}[<+->]
-        \item Interaction:
-            \begin{itemize}
-                \item $f\left(\blds{r}_i, \blds{r}_j\right) =
-                    \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$,\hspace{2cm} Coulomb Repulsion
-            \end{itemize}
+        \item Schrödinger equation: $\mathcal{H}\ket{\psi} = E\ket{\psi}$,
+            $\mathcal{H} = - \sum\limits_i \frac{\nabla^2_i}{2} +
+            f\left(\blds{r}\right) + V\left(\blds{R},\blds{r}\right)$
+        \item Interaction: $f\left(\blds{r}\right) = \sum\limits_{i<j} \frac{1}{|r_i - r_j|}$
+%         \item Interaction: $f\left(\boldsymbol{r}\right) = \sum\limits_{i<j}
+%             \frac{1}{|\boldsymbol{r}_i - \boldsymbol{r}_j|}$
         \item<3-> Confinement: Harmonic
             Oscillator{\only<3->{\footnotesize\footfullcite{kvaaldots}}},
             Double-Well{\only<3->{\footnotesize\footfullcite{ddotnuc}}}
     \end{itemize}
     \vspace{-0.25cm}
-    \onslide<4->{$V(\blds{r}) = \frac{1}{2} m\omega^2r^2 \hspace{1cm}
+    \onslide<4->{\hspace{1.6cm}$V(\blds{r}) = \frac{1}{2} m\omega^2r^2 \hspace{1.6cm}
     V(\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - \delta R\abs{x} +
     R^2\right)$}
     \onslide<4->{\vspace{-0.40cm}\twofigure{text/figs/HO2Dplot.pdf}{text/figs/DW2Dplot.pdf}}
@@ -294,25 +265,19 @@
         \item Expand: $\phi_i(\blds{r}) = \sum\limits^L_{p=1} C_{pi}\chi_p(\blds{r})$
         \item Roothan-Hall: $\blds{F}\blds{C}_i = \blds{\veps}S\blds{C}_i$
             \begin{itemize}[<4->]
-                \item $F_{pq} = h_{pq} + \sum\limits_{pq}\rho_{pq}\left(2D_{prqs} \pm D_{prsq}\right)$
+                \item $F_{pq} = h_{pq} +
+                    \sum\limits_{pq}\rho_{pq}\left(2\Braket{pq | f_{12} | rs} -
+                    \Braket{pq | f_{12} | sr}\right)$
                 \vsp
                 \item $h_{pq} \equiv \Braket{p | h | q}$
                 \vsp
                 \item $\rho_{pq} \equiv \sum\limits^{\frac{N}{2}}_{i=1} C_{pi}C^{*}_{qi}$
                 \vsp
-                \item $D_{pqrs} \equiv \Braket{pq | f_{12} | rs}$
                 \item $S_{pq} \equiv \Braket{p | q}$
             \end{itemize}
         \item Poople-Nesbet: $\blds{F}^{+}\blds{C}^{+} =
             \blds{\veps}^{\+}\blds{S}\blds{C}^{+}$, $\blds{F}^{-}\blds{C}^{-} =
             \blds{\veps}^{-}\blds{S}\blds{C}^{-}$
-            \begin{itemize}[<5->]
-                \item $F^{\pm}_{pq} = h_{pq} + \sumll{k_{\pm}}\sumll{rs}
-                    C^{\pm\dagger}_{rk_{\pm}} C^{\pm\dagger}_{sk_{\pm}}
-                    \left[D_{prqs} - D_{prsq}\right] +
-                    \sumll{k_{\mp}}\sumll{rs} C^{\mp\dagger}_{rk_{\mp}}
-                    C^{\mp\dagger}_{sk_{\mp}} D_{prqs}$
-            \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -340,15 +305,11 @@
                     \frac{\ufij{T}{a}{b}}{\ufij{T}{b}{a}} ,1\right)$
                 \item Importance Sampling
                     \begin{itemize}[<8->]
-                        \item $r^{\text{new}} = r^{\text{old}} + D \Delta t
-                            F^{\text{old}} + \sqrt{\Delta t}\xi$
-                        \item $F = \frac{2}{\Psi}\nabla \Psi$ 
-                        \item $\frac{T(b,a,\Delta t)}{T(a,b,\Delta t)} =
-                            \sum\limits_i \exp(-\frac{\left(\blds{r}^{(b)}_i -
-                            \blds{r}^{(a)}_i - D\Delta t
-                            \blds{F}^{(a)}_i\right)^2}{4D\Delta t}
-                            +\frac{\left(\blds{r}^{(a)}_i - \blds{r}^{(b)}_i -
-                            D\Delta t \blds{F}^{(b)}_i\right)^2}{4D\Delta t})$
+                        \item Focker-Planck equation and Langevin equation
+                        \item $r^{(b)} = r^{(a)} + D \Delta t F^{(a)} +
+                            \sqrt{\Delta t}\xi$
+                        \item Quantum force: $F = \frac{2}{\Psi}\nabla \Psi$ 
+                        \item $\frac{T(b,a,\Delta t)}{T(a,b,\Delta t)} =$ Greensfunction ratio
                     \end{itemize}
             \end{itemize}
     \end{itemize}
@@ -498,7 +459,7 @@
                 $\abs{\nabla_{x} f} > \epsilon$
             };
             \node (hupdate) [process, above of=no, xshift=-2.0cm, yshift=0.5cm] {
-                Use $\nabla f(\blds{x}_n)$ and $f(\blds{x}_{n-1})$ in an \\
+                Use $\nabla f(\blds{x}_n)$ and $\nabla f(\blds{x}_{n-1})$ in an \\
                 updating formula of choice to find $\blds{H}^{-1}_n$ \\
                 Increment index $n {\footnotesize\mathrel{+}=} 1$
             };
@@ -565,12 +526,6 @@
     \animategraphics[controls, scale=0.5]{10}{text/sianData/fig-}{1}{99}
 \end{frame}}
 
-{\setbeamercolor{palette primary}{fg=black, bg=white}
-\begin{frame}[standout]{Minimization: Simulated Annealing}
-    Ackley\hspace{3cm} Rastrigin
-    \twofigure{text/figs/ackley.pdf}{text/figs/rastrigin.pdf}
-\end{frame}}
-
 \section{Wavefunction}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
@@ -605,7 +560,7 @@
 \end{frame}
 
 \begin{frame}[fragile]{Wavefunction: Single-Well Integral Elements}
-    \centering\footnotesize
+    \centering\small
     $\Braket{\psiHO_i|\psiHO_j} = N_i \delta_{ij}$ \\
     $\Braket{\psiHO_i|h^{\text{HO}}|\psiHO_j} =
     N_i\varepsilon^{\text{HO}}_i\delta_{ij}$ \\
@@ -615,27 +570,30 @@
     \blds{0}\right)$
         \begin{equation*}
             \begin{aligned}
-                E^{i+1,j}_t &= \frac{1}{2\omega}E^{ij}_{t-1} \\
-                E^{i,j+1}_t &= \frac{1}{2\omega}E^{ij}_{t-1} \\
-                E^{00}_0 &= K_{AB}
+                E^{i_d+1}_t &= \frac{1}{2\omega}E^{i}_{t-1} \\
+                E^{0}_0 &= K_{AB}
+            \end{aligned}\hspace{1.0cm}
+            \begin{aligned}
+                \xi^n_{t_d+1} &= t_d\xi^{n+1}_{t_d-1} \\
+                \xi^n_0 &= \left(-b\right)^n \zeta_n\left(0\right)
             \end{aligned}
         \end{equation*}
         \begin{equation*}
             \begin{aligned}
-                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} \\
-                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} \\
-                \xi^n_{00} &= \left(\frac{-\omega}{2}\right)^n
-                \zeta_n\left(0\right) \\
-                \zeta_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+                \zeta^{\text{2D}}_n(x) = \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
                 u^2}} \me^{-u^2x} \md u
             \end{aligned} \hspace{0.5cm}
             \begin{aligned}
-                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} \\
-                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} \\
-                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} \\
-                \xi^n_{000} &= \left(-\omega\right)^n \zeta_n\left(0\right) \\
-                \zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md u
+                \zeta^{\text{3D}}_n(x) = \int\limits^1_{-1} u^{2n} \me^{-u^2x}
+                \md u
             \end{aligned}
+        \end{equation*}
+        \begin{equation*}
+            b =
+            \left\{\begin{aligned}
+                \frac{\omega}{2},&\indent &\text{2D} \\
+                \omega,&\indent &\text{3D}
+            \end{aligned}\right.
         \end{equation*}
 \end{frame}
 
@@ -677,11 +635,11 @@
         \item Modified Hartree-Fock: $\Phi_{ij} =
             \sum\limits_lC_{jl}\psi^{\text{HO}}_{n_l}\left(\sqrt{{\color<4>{red}{\alpha}}\omega}r_i\right)$
         \item Pad\'e-Jastrow: $J_{\text{Pad\'e}} = \prod\limits_{i<j}
-            \me^{\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij}}}$
+            \exp(\frac{a_{ij} r_{ij}}{1 + {\color<5>{red}{\beta}} r_{ij}})$
         \item NQS: $J_{\text{NQS}} = \me^{-\suml{i=1}{N} \frac{\left(\bm{r}_i -
-            {\color<6>{red}{\bm{a}_i}}\right)^2}{2\sigma^2}}\prod\limits^{M}_j \left(1 + \me^{{\color<6>{red}{b_j}}
-            + \suml{i=1}{N}\suml{d=1}{D}
-            \frac{x^{(d)}_i{\color<6>{red}{w_{i+d,j}}}}{\sigma^2}}\right)$
+            {\color<6>{red}{\bm{a}_i}}\right)^2}{2\sigma^2}}\prod\limits^{M}_j
+            \left(1 + \exp({\color<6>{red}{b_j}} + \suml{i=1}{N}\suml{d=1}{D}
+            \frac{x^{(d)}_i{\color<6>{red}{w_{i+d,j}}}}{\sigma^2})\right)$
         \item Pad\'e-NQS: $J = J_{\text{Pad\'e}}J_{\text{NQS}}$
     \end{itemize}
 \end{frame}
@@ -923,142 +881,7 @@
     \end{figure}}
     \begin{itemize}[<2->]
         \item \hltexttt{Hermite} generated with Python and SymPy
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
-    \footnotesize
-    \begin{itemize}
-        \item {\makebox[3cm]{\hltextttf{set}:\hfill} Called during
-            initialization (before each sampling)} \\
-        \item {\makebox[3cm]{\hltextttf{reSetAll}:\hfill} Sets all matrices
-            to zero (used in testing)} \\
-        \item {\makebox[3cm]{\hltextttf{initializeMatrices}:\hfill}
-            Allocate memory} \\
-        \item {\makebox[3cm]{\hltextttf{update}:\hfill} Update positions
-            and wavefunction} \\
-        \item {\makebox[3cm]{\hltextttf{reset}:\hfill} Revert to previous
-            positions and wavefunction} \\
-        \item {\makebox[3cm]{\hltextttf{resetGradient}:\hfill} Revert to
-            previous gradient} \\
-        \item {\makebox[3cm]{\hltextttf{acceptState}:\hfill} Update
-            previous positions and wavefunction to current} \\
-        \item {\makebox[3cm]{\hltextttf{acceptGradient}:\hfill} Update
-            previous gradient to current one}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Implementation: Variational Monte-Carlo}
-    \only<1->{
-    \begin{figure}[H]
-        \centering
-        \begin{tikzpicture}[
-            >={Latex[width=2mm,length=2mm]},
-                base/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily},
-                basecode/.style = {rectangle, rounded corners, draw=black,
-                            minimum width=2cm, minimum height=0.5cm, text
-                            centered, font=\sffamily, align=left},
-                activityStarts/.style = {base, fill=blue!30, drop shadow},
-                startstop/.style = {base, fill=red!25, drop shadow},
-                startstopcode/.style = {basecode, fill=red!25, drop shadow},
-                activityRuns/.style = {base, fill=green!25, drop shadow},
-                process/.style = {base, fill=white!15, font=\sffamily, drop shadow},
-                processcode/.style = {basecode, fill=white!15, font=\sffamily, drop shadow},
-            scale=0.8, 
-            node distance=1.25cm, 
-            every node/.style={fill=white, font=\sffamily, scale=0.49},
-            align=center]
-            \node (__HarmonicOscillator) [processcode] {
-                \hltexttt{HarmonicOscillator}
-            };
-            \node (__HartreeFock) [processcode, below of=__HarmonicOscillator] {
-                \hltexttt{HartreeFock}
-            };
-            \node (__VariationalHartreeFock) [processcode, below of=__HartreeFock] {
-                \hltexttt{VariationalHartreeFock}
-            };
-            \node (__HartreeFockDoubleWell) [processcode, below of=__VariationalHartreeFock] {
-                \hltexttt{HartreeFockDoubleWell}
-            };
-            \node (__VariationalHartreeFockDoubleWell) [processcode, below of=__HartreeFockDoubleWell] {
-                \hltexttt{VariationalHartreeFockDoubleWell}
-            };
-            \node (__PadeJastrow) [processcode, below of=__VariationalHartreeFockDoubleWell, xshift=-2cm] {
-                \hltexttt{PadeJastrow}
-            };
-            \node (__RBMJastrow) [processcode, below of=__PadeJastrow, yshift=-2cm] {
-                \hltexttt{RBMJastrow}
-            };
-            \node (__PadeNQS) [processcode, below right of=__PadeJastrow, xshift=2.0cm] {
-                \hltexttt{PadeNQS}
-            };
-            \node (__ExpNQS) [processcode, below of=__PadeNQS] {
-                \hltexttt{ExpNQS}
-            };
-            \node (__Cartesian) [processcode, below left of=__HarmonicOscillator, xshift=-4.6cm] {
-                \hltexttt{Cartesian}
-            };
-            \node (__Hermite) [processcode, below of=__Cartesian] {
-                \hltexttt{Hermite}
-            };
-            \node (__DWC) [processcode, below of=__Hermite, yshift=-1.7cm] {
-                \hltexttt{DWC}
-            };
-            \node (__Slater) [processcode, above right of=__VariationalHartreeFock, xshift=5cm] {
-                \hltexttt{Slater}
-            };
-            \node (__SlaterJastrow) [processcode, above right of=__PadeNQS, xshift=5cm, yshift=-1.5cm] {
-                \hltexttt{SlaterJastrow}
-            };
-            \node (__VMC) [processcode, right of=__HartreeFockDoubleWell, xshift=7cm] {
-                \hltexttt{VMC}
-            };
-            \node (__Minimizer) [processcode, right of=__VMC, xshift=2.5cm] {
-                \hltexttt{Minimizer}
-            };
-            \node (__BruteForce) [processcode, above right of=__VMC, xshift=3cm, yshift=1.5cm] {
-                \hltexttt{BruteForce}
-            };
-            \node (__ImportanceSampling) [processcode, below right of=__VMC, xshift=3cm, yshift=-1.5cm] {
-                \hltexttt{ImportanceSampling}
-            };
-            \draw[->] (__Cartesian) to [out=0, in=180] (__HarmonicOscillator);
-            \draw[->] (__Cartesian) to [out=0, in=180] (__HartreeFock);
-            \draw[->] (__Cartesian) to [out=0, in=180] (__VariationalHartreeFock);
-            \draw[->] (__Cartesian) to [out=0, in=180] (__HartreeFockDoubleWell);
-            \draw[->] (__Cartesian) to [out=0, in=180] (__VariationalHartreeFockDoubleWell);
-            \draw[->] (__Hermite) to [out=0, in=180] (__HarmonicOscillator);
-            \draw[->] (__Hermite) to [out=0, in=180] (__HartreeFock);
-            \draw[->] (__Hermite) to [out=0, in=180] (__VariationalHartreeFock);
-            \draw[->] (__Hermite) to [out=0, in=180] (__HartreeFockDoubleWell);
-            \draw[->] (__Hermite) to [out=0, in=180] (__VariationalHartreeFockDoubleWell);
-            \draw[->] (__DWC) to [out=0, in=180] (__HartreeFockDoubleWell);
-            \draw[->] (__DWC) to [out=0, in=180] (__VariationalHartreeFockDoubleWell);
-            \draw[->]  (__HarmonicOscillator)               to [out=0, in=180] (__Slater);
-            \draw[->]  (__HartreeFock)                      to [out=0, in=180] (__Slater);
-            \draw[->]  (__VariationalHartreeFock)           to [out=0, in=180] (__Slater);
-            \draw[->]  (__HartreeFockDoubleWell)            to [out=0, in=180] (__Slater);
-            \draw[->]  (__VariationalHartreeFockDoubleWell) to [out=0, in=180] (__Slater);
-            \draw[->]  (__PadeJastrow)            to [out=0, in=180] (__SlaterJastrow);
-            \draw[->]  (__RBMJastrow)                      to [out=0, in=180] (__SlaterJastrow);
-            \draw[->]  (__PadeNQS)           to [out=0, in=180] (__SlaterJastrow);
-            \draw[->]  (__ExpNQS)            to [out=0, in=180] (__SlaterJastrow);
-            \draw[->]  (__Slater)            to [out=-90, in=90] (__SlaterJastrow);
-            \draw[->]  (__Slater)            to [out=0, in=90] (__VMC);
-            \draw[->]  (__SlaterJastrow)      to [out=0, in=-90] (__VMC);
-            \draw[->]  (__VMC)    to [out=0, in=180] (__BruteForce);
-            \draw[->]  (__VMC)    to [out=0, in=180] (__ImportanceSampling);
-            \draw[->]  (__VMC)    to [out=0, in=180] (__Minimizer);
-            \draw[->]  (__PadeJastrow)    to [out=-90, in=180] (__PadeNQS);
-            \draw[->]  (__RBMJastrow)    to [out=90, in=180] (__PadeNQS);
-            \draw[->]  (__RBMJastrow)    to [out=90, in=180] (__ExpNQS);
-        \end{tikzpicture}
-    \end{figure}}
-    \begin{itemize}
-        \item<1-> \hltexttt{Hermite} generated with Python and SymPy
-        \item<2-> Wavefunction class can be created with Python
+        \item<3-> Wavefunction class generated with Python
     \end{itemize}
 \end{frame}
 
@@ -1071,16 +894,16 @@
 
 \begin{frame}[fragile]{Results: Benchmark}
     \vspace{-0.25cm}
-    \twofigure{text/figs/N2.pdf}{text/figs/N6.pdf}
+    \twofigure{text/figs/N2_D2.pdf}{text/figs/N6_D2.pdf}
     \vspace{-0.5cm}
-    \twofigure{text/figs/N12.pdf}{text/figs/N20.pdf}
+    \twofigure{text/figs/N12_D2.pdf}{text/figs/N20_D2.pdf}
 \end{frame}
 
 \begin{frame}[fragile]{Results: Benchmark}
     \vspace{-0.25cm}
-    \twofigure{text/figs/N30.pdf}{text/figs/N42.pdf}
+    \twofigure{text/figs/N30_D2.pdf}{text/figs/N42_D2.pdf}
     \vspace{-0.5cm}
-    \onefigure{text/figs/N56.pdf}
+    \onefigure{text/figs/N56_D2.pdf}
 \end{frame}
 
 \begin{frame}[fragile]{Results: Benchmark}
@@ -1128,9 +951,8 @@
 \end{frame}
 
 \begin{frame}[fragile]{Results: Double-Well Hartree-Fock}
-    \onefigure{text/figs/D2_DW.pdf}
-    \vspace{-0.8cm}
-    \onefigure{text/figs/D3_DW.pdf}
+    \hspace{2.6cm}2D \hspace{4.8cm}3D
+    \twofigure{text/figs/D2_DW.pdf}{text/figs/D3_DW.pdf}
 \end{frame}
 
 \begin{frame}[fragile]{Results: Double-Well Variational Monte-Carlo}
@@ -1177,23 +999,23 @@
     \vspace{-0.4cm}
     \twofigure{{text/figs/w1.0_D2_N2_Energies_DW_fig}.pdf}{{text/figs/w1.0_D2_N4_Energies_DW_fig}.pdf}
     \vspace{-0.6cm}
+    \twofigure{{text/figs/w1.0_D3_N2_Energies_DW_fig}.pdf}{{text/figs/w1.0_D3_N4_Energies_DW_fig}.pdf}
 \end{frame}
 
 \section{Summary and Conclusion}
 
 \begin{frame}[fragile]{Summary}
-    \centering
     \begin{itemize}
-        \item Interaction:
-            \begin{itemize}
-                \item $f\left(\blds{r}_i, \blds{r}_j\right) =
-                    \frac{1}{\abs{\blds{r}_i - \blds{r}_j}}$,\hspace{2cm} Coulomb Repulsion
-            \end{itemize}
+        \item Schrödinger equation: $\mathcal{H}\ket{\psi} = E\ket{\psi}$,
+            $\mathcal{H} = - \sum\limits_i \frac{\nabla^2_i}{2} +
+            f\left(\blds{r}\right) + V\left(\blds{R},\blds{r}\right)$
+        \item Interaction: $f\left(\blds{r}\right) = \sum\limits_{i<j} \frac{1}{|r_i - r_j|}$
         \item Confinement: Harmonic Oscillator, Double-Well
     \end{itemize}
-    $V(\blds{r}) = \frac{1}{2} m\omega^2r^2 \hspace{1cm} V(\blds{r}) =
-    \frac{1}{2}m\omega^2\left(r^2 - \delta R\abs{x} + R^2\right)$
-    \twofigure{text/figs/HO2Dplot.pdf}{text/figs/DW2Dplot.pdf}
+    \vspace{-0.25cm}
+    \hspace{1.6cm}$V(\blds{r}) = \frac{1}{2} m\omega^2r^2 \hspace{1.6cm}
+    V(\blds{r}) = \frac{1}{2}m\omega^2\left(r^2 - \delta R\abs{x} + R^2\right)$
+    \vspace{-0.40cm}\twofigure{text/figs/HO2Dplot.pdf}{text/figs/DW2Dplot.pdf}
 \end{frame}
 
 {\setbeamercolor{palette primary}{fg=black, bg=white}
@@ -1203,7 +1025,7 @@
 \end{frame}}
 
 \begin{frame}[fragile]{Summary}
-    \centering\footnotesize
+    \centering\small
     $\Braket{\psiHO_i|\psiHO_j} = N_i \delta_{ij}$ \\
     $\Braket{\psiHO_i|h^{\text{HO}}|\psiHO_j} =
     N_i\varepsilon^{\text{HO}}_i\delta_{ij}$ \\
@@ -1213,33 +1035,30 @@
     \blds{0}\right)$
         \begin{equation*}
             \begin{aligned}
-                E^{i+1,j}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
-                \frac{\beta}{\alpha+\beta}(A_x - B_x)E^{ij}_t +
-                (t+1)E^{ij}_{t+1} \\
-                E^{i,j+1}_t &= \frac{1}{2(\alpha + \beta)}E^{ij}_{t-1} -
-                \frac{\alpha}{\alpha+\beta}(A_y - B_y)E^{ij}_t +
-                (t+1)E^{ij}_{t+1} \\
-                E^{00}_0 &= K_{AB}
+                E^{i_d+1}_t &= \frac{1}{2\omega}E^{i}_{t-1} \\
+                E^{0}_0 &= K_{AB}
+            \end{aligned}\hspace{1.0cm}
+            \begin{aligned}
+                \xi^n_{t_d+1} &= t_d\xi^{n+1}_{t_d-1} \\
+                \xi^n_0 &= \left(-b\right)^n \zeta_n\left(0\right)
             \end{aligned}
         \end{equation*}
         \begin{equation*}
             \begin{aligned}
-                \xi^n_{t+1,u} &= t\xi^{n+1}_{t-1,u} + X_{AB}\xi^{n+1}_{t,u} \\
-                \xi^n_{t,u+1} &= u\xi^{n+1}_{t,u-1} + Y_{AB}\xi^{n+1}_{t,u} \\
-                \xi^n_{00} &= \left(\frac{-2\alpha\beta}{\alpha+\beta}\right)^n
-                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right) \\
-                \zeta_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
+                \zeta^{\text{2D}}_n(x) &= \int\limits^1_{-1} \frac{u^{2n}}{\sqrt{1 -
                 u^2}} \me^{-u^2x} \md u
             \end{aligned} \hspace{0.5cm}
             \begin{aligned}
-                \xi^n_{t+1,u,v} &= t\xi^{n+1}_{t-1,u,v} + X_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{t,u+1,v} &= u\xi^{n+1}_{t,u-1,v} + Y_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{t,u,v+1} &= u\xi^{n+1}_{t,u,v-1} + Y_{AB}\xi^{n+1}_{t,u,v} \\
-                \xi^n_{000} &= \left(-2\alpha\beta\right)^n
-                \zeta_n\left(\frac{\alpha\beta}{\alpha+\beta} R^2_{AB}\right)
-                \\
-                \zeta_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x} \md u
+                \zeta^{\text{3D}}_n(x) &= \int\limits^1_{-1} u^{2n} \me^{-u^2x}
+                \md u
             \end{aligned}
+        \end{equation*}
+        \begin{equation*}
+            b =
+            \left\{\begin{aligned}
+                \frac{\omega}{2},&\indent &\text{2D} \\
+                \omega,&\indent &\text{3D}
+            \end{aligned}\right.
         \end{equation*}
 \end{frame}
 

@@ -32,10 +32,11 @@ for wk in sorted(infoDict.keys()):
                 infoDict[wk][Lk][nval] = "-"
 
 wkey = 1.0
-ftsize=14
+ftsize=18
 fig, ax = plt.subplots(len(Nval), 1)
 fig.set_figwidth(xlen)
-fig.text(0.085, 0.5, "Ground state energy", ha='center', va='center', rotation='vertical', fontsize=ftsize)
+fig.set_figheight(10)
+fig.text(0.05, 0.5, "Ground state energy", ha='center', va='center', rotation='vertical', fontsize=ftsize)
 ax[0].set_title("$\omega=%.2f$" % wkey, fontsize=ftsize)
 for i,n in enumerate(Nval):
     tmpVals = []
@@ -51,7 +52,7 @@ for i,n in enumerate(Nval):
         ax[i].plot(lKeys[n/2-1:], tmpVals[n/2-1:], '-o', markersize=2.0, label="$N=%i$" % n)
     else:
         ax[i].plot(lKeys[n/2:], tmpVals[n/2:], '-o', markersize=2.0, label="$N=%i$" % n)
-    ax[i].legend()
+    ax[i].legend(fontsize=ftsize-2)
 
 ax[-1].tick_params(axis='x', bottom=True, labelbottom=True)
 ax[-1].set_xticks(sorted(infoDict[wkey]))

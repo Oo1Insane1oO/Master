@@ -1,19 +1,19 @@
 [0] Config.pm:302> INFO - This is Biber 2.9
 [0] Config.pm:305> INFO - Logfile is 'text/presentation.blg'
-[25] biber:313> INFO - === on. juni 27, 2018, 19:32:56
+[25] biber:313> INFO - === to. juni 28, 2018, 08:31:28
 [42] Biber.pm:371> INFO - Reading 'text/presentation.bcf'
-[102] Biber.pm:857> INFO - Found 4 citekeys in bib section 0
-[116] Biber.pm:3981> INFO - Processing section 0
-[125] Biber.pm:4154> INFO - Looking for bibtex format file 'text/refs.bib' for section 0
-[127] bibtex.pm:1468> INFO - LaTeX decoding ...
-[183] bibtex.pm:1294> INFO - Found BibTeX data source 'text/refs.bib'
-[224] Utils.pm:169> WARN - BibTeX subsystem: /tmp/Jk1F_GXHuk/refs.bib_14066.utf8, line 269, warning: entry started with "(", but ends with "}"
-[224] Utils.pm:169> WARN - BibTeX subsystem: /tmp/Jk1F_GXHuk/refs.bib_14066.utf8, line 277, warning: entry started with "(", but ends with "}"
-[224] Utils.pm:169> WARN - BibTeX subsystem: /tmp/Jk1F_GXHuk/refs.bib_14066.utf8, line 303, warning: entry started with "(", but ends with "}"
-[237] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
-[237] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[237] Biber.pm:3809> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
-[237] Biber.pm:3815> INFO - No sort tailoring available for locale 'en-US'
-[244] bbl.pm:617> INFO - Writing 'text/presentation.bbl' with encoding 'UTF-8'
-[246] bbl.pm:720> INFO - Output to text/presentation.bbl
-[246] Biber.pm:110> INFO - WARNINGS: 3
+[99] Biber.pm:857> INFO - Found 4 citekeys in bib section 0
+[113] Biber.pm:3981> INFO - Processing section 0
+[122] Biber.pm:4154> INFO - Looking for bibtex format file 'text/refs.bib' for section 0
+[124] bibtex.pm:1468> INFO - LaTeX decoding ...
+[179] bibtex.pm:1294> INFO - Found BibTeX data source 'text/refs.bib'
+[217] Utils.pm:169> WARN - BibTeX subsystem: /tmp/JH2xCBnXdh/refs.bib_24757.utf8, line 269, warning: entry started with "(", but ends with "}"
+[217] Utils.pm:169> WARN - BibTeX subsystem: /tmp/JH2xCBnXdh/refs.bib_24757.utf8, line 277, warning: entry started with "(", but ends with "}"
+[217] Utils.pm:169> WARN - BibTeX subsystem: /tmp/JH2xCBnXdh/refs.bib_24757.utf8, line 303, warning: entry started with "(", but ends with "}"
+[229] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[229] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[229] Biber.pm:3809> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'en-US'
+[229] Biber.pm:3815> INFO - No sort tailoring available for locale 'en-US'
+[236] bbl.pm:617> INFO - Writing 'text/presentation.bbl' with encoding 'UTF-8'
+[238] bbl.pm:720> INFO - Output to text/presentation.bbl
+[238] Biber.pm:110> INFO - WARNINGS: 3
