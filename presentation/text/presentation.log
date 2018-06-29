@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.11)  28 JUN 2018 19:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.11)  29 JUN 2018 11:04
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -5737,7 +5737,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (20.94618pt too high) detected at line 845
+Overfull \vbox (20.94618pt too high) detected at line 853
  []
 
 [83
@@ -5797,7 +5797,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (5.14598pt too high) detected at line 852
+Overfull \vbox (5.14598pt too high) detected at line 860
  []
 
 [84
@@ -5858,7 +5858,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (20.94618pt too high) detected at line 859
+Overfull \vbox (20.94618pt too high) detected at line 867
  []
 
 [85
@@ -5896,7 +5896,7 @@ Overfull \hbox (4.55042pt too wide) in paragraph at lines 5--13
  []
 
 ))
-Overfull \vbox (7.15828pt too high) detected at line 883
+Overfull \vbox (7.15828pt too high) detected at line 891
  []
 
 [87
@@ -5915,7 +5915,7 @@ Overfull \hbox (4.8322pt too wide) in paragraph at lines 5--13
  []
 
 ))
-Overfull \vbox (7.15828pt too high) detected at line 896
+Overfull \vbox (7.15828pt too high) detected at line 904
  []
 
 [88
@@ -5947,7 +5947,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (7.44217pt too high) detected at line 901
+Overfull \vbox (7.44217pt too high) detected at line 909
  []
 
 [89
@@ -5970,28 +5970,28 @@ pdfs with page group included in a single page
 
 ]
 
-./text/presentation.tex:934: LaTeX Error: Too many math alphabets used in versi
+./text/presentation.tex:942: LaTeX Error: Too many math alphabets used in versi
 on normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.934 \end{frame}
+l.942 \end{frame}
                  }
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-./text/presentation.tex:934: LaTeX Error: Too many math alphabets used in versi
+./text/presentation.tex:942: LaTeX Error: Too many math alphabets used in versi
 on normal.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.934 \end{frame}
+l.942 \end{frame}
                  }
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -6051,7 +6051,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (13.83298pt too high) detected at line 941
+Overfull \vbox (13.83298pt too high) detected at line 949
  []
 
 [93
@@ -6121,7 +6121,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 )
-Overfull \vbox (13.83298pt too high) detected at line 948
+Overfull \vbox (13.83298pt too high) detected at line 956
  []
 
 [94
@@ -6278,7 +6278,7 @@ Overfull \hbox (19.10686pt too wide) detected at line 22
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\translate ' on input line 1063.
+(hyperref)                removing `\translate ' on input line 1071.
 
 \openout4 = `text/presentation.vrb'.
 
@@ -6299,7 +6299,7 @@ LaTeX Font Info:    Font shape `T1/cmss/m/it' will be
 
 
 (./text/presentation.vrb)
-Overfull \vbox (20.44818pt too high) detected at line 1216
+Overfull \vbox (20.44818pt too high) detected at line 1224
  []
 
 [114
@@ -6319,11 +6319,11 @@ Overfull \vbox (20.44818pt too high) detected at line 1216
 \tf@snm=\write10
 \openout10 = `text/presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1282.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1282.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1290.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1290.
  (./text/presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1282.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1282.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1290.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1290.
 
 Package rerunfilecheck Info: File `text/presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 9B634C3B2859828E8E48A177CCBAE8A7;325.
@@ -6340,10 +6340,10 @@ Package logreq Info: Writing requests to 'text/presentation.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 56842 strings out of 493724
- 1293668 string characters out of 6151529
- 1765561 words of memory out of 5000000
- 58774 multiletter control sequences out of 15000+600000
+ 56852 strings out of 493724
+ 1293920 string characters out of 6151529
+ 1766561 words of memory out of 5000000
+ 58784 multiletter control sequences out of 15000+600000
  639508 words of font info for 234 fonts, out of 8000000 for 9000
  667 hyphenation exceptions out of 8191
  65i,16n,103p,10387b,2005s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -6388,7 +6388,7 @@ nts/type1/public/mathdesign/mdput/md-utr7v.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/mathdesign/mdput/md-utr7y.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/mathdesign/mdput/md-utri7m.pfb></usr/share/texlive/texmf-dis
 t/fonts/type1/adobe/utopia/putr8a.pfb>
-Output written on text/presentation.pdf (115 pages, 4635103 bytes).
+Output written on text/presentation.pdf (115 pages, 4636235 bytes).
 PDF statistics:
  3280 PDF objects out of 3580 (max. 8388607)
  1352 compressed objects within 14 object streams
